@@ -1,0 +1,187 @@
+<header class="navbar-fixed">
+	<nav class="brown darken-4">
+		<div class="nav-wrapper">
+			<a href="/" class="brand-logo">UTM</a>
+			<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+			<ul class="right hide-on-med-and-down brown-text text-darken-3">
+				<li>
+					<a class="dropdown-trigger" data-target="dropdown-menu-ver" href="#">
+						Ver
+						<i class="material-icons right">arrow_drop_down</i>
+					</a>
+				</li>
+
+				<li *ngIf="nivel < 4">
+					<div style="
+						display: block;
+						background-color: #4e342e;
+						min-width: 4px;
+						min-height: 64px;
+					"></div>
+				</li>
+
+				<!-- Menús Agregar -->
+				<li *ngIf="nivel==1">
+					<a class="dropdown-trigger" data-target="dropdown-menu-agregar-vice" href="#">
+						Agregar
+						<i class="material-icons right">arrow_drop_down</i>
+					</a>
+				</li>
+				<li *ngIf="nivel==3">
+					<a class="dropdown-trigger" data-target="dropdown-menu-agregar-jc" href="#">
+						Agregar
+						<i class="material-icons right">arrow_drop_down</i>
+					</a>
+				</li>
+
+				<!-- Menús Listar-->
+				<li *ngIf="nivel==1">
+					<a class="dropdown-trigger" data-target="dropdown-menu-listar-vice" href="#">
+						Listar
+						<i class="material-icons right">arrow_drop_down</i>
+					</a>
+				</li>
+				<li *ngIf="nivel==2">
+					<a class="dropdown-trigger" data-target="dropdown-menu-listar-dir" href="#">
+						Listar
+						<i class="material-icons right">arrow_drop_down</i>
+					</a>
+				</li>
+				<li *ngIf="nivel==3">
+					<a class="dropdown-trigger" data-target="dropdown-menu-listar-jc" href="#">
+						Listar
+						<i class="material-icons right">arrow_drop_down</i>
+					</a>
+				</li>
+
+				<!-- Menús Imprimir -->
+				<li>
+					<a class="dropdown-trigger" data-target="dropdown-menu-imprimir" href="#">
+						Imprimir
+						<i class="material-icons right">arrow_drop_down</i>
+					</a>
+				</li>
+
+				<!-- Menús Importar -->
+				<li *ngIf="nivel==1">
+					<a class="dropdown-trigger" data-target="dropdown-menu-importar" href="#">
+						Importar
+						<i class="material-icons right">arrow_drop_down</i>
+					</a>
+				</li>
+				<li *ngIf="nivel==2">
+					<a class="dropdown-trigger" data-target="dropdown-menu-importar-dir" href="#">
+						Importar
+						<i class="material-icons right">arrow_drop_down</i>
+					</a>
+				</li>
+				<li *ngIf="nivel==3">
+					<a class="dropdown-trigger" data-target="dropdown-menu-importar-jc" href="#">
+						Importar
+						<i class="material-icons right">arrow_drop_down</i>
+					</a>
+				</li>
+
+				<li *ngIf="nivel==1">
+					<a class="dropdown-trigger" data-target="dropdown-menu-exportar" href="#">
+						Exportar
+						<i class="material-icons right">arrow_drop_down</i>
+					</a>
+				</li>
+
+				<li>
+					<div style="
+						display: block;
+						background-color: #4e342e;
+						min-width: 4px;
+						min-height: 64px;
+					"></div>
+				</li>
+
+				<li>
+					<a class="dropdown-trigger" data-target="dropdown-menu-idioma" href="#">
+						<i class="material-icons">language</i>
+					</a>
+				</li>
+
+				<li>
+					<a (click)="logout()">
+						<i class="material-icons">logout</i>
+					</a>
+				</li>
+			</ul>
+
+			<ul id="dropdown-menu-ver" class="dropdown-content" style="min-width: 150px;">
+				<li><a href="/home/generales/{{idProfesor}}">Datos Generales</a></li>
+				<li><a href="/home/articulos/{{idProfesor}}">Articulos</a></li>
+				<li><a href="/home/eventos/{{idProfesor}}">Eventos</a></li>
+				<li><a href="/home/actividades/{{idProfesor}}">Actividades</a></li>
+			</ul>
+
+			<!-- Menús Agregar -->
+			<ul id="dropdown-menu-agregar-vice" class="dropdown-content" *ngIf="nivel==1">
+				<li><a href="#agregarProfesorVice" class="modal-trigger">Profesor</a></li>
+				<li><a href="#agregarInstitutoVice" class="modal-trigger">Instituto</a></li>
+				<li><a href="#agregarCarreraVice" class="modal-trigger">Carrera</a></li>
+			</ul>
+			<ul id="dropdown-menu-agregar-jc" class="dropdown-content" *ngIf="nivel==3">
+				<li><a href="#agregarProfesorJC" class="modal-trigger">Profesor</a></li>
+			</ul>
+
+			<!-- Menús Listar-->
+			<ul id="dropdown-menu-listar-vice" class="dropdown-content" *ngIf="nivel==1">
+				<li><a href="/home/listarProfesores/">Profesores</a></li>
+				<li><a href="/home/listarInstitutos/">Institutos</a></li>
+				<li><a href="/home/listarCarreras/">Carreras</a></li>
+				<li><a href="/home/listarArticulos/">Articulos</a></li>
+				<li><a href="/home/listarEventos/">Eventos</a></li>
+				<li><a href="/home/listarActividades/">Actividades</a></li>
+			</ul>
+			<ul id="dropdown-menu-listar-dir" class="dropdown-content" *ngIf="nivel==2">
+				<li><a href="/home/listarArticulosDir/">Articulos</a></li>
+				<li><a href="/home/listarEventosDir/">Eventos</a></li>
+				<li><a href="/home/listarActividadesDir/">Actividades</a></li>
+			</ul>
+			<ul id="dropdown-menu-listar-jc" class="dropdown-content" *ngIf="nivel==3">
+				<li><a href="/home/listarProfesoresJC/">Profesores</a></li>
+			</ul>
+
+			<!-- Menús Importar -->
+			<ul id="dropdown-menu-importar" class="dropdown-content" *ngIf="nivel==1">
+				<li><a href="#importarProfesores" class="modal-trigger">Profesores</a></li>
+				<li><a href="#importarInstitutos" class="modal-trigger">Institutos</a></li>
+				<li><a href="#importarCarreras" class="modal-trigger">Carreras</a></li>
+			</ul>
+			<ul id="dropdown-menu-importar-dir" class="dropdown-content" *ngIf="nivel==2">
+				<!-- <li><a href="#importarArticulosDir" class="modal-trigger">Articulos</a></li> -->
+				<li><a href="#importarEventosDir" class="modal-trigger">Eventos</a></li>
+				<li><a href="#importarActividadesDir" class="modal-trigger">Actividades</a></li>
+			</ul>
+			<ul id="dropdown-menu-importar-jc" class="dropdown-content" *ngIf="nivel==3">
+				<li><a href="#importarProfesoresJC" class="modal-trigger">Profesores</a></li>
+			</ul>
+
+			<!-- Menús Imprimir -->
+			<ul id="dropdown-menu-imprimir" class="dropdown-content">
+				<li><a href="/home/imprimirArticulos/{{idProfesor}}" class="modal-trigger">Articulos</a></li>
+			</ul>
+
+			<!-- Menú Exportar -->
+			<ul id="dropdown-menu-exportar" class="dropdown-content" *ngIf="nivel==1">
+				<li><a href="#exportarArticulos" class="modal-trigger">Articulos</a></li>
+			</ul>
+
+			<!-- Menú Idioma -->
+			<ul id="dropdown-menu-idioma" class="dropdown-content">
+				<li><a (click)="cambiarIdioma('es')">Español</a></li>
+				<li><a (click)="cambiarIdioma('en')">Inglés</a></li>
+			</ul>
+		</div>
+	</nav>
+	<ul class="sidenav" id="mobile-demo">
+		<li><a href="sass.html">Sass1</a></li>
+		<li><a href="badges.html">Components</a></li>
+		<li><a href="collapsible.html">Javascript</a></li>
+		<li><a href="mobile.html">Mobile</a></li>
+	</ul>
+</header>

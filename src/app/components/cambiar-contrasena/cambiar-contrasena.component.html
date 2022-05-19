@@ -1,0 +1,25 @@
+<section class="container">
+	<div class="row">
+		<h3 class="center-align">Cambiar Contraseña</h3>
+
+		<div class="input-field col s12">
+			<i class="material-icons prefix">password</i>
+			<input [(ngModel)]="contrasena" id="contraseña" type="password">
+			<label for="contraseña">Contraseña</label>
+		</div>
+
+		<div class="input-field col s12">
+			<i class="material-icons prefix">password</i>
+			<input [(ngModel)]="confirmacion" id="confirmacion" type="password">
+			<label for="confirmacion">Confirmar Contraseña</label>
+		</div>
+
+		<div class="col m12 l12 center-align">
+			<button (click)="cambiarContrasena()" class="waves-effect waves-light btn" type="submit">
+				<i class="material-icons right">send</i>
+				Cambiar
+			</button>
+		</div>
+
+	</div>
+</section>

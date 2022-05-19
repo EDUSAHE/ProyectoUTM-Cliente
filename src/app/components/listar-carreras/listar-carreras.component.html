@@ -1,0 +1,68 @@
+<div class="container">
+	<h3 class="center-align">Carreras</h3>
+	<div class="row">
+		<label for="instituto">Instituto</label>
+		<select [(ngModel)]="idInstituto" id="instituto" class="browser-default" (change)="cambioInstituto()">
+			<option *ngFor="let instituto of institutos" [value]="instituto.idInstituto">{{instituto.nombreInstituto}}</option>
+		</select>
+	</div>
+
+	<table class="centered">
+		<tr>
+			<th>Nombre</th>
+			<th>Acciones</th>
+		</tr>
+		<tr *ngFor="let carrera of carreras; let i = index">
+			<td>{{carrera.nombreCarrera}}</td>
+			<td>
+				<a href="#editarCarrera" class="waves-effect waves-light btn-small modal-trigger" style="margin-right: 12px;" (click)="carreraEditar=carreras[i]"><i class="material-icons">edit</i></a>
+				<a class="waves-effect waves-light btn-small" (click)="eliminarCarrera(i)"><i class="material-icons">delete</i></a>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<!-- Modal Editar Carrera -->
+<div id="editarCarrera" class="modal">
+	<div class="modal-content row">
+		<div class="row">
+			<div>
+				<h4 class="center-align">Editar Carrera</h4>
+			</div>
+		</div>
+
+		<div class="row col s12">
+			<label>Instituto</label>
+			<select [(ngModel)]="carreraEditar.idInstituto" class="browser-default">
+				<option *ngFor="let instituto of institutos" [value]="instituto.idInstituto">{{instituto.nombreInstituto}}</option>
+			</select>
+		</div>
+
+		<div class="row col s6">
+			<div class="input-field">
+				<i class="material-icons prefix">tag</i>
+				<input [(ngModel)]='carreraEditar.codigoCarrera' id="carrera_codigo_editar" type="text" autocomplete="off">
+				<label for="carrera_codigo_editar" class="active">Código</label>
+			</div>
+		</div>
+
+		<div class="row col s6">
+			<div class="input-field">
+				<i class="material-icons prefix">school</i>
+				<input [(ngModel)]='carreraEditar.nombreCarrera' id="carrera_nombre_editar" type="text" autocomplete="off">
+				<label for="carrera_nombre_editar" class="active">Nombre</label>
+			</div>
+		</div>
+
+		<div class="row col s12">
+			<div class="col s6 center">
+				<a (click)="modificarCarrera()"
+					class="modal-action modal-close waves-effect btn-large">Enviar</a>
+			</div>
+			<div class="col s6 center">
+				<a class="modal-action modal-close waves-effect btn-large">Cancelar</a>
+			</div>
+		</div>
+
+	</div>
+</div>

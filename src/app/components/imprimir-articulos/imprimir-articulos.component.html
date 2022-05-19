@@ -1,0 +1,67 @@
+<div class="container">
+	<div id="busqueda">
+		<h3 class="center-align">Imprimir Artículos</h3>
+		<div class="row">
+			<label for="instituto">Instituto</label>
+			<select [(ngModel)]="idInstituto" id="instituto" class="browser-default" (change)="cambioInstituto()">
+				<option value="-1">Todos</option>
+				<option *ngFor="let instituto of institutos" [value]="instituto.idInstituto">
+					{{instituto.nombreInstituto}}
+				</option>
+			</select>
+		</div>
+		<div class="row">
+			<label for="profesores">Profesor</label>
+			<select [(ngModel)]="idProfesor" id="profesores" class="browser-default" (change)="actualizarArticulos()">
+				<option value="-1">Todos</option>
+				<option *ngFor="let profesor of profesores" [value]="profesor.idProfesor">
+					{{profesor.nombres}} {{profesor.apellidoPaterno}} {{profesor.apellidoMaterno}}
+				</option>
+			</select>
+		</div>
+
+		<div class="row">
+			<div class="col s6">
+				<label class="">Fecha Inicial:</label>
+				<input type="date" [(ngModel)]="fechaInicial" (change)="actualizarArticulos()">
+			</div>
+			<div class="col s6">
+				<label>Fecha Final:</label>
+				<input type="date" [(ngModel)]="fechaFinal" (change)="actualizarArticulos()">
+			</div>
+		</div>
+	</div>
+
+	<div *ngIf="idInstituto != -1 || idProfesor != -1; else todo">
+		<div>
+			<h3 class="center-align">Articulos</h3>
+			<ol>
+				<li *ngFor="let articulo of articulos">
+					<span *ngFor="let profesor of articulo.profesores">{{profesor.nombreApa}},</span>
+					;
+					({{articulo.anyo}}).
+					{{articulo.titulo}}.
+					{{articulo.volumen}},
+					{{articulo.paginas}}
+				</li>
+			</ol>
+		</div>
+	</div>
+	<ng-template #todo>
+		<section *ngFor="let articulos of todosArticulos">
+			<div *ngIf="articulos.articulos.length>0">
+				<h3 class="center-align">{{articulos.nombreInstituto}}</h3>
+				<ol>
+					<li *ngFor="let articulo of articulos.articulos">
+						<span *ngFor="let profesor of articulo.profesores">{{profesor.nombreApa}},</span>
+						;
+						({{articulo.anyo}}).
+						{{articulo.titulo}}.
+						{{articulo.volumen}},
+						{{articulo.paginas}}
+					</li>
+				</ol>
+			</div>
+		</section>
+	</ng-template>
+</div>

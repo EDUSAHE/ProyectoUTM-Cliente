@@ -1,0 +1,72 @@
+/* You can add global styles to this file, and also import other style files */
+
+@media only screen and (min-width: 993px) {
+	.container {
+		width: 90%;
+	}
+}
+
+:root {
+	--brown: #795548;
+	--brown-lighten-1: #8d6e63;
+	--brown-darken-2: #5d4037;
+}
+
+.icono-archivo {
+	color: var(--brown);
+}
+
+.btn,
+.btn-small,
+.btn-large {
+	background-color: var(--brown);
+}
+
+.btn:hover,
+.btn-small:hover,
+.btn-large:hover {
+	background-color: var(--brown-lighten-1);
+}
+
+.btn:focus,
+.btn-small:focus,
+.btn-large:focus {
+	background-color: var(--brown-darken-2);
+}
+
+
+/* Inputs */
+/* label focus color */
+input:focus+label {
+	color: var(--brown-darken-2) !important;
+}
+
+/* label underline focus color */
+input:focus {
+	border-bottom: 1px solid var(--brown-darken-2) !important;
+	box-shadow: 0 1px 0 0 var(--brown-darken-2) !important;
+}
+
+select:focus {
+	outline: 1px solid var(--brown-lighten-1);
+}
+
+/* icon prefix focus color */
+.prefix.active {
+	color: var(--brown-darken-2) !important;
+}
+
+.btn-small {
+	height: 22px;
+	line-height: 22px;
+	font-size: 12px;
+	padding: 0px 8px;
+}
+
+.btn-small i {
+	font-size: 16px;
+}
+
+.container {
+	margin-bottom: 40px;
+}

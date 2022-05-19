@@ -1,0 +1,14 @@
+<div class="container">
+	<div class="row">
+		<input type="date" name="" [(ngModel)]="fechaInicial" class="datepicker" (change)="cambioFecha()">
+		<input type="date" name="" [(ngModel)]="fechaFinal" class="datepicker" (change)="cambioFecha()">
+	</div>
+	<table>
+		<tr *ngFor="let articulo of articulos; let i=index">
+			<td>
+				{{i}} -- {{articulo.idArticulo}} -- {{articulo.nombreArticulo}}
+				<p *ngFor="let autor of autores[i];">{{autor.nombres}}</p>
+			</td>
+		</tr>
+	</table>
+</div>

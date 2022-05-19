@@ -1,0 +1,51 @@
+<div class="container">
+	<h3 class="center-align">Institutos</h3>
+	<table class="centered">
+		<tr>
+			<th>Nombre</th>
+			<th>Acciones</th>
+		</tr>
+		<tr *ngFor="let instituto of institutos; let i = index">
+			<td>{{instituto.nombreInstituto}}</td>
+			<td>
+				<a href="#editarInstituto" class="waves-effect waves-light btn-small modal-trigger" style="margin-right: 12px;" (click)="institutoEditar=institutos[i]"><i class="material-icons">edit</i></a>
+				<a class="waves-effect waves-light btn-small" (click)="eliminarInstituto(i)"><i class="material-icons">delete</i></a>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<!-- Modal Agregar Instituto -->
+<div id="editarInstituto" class="modal">
+	<div class="modal-content row">
+		<div class="row">
+			<h4 class="center-align">Editar Instituto</h4>
+		</div>
+
+		<div class="row col s6">
+			<div class="input-field">
+				<i class="material-icons prefix">school</i>
+				<input [(ngModel)]='institutoEditar.nombreInstituto' id="instituto_nombre_editar" type="text" autocomplete="off">
+				<label for="instituto_nombre" class="active">Nombre</label>
+			</div>
+		</div>
+
+		<div class="row col s6">
+			<div class="input-field">
+				<i class="material-icons prefix">tag</i>
+				<input [(ngModel)]='institutoEditar.codigoInstituto' id="instituto_codigo_editar" type="text" autocomplete="off">
+				<label for="instituto_codigo" class="active">Código</label>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col s6 center">
+				<a (click)="modificarInstituto()"
+					class="modal-action modal-close waves-effect btn-large">Enviar</a>
+			</div>
+			<div class="col s6 center">
+				<a class="modal-action modal-close waves-effect btn-large">Cancelar</a>
+			</div>
+		</div>
+	</div>
+</div>

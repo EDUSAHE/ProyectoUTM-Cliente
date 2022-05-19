@@ -1,0 +1,16 @@
+@media print {
+	@page {
+		size: auto;
+		margin: 1.5cm;
+	}
+
+	.fixed-action-btn {
+		display: none !important;
+	}
+
+	:host app-navigation {
+		display: none;
+	}
+
+	/* Se puede ocultar todos los elementos que se deseen */
+}
