@@ -244,3 +244,79 @@
 		</div>
 	</div>
 </div>
+
+<!-- Agregar comision -->
+<div id="agregarComisionJC" class="modal">
+    <div class="modal-content">
+        <div class="row" style="margin-bottom: 0px !important;">
+            <div class="col s12 titulo">
+                <h5 class="center">Comisiones</h5>
+            </div>
+        </div>
+        <div style="border: .5px solid #78909c; padding: 10px;">
+
+            <div class="row">
+                <div class="col s12">
+                    <label>Nombre</label>
+                    <input required type="text" [(ngModel)]="comision.nombre" placeholder="Nombre de la comisión" value="comision.nombre">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s12">
+                    <label>Descripción</label>
+                        <input required type="text" [(ngModel)]="comision.descripcion" placeholder="Descripción de la comisión" value="comision.descripcion">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s12">
+                    <label> Profesor </label>
+                    <select class="browser-default" [(ngModel)]="comision.idProfesor">
+
+					</select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s12">
+                    <label>Periodo</label>
+                    <select class="browser-default" [(ngModel)]="comision.periodo">
+                        <option value="Definido">Definido</option>
+                        <option value="Indefinido">Indefinido</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s12">
+                    <label>Fecha de Inicio</label>
+                    <input required type="date" [(ngModel)]="comision.inicio" value="">
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col s12">
+                    <label>Fecha de Terminación</label>
+                    <input required type="date" [(ngModel)]="comision.fin" value="">
+                </div>
+            </div>
+
+            
+
+            <div class="row">
+                <div class="col s6 center">
+                    <a (click)="registroComision()"
+                        class=" modal-action modal-close waves-effect waves-light btn-small black white-text"><i
+                            class="material-icons vertical-align-middle ">save</i>Enviar
+					</a>
+                </div>
+                <div class="col s6 center">
+                    <a class=" modal-action modal-close waves-effect waves-light btn-small black white-text"><i
+                            class="material-icons vertical-align-middle ">cancel</i>Cancelar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
