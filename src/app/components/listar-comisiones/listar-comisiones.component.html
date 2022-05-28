@@ -1,0 +1,165 @@
+<div class="container">
+    <h3 class="center-align">Comisiones</h3>
+    <div class="row">
+        <label for="Busqueda">Busqueda</label>
+        <input type="text">
+    </div>
+    <div class="row">
+        <div class="col s6">
+            <label class="">A partir de:</label>
+            <input type="date" [(ngModel)]="fechaInicial">
+        </div>
+        <div class="col s6">
+            <label>Hasta:</label>
+            <input type="date" [(ngModel)]="fechaFinal">
+        </div>
+        <div class="sol s3">
+            <a class="waves-effect waves-light btn-small">Buscar</a>
+        </div>
+    </div>
+    <div class="row">
+        <label for="Mostrar">Mostrar</label>
+        <select class="browser-default" [(ngModel)]="eleccion">
+			<option *ngFor="let busq of busqueda; let i=index" [value]="i">{{busq}}</option>
+		</select>
+    </div>
+    <div class="row" *ngIf="eleccion==1">
+        <label for="Profesor">Profesor</label>
+        <select class="browser-default">
+            <option value="0">{{"Todos"}} </option>
+			<option *ngFor="let profe of profesores" [value]="profe.idProfesor">{{profe.nombres}} {{profe.apellidoPaterno}} {{profe.apellidoMaterno}}</option>
+		</select>
+    </div>
+    <div class="row" *ngIf="eleccion==1">
+        <table *ngFor="let comisionado of comisionados; let i = index" class="centered">
+            <thead>{{comisionado.nombres}} {{comisionado.apellidoPaterno}} {{comisionado.apellidoMaterno}}</thead>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Asignación</th>
+                    <th>Periodo</th>
+                    <th>Inicio</th>
+                    <th>Opciones</th>
+                    <th>Comprobante</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let comision of comisiones[i]">
+                    <td>{{comision.nombre}}</td>
+                    <td>{{comision.asignacion}}</td>
+                    <td>{{comision.periodo}} </td>
+                    <td>{{comision.inicio}} </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row" *ngIf="eleccion!=1">
+        <table *ngFor="let comision of comisiones; let i = index" class="centered">
+            <thead>{{comision.nombres}}</thead>
+            <thead>
+                <tr>
+                    <th>Comisionados</th>
+                    <th>Asignación</th>
+                    <th>Periodo</th>
+                    <th>Inicio</th>
+                    <th>Modificar</th>
+                    <th>Agregar</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>
+                        <p *ngFor="let comisionado of comisionados[i]">{{comisionado.nombres}} {{comisionado.apellidoPaterno}} {{comisionado.apellidoMaterno}}</p>
+                    </td>
+                    <td>{{comision.asignacion}}</td>
+                    <td>{{comision.periodo}} </td>
+                    <td>{{comision.inicio}} </td>
+                    <td><a href="#comisiones" class="waves-effect waves-light btn-small modal-trigger" style="margin-right: 12px;" (click)="comisionEditar=comision[i]"><i class="material-icons">edit</i></a></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal Modificar Comision -->
+<div id="comisiones" class="modal">
+    <div class="modal-content">
+        <div class="row" style="margin-bottom: 0px !important;">
+            <div class="col s12 titulo">
+                <h5 class="center">Comisiones</h5>
+            </div>
+        </div>
+        <div style="border: .5px solid #78909c; padding: 10px;">
+
+            <div class="row">
+                <div class="col s12">
+                    <label>Nombre</label>
+                    <input required type="text" [(ngModel)]="comisionEditar.nombre" placeholder="Nombre de la comisión" value="comisionEditar.nombre">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s12">
+                    <label>Descripción</label>
+                    <input required type="text" [(ngModel)]="comisionEditar.descripcion" placeholder="Descripción de la comisión" value="comisionEditar.descripcion">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s12">
+                    <label> Profesor </label>
+                    <select class="browser-default" [(ngModel)]="comisionEditar.idProfesor">
+                        <option [value]="item.idProfesor" *ngFor="let item of profesores">{{item.nombres}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s12">
+                    <label>Periodo</label>
+                    <select class="browser-default" [(ngModel)]="comisionEditar.periodo">
+                        <option value="Definido">Definido</option>
+                        <option value="Indefinido">Indefinido</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s12">
+                    <label>Fecha de Inicio</label>
+                    <input required type="date" [(ngModel)]="comisionEditar.inicio" placeholder="YY/MM/DD" value="">
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col s12">
+                    <label>Fecha de Terminación</label>
+                    <input required type="date" [(ngModel)]="comisionEditar.fin" placeholder="YY/MM/DD" value="">
+                </div>
+            </div>
+
+
+
+            <div class="row">
+                <div class="col s6 center">
+                    <a class=" modal-action modal-close waves-effect waves-light btn-small black white-text"><i
+                            class="material-icons vertical-align-middle ">save</i>Enviar</a>
+
+
+                </div>
+                <div class="col s6 center">
+                    <a class=" modal-action modal-close waves-effect waves-light btn-small black white-text"><i
+                            class="material-icons vertical-align-middle ">cancel</i>Cancelar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

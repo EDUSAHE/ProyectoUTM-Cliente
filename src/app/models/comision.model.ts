@@ -5,6 +5,7 @@ export class Comision{
     periodo: string;
     inicio: string;
     fin: string;
+    asignacion:string;
 
     constructor(){
         this.nombre = "";
@@ -13,5 +14,6 @@ export class Comision{
         this.periodo = "Definido";
         this.inicio = "";
         this.fin = "";
+        this.asignacion="";
     }
 }
