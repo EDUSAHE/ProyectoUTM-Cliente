@@ -120,6 +120,6 @@ export class ModalesAgregarComponent implements OnInit {
   }
 
   registroComision(): void {
-    
+    console.log(this.comision);
   }
 }

@@ -27,5 +27,8 @@ export class ListarComisionesComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  modificarComision(){
+    console.log(this.comisionEditar);
+  }
 
 }

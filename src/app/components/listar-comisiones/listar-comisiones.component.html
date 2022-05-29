@@ -114,16 +114,6 @@
                     <input required type="text" [(ngModel)]="comisionEditar.descripcion" placeholder="Descripción de la comisión" value="comisionEditar.descripcion">
                 </div>
             </div>
-
-            <div class="row">
-                <div class="col s12">
-                    <label> Profesor </label>
-                    <select class="browser-default" [(ngModel)]="comisionEditar.idProfesor">
-                        <option [value]="item.idProfesor" *ngFor="let item of profesores">{{item.nombres}}</option>
-                    </select>
-                </div>
-            </div>
-
             <div class="row">
                 <div class="col s12">
                     <label>Periodo</label>
@@ -153,8 +143,8 @@
 
             <div class="row">
                 <div class="col s6 center">
-                    <a class=" modal-action modal-close waves-effect waves-light btn-small black white-text"><i
-                            class="material-icons vertical-align-middle ">save</i>Enviar</a>
+                    <a (click)="modificarComision()" class=" modal-action modal-close waves-effect waves-light btn-small black white-text"><i
+                            class="material-icons vertical-align-middle ">save</i>Modificar</a>
 
 
                 </div>
