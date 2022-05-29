@@ -24,7 +24,7 @@
     <div class="row" *ngIf="eleccion==1">
         <label for="Profesor">Profesor</label>
         <select class="browser-default">
-            <option value="0">{{"Todos"}} </option>
+            <option value="0">Todos</option>
 			<option *ngFor="let profe of profesores" [value]="profe.idProfesor">{{profe.nombres}} {{profe.apellidoPaterno}} {{profe.apellidoMaterno}}</option>
 		</select>
     </div>
@@ -33,7 +33,7 @@
     </div>
     <div class="row" *ngIf="eleccion==1">
         <table *ngFor="let comisionado of comisionados; let i = index" class="centered">
-            <thead>{{comisionado.nombres}} {{comisionado.apellidoPaterno}} {{comisionado.apellidoMaterno}}</thead>
+            <thead>{{comisionado}}</thead>
             <thead>
                 <tr>
                     <th>Nombre</th>
@@ -46,20 +46,20 @@
             </thead>
 
             <tbody>
-                <tr *ngFor="let comision of comisiones[i]">
-                    <td>{{comision.nombre}}</td>
-                    <td>{{comision.asignacion}}</td>
-                    <td>{{comision.periodo}} </td>
-                    <td>{{comision.inicio}} </td>
+                <tr>
+                    <td>Comisión para la selección de alumnos de nuevo ingreso</td>
+                    <td>Jefatura</td>
+                    <td>Definido</td>
+                    <td>2015-05-12</td>
                     <td></td>
                     <td></td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <div class="row" *ngIf="eleccion!=1">
+    <div class="row" *ngIf="eleccion==2">
         <table *ngFor="let comision of comisiones; let i = index" class="centered">
-            <thead>{{comision.nombres}}</thead>
+            <thead>{{comision}}</thead>
             <thead>
                 <tr>
                     <th>Comisionados</th>
@@ -75,12 +75,14 @@
             <tbody>
                 <tr>
                     <td>
-                        <p *ngFor="let comisionado of comisionados[i]">{{comisionado.nombres}} {{comisionado.apellidoPaterno}} {{comisionado.apellidoMaterno}}</p>
+                        <p>Raul Cruz Barbosa</p>
+                        <p>Carlos Alberto Fernandez y Fernandez</p>
+                        <p>Rogelio Osorio Chong</p>
                     </td>
-                    <td>{{comision.asignacion}}</td>
-                    <td>{{comision.periodo}} </td>
-                    <td>{{comision.inicio}} </td>
-                    <td><a href="#comisiones" class="waves-effect waves-light btn-small modal-trigger" style="margin-right: 12px;" (click)="comisionEditar=comision[i]"><i class="material-icons">edit</i></a></td>
+                    <td>Jefatura</td>
+                    <td>Indefinido</td>
+                    <td>2016-12-12</td>
+                    <td><a href="#comisiones" class="waves-effect waves-light btn-small modal-trigger" style="margin-right: 12px;"><i class="material-icons">edit</i></a></td>
                     <td></td>
                     <td></td>
                 </tr>
