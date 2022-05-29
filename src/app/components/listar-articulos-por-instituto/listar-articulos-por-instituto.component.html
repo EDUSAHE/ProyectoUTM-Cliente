@@ -1,4 +1,6 @@
 <div class="container">
+	
+
 	<h3 class="center-align">Articulos</h3>
 	<div class="row">
 		<label for="instituto">Instituto</label>
@@ -29,6 +31,10 @@
 		</div>
 	</div>
 
+
+
+
+
 	<div *ngIf="idInstituto != -1 || idProfesor != -1; else todo">
 		<table class="centered">
 			<tr>
@@ -40,23 +46,31 @@
 		itemsPerPage: 5,
 		currentPage: pages
 		}">
+		
 				<td>{{articulo.fechaEdicion}}</td>
 				<td>{{articulo.titulo}}</td>
+	
 				<td>
 					<ul>
 						<li *ngFor="let profesor of articulo.profesores" style="list-style: circle">
 							{{profesor.nombres}} {{profesor.apellidoPaterno}} {{profesor.apellidoMaterno}}
 						</li>
 					</ul>
+
+
 				</td>
+			
 			</tr>
+		
 		</table>
 
 		<pagination-controls (pageChange)="pages=($event)" previousLabel="Anterior" nextLabel="Siguiente">
 		</pagination-controls>
 	</div>
 	<ng-template #todo>
+
 		<ul class="collapsible">
+			
 			<ng-container *ngFor="let articulos of todosArticulos">
 				<li *ngIf="articulos.articulos.length>0">
 					<div class="collapsible-header">{{articulos.nombreInstituto}}</div>
@@ -68,10 +82,12 @@
 								<th>Autores</th>
 							</tr>
 							<tr *ngFor="let articulo of articulos.articulos">
+								
 								<td>{{articulo.fechaEdicion}}</td>
 								<td>{{articulo.titulo}}</td>
 								<td>
 									<ul>
+							
 										<li *ngFor="let profesor of articulo.profesores" style="list-style: circle">
 											{{profesor.nombres}} {{profesor.apellidoPaterno}}
 											{{profesor.apellidoMaterno}}
@@ -85,4 +101,5 @@
 			</ng-container>
 		</ul>
 	</ng-template>
-</div>
+
+
