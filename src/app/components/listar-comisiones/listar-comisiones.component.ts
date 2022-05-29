@@ -13,7 +13,7 @@ export class ListarComisionesComponent implements OnInit {
   comisionEditar:Comision;
   fechaInicial: string;
   fechaFinal: string;
-  eleccion:any;
+  eleccion:any=2;
   profesores:Profesor[];
   comisionados:any[]=['Erik German Ramos Pérez', 'Moises Emanuel Ramírez Guzmán', 'Eduardo Sanchez Soto'];
 
