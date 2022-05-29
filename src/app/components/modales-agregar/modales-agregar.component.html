@@ -1,246 +1,297 @@
 <!-- MODALES AGREGAR VICERECTOR -->
 <!-- Modal Agregar Profesor -->
 <div id="agregarProfesorVice" class="modal">
-	<div class="modal-content">
-		<div class="row" style="margin-bottom: 0px !important;">
-			<div class="col s12">
-				<h4 class="center">Agregar Profesor</h4>
-			</div>
-		</div>
-		<div class="row" style="margin-bottom: 0px !important;">
+    <div class="modal-content">
+        <div class="row" style="margin-bottom: 0px !important;">
+            <div class="col s12">
+                <h4 class="center">Agregar Profesor</h4>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: 0px !important;">
 
-		</div>
-		<div style="border: .5px solid #78909c; padding: 10px;">
-			<div class="row">
-				<div class="input-field col m6 l6">
-					<i class="material-icons prefix">person</i>
-					<input [(ngModel)]='profesorNuevo.nombres' type="text" autocomplete="off" id="nombres">
-					<label for="nombres">Nombres</label>
-				</div>
+        </div>
+        <div style="border: .5px solid #78909c; padding: 10px;">
+            <div class="row">
+                <div class="input-field col m6 l6">
+                    <i class="material-icons prefix">person</i>
+                    <input [(ngModel)]='profesorNuevo.nombres' type="text" autocomplete="off" id="nombres">
+                    <label for="nombres">Nombres</label>
+                </div>
 
-				<div class="input-field col m6 l6">
-					<i class="material-icons prefix">person</i>
-					<input [(ngModel)]='profesorNuevo.apellidoPaterno' type="text" autocomplete="off"
-						id="apellidoPaterno">
-					<label for="apellidoPaterno">Apellido Paterno</label>
-				</div>
+                <div class="input-field col m6 l6">
+                    <i class="material-icons prefix">person</i>
+                    <input [(ngModel)]='profesorNuevo.apellidoPaterno' type="text" autocomplete="off" id="apellidoPaterno">
+                    <label for="apellidoPaterno">Apellido Paterno</label>
+                </div>
 
-				<div class="input-field col m6 l6">
-					<i class="material-icons prefix">person</i>
-					<input [(ngModel)]='profesorNuevo.apellidoMaterno' type="text" autocomplete="off"
-						id="apellidoMaterno">
-					<label for="apellidoMaterno">Apellido Materno</label>
-				</div>
+                <div class="input-field col m6 l6">
+                    <i class="material-icons prefix">person</i>
+                    <input [(ngModel)]='profesorNuevo.apellidoMaterno' type="text" autocomplete="off" id="apellidoMaterno">
+                    <label for="apellidoMaterno">Apellido Materno</label>
+                </div>
 
-				<div class="input-field col m6 l6">
-					<i class="material-icons prefix">person</i>
-					<input [(ngModel)]='profesorNuevo.nombreApa' type="text" autocomplete="off" id="nombreAPA">
-					<label for="nombreAPA">Nombre APA</label>
-				</div>
+                <div class="input-field col m6 l6">
+                    <i class="material-icons prefix">person</i>
+                    <input [(ngModel)]='profesorNuevo.nombreApa' type="text" autocomplete="off" id="nombreAPA">
+                    <label for="nombreAPA">Nombre APA</label>
+                </div>
 
-				<div class="input-field col m6 l6">
-					<i class="material-icons prefix">email</i>
-					<input [(ngModel)]='profesorNuevo.correoProfesor' type="email" autocomplete="off" id="correo">
-					<label for="correo">Correo</label>
-				</div>
+                <div class="input-field col m6 l6">
+                    <i class="material-icons prefix">email</i>
+                    <input [(ngModel)]='profesorNuevo.correoProfesor' type="email" autocomplete="off" id="correo">
+                    <label for="correo">Correo</label>
+                </div>
 
-				<div class="input-field col m6 l6">
-					<i class="material-icons prefix">password</i>
-					<input [(ngModel)]='profesorNuevo.password' type="password" autocomplete="off" id="contraseña">
-					<label for="contraseña">Contraseña</label>
-				</div>
+                <div class="input-field col m6 l6">
+                    <i class="material-icons prefix">password</i>
+                    <input [(ngModel)]='profesorNuevo.password' type="password" autocomplete="off" id="contraseña">
+                    <label for="contraseña">Contraseña</label>
+                </div>
 
-				<div class="row col s6">
-					<label>Instituto</label>
-					<select (change)="actualizarCarreras()" [(ngModel)]='profesorNuevo.idInstituto'
-						class="browser-default">
+                <div class="row col s6">
+                    <label>Instituto</label>
+                    <select (change)="actualizarCarreras()" [(ngModel)]='profesorNuevo.idInstituto' class="browser-default">
 						<option *ngFor="let instituto of institutos" [value]="instituto.idInstituto">
 							{{instituto.nombreInstituto}}
 						</option>
 					</select>
-				</div>
+                </div>
 
-				<div class="row col s6" *ngIf="carreras.length>0">
-					<label>Carrera</label>
-					<select [(ngModel)]='profesorNuevo.idCarrera' class="browser-default">
+                <div class="row col s6" *ngIf="carreras.length>0">
+                    <label>Carrera</label>
+                    <select [(ngModel)]='profesorNuevo.idCarrera' class="browser-default">
 						<option *ngFor="let carrera of carreras" [value]="carrera.idCarrera">
 							{{carrera.nombreCarrera}}
 						</option>
 					</select>
-				</div>
+                </div>
 
-				<div class="input-field col m6 l6">
-					<i class="material-icons prefix">tag</i>
-					<input [(ngModel)]="profesorNuevo.grado" type="text" autocomplete="off" id="grado">
-					<label for="grado">Grado</label>
-				</div>
+                <div class="input-field col m6 l6">
+                    <i class="material-icons prefix">tag</i>
+                    <input [(ngModel)]="profesorNuevo.grado" type="text" autocomplete="off" id="grado">
+                    <label for="grado">Grado</label>
+                </div>
 
-			</div>
-			<div class="row">
-				<div class="col s6 center">
-					<a (click)="agregarProfesor()"
-						class="modal-action modal-close waves-effect btn-large">Agregar</a>
-				</div>
-				<div class="col s6 center">
-					<a class="modal-action modal-close waves-effect btn-large">Cancelar</a>
-				</div>
-			</div>
-		</div>
-	</div>
+            </div>
+            <div class="row">
+                <div class="col s6 center">
+                    <a (click)="agregarProfesor()" class="modal-action modal-close waves-effect btn-large">Agregar</a>
+                </div>
+                <div class="col s6 center">
+                    <a class="modal-action modal-close waves-effect btn-large">Cancelar</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Modal Agregar Instituto -->
 <div id="agregarInstitutoVice" class="modal">
-	<div class="modal-content row">
-		<div class="row">
-			<h4 class="center-align">Agregar Instituto</h4>
-		</div>
+    <div class="modal-content row">
+        <div class="row">
+            <h4 class="center-align">Agregar Instituto</h4>
+        </div>
 
-		<div class="row col s6">
-			<div class="input-field">
-				<i class="material-icons prefix">school</i>
-				<input [(ngModel)]='institutoNuevo.nombreInstituto' id="instituto_nombre" type="text"
-					autocomplete="off">
-				<label for="instituto_nombre">Nombre</label>
-			</div>
-		</div>
+        <div class="row col s6">
+            <div class="input-field">
+                <i class="material-icons prefix">school</i>
+                <input [(ngModel)]='institutoNuevo.nombreInstituto' id="instituto_nombre" type="text" autocomplete="off">
+                <label for="instituto_nombre">Nombre</label>
+            </div>
+        </div>
 
-		<div class="row col s6">
-			<div class="input-field">
-				<i class="material-icons prefix">tag</i>
-				<input [(ngModel)]='institutoNuevo.codigoInstituto' id="instituto_codigo" type="text"
-					autocomplete="off">
-				<label for="instituto_codigo">Código</label>
-			</div>
-		</div>
+        <div class="row col s6">
+            <div class="input-field">
+                <i class="material-icons prefix">tag</i>
+                <input [(ngModel)]='institutoNuevo.codigoInstituto' id="instituto_codigo" type="text" autocomplete="off">
+                <label for="instituto_codigo">Código</label>
+            </div>
+        </div>
 
-		<div class="row">
-			<div class="col s6 center">
-				<a (click)="agregarInstituto()"
-					class="modal-action modal-close waves-effect btn-large">Agregar</a>
-			</div>
-			<div class="col s6 center">
-				<a class="modal-action modal-close waves-effect btn-large">Cancelar</a>
-			</div>
-		</div>
-	</div>
+        <div class="row">
+            <div class="col s6 center">
+                <a (click)="agregarInstituto()" class="modal-action modal-close waves-effect btn-large">Agregar</a>
+            </div>
+            <div class="col s6 center">
+                <a class="modal-action modal-close waves-effect btn-large">Cancelar</a>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Modal Agregar Carrera -->
 <div id="agregarCarreraVice" class="modal">
-	<div class="modal-content row">
-		<div class="row">
-			<div>
-				<h4 class="center-align">Agregar Carrera</h4>
-			</div>
-		</div>
+    <div class="modal-content row">
+        <div class="row">
+            <div>
+                <h4 class="center-align">Agregar Carrera</h4>
+            </div>
+        </div>
 
-		<div class="row col s12">
-			<label>Instituto</label>
-			<select [(ngModel)]="carreraNueva.idInstituto" class="browser-default">
+        <div class="row col s12">
+            <label>Instituto</label>
+            <select [(ngModel)]="carreraNueva.idInstituto" class="browser-default">
 				<option *ngFor="let instituto of institutos" [value]="instituto.idInstituto">
 					{{instituto.nombreInstituto}}
 				</option>
 			</select>
-		</div>
+        </div>
 
-		<div class="row col s6">
-			<div class="input-field">
-				<i class="material-icons prefix">tag</i>
-				<input [(ngModel)]='carreraNueva.codigoCarrera' id="carrera_codigo" type="text" autocomplete="off">
-				<label for="carrera_codigo">Código</label>
-			</div>
-		</div>
+        <div class="row col s6">
+            <div class="input-field">
+                <i class="material-icons prefix">tag</i>
+                <input [(ngModel)]='carreraNueva.codigoCarrera' id="carrera_codigo" type="text" autocomplete="off">
+                <label for="carrera_codigo">Código</label>
+            </div>
+        </div>
 
-		<div class="row col s6">
-			<div class="input-field">
-				<i class="material-icons prefix">school</i>
-				<input [(ngModel)]='carreraNueva.nombreCarrera' id="carrera_nombre" type="text" autocomplete="off">
-				<label for="carrera_nombre">Nombre</label>
-			</div>
-		</div>
+        <div class="row col s6">
+            <div class="input-field">
+                <i class="material-icons prefix">school</i>
+                <input [(ngModel)]='carreraNueva.nombreCarrera' id="carrera_nombre" type="text" autocomplete="off">
+                <label for="carrera_nombre">Nombre</label>
+            </div>
+        </div>
 
-		<div class="row col s12">
-			<div class="col s6 center">
-				<a (click)="agregarCarrera()"
-					class="modal-action modal-close waves-effect btn-large">Agregar</a>
-			</div>
-			<div class="col s6 center">
-				<a class="modal-action modal-close waves-effect btn-large">Cancelar</a>
-			</div>
-		</div>
+        <div class="row col s12">
+            <div class="col s6 center">
+                <a (click)="agregarCarrera()" class="modal-action modal-close waves-effect btn-large">Agregar</a>
+            </div>
+            <div class="col s6 center">
+                <a class="modal-action modal-close waves-effect btn-large">Cancelar</a>
+            </div>
+        </div>
 
-	</div>
+    </div>
 </div>
 
 <!-- MODALES AGREGAR JEFE DE CARRERA -->
 <!-- Modal Agregar Profesor-->
 <div id="agregarProfesorJC" class="modal">
-	<div class="modal-content">
-		<div class="row" style="margin-bottom: 0px !important;">
-			<div class="col s12">
-				<h4 class="center">Agregar Profesor</h4>
-			</div>
-		</div>
-		<div class="row" style="margin-bottom: 0px !important;">
+    <div class="modal-content">
+        <div class="row" style="margin-bottom: 0px !important;">
+            <div class="col s12">
+                <h4 class="center">Agregar Profesor</h4>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: 0px !important;">
 
-		</div>
-		<div style="border: .5px solid #78909c; padding: 10px;">
-			<div class="row">
-				<div class="input-field col m6 l6">
-					<i class="material-icons prefix">person</i>
-					<input [(ngModel)]='profesorNuevo.nombres' type="text" autocomplete="off" id="nombres-jc">
-					<label for="nombres-jc">Nombres</label>
-				</div>
+        </div>
+        <div style="border: .5px solid #78909c; padding: 10px;">
+            <div class="row">
+                <div class="input-field col m6 l6">
+                    <i class="material-icons prefix">person</i>
+                    <input [(ngModel)]='profesorNuevo.nombres' type="text" autocomplete="off" id="nombres-jc">
+                    <label for="nombres-jc">Nombres</label>
+                </div>
 
-				<div class="input-field col m6 l6">
-					<i class="material-icons prefix">person</i>
-					<input [(ngModel)]='profesorNuevo.apellidoPaterno' type="text" autocomplete="off"
-						id="apellidoPaterno-jc">
-					<label for="apellidoPaterno-jc">Apellido Paterno</label>
-				</div>
+                <div class="input-field col m6 l6">
+                    <i class="material-icons prefix">person</i>
+                    <input [(ngModel)]='profesorNuevo.apellidoPaterno' type="text" autocomplete="off" id="apellidoPaterno-jc">
+                    <label for="apellidoPaterno-jc">Apellido Paterno</label>
+                </div>
 
-				<div class="input-field col m6 l6">
-					<i class="material-icons prefix">person</i>
-					<input [(ngModel)]='profesorNuevo.apellidoMaterno' type="text" autocomplete="off"
-						id="apellidoMaterno-jc">
-					<label for="apellidoMaterno-jc">Apellido Materno</label>
-				</div>
+                <div class="input-field col m6 l6">
+                    <i class="material-icons prefix">person</i>
+                    <input [(ngModel)]='profesorNuevo.apellidoMaterno' type="text" autocomplete="off" id="apellidoMaterno-jc">
+                    <label for="apellidoMaterno-jc">Apellido Materno</label>
+                </div>
 
-				<div class="input-field col m6 l6">
-					<i class="material-icons prefix">person</i>
-					<input [(ngModel)]='profesorNuevo.nombreApa' type="text" autocomplete="off" id="nombreAPA-jc">
-					<label for="nombreAPA-jc">Nombre APA</label>
-				</div>
+                <div class="input-field col m6 l6">
+                    <i class="material-icons prefix">person</i>
+                    <input [(ngModel)]='profesorNuevo.nombreApa' type="text" autocomplete="off" id="nombreAPA-jc">
+                    <label for="nombreAPA-jc">Nombre APA</label>
+                </div>
 
-				<div class="input-field col m6 l6">
-					<i class="material-icons prefix">email</i>
-					<input [(ngModel)]='profesorNuevo.correoProfesor' type="email" autocomplete="off" id="correo-jc">
-					<label for="correo-jc">Correo</label>
-				</div>
+                <div class="input-field col m6 l6">
+                    <i class="material-icons prefix">email</i>
+                    <input [(ngModel)]='profesorNuevo.correoProfesor' type="email" autocomplete="off" id="correo-jc">
+                    <label for="correo-jc">Correo</label>
+                </div>
 
-				<div class="input-field col m6 l6">
-					<i class="material-icons prefix">password</i>
-					<input [(ngModel)]='profesorNuevo.password' type="password" autocomplete="off" id="contraseña-jc">
-					<label for="contraseña-jc">Contraseña</label>
-				</div>
+                <div class="input-field col m6 l6">
+                    <i class="material-icons prefix">password</i>
+                    <input [(ngModel)]='profesorNuevo.password' type="password" autocomplete="off" id="contraseña-jc">
+                    <label for="contraseña-jc">Contraseña</label>
+                </div>
 
-				<div class="input-field col m6 l6">
-					<i class="material-icons prefix">tag</i>
-					<input [(ngModel)]="profesorNuevo.grado" type="text" autocomplete="off" id="grado-jc">
-					<label for="grado-jc">Grado</label>
-				</div>
+                <div class="input-field col m6 l6">
+                    <i class="material-icons prefix">tag</i>
+                    <input [(ngModel)]="profesorNuevo.grado" type="text" autocomplete="off" id="grado-jc">
+                    <label for="grado-jc">Grado</label>
+                </div>
 
-			</div>
-			<div class="row">
-				<div class="col s6 center">
-					<a (click)="agregarProfesorJC()"
-						class="modal-action modal-close waves-effect waves-green btn-flat">Agregar</a>
-				</div>
-				<div class="col s6 center">
-					<a class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
-				</div>
-			</div>
-		</div>
-	</div>
+            </div>
+            <div class="row">
+                <div class="col s6 center">
+                    <a (click)="agregarProfesorJC()" class="modal-action modal-close waves-effect waves-green btn-flat">Agregar</a>
+                </div>
+                <div class="col s6 center">
+                    <a class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Agregar comision -->
+<div id="agregarComisionJC" class="modal">
+    <div class="modal-content">
+        <div class="row" style="margin-bottom: 0px !important;">
+            <div class="col s12 titulo">
+                <h5 class="center">Comisiones</h5>
+            </div>
+        </div>
+        <div style="border: .5px solid #78909c; padding: 10px;">
+
+            <div class="row">
+                <div class="col s12">
+                    <label>Nombre</label>
+                    <input required type="text" [(ngModel)]="comision.nombre" placeholder="Nombre de la comisión" value="comision.nombre">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s12">
+                    <label>Descripción</label>
+                    <input required type="text" [(ngModel)]="comision.descripcion" placeholder="Descripción de la comisión" value="comision.descripcion">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <label>Periodo</label>
+                    <select class="browser-default" [(ngModel)]="comision.periodo">
+                        <option value="Definido">Definido</option>
+                        <option value="Indefinido">Indefinido</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s12">
+                    <label>Fecha de Inicio</label>
+                    <input required type="date" [(ngModel)]="comision.inicio" value="">
+                </div>
+            </div>
+
+
+            <div class="row" *ngIf="comision.periodo=='Definido'">
+                <div class="col s12">
+                    <label>Fecha de Terminación</label>
+                    <input required type="date" [(ngModel)]="comision.fin" value="">
+                </div>
+            </div>
+
+
+
+            <div class="row">
+                <div class="col s6 center">
+                    <a (click)="registroComision()" class="modal-action modal-close waves-effect btn-large">Agregar</a>
+                </div>
+                <div class="col s6 center">
+                    <a class="modal-action modal-close waves-effect btn-large">Cancelar</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
