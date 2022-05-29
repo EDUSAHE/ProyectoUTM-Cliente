@@ -11,7 +11,7 @@
 	<ul>
 		<li>
 			<a href="#agregarArticulo" class="btn-floating black modal-trigger">
-				<i class="material-icons">article</i>
+				<i class="material-icons">create</i>
 			</a>
 		</li>
 	</ul>
@@ -22,7 +22,7 @@
 	<div class="modal-content">
 		<div class="row" style="margin-bottom: 0px !important;">
 			<div class="col s12">
-				<h3 class="center">Agregar Articulo</h3>
+				<h3 class="center">Nueva Publicación</h3>
 			</div>
 		</div>
 		<div class="row" style="margin-bottom: 0px !important;">
@@ -30,53 +30,117 @@
 		</div>
 		<div style="border: .5px solid #78909c; padding: 10px;">
 			<div class="row">
-				<div class="input-field col s12">
-					<input [(ngModel)]="articulo.titulo" required type="text" id="titulo-articulo">
-					<label for="titulo-articulo">Título Articulo</label>
-				</div>
 
 				<div class="col s12" style="margin-bottom: 1rem;">
-					<label>Tipo CRL:</label>
-					<select [(ngModel)]="articulo.tipoCRL" class="browser-default">
-						<option value="Congreso">Congreso</option>
-						<option value="Revista" selected>Revista</option>
-						<option value="Libro">Articulo</option>
+					<label>Congreso/Revista/Libro/Cap Libro</label>
+					<select class="browser-default" value="Congreso">
+						<option>Congreso</option>
+						<option>Revista</option>
+						<option>Libro</option>
+						<option>Cap Libro</option>
+						<option>Reporte Técnico</option>
 					</select>
 				</div>
 
 				<div class="input-field col s12">
-					<input [(ngModel)]="articulo.nombreCRL" required type="text" id="nombreCLR">
-					<label for="nombreCLR">Nombre CRL:</label>
+					<input required type="text">
+					<label>Titulo del Artículo</label>
 				</div>
 
 				<div class="input-field col s12">
-					<input [(ngModel)]="articulo.estadoArticulo" required type="text" id="estado">
-					<label for="estado">Estado:</label>
+					<input required type="text">
+					<label>Nombre del Congreso/Revista/Libro/Institución</label>
+				</div>
+
+				<div class="col s12" style="margin-bottom: 1rem;">
+					<label>Indexada</label>
+					<select class="browser-default" value="No">
+						<option>No</option>
+						<option>Si</option>
+						<option>JCR</option>
+					</select>
+				</div>
+
+				<div class="col s12" style="margin-bottom: 1rem;">
+					<label>Nacinal/Internacional</label>
+					<select class="browser-default" value="Nacional">
+						<option>Nacional</option>
+						<option>Internacional</option>
+					</select>
 				</div>
 
 				<div class="input-field col s12">
-					<input [(ngModel)]="articulo.fechaEdicion" required type="text" id="fecha">
-					<label for="fecha">Fecha:</label>
+					<input required type="text">
+					<label>Volumen/Capítulo</label>
 				</div>
 
 				<div class="input-field col s12">
-					<input [(ngModel)]="articulo.tipoNI" required type="text" id="tipoNI">
-					<label for="tipoNI">Tipo NI</label>
+					<input required type="text">
+					<label>Número</label>
 				</div>
 
 				<div class="input-field col s12">
-					<input [(ngModel)]="articulo.issnisbn" required type="text" id="issbn">
-					<label for="issbn">issbn</label>
+					<input required type="text">
+					<label>Páginas</label>
+				</div>
+
+				<div class="input-field col s12">
+					<input required type="text">
+					<label>Año</label>
+				</div>
+
+				<div class="input-field col s12">
+					<input required type="text">
+					<label>Código ISSN/ISBN</label>
+				</div>
+
+				<div class="input-field col s12">
+					<input required type="text">
+					<label>Doi</label>
+				</div>
+
+				<div class="input-field col s12">
+					<input required type="text">
+					<label>Editores</label>
+				</div>
+
+				<div class="input-field col s12">
+					<input required type="text">
+					<label>Editorial</label>
+				</div>
+
+				<div class="input-field col s12">
+					<input required type="text">
+					<label>País</label>
+				</div>
+
+				<div class="input-field col s12">
+					<input required type="text">
+					<label>Ciudad</label>
+				</div>
+
+				<div class="col s12" style="margin-bottom: 1rem;">
+					<label>Estado del artículo</label>
+					<select class="browser-default" value="Enviado">
+						<option>Enviado</option>
+						<option>Aceptado</option>
+						<option>Publicado</option>
+					</select>
+				</div>
+
+				<div class="input-field col s12">
+					<input required type="date" >
+					<label>Fecha de envío/aceptado/publicado</label>
 				</div>
 
 			</div>
+
 			<div class="row">
 				<div class="col s6 center">
-					<a (click)="agregarArticulo()"
-						class="modal-action modal-close waves-effect btn-large">Enviar</a>
+					<a class="modal-action modal-close waves-effect btn-large"><i class="material-icons">save</i>Enviar</a>
 				</div>
 				<div class="col s6 center">
-					<a class="modal-action modal-close waves-effect btn-large">Cancelar</a>
+					<a class="modal-action modal-close waves-effect btn-large"><i class="material-icons">cancel</i>Cancelar</a>
 				</div>
 			</div>
 		</div>
