@@ -152,7 +152,7 @@
             </div>
 
 
-            <div class="row">
+            <div class="row" *ngIf="comisionEditar.periodo=='Definido'">
                 <div class="col s12">
                     <label>Fecha de Terminación</label>
                     <input required type="date" [(ngModel)]="comisionEditar.fin" placeholder="YY/MM/DD" value="">
