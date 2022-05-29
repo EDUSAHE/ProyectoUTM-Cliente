@@ -6,7 +6,7 @@ import { CambioInfoService } from 'src/app/services/cambio-info.service';
 import { ImagenesService } from 'src/app/services/imagenes.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
-
+declare var $: any
 @Component({
   selector: 'app-articulos',
   templateUrl: './articulos.component.html',
@@ -19,12 +19,13 @@ export class ArticulosComponent implements OnInit {
   fileToUpload: any
   fechaInicial: string
   fechaFinal: string
-
+  ArticuloActual:any
   urlArchivos: string
 
   constructor(private route: ActivatedRoute, private articulosService: ArticulosService, private cambioInforService: CambioInfoService, private imagenesService: ImagenesService) {
     this.idProfesor = 0
     this.articulos = []
+    this.ArticuloActual=[]
     this.fileToUpload = null
     let hoy = new Date()
     this.fechaInicial = `${hoy.getFullYear() - 1}-${('0' + (hoy.getMonth() + 1)).slice(-2)}-${('0' + hoy.getDate()).slice(-2)}`
@@ -36,6 +37,25 @@ export class ArticulosComponent implements OnInit {
       this.obtenerArticulos()
     }, err => console.error(err))
   }
+  //desplegar model
+  ActualizarArticuloModal(articuloM:any){ 
+    console.log("ActualizarArticulo");
+      $('#ActualizarArticulo').modal({ dismissible: false });
+      $('#ActualizarArticulo').modal('open');
+     this.ArticuloActual=articuloM;
+
+  }
+//Actualiza la Publicacion
+ActualizarP(articulo:any){
+  console.log(articulo)
+}
+
+
+
+
+
+
+
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
