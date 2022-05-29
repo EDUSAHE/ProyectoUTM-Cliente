@@ -32,7 +32,6 @@ export class HomeComponent implements OnInit {
   agregarArticulo(): void {
     this.articuloService.agregar(this.articulo, localStorage.getItem('idProfesor')).subscribe(res => {
       console.log('Articulo Agregado', res)
-      console.log("Hola");
       this.articulo = new Articulo()
 
       Swal.fire({
