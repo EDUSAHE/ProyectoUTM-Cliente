@@ -13,7 +13,6 @@ export class ListarComisionesComponent implements OnInit {
   comisionEditar:Comision;
   fechaInicial: string;
   fechaFinal: string;
-  busqueda: any[] = ['Por comision', 'Por profesor'];
   eleccion:any;
   profesores:Profesor[];
   comisionados:any[];
