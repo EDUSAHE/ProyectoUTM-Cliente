@@ -34,7 +34,8 @@
             <td>
                 <div class="row">
                     <div class="col s12">
-                        <a class="waves-effect waves-light btn-small" style="margin-right: 10px;" (click)="ActualizarArticuloModal(articulo)"><i class="material-icons left">edit</i>Modificar</a>
+                        <a class="waves-effect waves-light btn-small" style="margin-right: 10px;" (click)="ActualizarArticuloModal(articulo)"><i
+								class="material-icons left">edit</i>Modificar</a>
                     </div>
                     <div class="col s12">
                         <a class="waves-effect waves-light btn-small" style="margin-right: 10px;"><i
@@ -66,7 +67,55 @@
 
 
 
+<!-- Modal Actualizar Prioridad -->
+<div id="modalPrioridad" class="modal">
+    <div class="modal-content">
 
+        <div class="row" style="margin-bottom: 0px !important;">
+            <div class="col s12">
+                <h4 class="center">Prioridades</h4>
+            </div>
+        </div>
+
+
+        <div style="border: .5px solid #78909c; padding: 10px;">
+            <table>
+                <tr>
+                    <th>Prioridad</th>
+                    <th>Nombre</th>
+                </tr>
+                <tr>
+
+                </tr>
+
+                <tr *ngFor="let profesor of ordenProfesores;let indice1=index" style="list-style: circle">
+                    <th>
+                        <select [(ngModel)]='profesor.pos' class="browser-default" value="Congreso">
+							<option *ngFor="let profesor of ordenProfesores;let indice=index">{{indice+1}} </option>
+
+						</select>
+                    </th>
+                    <th>
+                        {{profesor.nombre}}
+                    </th>
+
+                </tr>
+
+
+            </table>
+            <div class="row">
+                <div class="col s6 center">
+                    <th><a class="modal-action modal-close waves-effect waves-green btn-flat" (click)="MostrarOrden()">Guardar</a></th>
+                    <th><a style="float:right" class="modal-action modal-close waves-effect waves-green btn-flat">Regresar</a></th>
+
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Modal Actualizar Articulo -->
 <div id="ActualizarArticulo" class="modal">
@@ -85,12 +134,12 @@
                 <div class="col s12" style="margin-bottom: 1rem;">
                     <label>Congreso/Revista/Libro/Cap Libro</label>
                     <select class="browser-default" value="Congreso">
-							<option>Congreso</option>
-							<option>Revista</option>
-							<option>Libro</option>
-							<option>Cap Libro</option>
-							<option>Reporte Técnico</option>
-						</select>
+						<option>Congreso</option>
+						<option>Revista</option>
+						<option>Libro</option>
+						<option>Cap Libro</option>
+						<option>Reporte Técnico</option>
+					</select>
                 </div>
 
                 <div class="input-field col s12">
@@ -106,10 +155,10 @@
                 <div class="col s12" style="margin-bottom: 1rem;">
                     <label>Indexada</label>
                     <select class="browser-default" value="No">
-							<option>No</option>
-							<option>Si</option>
-							<option>JCR</option>
-						</select>
+						<option>No</option>
+						<option>Si</option>
+						<option>JCR</option>
+					</select>
 
 
                 </div>
@@ -117,19 +166,20 @@
                 <div class="col s12" style="margin-bottom: 1rem;">
                     <label>Nacinal/Internacional</label>
                     <select class="browser-default" value="Nacional">
-							<option>Nacional</option>
-							<option>Internacional</option>
-						</select>
+						<option>Nacional</option>
+						<option>Internacional</option>
+					</select>
                 </div>
 
                 <div class="input-field col s12">
+
                     <label>Volumen/Capítulo</label>
                     <input [(ngModel)]="ArticuloActual.volumen" required type="text">
 
                 </div>
 
                 <div class="input-field col s12">
-                    <input required type="text">
+                    <input [(ngModel)]="ArticuloActual.volumen" required type="text">
                     <label>Número</label>
 
 
@@ -188,25 +238,44 @@
                 <div class="col s12" style="margin-bottom: 1rem;">
                     <label>Estado del artículo</label>
                     <select class="browser-default" value="Enviado">
-							<option>Enviado</option>
-							<option>Aceptado</option>
-							<option>Publicado</option>
-						</select>
+						<option>Enviado</option>
+						<option>Aceptado</option>
+						<option>Publicado</option>
+					</select>
                 </div>
 
                 <div class="input-field col s12">
                     <input required type="date">
                     <label>Fecha de envío/aceptado/publicado</label>
                 </div>
+
             </div>
 
             <div class="row">
                 <div class="col s6 center">
-                    <a class="modal-action modal-close waves-effect btn-large" (click)="ActualizarP(ArticuloActual)"><i class="material-icons">save</i>Actualizar</a>
+                    <a class="modal-action modal-close waves-effect btn-large" (click)="ActualizarP(ArticuloActual)"><i
+							class="material-icons">save</i>Actualizar</a>
                 </div>
                 <div class="col s6 center">
-                    <a class="modal-action modal-close waves-effect btn-large"><i class="material-icons">cancel</i>Cancelar</a>
+                    <a class="modal-action modal-close waves-effect btn-large"><i
+							class="material-icons">cancel</i>Cancelar</a>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="input-field col s12">
+        <input required type="date">
+        <label>Fecha de envío/aceptado/publicado</label>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col s6 center">
+        <a class="modal-action modal-close waves-effect btn-large" (click)="ActualizarP(ArticuloActual)"><i
+				class="material-icons">save</i>Actualizar</a>
+    </div>
+    <div class="col s6 center">
+        <a class="modal-action modal-close waves-effect btn-large"><i class="material-icons">cancel</i>Cancelar</a>
+    </div>
+</div>
