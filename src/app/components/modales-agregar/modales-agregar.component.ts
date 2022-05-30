@@ -120,6 +120,8 @@ export class ModalesAgregarComponent implements OnInit {
   }
 
   registroComision(): void {
+    if(this.comision.periodo=='Indefinido')
+      this.comision.fin="2200-05-03";
     console.log(this.comision);
   }
 }
