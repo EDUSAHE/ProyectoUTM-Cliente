@@ -30,18 +30,19 @@ export class HomeComponent implements OnInit {
   }
 
   agregarArticulo(): void {
-    this.articuloService.agregar(this.articulo, localStorage.getItem('idProfesor')).subscribe(res => {
-      console.log('Articulo Agregado', res)
-      this.articulo = new Articulo()
+    console.log("Agreagar Publicacion");
+    // this.articuloService.agregar(this.articulo, localStorage.getItem('idProfesor')).subscribe(res => {
+    //   console.log('Articulo Agregado', res)
+    //   this.articulo = new Articulo()
 
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Articulo Agregado'
-      })
+    //   Swal.fire({
+    //     position: 'center',
+    //     icon: 'success',
+    //     title: 'Articulo Agregado'
+    //   })
 
-      this.enviarMensajeArticulo()
-    }, err => console.error(err))
+    //   this.enviarMensajeArticulo()
+    // }, err => console.error(err))
   }
 
   enviarMensajeArticulo() {
