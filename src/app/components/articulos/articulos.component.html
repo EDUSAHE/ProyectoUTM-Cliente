@@ -83,15 +83,11 @@
                     <th>Prioridad</th>
                     <th>Nombre</th>
                 </tr>
-                <tr>
-
-                </tr>
 
                 <tr *ngFor="let profesor of ordenProfesores;let indice1=index" style="list-style: circle">
                     <th>
                         <select [(ngModel)]='profesor.pos' class="browser-default" value="Congreso">
 							<option *ngFor="let profesor of ordenProfesores;let indice=index ">{{indice+1}} </option>
-
 						</select>
                     </th>
                     <th>
@@ -105,12 +101,10 @@
             <br>
             <div class="row">
                 <div class="col s6 center">
-                    <a class="modal-action modal-close waves-effect btn-large" (click)="MostrarOrden()"><i
-						class="material-icons">save</i>Guardar</a>
+                    <a class="modal-action modal-close waves-effect btn-large" (click)="MostrarOrden()">Guardar</a>
                 </div>
                 <div class="col s6 center">
-                    <a class="modal-action modal-close waves-effect btn-large"><i
-						class="material-icons">cancel</i>Regresar</a>
+                    <a class="modal-action modal-close waves-effect btn-large">Regresar</a>
                 </div>
             </div>
         </div>
@@ -134,137 +128,125 @@
                 <div class="col s12 " style="margin-bottom: 1rem;">
                     <label>Congreso/Revista/Libro/Cap Libro</label>
                     <select [(ngModel)]="ArticuloActual.tipoCRL" class="browser-default">
-						<option>Congreso</option>
-						<option>Revista</option>
-						<option>Libro</option>
-						<option>Cap Libro</option>
-						<option>Reporte Técnico</option>
+						<option value="Congreso">Congreso</option>
+						<option value="Revista">Revista</option>
+						<option value="Libro">Libro</option>
+						<option value="Cap Libro">Cap Libro</option>
+						<option value="Reporte Técnico">Reporte Técnico</option>
 					</select>
                 </div>
 
                 <div class="input-field col s12">
-                    <label>Titulo del Artículo</label>
-                    <input [(ngModel)]="ArticuloActual.titulo" required type="text">
+                    <label for="articulo_titulo" class="active">Titulo del Artículo</label>
+                    <input [(ngModel)]="ArticuloActual.titulo" id="articulo_titulo" required type="text">
                 </div>
 
                 <div class="input-field col s12">
-                    <label>Nombre del Congreso/Revista/Libro/Institución</label>
-                    <input [(ngModel)]="ArticuloActual.nombreCLR" required type="text">
+                    <label for="articulo_nombreCRL" class="active">Nombre del Congreso/Revista/Libro/Institución</label>
+                    <input [(ngModel)]="ArticuloActual.nombreCRL" id="articulo_nombreCLR" required type="text">
                 </div>
 
                 <div class="col s12" style="margin-bottom: 1rem;">
                     <label>Indexada</label>
-                    <select [(ngModel)]="ArticuloActual.indexada" class="browser-default" value="No">
-						<option>No</option>
-						<option>Si</option>
-						<option>JCR</option>
+                    <select [(ngModel)]="ArticuloActual.indexada" class="browser-default">
+						<option value="No">No</option>
+						<option value="Si">Si</option>
+						<option value="JRC">JCR</option>
 					</select>
                 </div>
 
                 <div class="col s12" style="margin-bottom: 1rem;">
                     <label>Nacinal/Internacional</label>
-                    <select [(ngModel)]="ArticuloActual.tipoNI" class="browser-default" value="Nacional">
-						<option>Nacional</option>
-						<option>Internacional</option>
+                    <select [(ngModel)]="ArticuloActual.tipoNI" class="browser-default">
+						<option value="Nacinal">Nacional</option>
+						<option value="Internacional">Internacional</option>
 					</select>
                 </div>
 
                 <div class="input-field col s12">
-                    <label>Volumen/Capítulo</label>
-                    <input [(ngModel)]="ArticuloActual.volumen" required type="text">
+                    <label for="articulo_volumen" class="active">Volumen/Capítulo</label>
+                    <input [(ngModel)]="ArticuloActual.volumen" id="articulo_volumen" required type="text">
                 </div>
 
                 <div class="input-field col s12">
-                    <input [(ngModel)]="ArticuloActual.numero" required type="text">
-                    <label>Número</label>
+                    <input [(ngModel)]="ArticuloActual.numero" id="articulo_numero" required type="text">
+                    <label for="articulo_numero" class="active">Número</label>
                 </div>
 
                 <div class="input-field col s12">
-                    <label>Páginas</label>
-                    <input [(ngModel)]="ArticuloActual.paginas" required type="text">
-
-                </div>
-
-                <div class="input-field col s12">
-                    <label>Año</label>
-                    <input [(ngModel)]="ArticuloActual.anyo" required type="text">
+                    <label for="articulo_paginas" class="active">Páginas</label>
+                    <input [(ngModel)]="ArticuloActual.paginas" id="articulo_paginas" required type="text">
 
                 </div>
 
                 <div class="input-field col s12">
+                    <label for="articulo_anyo" class="active">Año</label>
+                    <input [(ngModel)]="ArticuloActual.anyo" id="articulo_anyo" required type="text">
 
-                    <label>Código ISSN/ISBN</label>
-                    <input [(ngModel)]="ArticuloActual.issnisbn" required type="text">
+                </div>
+
+                <div class="input-field col s12">
+
+                    <label for="articulo_issnisbn" class="active">Código ISSN/ISBN</label>
+                    <input [(ngModel)]="ArticuloActual.issnisbn" id="articulo_issnisbn" required type="text">
 
 
                 </div>
 
                 <div class="input-field col s12">
-                    <label>Doi</label>
-                    <input [(ngModel)]="ArticuloActual.doi" required type="text">
+                    <label for="articulo_doi" class="active">Doi</label>
+                    <input [(ngModel)]="ArticuloActual.doi" id="articulo_doi" required type="text">
 
                 </div>
 
                 <div class="input-field col s12">
-                    <label>Editores</label>
-                    <input [(ngModel)]="ArticuloActual.editores" required type="text">
+                    <label for="articulo_editores" class="active">Editores</label>
+                    <input [(ngModel)]="ArticuloActual.editores" id="articulo_editores" required type="text">
 
                 </div>
 
                 <div class="input-field col s12">
-                    <label>Editorial</label>
-                    <input [(ngModel)]="ArticuloActual.editorial" required type="text">
+                    <label for="articulo_editorial" class="active">Editorial</label>
+                    <input [(ngModel)]="ArticuloActual.editorial" id="articulo_editorial" required type="text">
 
                 </div>
 
                 <div class="input-field col s12">
-                    <label>País</label>
-                    <input [(ngModel)]="ArticuloActual.pais" required type="text">
+                    <label for="articulo_pais" class="active">País</label>
+                    <input [(ngModel)]="ArticuloActual.pais" id="articulo_pais" required type="text">
 
                 </div>
 
                 <div class="input-field col s12">
-                    <label>Ciudad</label>
-                    <input [(ngModel)]="ArticuloActual.ciudad" required type="text">
+                    <label for="articulo_ciudad" class="active">Ciudad</label>
+                    <input [(ngModel)]="ArticuloActual.ciudad" id="articulo_ciudad" required type="text">
 
                 </div>
 
                 <div class="col s12" style="margin-bottom: 1rem;">
                     <label>Estado del artículo</label>
-                    <select [(ngModel)]="ArticuloActual.estado" class="browser-default" value="Enviado">
-						<option>Enviado</option>
-						<option>Aceptado</option>
-						<option>Publicado</option>
+                    <select [(ngModel)]="ArticuloActual.estado" class="browser-default">
+						<option value="Enviado">Enviado</option>
+						<option value="Aceptado">Aceptado</option>
+						<option value="Publicado">Publicado</option>
 					</select>
                 </div>
 
                 <div class="input-field col s12">
-                    <input [(ngModel)]="ArticuloActual.fechaedicion" required type="date">
-                    <label>Fecha de envío/aceptado/publicado</label>
+                    <input [(ngModel)]="ArticuloActual.fechaedicion" id="articulo_fechaedicion" required type="date">
+                    <label for="carrera_fechaedicion" class="active">Fecha de envío/aceptado/publicado</label>
                 </div>
 
             </div>
 
             <div class="row">
                 <div class="col s6 center">
-                    <a class="modal-action modal-close waves-effect btn-large" (click)="ActualizarP(ArticuloActual)"><i
-							class="material-icons">save</i>Actualizar</a>
+                    <a class="modal-action modal-close waves-effect btn-large" (click)="ActualizarP(ArticuloActual)">Actualizar</a>
                 </div>
                 <div class="col s6 center">
-                    <a class="modal-action modal-close waves-effect btn-large"><i
-							class="material-icons">cancel</i>Cancelar</a>
+                    <a class="modal-action modal-close waves-effect btn-large">Cancelar</a>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col s6 center">
-        <a class="modal-action modal-close waves-effect btn-large" (click)="ActualizarP(ArticuloActual)"><i
-				class="material-icons">save</i>Actualizar</a>
-    </div>
-    <div class="col s6 center">
-        <a class="modal-action modal-close waves-effect btn-large"><i class="material-icons">cancel</i>Cancelar</a>
     </div>
 </div>

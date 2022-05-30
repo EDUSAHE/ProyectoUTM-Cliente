@@ -26,16 +26,16 @@ export class Articulo {
 
 	constructor() {
 		this.idArticulo = 0
-		this.tipoCRL = ''
+		this.tipoCRL = 'Congreso'
 		this.titulo = ''
-		this.estado = ''
+		this.estado = 'Enviado'
 		this.editorial = ''
-		this.indexada = ''
+		this.indexada = 'No'
 		this.numero = ''
 		this.nombreCRL = ''
 		this.estadoArticulo = ''
 		this.fechaedicion = ''
-		this.tipoNI = ''
+		this.tipoNI = 'Nacional'
 		this.issnisbn = ''
 		this.anyo = ''
 		this.ciudad = ''

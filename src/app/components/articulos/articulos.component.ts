@@ -28,7 +28,25 @@ export class ArticulosComponent implements OnInit {
     this.idProfesor = 0
     this.articulos = []
     this.profesoresActuales=[] 
-    this.ArticuloActual= new Articulo()
+    this.ArticuloActual={
+      tipoCRL:'Revista',
+	    titulo:'La Computación Educacional',
+	    nombreCRL:'Revista La audiencia',
+	    doi:'http://lecturas.com',
+	    numero:'1',
+	    fechaedicion:'2020-05-19',
+	    tipoNI: 'Nacional',
+	    issnisbn:'ccc001ascvw',
+	    anyo: '2020',
+	    volumen: '2',
+	    paginas: '152',
+	    pais: 'México',
+	    estado: 'Enviado',
+	    indexada: 'Si',
+	    editores: 'Juan',
+	    editorial: 'El Planeta',
+	    ciudad: 'Huajuapan'
+    }
     this.fileToUpload = null
     this.ordenProfesores=[{
       idProfesor:'1',
@@ -80,7 +98,7 @@ export class ArticulosComponent implements OnInit {
     console.log("ActualizarArticulo");
       $('#ActualizarArticulo').modal({ dismissible: false });
       $('#ActualizarArticulo').modal('open');
-     this.ArticuloActual=articuloM;
+     //this.ArticuloActual=articuloM;
   }
 //Actualiza la Publicacion
 ActualizarP(articulo:any){

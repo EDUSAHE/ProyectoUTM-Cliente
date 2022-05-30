@@ -13,7 +13,7 @@ declare var $: any
 })
 export class HomeComponent implements OnInit {
 
-  articulo: Articulo
+  articulo: Articulo;
 
   constructor(private articuloService: ArticulosService, private cambioInfoService: CambioInfoService) {
     this.articulo = new Articulo()
