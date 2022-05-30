@@ -29,21 +29,15 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  agregarArticulo(): void {
-    console.log("Agreagar Publicacion");
-    // this.articuloService.agregar(this.articulo, localStorage.getItem('idProfesor')).subscribe(res => {
-    //   console.log('Articulo Agregado', res)
-    //   this.articulo = new Articulo()
-
-    //   Swal.fire({
-    //     position: 'center',
-    //     icon: 'success',
-    //     title: 'Articulo Agregado'
-    //   })
-
-    //   this.enviarMensajeArticulo()
-    // }, err => console.error(err))
+  agregarArticulo(){ 
+    console.log("Agregar Publicacion");
+      $('#agregarArticulo').modal({ dismissible: false });
+      $('#agregarArticulo').modal('open');
   }
+//creaar la Publicacion
+crearArticulo(articulos:any){
+  console.log(articulos)
+}
 
   enviarMensajeArticulo() {
     this.cambioInfoService.enviar('')

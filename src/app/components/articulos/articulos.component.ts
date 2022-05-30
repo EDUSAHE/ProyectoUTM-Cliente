@@ -24,8 +24,8 @@ export class ArticulosComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private articulosService: ArticulosService, private cambioInforService: CambioInfoService, private imagenesService: ImagenesService) {
     this.idProfesor = 0
-    this.articulos = []
-    this.ArticuloActual=[]
+    this.articulos = [] 
+    this.ArticuloActual= new Articulo()
     this.fileToUpload = null
     let hoy = new Date()
     this.fechaInicial = `${hoy.getFullYear() - 1}-${('0' + (hoy.getMonth() + 1)).slice(-2)}-${('0' + hoy.getDate()).slice(-2)}`
