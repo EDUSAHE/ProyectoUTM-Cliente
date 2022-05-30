@@ -21,12 +21,50 @@ export class ArticulosComponent implements OnInit {
   fechaFinal: string
   ArticuloActual:any
   urlArchivos: string
+  profesoresActuales:any
+  ordenProfesores:any;
 
   constructor(private route: ActivatedRoute, private articulosService: ArticulosService, private cambioInforService: CambioInfoService, private imagenesService: ImagenesService) {
     this.idProfesor = 0
     this.articulos = []
+    this.profesoresActuales=[]
     this.ArticuloActual=[]
     this.fileToUpload = null
+    this.ordenProfesores=[{
+      idProfesor:'1',
+      nombre:'ejempol1',
+      idArticulo:'1',
+      pos:'1',
+      valido:'si'
+    },
+    {
+      idProfesor:'2',
+      nombre:'ejempol2',
+      idArticulo:'2',
+      pos:'2',
+      valido:'si'
+    },
+    {
+      idProfesor:'3',
+      nombre:'ejempol3',
+      idArticulo:'3',
+      pos:'3',
+      valido:'si'
+    },
+    {
+      idProfesor:'4',
+      nombre:'ejempol4',
+      idArticulo:'4',
+      pos:'4',
+      valido:'si'
+    },
+    {
+      idProfesor:'5',
+      nombre:'ejempol5',
+      idArticulo:'5',
+      pos:'5',
+      valido:'si'
+    }]
     let hoy = new Date()
     this.fechaInicial = `${hoy.getFullYear() - 1}-${('0' + (hoy.getMonth() + 1)).slice(-2)}-${('0' + hoy.getDate()).slice(-2)}`
     this.fechaFinal = `${hoy.getFullYear()}-${('0' + (hoy.getMonth() + 1)).slice(-2)}-${('0' + hoy.getDate()).slice(-2)}`
@@ -50,13 +88,6 @@ ActualizarP(articulo:any){
   console.log(articulo)
 }
 
-
-
-
-
-
-
-
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.idProfesor = Number(params.get('idProfesor'))
@@ -71,6 +102,25 @@ ActualizarP(articulo:any){
     },
       err => console.error(err))
   }
+
+
+  //<!-- Modal Prioridades autores Publicacion-->
+ModalPrioridades(profesores:any){
+  console.log("modalPrioridad");
+  $('#modalPrioridad').modal({ dismissible: false });
+  $('#modalPrioridad').modal('open');
+  this.profesoresActuales=profesores;
+  console.log(this.profesoresActuales);
+}
+
+MostrarOrden(){
+  console.log("ordenPrioridades");
+  console.log(this.ordenProfesores)
+}
+
+
+
+
 
   cargarArchivo(archivos: any, idArticulo: number): void {
     let archivo = archivos.files
