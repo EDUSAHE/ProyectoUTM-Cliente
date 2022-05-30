@@ -81,7 +81,6 @@ export class ArticulosComponent implements OnInit {
       $('#ActualizarArticulo').modal({ dismissible: false });
       $('#ActualizarArticulo').modal('open');
      this.ArticuloActual=articuloM;
-
   }
 //Actualiza la Publicacion
 ActualizarP(articulo:any){

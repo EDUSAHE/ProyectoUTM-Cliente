@@ -38,8 +38,7 @@
 								class="material-icons left">edit</i>Modificar</a>
                     </div>
                     <div class="col s12">
-                        <a class="waves-effect waves-light btn-small" style="margin-right: 10px;"><i
-								class="material-icons left">edit</i>Prioridad</a>
+                        <a class="waves-effect waves-light btn-small" style="margin-right: 10px;" (click)="ModalPrioridades(articulo.profesores)"><i class=" material-icons left">edit</i>Prioridad</a>
                     </div>
                     <div class="col s12">
                         <a class="waves-effect waves-light btn-small"><i
@@ -50,7 +49,7 @@
             <td>
                 <div class="row">
                     <div class="col s12">
-                        <a class="icono-archivo" *ngFor="let archivo of articulo.archivos" href="{{urlArchivos}}/{{archivo.idArchivoYArticulo}}.{{archivo.extension}}" target="_blank">
+                        <a class="icono-archivo" *ngFor="let archivo of articulo.archivos " href="{{urlArchivos}}/{{archivo.idArchivoYArticulo}}.{{archivo.extension}}" target="_blank">
                             <i class="material-icons medium">{{archivo.icono}}</i>
                         </a>
                     </div>
@@ -91,7 +90,7 @@
                 <tr *ngFor="let profesor of ordenProfesores;let indice1=index" style="list-style: circle">
                     <th>
                         <select [(ngModel)]='profesor.pos' class="browser-default" value="Congreso">
-							<option *ngFor="let profesor of ordenProfesores;let indice=index">{{indice+1}} </option>
+							<option *ngFor="let profesor of ordenProfesores;let indice=index ">{{indice+1}} </option>
 
 						</select>
                     </th>
@@ -103,15 +102,16 @@
 
 
             </table>
+            <br>
             <div class="row">
                 <div class="col s6 center">
-                    <th><a class="modal-action modal-close waves-effect waves-green btn-flat" (click)="MostrarOrden()">Guardar</a></th>
-                    <th><a style="float:right" class="modal-action modal-close waves-effect waves-green btn-flat">Regresar</a></th>
-
-
+                    <a class="modal-action modal-close waves-effect btn-large" (click)="MostrarOrden()"><i
+						class="material-icons">save</i>Guardar</a>
                 </div>
-
-
+                <div class="col s6 center">
+                    <a class="modal-action modal-close waves-effect btn-large"><i
+						class="material-icons">cancel</i>Regresar</a>
+                </div>
             </div>
         </div>
     </div>
@@ -131,9 +131,9 @@
         <div style="border: .5px solid #78909c; padding: 10px;">
             <div class="row">
 
-                <div class="col s12" style="margin-bottom: 1rem;">
+                <div class="col s12 " style="margin-bottom: 1rem;">
                     <label>Congreso/Revista/Libro/Cap Libro</label>
-                    <select class="browser-default" value="Congreso">
+                    <select [(ngModel)]="ArticuloActual.tipoCRL" class="browser-default">
 						<option>Congreso</option>
 						<option>Revista</option>
 						<option>Libro</option>
@@ -154,35 +154,29 @@
 
                 <div class="col s12" style="margin-bottom: 1rem;">
                     <label>Indexada</label>
-                    <select class="browser-default" value="No">
+                    <select [(ngModel)]="ArticuloActual.indexada" class="browser-default" value="No">
 						<option>No</option>
 						<option>Si</option>
 						<option>JCR</option>
 					</select>
-
-
                 </div>
 
                 <div class="col s12" style="margin-bottom: 1rem;">
                     <label>Nacinal/Internacional</label>
-                    <select class="browser-default" value="Nacional">
+                    <select [(ngModel)]="ArticuloActual.tipoNI" class="browser-default" value="Nacional">
 						<option>Nacional</option>
 						<option>Internacional</option>
 					</select>
                 </div>
 
                 <div class="input-field col s12">
-
                     <label>Volumen/Capítulo</label>
                     <input [(ngModel)]="ArticuloActual.volumen" required type="text">
-
                 </div>
 
                 <div class="input-field col s12">
-                    <input [(ngModel)]="ArticuloActual.volumen" required type="text">
+                    <input [(ngModel)]="ArticuloActual.numero" required type="text">
                     <label>Número</label>
-
-
                 </div>
 
                 <div class="input-field col s12">
@@ -231,13 +225,13 @@
 
                 <div class="input-field col s12">
                     <label>Ciudad</label>
-                    <input [(ngModel)]="ArticuloActual.cuidad" required type="text">
+                    <input [(ngModel)]="ArticuloActual.ciudad" required type="text">
 
                 </div>
 
                 <div class="col s12" style="margin-bottom: 1rem;">
                     <label>Estado del artículo</label>
-                    <select class="browser-default" value="Enviado">
+                    <select [(ngModel)]="ArticuloActual.estado" class="browser-default" value="Enviado">
 						<option>Enviado</option>
 						<option>Aceptado</option>
 						<option>Publicado</option>
@@ -245,7 +239,7 @@
                 </div>
 
                 <div class="input-field col s12">
-                    <input required type="date">
+                    <input [(ngModel)]="ArticuloActual.fechaedicion" required type="date">
                     <label>Fecha de envío/aceptado/publicado</label>
                 </div>
 
@@ -262,11 +256,6 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="input-field col s12">
-        <input required type="date">
-        <label>Fecha de envío/aceptado/publicado</label>
     </div>
 </div>
 
