@@ -21,6 +21,7 @@ import { ListarArticulosDirComponent } from './components/listar-articulos-dir/l
 import { ListarEventosDirComponent } from './components/listar-eventos-dir/listar-eventos-dir.component';
 import { ListarProfesoresJcComponent } from './components/listar-profesores-jc/listar-profesores-jc.component';
 import { ImprimirArticulosComponent } from './components/imprimir-articulos/imprimir-articulos.component';
+import { ListarComisionesComponent } from './components/listar-comisiones/listar-comisiones.component';
 
 const routes: Routes = [
   {
@@ -114,6 +115,10 @@ const routes: Routes = [
         path: 'listarProfesoresJC',
         component: ListarProfesoresJcComponent
       },
+      {
+        path: 'listarComisionesJC',
+        component: ListarComisionesComponent
+      }
     ]
   }
 ];
