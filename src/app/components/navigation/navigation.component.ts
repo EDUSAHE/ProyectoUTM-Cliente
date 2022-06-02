@@ -15,11 +15,15 @@ export class NavigationComponent implements OnInit {
   constructor(private router: Router, private cambioInfoService: CambioInfoService) {
     this.idProfesor = 0
     this.nivel = 0
+
+    cambioInfoService.currentNivel$.subscribe(mensaje => {
+      console.log('niveeeeel', mensaje)
+      this.nivel = mensaje
+    }, err => console.error(err))
   }
 
   ngOnInit(): void {
     this.idProfesor = Number(localStorage.getItem('idProfesor'))
-    this.nivel = Number(localStorage.getItem('nivel'))
     $(document).ready(function () {
       $('.sidenav').sidenav()
       $(".dropdown-trigger").dropdown({ coverTrigger: false })
@@ -31,7 +35,6 @@ export class NavigationComponent implements OnInit {
     localStorage.removeItem('correo');
     localStorage.removeItem('token');
     localStorage.removeItem('idProfesor');
-    localStorage.removeItem('nivel');
     this.router.navigateByUrl('/');
   }
 

@@ -5,6 +5,7 @@ import { Profesor } from 'src/app/models/profesor.model'
 import { Router } from '@angular/router'
 import Swal from 'sweetalert2'
 import { CorreoService } from 'src/app/services/correo.service'
+import { CambioInfoService } from 'src/app/services/cambio-info.service'
 declare var $: any
 
 @Component({
@@ -18,7 +19,7 @@ export class LoginComponent implements OnInit {
   usuario: Usuario
   profesor: Profesor
 
-  constructor(private usuarioService: UsuarioService, private router: Router, private correoService: CorreoService) {
+  constructor(private usuarioService: UsuarioService, private router: Router, private correoService: CorreoService, private cambioInfoService: CambioInfoService) {
     this.usuario = new Usuario()
     this.profesor = new Profesor()
   }
@@ -33,7 +34,8 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('idProfesor', resProfesor.idProfesor);
         localStorage.setItem('token', resProfesor.token);
         localStorage.setItem('correo', this.usuario.email);
-        localStorage.setItem('nivel', String(resProfesor.nivel));
+        // Pasar nivel
+        this.cambioInfoService.setNivel(Number(resProfesor.nivel))
         this.router.navigateByUrl('/home/generales/' + resProfesor.idProfesor);
       } else {
         Swal.fire({
