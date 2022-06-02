@@ -9,7 +9,7 @@ export class Articulo {
 	doi: string
 	numero: string
 	estadoArticulo: string
-	fechaedicion: string
+	fechaEdicion: string
 	tipoNI: string
 	issnisbn: string
 	anyo: string
@@ -34,7 +34,7 @@ export class Articulo {
 		this.numero = ''
 		this.nombreCRL = ''
 		this.estadoArticulo = ''
-		this.fechaedicion = ''
+		this.fechaEdicion = ''
 		this.tipoNI = 'Nacional'
 		this.issnisbn = ''
 		this.anyo = ''
