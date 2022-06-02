@@ -28,6 +28,8 @@ export class ListarComisionesComponent implements OnInit {
   ngOnInit(): void {
   }
   modificarComision(){
+    if(this.comisionEditar.periodo=="Indefinido")
+      this.comisionEditar.fin="2200-05-03";
     console.log(this.comisionEditar);
   }
 

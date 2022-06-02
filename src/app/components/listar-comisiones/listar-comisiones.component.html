@@ -1,51 +1,49 @@
 <div class="container">
     <h3 class="center-align">Comisiones</h3>
+
     <div class="row">
-        <label for="Busqueda">Busqueda</label>
-        <input type="text">
-    </div>
-    <div class="row">
-        <div class="col s6">
+        <div class="col s4">
+            <label for="Busqueda">Busqueda</label>
+            <input type="text">
+        </div>
+        <div class="col s4">
             <label class="">A partir de:</label>
             <input type="date" [(ngModel)]="fechaInicial">
         </div>
-        <div class="col s6">
+        <div class="col s4">
             <label>Hasta:</label>
             <input type="date" [(ngModel)]="fechaFinal">
         </div>
+        <div class="col s6">
+            <label for="Mostrar">Mostrar</label>
+            <select class="browser-default" [(ngModel)]="eleccion">
+                <option value="1">Por profesor</option>
+                <option value="2">Por comisión</option>
+            </select>
+        </div>
+        <div class="col s6" *ngIf="eleccion==1">
+            <label for="Profesor">Profesor</label>
+            <select class="browser-default">
+                <option value="0">Todos</option>
+                <option *ngFor="let profe of profesores" [value]="profe.idProfesor">{{profe.nombres}}
+                    {{profe.apellidoPaterno}} {{profe.apellidoMaterno}}</option>
+            </select>
+        </div>
     </div>
+
     <div class="row">
-        <label for="Mostrar">Mostrar</label>
-        <select class="browser-default" [(ngModel)]="eleccion">
-			<option value="1">Por profesor</option>
-            <option value="2">Por comisión</option>
-		</select>
+        <div class="col s12">
+            <a class="waves-effect waves-light btn">Buscar</a>
+        </div>
     </div>
+
     <div class="row" *ngIf="eleccion==1">
-        <label for="Profesor">Profesor</label>
-        <select class="browser-default">
-            <option value="0">Todos</option>
-			<option *ngFor="let profe of profesores" [value]="profe.idProfesor">{{profe.nombres}} {{profe.apellidoPaterno}} {{profe.apellidoMaterno}}</option>
-		</select>
-    </div>
-    <div class="col s12 center">
-        <a class="waves-effect waves-light btn-large">Buscar</a>
-    </div>
-    <br>
-    <div class="row" *ngIf="eleccion==1">
-        <table *ngFor="let comisionado of comisionados; let i = index" class="centered">
-            <thead style="background-color: rgb(136, 111, 101)">
+        <table *ngFor="let comisionado of comisionados; let i = index">
+            <thead>
                 <tr>
-                    <th>{{comisionado}}</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
+                    <td colspan="7" class="encabezado_comision">{{comisionado}}</td>
                 </tr>
-            </thead>
-            <thead style="background-color: rgb(160, 160, 160)">
-                <tr>
+                <tr class="encabezados_comision">
                     <th>Nombre</th>
                     <th>Asignación</th>
                     <th>Periodo</th>
@@ -68,20 +66,13 @@
         </table>
     </div>
     <div class="row" *ngIf="eleccion==2">
-        <table *ngFor="let comision of comisiones; let i = index" class="centered">
-            <thead style="background-color: rgb(136, 111, 101)">
+        <table *ngFor="let comision of comisiones; let i = index">
+
+            <thead>
                 <tr>
-                    <th>{{comision}}</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
+                    <td colspan="7" class="encabezado_comision">{{comision}}</td>
                 </tr>
-            </thead>
-            <thead style="background-color: rgb(160, 160, 160)">
-                <tr>
+                <tr class="encabezados_comision">
                     <th>Comisionados</th>
                     <th>Asignación</th>
                     <th>Periodo</th>
@@ -91,7 +82,6 @@
                     <th>Opciones</th>
                 </tr>
             </thead>
-
             <tbody>
                 <tr>
                     <td>
@@ -102,7 +92,8 @@
                     <td>Jefatura</td>
                     <td>Indefinido</td>
                     <td>2016-12-12</td>
-                    <td><a href="#comisiones" class="waves-effect waves-light btn-small modal-trigger" style="margin-right: 12px;"><i class="material-icons">edit</i></a></td>
+                    <td><a href="#comisiones" class="waves-effect waves-light btn-small modal-trigger"
+                            style="margin-right: 12px;"><i class="material-icons">edit</i></a></td>
                     <td></td>
                     <td></td>
                 </tr>
@@ -124,14 +115,16 @@
             <div class="row">
                 <div class="col s12">
                     <label>Nombre</label>
-                    <input required type="text" [(ngModel)]="comisionEditar.nombre" placeholder="Nombre de la comisión" value="comisionEditar.nombre">
+                    <input required type="text" [(ngModel)]="comisionEditar.nombre" placeholder="Nombre de la comisión"
+                        value="comisionEditar.nombre">
                 </div>
             </div>
 
             <div class="row">
                 <div class="col s12">
                     <label>Descripción</label>
-                    <input required type="text" [(ngModel)]="comisionEditar.descripcion" placeholder="Descripción de la comisión" value="comisionEditar.descripcion">
+                    <input required type="text" [(ngModel)]="comisionEditar.descripcion"
+                        placeholder="Descripción de la comisión" value="comisionEditar.descripcion">
                 </div>
             </div>
             <div class="row">
@@ -163,7 +156,8 @@
 
             <div class="row">
                 <div class="col s6 center">
-                    <a (click)="modificarComision()" class="modal-action modal-close waves-effect btn-large">Modificar</a>
+                    <a (click)="modificarComision()"
+                        class="modal-action modal-close waves-effect btn-large">Modificar</a>
 
 
                 </div>

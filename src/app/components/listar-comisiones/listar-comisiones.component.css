@@ -1,0 +1,15 @@
+.encabezado_comision {
+	background-color: #795548;
+	color: white;
+	font-weight: 500;
+}
+
+.encabezados_comision {
+	background-color: #cccccc;
+	border-bottom: none;
+}
+
+.encabezados_comision th {
+	border-radius: 0px;
+	padding: 6px 15px;
+}
