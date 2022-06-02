@@ -3,7 +3,7 @@ import { Profesor } from "./profesor.model"
 
 export class Articulo {
 	idArticulo: number
-	tipoCRL: string
+	tipCLR: string
 	titulo: string
 	nombreCRL: string
 	doi: string
@@ -26,7 +26,7 @@ export class Articulo {
 
 	constructor() {
 		this.idArticulo = 0
-		this.tipoCRL = 'Congreso'
+		this.tipCLR = 'Congreso'
 		this.titulo = ''
 		this.estado = 'Enviado'
 		this.editorial = ''
