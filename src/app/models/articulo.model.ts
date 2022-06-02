@@ -6,6 +6,8 @@ export class Articulo {
 	tipoCRL: string
 	titulo: string
 	nombreCRL: string
+	doi: string
+	numero: string
 	estadoArticulo: string
 	fechaEdicion: string
 	tipoNI: string
@@ -13,20 +15,34 @@ export class Articulo {
 	anyo: string
 	volumen: string
 	paginas: string
+	pais: string
+	estado: string
+	indexada: string
+	editores: string
+	editorial: string
+	ciudad: string
 	profesores: Profesor[]
 	archivos: ArchivoArticulo[]
 
 	constructor() {
 		this.idArticulo = 0
-		this.tipoCRL = 'Revista'
+		this.tipoCRL = 'Congreso'
 		this.titulo = ''
+		this.estado = 'Enviado'
+		this.editorial = ''
+		this.indexada = 'No'
+		this.numero = ''
 		this.nombreCRL = ''
-		this.estadoArticulo = 'Publicado'
-		this.fechaEdicion = '2022-03-09'
+		this.estadoArticulo = ''
+		this.fechaEdicion = ''
 		this.tipoNI = 'Nacional'
-		this.issnisbn = '2342340234234'
+		this.issnisbn = ''
 		this.anyo = ''
+		this.ciudad = ''
+		this.pais = ''
+		this.doi = ''
 		this.volumen = ''
+		this.editores = ''
 		this.paginas = ''
 		this.profesores = []
 		this.archivos = []

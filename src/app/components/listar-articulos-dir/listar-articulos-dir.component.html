@@ -1,48 +1,48 @@
 <div class="container">
-	<h3 class="center-align">Articulos</h3>
-	<div class="row">
-		<label for="profesores">Profesor:</label>
-		<select [(ngModel)]="idProfesor" id="profesores" class="browser-default" (change)="actualizarArticulos()">
+    <h3 class="center-align">Articulos</h3>
+    <div class="row">
+        <label for="profesores">Profesor:</label>
+        <select [(ngModel)]="idProfesor" id="profesores" class="browser-default" (change)="actualizarArticulos()">
 			<option value="-1">Todos</option>
 			<option *ngFor="let profesor of profesores" [value]="profesor.idProfesor">
 				{{profesor.nombres}} {{profesor.apellidoPaterno}} {{profesor.apellidoMaterno}}
 			</option>
 		</select>
-	</div>
+    </div>
 
-	<div class="row">
-		<div class="col s6">
-			<label class="">Fecha Inicial:</label>
-			<input type="date" [(ngModel)]="fechaInicial" (change)="actualizarArticulos()">
-		</div>
-		<div class="col s6">
-			<label>Fecha Final:</label>
-			<input type="date" [(ngModel)]="fechaFinal" (change)="actualizarArticulos()">
-		</div>
-	</div>
+    <div class="row">
+        <div class="col s6">
+            <label class="">Fecha Inicial:</label>
+            <input type="date" [(ngModel)]="fechaInicial" (change)="actualizarArticulos()">
+        </div>
+        <div class="col s6">
+            <label>Fecha Final:</label>
+            <input type="date" [(ngModel)]="fechaFinal" (change)="actualizarArticulos()">
+        </div>
+    </div>
 
-	<table class="centered">
-		<tr>
-			<th>Fecha</th>
-			<th>Título del Artículo</th>
-			<th>Autores</th>
-		</tr>
-		<tr *ngFor="let articulo of articulos | paginate: {
+    <table class="centered">
+        <tr>
+            <th>Fecha</th>
+            <th>Título del Artículo</th>
+            <th>Autores</th>
+        </tr>
+        <tr *ngFor="let articulo of articulos | paginate: {
 		itemsPerPage: 5,
 		currentPage: pages
 		}">
-			<td>{{articulo.fechaEdicion}}</td>
-			<td>{{articulo.titulo}}</td>
-			<td>
-				<ul>
-					<li *ngFor="let profesor of articulo.profesores" style="list-style: circle">
-						{{profesor.nombres}} {{profesor.apellidoPaterno}} {{profesor.apellidoMaterno}}
-					</li>
-				</ul>
-			</td>
-		</tr>
-	</table>
+            <td>{{articulo.fechaEdicion}}</td>
+            <td>{{articulo.titulo}}</td>
+            <td>
+                <ul>
+                    <li *ngFor="let profesor of articulo.profesores" style="list-style: circle">
+                        {{profesor.nombres}} {{profesor.apellidoPaterno}} {{profesor.apellidoMaterno}}
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    </table>
 
-	<pagination-controls (pageChange)="pages=($event)" previousLabel="Anterior" nextLabel="Siguiente">
-	</pagination-controls>
+    <pagination-controls (pageChange)="pages=($event)" previousLabel="Anterior" nextLabel="Siguiente">
+    </pagination-controls>
 </div>

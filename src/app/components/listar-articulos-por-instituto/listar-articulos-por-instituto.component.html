@@ -1,88 +1,102 @@
 <div class="container">
-	<h3 class="center-align">Articulos</h3>
-	<div class="row">
-		<label for="instituto">Instituto</label>
-		<select [(ngModel)]="idInstituto" id="instituto" class="browser-default" (change)="cambioInstituto()">
+
+
+    <h3 class="center-align">Articulos</h3>
+    <div class="row">
+        <label for="instituto">Instituto</label>
+        <select [(ngModel)]="idInstituto" id="instituto" class="browser-default" (change)="cambioInstituto()">
 			<option value="-1">Todos</option>
 			<option *ngFor="let instituto of institutos" [value]="instituto.idInstituto">{{instituto.nombreInstituto}}
 			</option>
 		</select>
-	</div>
-	<div class="row">
-		<label for="profesores">Profesor</label>
-		<select [(ngModel)]="idProfesor" id="profesores" class="browser-default" (change)="actualizarArticulos()">
+    </div>
+    <div class="row">
+        <label for="profesores">Profesor</label>
+        <select [(ngModel)]="idProfesor" id="profesores" class="browser-default" (change)="actualizarArticulos()">
 			<option value="-1">Todos</option>
 			<option *ngFor="let profesor of profesores" [value]="profesor.idProfesor">
 				{{profesor.nombres}} {{profesor.apellidoPaterno}} {{profesor.apellidoMaterno}}
 			</option>
 		</select>
-	</div>
+    </div>
 
-	<div class="row">
-		<div class="col s6">
-			<label class="">Fecha Inicial:</label>
-			<input type="date" [(ngModel)]="fechaInicial" (change)="actualizarArticulos()">
-		</div>
-		<div class="col s6">
-			<label>Fecha Final:</label>
-			<input type="date" [(ngModel)]="fechaFinal" (change)="actualizarArticulos()">
-		</div>
-	</div>
+    <div class="row">
+        <div class="col s6">
+            <label class="">Fecha Inicial:</label>
+            <input type="date" [(ngModel)]="fechaInicial" (change)="actualizarArticulos()">
+        </div>
+        <div class="col s6">
+            <label>Fecha Final:</label>
+            <input type="date" [(ngModel)]="fechaFinal" (change)="actualizarArticulos()">
+        </div>
+    </div>
 
-	<div *ngIf="idInstituto != -1 || idProfesor != -1; else todo">
-		<table class="centered">
-			<tr>
-				<th>Fecha</th>
-				<th>Título del Artículo</th>
-				<th>Autores</th>
-			</tr>
-			<tr *ngFor="let articulo of articulos | paginate: {
+
+
+
+
+    <div *ngIf="idInstituto != -1 || idProfesor != -1; else todo">
+        <table class="centered">
+            <tr>
+                <th>Fecha</th>
+                <th>Título del Artículo</th>
+                <th>Autores</th>
+            </tr>
+            <tr *ngFor="let articulo of articulos | paginate: {
 		itemsPerPage: 5,
 		currentPage: pages
 		}">
-				<td>{{articulo.fechaEdicion}}</td>
-				<td>{{articulo.titulo}}</td>
-				<td>
-					<ul>
-						<li *ngFor="let profesor of articulo.profesores" style="list-style: circle">
-							{{profesor.nombres}} {{profesor.apellidoPaterno}} {{profesor.apellidoMaterno}}
-						</li>
-					</ul>
-				</td>
-			</tr>
-		</table>
 
-		<pagination-controls (pageChange)="pages=($event)" previousLabel="Anterior" nextLabel="Siguiente">
-		</pagination-controls>
-	</div>
-	<ng-template #todo>
-		<ul class="collapsible">
-			<ng-container *ngFor="let articulos of todosArticulos">
-				<li *ngIf="articulos.articulos.length>0">
-					<div class="collapsible-header">{{articulos.nombreInstituto}}</div>
-					<div class="collapsible-body">
-						<table class="centered">
-							<tr>
-								<th>Fecha</th>
-								<th>Título del Artículo</th>
-								<th>Autores</th>
-							</tr>
-							<tr *ngFor="let articulo of articulos.articulos">
-								<td>{{articulo.fechaEdicion}}</td>
-								<td>{{articulo.titulo}}</td>
-								<td>
-									<ul>
-										<li *ngFor="let profesor of articulo.profesores" style="list-style: circle">
-											{{profesor.nombres}} {{profesor.apellidoPaterno}}
-											{{profesor.apellidoMaterno}}
-										</li>
-									</ul>
-								</td>
-							</tr>
-						</table>
-					</div>
-				</li>
-			</ng-container>
-		</ul>
-	</ng-template>
-</div>
+                <td>{{articulo.fechaEdicion}}</td>
+                <td>{{articulo.titulo}}</td>
+
+                <td>
+                    <ul>
+                        <li *ngFor="let profesor of articulo.profesores" style="list-style: circle">
+                            {{profesor.nombres}} {{profesor.apellidoPaterno}} {{profesor.apellidoMaterno}}
+                        </li>
+                    </ul>
+
+
+                </td>
+
+            </tr>
+
+        </table>
+
+        <pagination-controls (pageChange)="pages=($event)" previousLabel="Anterior" nextLabel="Siguiente">
+        </pagination-controls>
+    </div>
+    <ng-template #todo>
+
+        <ul class="collapsible">
+
+            <ng-container *ngFor="let articulos of todosArticulos">
+                <li *ngIf="articulos.articulos.length>0">
+                    <div class="collapsible-header">{{articulos.nombreInstituto}}</div>
+                    <div class="collapsible-body">
+                        <table class="centered">
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Título del Artículo</th>
+                                <th>Autores</th>
+                            </tr>
+                            <tr *ngFor="let articulo of articulos.articulos">
+
+                                <td>{{articulo.fechaEdicion}}</td>
+                                <td>{{articulo.titulo}}</td>
+                                <td>
+                                    <ul>
+
+                                        <li *ngFor="let profesor of articulo.profesores" style="list-style: circle">
+                                            {{profesor.nombres}} {{profesor.apellidoPaterno}} {{profesor.apellidoMaterno}}
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </li>
+            </ng-container>
+        </ul>
+    </ng-template>
