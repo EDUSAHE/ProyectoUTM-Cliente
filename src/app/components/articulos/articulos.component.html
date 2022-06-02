@@ -20,58 +20,50 @@
             <th>Acciones</th>
             <th>Archivos</th>
         </tr>
-        <ng-container *ngFor="let articulo of articulos">
-            <tr>
-                <td colspan="5">{{articulo.titulo}}</td>
-            </tr>
-            <tr>
-                <td colspan="5">
-                    <span *ngFor="let profesor of articulo.profesores" style="list-style: circle">
+        <tr *ngFor="let articulo of articulos">
+            <td>{{articulo.fechaEdicion}}</td>
+            <td>{{articulo.titulo}}</td>
+            <td colspan="5">
+                <ul>
+                    <li *ngFor="let profesor of articulo.profesores" style="list-style: circle">
                         {{profesor.nombres}} {{profesor.apellidoPaterno}} {{profesor.apellidoMaterno}}
                         <a class="waves-effect waves-light btn-small"><i class="material-icons">delete</i></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>{{articulo.fechaEdicion}}</td>
-
-                <td>
-                    <div class="row">
-                        <div class="col s12">
-                            <a class="waves-effect waves-light btn-small" style="margin-right: 10px;"
-                                (click)="ActualizarArticuloModal(articulo)"><i
-                                    class="material-icons left">edit</i>Modificar</a>
-                        </div>
-                        <div class="col s12">
-                            <a class="waves-effect waves-light btn-small" style="margin-right: 10px;"
-                                (click)="ModalPrioridades(articulo.profesores)"><i
-                                    class=" material-icons left">edit</i>Prioridad</a>
-                        </div>
-                        <div class="col s12">
-                            <a class="waves-effect waves-light btn-small"><i
-                                    class="material-icons left">add_circle</i>UTM</a>
-                        </div>
+                    </li>
+                </ul>
+            </td>
+            <td style="width: 160px;">
+                <div class="row">
+                    <div class="col s12">
+                        <a class="waves-effect waves-light btn-small" style="margin-right: 10px;"
+                            (click)="ActualizarArticuloModal(articulo)"><i
+                                class="material-icons left">edit</i>Modificar</a>
                     </div>
-                </td>
-                <td>
-                    <div class="row">
-                        <div class="col s12">
-                            <a class="icono-archivo" *ngFor="let archivo of articulo.archivos "
-                                href="{{urlArchivos}}/{{archivo.idArchivoYArticulo}}.{{archivo.extension}}"
-                                target="_blank">
-                                <i class="material-icons medium">{{archivo.icono}}</i>
-                            </a>
-                        </div>
-                        <div class="col s12">
-
-                            <input type="file" multiple="true"
-                                (change)="cargarArchivo($event.target, articulo.idArticulo)">
-                        </div>
+                    <div class="col s12">
+                        <a class="waves-effect waves-light btn-small" style="margin-right: 10px;"
+                            (click)="ModalPrioridades(articulo.profesores)"><i
+                                class=" material-icons left">edit</i>Prioridad</a>
                     </div>
-                </td>
-            </tr>
+                    <div class="col s12">
+                        <a class="waves-effect waves-light btn-small"><i
+                                class="material-icons left">add_circle</i>UTM</a>
+                    </div>
+                </div>
+            </td>
+            <td style="max-width: 300px;">
+                <div class="row">
+                    <div class="col s12">
+                        <a class="icono-archivo" *ngFor="let archivo of articulo.archivos "
+                            href="{{urlArchivos}}/{{archivo.idArchivoYArticulo}}.{{archivo.extension}}" target="_blank">
+                            <i class="material-icons medium">{{archivo.icono}}</i>
+                        </a>
+                    </div>
+                    <div class="col s12">
 
-        </ng-container>
+                        <input type="file" multiple="true" (change)="cargarArchivo($event.target, articulo.idArticulo)">
+                    </div>
+                </div>
+            </td>
+        </tr>
     </table>
 </div>
 
