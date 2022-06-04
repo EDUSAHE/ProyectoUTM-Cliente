@@ -5,11 +5,9 @@ export class Articulo {
 	idArticulo: number
 	tipCLR: string
 	titulo: string
-	nombreCRL: string
+	nombreCLR: string
 	doi: string
-	numero: string
-	estadoArticulo: string
-	fechaEdicion: string
+	fechaedicion: string
 	tipoNI: string
 	issnisbn: string
 	anyo: string
@@ -21,6 +19,8 @@ export class Articulo {
 	editores: string
 	editorial: string
 	ciudad: string
+	comprobante: string
+	issue: string
 	profesores: Profesor[]
 	archivos: ArchivoArticulo[]
 
@@ -31,10 +31,8 @@ export class Articulo {
 		this.estado = 'Enviado'
 		this.editorial = ''
 		this.indexada = 'No'
-		this.numero = ''
-		this.nombreCRL = ''
-		this.estadoArticulo = ''
-		this.fechaEdicion = ''
+		this.nombreCLR = ''
+		this.fechaedicion = ''
 		this.tipoNI = 'Nacional'
 		this.issnisbn = ''
 		this.anyo = ''
@@ -44,6 +42,8 @@ export class Articulo {
 		this.volumen = ''
 		this.editores = ''
 		this.paginas = ''
+		this.comprobante = ''
+		this.issue = ''
 		this.profesores = []
 		this.archivos = []
 	}

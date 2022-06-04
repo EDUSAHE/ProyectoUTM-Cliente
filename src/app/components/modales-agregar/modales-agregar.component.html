@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="input-field col m6 l6">
                     <i class="material-icons prefix">person</i>
-                    <input [(ngModel)]='profesorNuevo.nombres' type="text" autocomplete="off" id="nombres">
+                    <input [(ngModel)]='profesorNuevo.nombreProfesor' type="text" autocomplete="off" id="nombres">
                     <label for="nombres">Nombres</label>
                 </div>
 
@@ -38,7 +38,7 @@
 
                 <div class="input-field col m6 l6">
                     <i class="material-icons prefix">email</i>
-                    <input [(ngModel)]='profesorNuevo.correoProfesor' type="email" autocomplete="off" id="correo">
+                    <input [(ngModel)]='profesorNuevo.correo' type="email" autocomplete="off" id="correo">
                     <label for="correo">Correo</label>
                 </div>
 
@@ -128,7 +128,7 @@
             </div>
         </div>
 
-        <div class="row col s12">
+        <div class="row col s8">
             <label>Instituto</label>
             <select [(ngModel)]="carreraNueva.idInstituto" class="browser-default">
 				<option *ngFor="let instituto of institutos" [value]="instituto.idInstituto">
@@ -137,7 +137,7 @@
 			</select>
         </div>
 
-        <div class="row col s6">
+        <div class="row col s4">
             <div class="input-field">
                 <i class="material-icons prefix">tag</i>
                 <input [(ngModel)]='carreraNueva.codigoCarrera' id="carrera_codigo" type="text" autocomplete="off">
@@ -150,6 +150,14 @@
                 <i class="material-icons prefix">school</i>
                 <input [(ngModel)]='carreraNueva.nombreCarrera' id="carrera_nombre" type="text" autocomplete="off">
                 <label for="carrera_nombre">Nombre</label>
+            </div>
+        </div>
+
+        <div class="row col s6">
+            <div class="input-field">
+                <i class="material-icons prefix">abc</i>
+                <input [(ngModel)]='carreraNueva.siglas' id="carrera_siglas" type="text" autocomplete="off">
+                <label for="carrera_siglas">Siglas</label>
             </div>
         </div>
 
@@ -181,7 +189,7 @@
             <div class="row">
                 <div class="input-field col m6 l6">
                     <i class="material-icons prefix">person</i>
-                    <input [(ngModel)]='profesorNuevo.nombres' type="text" autocomplete="off" id="nombres-jc">
+                    <input [(ngModel)]='profesorNuevo.nombreProfesor' type="text" autocomplete="off" id="nombres-jc">
                     <label for="nombres-jc">Nombres</label>
                 </div>
 
@@ -205,7 +213,7 @@
 
                 <div class="input-field col m6 l6">
                     <i class="material-icons prefix">email</i>
-                    <input [(ngModel)]='profesorNuevo.correoProfesor' type="email" autocomplete="off" id="correo-jc">
+                    <input [(ngModel)]='profesorNuevo.correo' type="email" autocomplete="off" id="correo-jc">
                     <label for="correo-jc">Correo</label>
                 </div>
 

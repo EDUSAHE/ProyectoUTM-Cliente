@@ -1,29 +1,29 @@
 export class Profesor {
 	idProfesor: number
-	nombres: string
+	nombreProfesor: string
 	apellidoPaterno: string
 	apellidoMaterno: string
-	correoProfesor: string
+	correo: string
 	password: string
-	nivel: string
+	nivel: number
 	idInstituto: number
 	idCarrera: number
 	grado: string
-	idTipoProfesor: number
+	tipo: number
 	nombreApa: string
 
 	constructor() {
 		this.idProfesor = 0
-		this.nombres = ''
+		this.nombreProfesor = ''
 		this.apellidoPaterno = ''
 		this.apellidoMaterno = ''
-		this.correoProfesor = ''
+		this.correo = ''
 		this.password = ''
-		this.nivel = '4'
+		this.nivel = 4
 		this.idCarrera = 0
 		this.idInstituto = -1
 		this.grado = ''
-		this.idTipoProfesor = 1
+		this.tipo = 1
 		this.nombreApa = ''
 	}
 

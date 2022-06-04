@@ -5,7 +5,7 @@
         <select [(ngModel)]="idProfesor" id="profesores" class="browser-default" (change)="actualizarArticulos()">
 			<option value="-1">Todos</option>
 			<option *ngFor="let profesor of profesores" [value]="profesor.idProfesor">
-				{{profesor.nombres}} {{profesor.apellidoPaterno}} {{profesor.apellidoMaterno}}
+				{{profesor.nombreProfesor}} {{profesor.apellidoPaterno}} {{profesor.apellidoMaterno}}
 			</option>
 		</select>
     </div>
@@ -31,12 +31,12 @@
 		itemsPerPage: 5,
 		currentPage: pages
 		}">
-            <td>{{articulo.fechaEdicion}}</td>
+            <td>{{articulo.fechaedicion}}</td>
             <td>{{articulo.titulo}}</td>
             <td>
                 <ul>
                     <li *ngFor="let profesor of articulo.profesores" style="list-style: circle">
-                        {{profesor.nombres}} {{profesor.apellidoPaterno}} {{profesor.apellidoMaterno}}
+                        {{profesor.nombreProfesor}} {{profesor.apellidoPaterno}} {{profesor.apellidoMaterno}}
                     </li>
                 </ul>
             </td>

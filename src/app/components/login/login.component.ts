@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
   logueo(): void {
     this.usuarioService.existe(this.usuario.email, this.usuario.password).subscribe((resProfesor: any) => {
       if (resProfesor != -1) {
-        this.profesor.correoProfesor = this.usuario.email
+        this.profesor.correo = this.usuario.email
         localStorage.setItem('idProfesor', resProfesor.idProfesor);
         localStorage.setItem('token', resProfesor.token);
         localStorage.setItem('correo', this.usuario.email);

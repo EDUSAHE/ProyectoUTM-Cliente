@@ -4,7 +4,7 @@
 
 		<div class="input-field col m6 l6">
 			<i class="material-icons prefix">person</i>
-			<input [(ngModel)]='profesor.nombres' id="nombres" type="text" autocomplete="off">
+			<input [(ngModel)]='profesor.nombreProfesor' id="nombres" type="text" autocomplete="off">
 			<label for="nombres">Nombres</label>
 		</div>
 
@@ -22,7 +22,7 @@
 
 		<div class="input-field col m6 l6">
 			<i class="material-icons prefix">email</i>
-			<input [(ngModel)]='profesor.correoProfesor' id="correo" type="email">
+			<input [(ngModel)]='profesor.correo' id="correo" type="email">
 			<label for="correo">Correo</label>
 		</div>
 
@@ -53,7 +53,7 @@
 		</div>
 
 		<div class="input-field col m6 l6">
-			<select [(ngModel)]='profesor.idTipoProfesor' id="tipo_profesor">
+			<select [(ngModel)]='profesor.tipo' id="tipo_profesor">
 				<option value="" disabled selected>Selecciona un tipo</option>
 				<option value="1">Bueno</option>
 				<option value="2">Muy Bueno</option>
