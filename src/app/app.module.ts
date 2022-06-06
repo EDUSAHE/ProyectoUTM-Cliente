@@ -36,6 +36,7 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { ModalesExportarComponent } from './components/modales-exportar/modales-exportar.component';
 import { ListarComisionesComponent } from './components/listar-comisiones/listar-comisiones.component';
+import { AsignarMateriaComponent } from './components/asignar-materia/asignar-materia.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
 }
@@ -69,7 +70,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ModalesImportarComponent,
     ImprimirArticulosComponent,
     ModalesExportarComponent,
-    ListarComisionesComponent
+    ListarComisionesComponent,
+    AsignarMateriaComponent
   ],
   imports: [
     BrowserModule,

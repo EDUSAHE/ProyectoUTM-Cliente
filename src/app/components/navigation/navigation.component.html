@@ -54,6 +54,14 @@
 					</a>
                 </li>
 
+                <!-- Menús Asignar -->
+                <li *ngIf="nivel==1">
+                    <a class="dropdown-trigger" data-target="dropdown-menu-asignar-vice" href="#">
+						Asignar
+						<i class="material-icons right">arrow_drop_down</i>
+					</a>
+                </li>
+
                 <!-- Menús Imprimir -->
                 <li>
                     <a class="dropdown-trigger" data-target="dropdown-menu-imprimir" href="#">
@@ -148,6 +156,11 @@
             <ul id="dropdown-menu-listar-jc" class="dropdown-content" *ngIf="nivel==3">
                 <li><a href="/home/listarProfesoresJC/">Profesores</a></li>
                 <li><a href="/home/listarComisionesJC/">Comisiones</a></li>
+            </ul>
+
+            <!-- Menús Asignar -->
+            <ul id="dropdown-menu-asignar-vice" class="dropdown-content" *ngIf="nivel==1">
+                <li><a href="/home/asignarMaterias/">Materias</a></li>
             </ul>
 
             <!-- Menús Importar -->

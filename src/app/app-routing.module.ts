@@ -22,6 +22,7 @@ import { ListarEventosDirComponent } from './components/listar-eventos-dir/lista
 import { ListarProfesoresJcComponent } from './components/listar-profesores-jc/listar-profesores-jc.component';
 import { ImprimirArticulosComponent } from './components/imprimir-articulos/imprimir-articulos.component';
 import { ListarComisionesComponent } from './components/listar-comisiones/listar-comisiones.component';
+import { AsignarMateriaComponent } from './components/asignar-materia/asignar-materia.component';
 
 const routes: Routes = [
   {
@@ -96,6 +97,10 @@ const routes: Routes = [
       {
         path: 'listarActividades',
         component: ListarActividadesComponent
+      },
+      {
+        path: 'asignarMaterias',
+        component: AsignarMateriaComponent
       },
       // Director
       {
