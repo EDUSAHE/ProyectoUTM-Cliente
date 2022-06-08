@@ -10,14 +10,52 @@ import { EventoService } from 'src/app/services/evento.service';
 })
 export class EventosComponent implements OnInit {
 
-  idProfesor: number
-  eventos: Evento[]
-  fechaInicial: string
-  fechaFinal: string
+	idProfesor: number;
+
+	eventos: Evento[] = [
+		{
+			idEvento: 0,
+			idProfesor: 1,
+			evento: "Congreso",
+			nombreEvento: "Congreso nacional del gel antibacterial",
+			participacion: "Nacional",
+			lagcCA: "Si",
+			tipoParticipacion: "Asistente",
+			titulo: "Como crear el gel antibacterial",
+			inicio: "2022-06-01",
+			fin: "2022-06-05"
+		},
+		{
+			idEvento: 0,
+			idProfesor: 2,
+			evento: "Taller",
+			nombreEvento: "Pabellón de la informatica del CONALEP",
+			participacion: "Nacional",
+			lagcCA: "Si",
+			tipoParticipacion: "Ponente",
+			titulo: "Programación con Kinect",
+			inicio: "2017-05-30",
+			fin: "2017-05-30"
+		},
+		{
+			idEvento: 0,
+			idProfesor: 3,
+			evento: "Simposium",
+			nombreEvento: "IX Simposium de Software Libre de la Mixteca",
+			participacion: "Nacional",
+			lagcCA: "Si",
+			tipoParticipacion: "Asistente",
+			titulo: "Linux en la vida cotidiana",
+			inicio: "2017-04-26",
+			fin: "2017-04-28"
+		}
+	];
+
+	fechaInicial: string;
+	fechaFinal: string;
 
   constructor(private eventoService: EventoService, private route: ActivatedRoute) {
     this.idProfesor = 0
-    this.eventos = []
     let hoy = new Date()
     this.fechaInicial = `${hoy.getFullYear() - 1}-${('0' + (hoy.getMonth() + 1)).slice(-2)}-${('0' + hoy.getDate()).slice(-2)}`
     this.fechaFinal = `${hoy.getFullYear()}-${('0' + (hoy.getMonth() + 1)).slice(-2)}-${('0' + hoy.getDate()).slice(-2)}`
@@ -32,10 +70,10 @@ export class EventosComponent implements OnInit {
   }
 
   actualizarEventos() {
-    this.eventoService.obtenerEventosProfesor(this.idProfesor, this.fechaInicial, this.fechaFinal).subscribe((eventosRes: any) => {
-      this.eventos = eventosRes
+    // this.eventoService.obtenerEventosProfesor(this.idProfesor, this.fechaInicial, this.fechaFinal).subscribe((eventosRes: any) => {
+    //   this.eventos = eventosRes
 
-    }, err => console.error(err))
+    // }, err => console.error(err))
   }
 
 }

@@ -1,6 +1,6 @@
-function sortTable(n, type) {
+function sortTable(n, type, id) {
 	var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-	table = document.getElementById("myTable");
+	table = document.getElementById(id);
 	dir = "asc";
 	switching = true;
 	while (switching) {

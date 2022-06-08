@@ -1,1 +1,32 @@
-<p>materias works!</p>
+<div class="container">
+	<h3 class="center-align">Materias</h3>
+
+	<div class="row">
+		<div class="col s6">
+			<label class="">Fecha Inicial:</label>
+			<input type="date" [(ngModel)]="fechaInicial">
+		</div>
+		<div class="col s6">
+			<label>Fecha Final:</label>
+			<input type="date" [(ngModel)]="fechaFinal">
+		</div>
+	</div>
+
+	<table id="tablaMaterias">
+		<tr>
+			<th class="intro" onclick="sortTable(0, 'str', 'tablaMaterias')">Materia</th>
+			<th class="intro" onclick="sortTable(1, 'str', 'tablaMaterias')">Grupo</th>
+			<th class="intro" onclick="sortTable(2, 'str', 'tablaMaterias')">Carrera</th>
+			<th class="intro" onclick="sortTable(3, 'str', 'tablaMaterias')">Plan</th>
+			<th class="intro" onclick="sortTable(4, 'str', 'tablaMaterias')">Periodo</th>
+		</tr>
+
+		<tr *ngFor="let materia of materias">
+			<td>{{materia.nombreMateria}}</td>
+			<td>{{materia.grupo}}</td>
+			<td>{{materia.carrera}}</td>
+			<td>{{materia.nombrePlan}}</td>
+			<td>{{materia.periodo}}</td>
+		</tr>
+	</table>
+</div>

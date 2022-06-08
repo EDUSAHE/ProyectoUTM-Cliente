@@ -98,15 +98,14 @@
 				</tr>
 
 				<tr *ngFor="let profesor of ordenProfesores;let indice1=index" style="list-style: circle">
-					<th>
+					<td>
 						<select [(ngModel)]='profesor.pos' class="browser-default" value="Congreso">
 							<option *ngFor="let profesor of ordenProfesores; let indice = index">{{indice+1}}</option>
 						</select>
-					</th>
-					<th>
+					</td>
+					<td>
 						{{profesor.nombre}}
-					</th>
-
+					</td>
 				</tr>
 
 
