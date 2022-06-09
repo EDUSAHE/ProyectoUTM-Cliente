@@ -1,4 +1,4 @@
-export class Comision{
+export class Comision {
     nombre: string;
     descripcion: string;
     idProfesor: number;

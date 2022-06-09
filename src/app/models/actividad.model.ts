@@ -5,8 +5,8 @@ export class Actividad {
 	inicio: string
 	fin: string
 	descripcion: string
-	validado: number
-	comprobante: string
+	// validado: number
+	// comprobante: string
 
 	constructor() {
 		this.idActividad = 0
@@ -15,7 +15,7 @@ export class Actividad {
 		this.inicio = ''
 		this.fin = ''
 		this.descripcion = ''
-		this.validado = 0
-		this.comprobante = ''
+		// this.validado = 0
+		// this.comprobante = ''
 	}
 }
