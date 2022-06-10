@@ -3,6 +3,7 @@ import { Carrera } from 'src/app/models/carrera.model';
 import { Comision } from 'src/app/models/comision.model';
 import { Instituto } from 'src/app/models/instituto.model';
 import { Profesor } from 'src/app/models/profesor.model';
+import { Proyecto } from 'src/app/models/proyecto.model';
 import { CarreraService } from 'src/app/services/carrera.service';
 import { InstitutoService } from 'src/app/services/instituto.service';
 import { ProfesorService } from 'src/app/services/profesor.service';
@@ -22,6 +23,7 @@ export class ModalesAgregarComponent implements OnInit {
   carreras: Carrera[]
   institutos: Instituto[]
   comision: Comision
+  proyecto:Proyecto
 
   constructor(private carreraService: CarreraService, private institutoService: InstitutoService, private profesorService: ProfesorService) {
     this.profesorNuevo = new Profesor()
@@ -31,6 +33,7 @@ export class ModalesAgregarComponent implements OnInit {
     this.carreras = []
     this.institutos = []
     this.comision = new Comision()
+    this.proyecto=new Proyecto()
   }
 
   ngOnInit(): void {
@@ -123,5 +126,10 @@ export class ModalesAgregarComponent implements OnInit {
     if(this.comision.periodo=='Indefinido')
       this.comision.fin="2200-05-03";
     console.log(this.comision);
+  }
+
+  AgregarProyecto(proyect:any): void {
+    console.log("Proyecto");
+    console.log(proyect);
   }
 }

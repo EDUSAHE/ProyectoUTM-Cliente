@@ -303,3 +303,101 @@
         </div>
     </div>
 </div>
+
+
+<!-- Modal Agregar Proyecto -->
+<div id="agregarProyecto" class="modal">
+
+    <div class="modal-content row">
+
+        <!--Titulo-->
+        <div class="row">
+            <h4 class="center-align">Proyecto Nuevo</h4>
+        </div>
+
+        
+
+        <div class="col s12" style="margin-bottom: 1rem;">
+            <label> Estado</label>
+            <select [(ngModel)]="proyecto.estado" class="browser-default">
+                <option value="Iniciado">Iniciado</option>  
+                <option value="Finializado">Finializado</option>
+
+            </select>
+        </div>
+
+
+
+        <div class="col s12" style="margin-bottom: 1rem;">
+            <label> Financiado</label>
+            <select [(ngModel)]="proyecto.financiado" class="browser-default">
+                <option value="Si">Si</option>  
+                <option value="No">No</option>
+
+            </select>
+        </div>
+
+
+
+        <div class="row col s12">
+            <div class="input-field">
+                <input [(ngModel)]='proyecto.porcentajeAvance' id="porcentaje_proyecto" required type="text">
+                <label for="porcentaje_proyecto">Porcentaje de avance</label>
+            </div>
+        </div>
+
+
+        <div class="row col s12">
+            <div class="input-field">
+                <input [(ngModel)]='proyecto.responsable' id="responsable_proyecto" required type="text">
+                <label for="responsable_proyecto">Responsable del proyecto</label>
+            </div>
+        </div>
+
+        <div class="input-field col s12">
+            <input id="inicio_proyecto" [(ngModel)]="proyecto.inicio" required type="date">
+            <label for="inicio_proyecto">Inicio</label>
+        </div>
+
+        <div class="input-field col s12">
+            <input id="fin_proyecto" [(ngModel)]="proyecto.fin" required type="date">
+            <label for="fin_proyecto">Fin</label>
+        </div>
+
+
+        <div class="row col s12">
+            <div class="input-field">
+                <input [(ngModel)]='proyecto.patrocinador' id="patrocinador_proyecto" required type="text">
+                <label for="patrocinador_proyecto">Patrocinador</label>
+            </div>
+        </div>
+
+
+
+        <div class="row col s12">
+            <div class="input-field">
+                <input [(ngModel)]='proyecto.nombreProyecto' id="nombre_proyecto" required type="text">
+                <label for="nombre_proyecto">Nombre del Proyecto</label>
+            </div>
+        </div>
+
+
+
+
+        <!-- Guardar y Cancelar-->
+        <div class="row">
+
+            <div class="col s6 center">
+                <a class="modal-action modal-close waves-effect btn-large" (click)="AgregarProyecto(proyecto)">Guardar</a>
+            </div>
+
+            <div class="col s6 center">
+                <a class="modal-action modal-close waves-effect btn-large">Cancelar</a>
+            </div>
+            
+        </div>
+
+
+    </div>
+
+</div>

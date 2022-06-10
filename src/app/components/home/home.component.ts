@@ -3,7 +3,9 @@ import { Articulo } from 'src/app/models/articulo.model';
 import { Revision } from 'src/app/models/revision.model';
 import { ArticulosService } from 'src/app/services/articulos.service';
 import { CambioInfoService } from 'src/app/services/cambio-info.service';
+import { Patente } from 'src/app/models/patente.model';
 import Swal from 'sweetalert2';
+import { Evento } from 'src/app/models/evento.model';
 
 declare var $: any
 
@@ -21,6 +23,13 @@ export class HomeComponent implements OnInit {
     this.articulo = new Articulo()
     this.revision = new Revision();
 
+  patente: Patente;
+  evento: Evento;
+
+  constructor(private articuloService: ArticulosService, private cambioInfoService: CambioInfoService) {
+    this.articulo = new Articulo()
+    this.patente = new Patente()
+    this.evento=new Evento()
   }
 
   ngOnInit(): void {
@@ -34,10 +43,14 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  agregarArticulo(){ 
+  agregarArticulo() {
     console.log("Agregar Publicacion");
-      $('#agregarArticulo').modal({ dismissible: false });
-      $('#agregarArticulo').modal('open');
+    $('#agregarArticulo').modal({ dismissible: false });
+    $('#agregarArticulo').modal('open');
+  }
+  //creaar la Publicacion
+  crearArticulo(articulos: any) {
+    console.log(articulos)
   }
 
   agregarRevivision(){ 
@@ -58,6 +71,22 @@ crearRevision(){
 
   enviarMensajeArticulo() {
     this.cambioInfoService.enviar('')
+  }
+
+  nuevaPatente() {
+    console.log("Agregar Patente");
+    $('#nuevaPatente').modal({ dismissible: false });
+    $('#nuevaPatente').modal('open');
+  }
+
+  crearPatente(patente: any) {
+    console.log(patente)
+  }
+
+  crearEvento(evento:any){
+    console.log(evento)
+    $('#nuevoEvento').modal({ dismissible: false });
+    $('#nuevoEvento').modal('open');
   }
 
 }
