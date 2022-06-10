@@ -6,6 +6,7 @@ import { CambioInfoService } from 'src/app/services/cambio-info.service';
 import { Patente } from 'src/app/models/patente.model';
 import Swal from 'sweetalert2';
 import { Evento } from 'src/app/models/evento.model';
+import { Actividad } from 'src/app/models/actividad.model';
 
 declare var $: any
 
@@ -20,11 +21,13 @@ export class HomeComponent implements OnInit {
   revision:Revision;
   evento:Evento;
   patente:Patente;
+  actividad :Actividad;
   constructor(private articuloService: ArticulosService, private cambioInfoService: CambioInfoService) {
     this.articulo = new Articulo()
     this.revision = new Revision();
     this.evento=new Evento()
     this.patente= new Patente();
+    this.actividad = new Actividad();
   patente: Patente;
   evento: Evento;
 
@@ -55,6 +58,12 @@ export class HomeComponent implements OnInit {
     console.log("CrearRevision");
       $('#CrearRevision').modal({ dismissible: false });
       $('##CrearRevision').modal('open');
+  }
+  crearActividad(){
+
+    console.log(this.actividad);
+
+    
   }
 
 
