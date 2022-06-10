@@ -321,8 +321,8 @@
             <label> Estado</label>
             <select [(ngModel)]="proyecto.estado" class="browser-default">
                 <option value="Iniciado">Iniciado</option>  
-                <option value="Finializado">Finializado</option>
-
+                <option value="Finializado">En proceso</option>
+                <option value="Finializado">Concluido</option>
             </select>
         </div>
 
@@ -347,12 +347,6 @@
         </div>
 
 
-        <div class="row col s12">
-            <div class="input-field">
-                <input [(ngModel)]='proyecto.responsable' id="responsable_proyecto" required type="text">
-                <label for="responsable_proyecto">Responsable del proyecto</label>
-            </div>
-        </div>
 
         <div class="input-field col s12">
             <input id="inicio_proyecto" [(ngModel)]="proyecto.inicio" required type="date">

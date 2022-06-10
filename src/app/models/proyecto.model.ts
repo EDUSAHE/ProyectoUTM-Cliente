@@ -4,7 +4,6 @@ export class Proyecto {
 	estado: string = 'Iniciado';
 	financiado: string = 'Si';
 	porcentajeAvance: string = '';
-	responsable: string = '';
 	inicio: string = '';
 	fin: string = '';
 	patrocinador: string = '';
