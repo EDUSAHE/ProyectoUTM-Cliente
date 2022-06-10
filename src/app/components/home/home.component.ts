@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Articulo } from 'src/app/models/articulo.model';
+import { Revision } from 'src/app/models/revision.model';
 import { ArticulosService } from 'src/app/services/articulos.service';
 import { CambioInfoService } from 'src/app/services/cambio-info.service';
 import { Patente } from 'src/app/models/patente.model';
 import Swal from 'sweetalert2';
+import { Evento } from 'src/app/models/evento.model';
 
 declare var $: any
 
@@ -15,14 +17,21 @@ declare var $: any
 export class HomeComponent implements OnInit {
 
   articulo: Articulo;
-  patente: Patente;
-
+  revision:Revision;
+  evento:Evento;
+  patente:Patente;
   constructor(private articuloService: ArticulosService, private cambioInfoService: CambioInfoService) {
     this.articulo = new Articulo()
-    this.patente = new Patente()
+    this.revision = new Revision();
+    this.evento=new Evento()
+    this.patente= new Patente();
+  patente: Patente;
+  evento: Evento;
+
   }
 
   ngOnInit(): void {
+    
     $(document).ready(function () {
       $('.fixed-action-btn').floatingActionButton({
         direction: 'left',
@@ -42,6 +51,20 @@ export class HomeComponent implements OnInit {
     console.log(articulos)
   }
 
+  agregarRevivision(){ 
+    console.log("CrearRevision");
+      $('#CrearRevision').modal({ dismissible: false });
+      $('##CrearRevision').modal('open');
+  }
+
+
+
+
+crearRevision(){
+  this.revision.idProfesor=Number(localStorage.getItem('idProfesor'));
+  console.log(this.revision);
+}
+
   enviarMensajeArticulo() {
     this.cambioInfoService.enviar('')
   }
@@ -54,6 +77,12 @@ export class HomeComponent implements OnInit {
 
   crearPatente(patente: any) {
     console.log(patente)
+  }
+
+  crearEvento(evento:any){
+    console.log(evento)
+    $('#nuevoEvento').modal({ dismissible: false });
+    $('#nuevoEvento').modal('open');
   }
 
 }

@@ -17,12 +17,12 @@ export class Evento {
 		this.idEvento = 0
 		this.idProfesor = 0
 		// this.tipoEvento = ''
-		this.evento = ''
+		this.evento = 'Congreso'
 		this.nombreEvento = ''
-		this.participacion = ''
+		this.participacion = 'Nacional'
 		// this.afectaLinea = ''
-		this.lagcCA = ''
-		this.tipoParticipacion = ''
+		this.lagcCA = 'Si'
+		this.tipoParticipacion = 'Asistente'
 		this.titulo = ''
 		this.inicio = ''
 		this.fin = ''
