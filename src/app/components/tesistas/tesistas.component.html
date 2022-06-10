@@ -1,0 +1,63 @@
+<div class="container">
+  
+	<h3 class="center-align">Tesistas</h3>
+
+	<div class="row">
+		<div class="col s6">
+			<label class="">A partir de:</label>
+			<input type="date" [(ngModel)]="fechaInicial">
+		</div>
+		<div class="col s6">
+			<label>Hasta:</label>
+			<input type="date" [(ngModel)]="fechaFinal">
+		</div>
+	</div>
+
+	<table>
+		<ng-container *ngFor="let tesista of tesistas">
+			<tr class="hide-line">
+				<td colspan="6"><b>Tesis:</b> {{tesista.nombreTesis}}</td>
+			</tr>
+
+			<tr class="hide-line">
+				<td colspan="6">
+					<b>Alumno:</b> {{tesista.nombreEstudiante}}
+				</td>
+			</tr>
+
+			<tr class="hide-line">
+				<td colspan="6">
+					<b>Nivel:</b> {{tesista.nivel}}
+				</td>
+			</tr>
+
+			<tr>
+				<td style="width: 10%;">
+					<b>Profesor(es)</b><br><br>
+					<span *ngFor="let prof of tesista.profesores">
+						{{prof.nombreProfesor}}<br>
+					</span>
+				</td>
+				<td style="width: 10%;">
+					<b>Matricula</b><br><br>
+					{{tesista.matricula}}
+				</td>
+				<td style="width: 10%;">
+					<b>Estado</b><br><br>
+					{{tesista.status}}
+				</td>
+				<td style="width: 10%;">
+					<b>Inicio</b><br><br>
+					{{tesista.inicio}}
+				</td>
+				<td style="width: 10%;">
+					<b>Fin</b><br><br>
+					{{tesista.fin}}
+				</td>
+				<td style="width: 10%;">
+					<b>Comprobante</b><br><br>
+				</td>
+			</tr>
+		</ng-container>
+	</table>
+</div>
