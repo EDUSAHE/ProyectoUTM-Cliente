@@ -20,8 +20,11 @@
                 <i class="material-icons">class</i>
             </a>
         </li>
-
-
+        <li>
+            <a href="#nuevaPatente" class="btn-floating black modal-trigger">
+                <i class="material-icons">attach_money</i>
+            </a>
+        </li>
     </ul>
 </div>
 
@@ -146,6 +149,51 @@
             <div class="row">
                 <div class="col s6 center">
                     <a class="modal-action modal-close waves-effect btn-large" (click)="crearArticulo(articulo)">Enviar</a>
+                </div>
+                <div class="col s6 center">
+                    <a class="modal-action modal-close waves-effect btn-large">Cancelar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="nuevaPatente" class="modal">
+    <div class="modal-content">
+        <div class="row" style="margin-bottom: 0px !important;">
+            <div class="col s12">
+                <h3 class="center">Nueva Patente</h3>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: 0px !important;">
+
+        </div>
+        <div style="border: .5px solid #78909c; padding: 10px;">
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="patente_titulo" [(ngModel)]="patente.nombrePatente" required type="text">
+                    <label for="patente_titulo">Nombre de la patente</label>
+                </div>
+                <div class="input-field col s12">
+                    <input id="patente_fechaReg" [(ngModel)]="patente.registro" required type="date">
+                    <label for="patente_fechaReg">Fecha de registro</label>
+                </div>
+                <div class="input-field col s12">
+                    <input id="patente_fechaObt" [(ngModel)]="patente.obtencion" required type="date">
+                    <label for="patente_fechaObt">Fecha de obtención</label>
+                </div>
+                <div class="input-field col s12">
+                    <input id="patente_colaboradores" required type="text">
+                    <label for="patente_colaboradores">Colaboradores</label>
+                </div>
+                <div class="input-field col s12">
+                    <input id="patente_resumen" [(ngModel)]="patente.resumen" required type="text">
+                    <label for="patente_resumen">Resumen</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s6 center">
+                    <a class="modal-action modal-close waves-effect btn-large" (click)="crearPatente(patente)">Enviar</a>
                 </div>
                 <div class="col s6 center">
                     <a class="modal-action modal-close waves-effect btn-large">Cancelar</a>
