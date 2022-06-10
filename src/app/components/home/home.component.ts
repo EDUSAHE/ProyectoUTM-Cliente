@@ -18,18 +18,16 @@ export class HomeComponent implements OnInit {
 
   articulo: Articulo;
   revision:Revision;
-
+  evento:Evento;
+  patente:Patente;
   constructor(private articuloService: ArticulosService, private cambioInfoService: CambioInfoService) {
     this.articulo = new Articulo()
     this.revision = new Revision();
-
+    this.evento=new Evento()
+    this.patente= new Patente();
   patente: Patente;
   evento: Evento;
 
-  constructor(private articuloService: ArticulosService, private cambioInfoService: CambioInfoService) {
-    this.articulo = new Articulo()
-    this.patente = new Patente()
-    this.evento=new Evento()
   }
 
   ngOnInit(): void {
@@ -58,10 +56,8 @@ export class HomeComponent implements OnInit {
       $('#CrearRevision').modal({ dismissible: false });
       $('##CrearRevision').modal('open');
   }
-//creaar la Publicacion
-crearArticulo(articulos:any){
-  console.log(articulos)
-}
+
+
 
 
 crearRevision(){
