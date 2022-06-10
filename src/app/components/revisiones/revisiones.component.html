@@ -1,0 +1,34 @@
+<div class="container">
+	<h3 class="center-align">Revisiones</h3>
+
+	<div class="row">
+		<div class="col s6">
+			<label class="">A partir de:</label>
+			<input type="date" [(ngModel)]="fechaInicial">
+		</div>
+		<div class="col s6">
+			<label>Hasta:</label>
+			<input type="date" [(ngModel)]="fechaFinal">
+		</div>
+	</div>
+
+	<table id="tablaRevisiones">
+		<tr>
+			<th class="intro" onclick="sortTable(0, 'str', 'tablaRevisiones')">Tipo de revisión</th>
+			<th class="intro" onclick="sortTable(1, 'str', 'tablaRevisiones')">Nombre de revista o institución</th>
+			<th class="intro" onclick="sortTable(2, 'str', 'tablaRevisiones')">Fecha de revisión</th>
+			<th class="intro">Título del artículo</th>
+			<th class="intro">Opciones</th>
+		</tr>
+
+		<ng-container *ngFor="let revision of revisiones">
+			<tr>
+				<td>{{revision.tipoRP}}</td>
+				<td>{{revision.nombreRI}}</td>
+				<td>{{revision.fecha}}</td>
+				<td>{{revision.tituloRP}}</td>
+				<td></td>
+			</tr>
+		</ng-container>
+	</table>
+</div>

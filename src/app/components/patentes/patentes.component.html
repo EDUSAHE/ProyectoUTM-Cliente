@@ -1,0 +1,36 @@
+<div class="container">
+	<h3 class="center-align">Patentes</h3>
+
+	<div class="row">
+		<div class="col s6">
+			<label class="">A partir de:</label>
+			<input type="date" [(ngModel)]="fechaInicial">
+		</div>
+		<div class="col s6">
+			<label>Hasta:</label>
+			<input type="date" [(ngModel)]="fechaFinal">
+		</div>
+	</div>
+
+	<table id="tablaPatentes">
+		<tr>
+			<th class="intro" onclick="sortTable(0, 'str', 'tablaPatentes')">Nombre de la patente</th>
+			<th class="intro" onclick="sortTable(1, 'str', 'tablaPatentes')">Fecha de registro</th>
+			<th class="intro">Fecha de obtención</th>
+			<th class="intro">Colaboradores</th>
+			<th class="intro">Resúmen</th>
+			<th class="intro">Opciones</th>
+		</tr>
+
+		<ng-container *ngFor="let patente of patentes">
+			<tr>
+				<td>{{patente.nombrePatente}}</td>
+				<td>{{patente.registro}}</td>
+				<td>{{patente.obtencion}}</td>
+				<td>{{patente.colaboradores}}</td>
+				<td>{{patente.resumen}}</td>
+				<td></td>
+			</tr>
+		</ng-container>
+	</table>
+</div>

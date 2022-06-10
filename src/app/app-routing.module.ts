@@ -23,6 +23,12 @@ import { ListarProfesoresJcComponent } from './components/listar-profesores-jc/l
 import { ImprimirArticulosComponent } from './components/imprimir-articulos/imprimir-articulos.component';
 import { ListarComisionesComponent } from './components/listar-comisiones/listar-comisiones.component';
 import { AsignarMateriaComponent } from './components/asignar-materia/asignar-materia.component';
+import { TesistasComponent } from './components/tesistas/tesistas.component';
+import { TutoradosComponent } from './components/tutorados/tutorados.component';
+import { PatentesComponent } from './components/patentes/patentes.component';
+import { RevisionesComponent } from './components/revisiones/revisiones.component';
+import { ComisionesComponent } from './components/comisiones/comisiones.component';
+import { ProyectosComponent } from './components/proyectos/proyectos.component';
 
 const routes: Routes = [
   {
@@ -62,6 +68,30 @@ const routes: Routes = [
         path: 'actividades/:idProfesor',
         component: ActividadesComponent
       },
+	  {
+		  path: 'tesistas',
+		  component: TesistasComponent
+	  },
+	  {
+		  path: 'tutorados',
+		  component: TutoradosComponent
+	  },
+	  {
+		  path: 'patentes',
+		  component: PatentesComponent
+	  },
+	  {
+		  path: 'revisiones',
+		  component: RevisionesComponent
+	  },
+	  {
+		  path: 'comisiones',
+		  component: ComisionesComponent
+	  },
+	  {
+		  path: 'proyectos',
+		  component: ProyectosComponent
+	  },
       {
         path: 'articulosVice/:idProfesor',
         component: ArticulosViceComponent

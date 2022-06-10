@@ -14,29 +14,20 @@
 
 	<table id="tablaEventos">
 		<tr>
-			<th class="intro">Evento</th>
-			<th class="intro">Tipo de evento</th>
-			<th class="intro">Afecta LAGC del CA</th>
+			<th class="intro" onclick="sortTable(0, 'str', 'tablaEventos')">Nombre</th>
+			<th class="intro" onclick="sortTable(1, 'str', 'tablaEventos')">Titulo</th>
+			<th class="intro" onclick="sortTable(2, 'str', 'tablaEventos')">Tipo de evento</th>
 			<th class="intro" onclick="sortTable(3, 'str', 'tablaEventos')">Tipo de participación</th>
-			<th class="intro" onclick="sortTable(4, 'str', 'tablaEventos')">Participación</th>
-			<th class="intro">Inicio</th>
-			<th class="intro">Fin</th>
+			<th class="intro" onclick="sortTable(4, 'str', 'tablaEventos')">Inicio</th>
 		</tr>
 
 		<ng-container *ngFor="let evento of eventos">
 			<tr>
-				<td>
-					<div>
-						<p><b>Nombre del evento:</b> {{evento.nombreEvento}}</p>
-						<p><b>Titulo del trabajo:</b> {{evento.titulo}}</p>
-					</div>
-				</td>
+				<td>{{evento.nombreEvento}}</td>
+				<td>{{evento.titulo}}</td>
 				<td>{{evento.evento}}</td>
-				<td>{{evento.lagcCA}}</td>
 				<td>{{evento.tipoParticipacion}}</td>
-				<td>{{evento.participacion}}</td>
 				<td>{{evento.inicio}}</td>
-				<td>{{evento.fin}}</td>
 			</tr>
 		</ng-container>
 	</table>

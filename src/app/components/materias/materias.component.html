@@ -12,6 +12,9 @@
 		</div>
 	</div>
 
+	<div class="nombre">
+		<p style="font-size: medium;">{{profesor.nombre}}</p>
+	</div>
 	<table id="tablaMaterias">
 		<tr>
 			<th class="intro" onclick="sortTable(0, 'str', 'tablaMaterias')">Materia</th>
@@ -24,6 +27,18 @@
 		<tr *ngFor="let materia of materias">
 			<td>{{materia.nombreMateria}}</td>
 			<td>{{materia.grupo}}</td>
+			<td>{{materia.carrera}}</td>
+			<td>{{materia.nombrePlan}}</td>
+			<td>{{materia.periodo}}</td>
+		</tr>
+	</table>
+	<div class="multi">
+		<p style="font-family: 'Arial Black'; font-size: 15px;">multi-asignación</p>
+	</div>
+	<table>
+		<tr *ngFor="let materia of materiasMulti">
+			<td>{{materia.nombreMateria}}</td>
+			<td><span *ngFor="let grupo of materia.grupos">{{grupo}}<br></span></td>
 			<td>{{materia.carrera}}</td>
 			<td>{{materia.nombrePlan}}</td>
 			<td>{{materia.periodo}}</td>

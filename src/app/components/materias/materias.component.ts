@@ -8,6 +8,10 @@ import { DatePipe } from '@angular/common';
 })
 export class MateriasComponent implements OnInit {
 
+	profesor = {
+		nombre: "Erik Germán Ramos Pérez"
+	}
+
 	materias: any[] = [
 		{
 			nombreMateria: "Programación web II",
@@ -31,6 +35,19 @@ export class MateriasComponent implements OnInit {
 			periodo: "2022-A"
 		}
 	];
+
+	materiasMulti: any[] = [
+		{
+			nombreMateria: "Programación estructurada",
+			grupos: [
+				"102",
+				"407"
+			],
+			carrera: "Ingeniería en Computación",
+			nombrePlan: "2",
+			periodo: "2022-B"
+		}
+	]
 
 	fechaInicial: string;
 	fechaFinal: string;

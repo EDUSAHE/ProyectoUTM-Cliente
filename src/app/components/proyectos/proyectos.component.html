@@ -1,0 +1,44 @@
+<div class="container">
+	<h3 class="center-align">Proyectos</h3>
+
+	<div class="row">
+		<div class="col s6">
+			<label class="">A partir de:</label>
+			<input type="date" [(ngModel)]="fechaInicial">
+		</div>
+		<div class="col s6">
+			<label>Hasta:</label>
+			<input type="date" [(ngModel)]="fechaFinal">
+		</div>
+	</div>
+
+	<table id="tablaProyectos">
+		<tr>
+			<th class="intro">Estado</th>
+			<th class="intro">Financiado</th>
+			<th class="intro">% de avance</th>
+			<th class="intro">Responsable del proyecto</th>
+			<th class="intro" onclick="sortTable(4, 'str', 'tablaProyectos')">Inicio</th>
+			<th class="intro">Fin</th>
+			<th class="intro">Patrocinador</th>
+			<th class="intro" onclick="sortTable(7, 'str', 'tablaProyectos')">Nombre del proyecto</th>
+			<th class="intro">Colaboradores</th>
+			<th class="intro">Opciones</th>
+		</tr>
+
+		<ng-container *ngFor="let proyecto of proyectos">
+			<tr>
+				<td>{{proyecto.estado}}</td>
+				<td>{{proyecto.financiado}}</td>
+				<td>{{proyecto.porcentajeAvance}}</td>
+				<td>{{proyecto.responsable}}</td>
+				<td>{{proyecto.inicio}}</td>
+				<td>{{proyecto.fin}}</td>
+				<td>{{proyecto.patrocinador}}</td>
+				<td>{{proyecto.nombreProyecto}}</td>
+				<td>{{proyecto.colaboradores}}</td>
+				<td></td>
+			</tr>
+		</ng-container>
+	</table>
+</div>

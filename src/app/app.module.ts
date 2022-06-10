@@ -38,6 +38,12 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { ModalesExportarComponent } from './components/modales-exportar/modales-exportar.component';
 import { ListarComisionesComponent } from './components/listar-comisiones/listar-comisiones.component';
 import { AsignarMateriaComponent } from './components/asignar-materia/asignar-materia.component';
+import { TesistasComponent } from './components/tesistas/tesistas.component';
+import { TutoradosComponent } from './components/tutorados/tutorados.component';
+import { PatentesComponent } from './components/patentes/patentes.component';
+import { RevisionesComponent } from './components/revisiones/revisiones.component';
+import { ComisionesComponent } from './components/comisiones/comisiones.component';
+import { ProyectosComponent } from './components/proyectos/proyectos.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
 }
@@ -72,7 +78,13 @@ export function HttpLoaderFactory(http: HttpClient) {
     ImprimirArticulosComponent,
     ModalesExportarComponent,
     ListarComisionesComponent,
-    AsignarMateriaComponent
+    AsignarMateriaComponent,
+    TesistasComponent,
+    TutoradosComponent,
+    PatentesComponent,
+    RevisionesComponent,
+    ComisionesComponent,
+    ProyectosComponent
   ],
   imports: [
     BrowserModule,
