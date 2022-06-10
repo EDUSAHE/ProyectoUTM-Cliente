@@ -4,6 +4,7 @@ import { ArticulosService } from 'src/app/services/articulos.service';
 import { CambioInfoService } from 'src/app/services/cambio-info.service';
 import { Patente } from 'src/app/models/patente.model';
 import Swal from 'sweetalert2';
+import { Evento } from 'src/app/models/evento.model';
 
 declare var $: any
 
@@ -16,10 +17,12 @@ export class HomeComponent implements OnInit {
 
   articulo: Articulo;
   patente: Patente;
+  evento: Evento;
 
   constructor(private articuloService: ArticulosService, private cambioInfoService: CambioInfoService) {
     this.articulo = new Articulo()
     this.patente = new Patente()
+    this.evento=new Evento()
   }
 
   ngOnInit(): void {
@@ -54,6 +57,12 @@ export class HomeComponent implements OnInit {
 
   crearPatente(patente: any) {
     console.log(patente)
+  }
+
+  crearEvento(evento:any){
+    console.log(evento)
+    $('#nuevoEvento').modal({ dismissible: false });
+    $('#nuevoEvento').modal('open');
   }
 
 }
