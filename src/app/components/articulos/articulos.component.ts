@@ -25,6 +25,7 @@ export class ArticulosComponent implements OnInit {
 	ordenProfesores: any;
 
 	tiposCLR = ["Congreso", "Revista", "Libro", "Cap Libro", "Reporte Técnico"];
+	Profesores =[{nombre:"Juan Lopez",agregado:false,prioridad:1},{nombre:"Carlos Cruz",agregado:false,prioridad:1},{nombre:"David Cruz",agregado:false,prioridad:1},{nombre:"Pedro Lopez",agregado:false,prioridad:1},{nombre:"Alonso perez",agregado:false,prioridad:1},{nombre:"Eduardo Gonzalez",agregado:false,prioridad:1},{nombre:"Pancho Lopez",agregado:false,prioridad:1},{nombre:"Modesto Seara",agregado:false,prioridad:1},{nombre:"Victor Manuel",agregado:false,prioridad:1},{nombre:"Erick Cruz",agregado:false,prioridad:1}];
 
 	constructor(private route: ActivatedRoute, private articulosService: ArticulosService, private cambioInforService: CambioInfoService, private imagenesService: ImagenesService) {
 		this.idProfesor = 0
@@ -121,6 +122,19 @@ export class ArticulosComponent implements OnInit {
 			err => console.error(err))
 	}
 
+	//<!-- Modal AutoresExternos-->
+	ModalAutoresExternos() {
+		console.log("AutoresExternos");
+		$('#AutoresExternos').modal({ dismissible: false });
+		$('#AutoresExternos').modal('open');
+	}
+
+	//<!-- Modal AutoresUTM-->
+		ModalAutoresUTM() {
+			console.log("AutoresUTM");
+			$('#AutoresUTM').modal({ dismissible: false });
+			$('#AutoresUTM').modal('open');
+		}
 
 	//<!-- Modal Prioridades autores Publicacion-->
 	ModalPrioridades(profesores: any) {
@@ -131,12 +145,15 @@ export class ArticulosComponent implements OnInit {
 		console.log(this.profesoresActuales);
 	}
 
+
 	MostrarOrden() {
 		console.log("ordenPrioridades");
 		console.log(this.ordenProfesores)
 	}
 
-
+	AutoresUTM(){
+		console.log(this.Profesores);
+	}
 
 
 
