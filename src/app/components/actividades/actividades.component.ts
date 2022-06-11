@@ -14,7 +14,30 @@ export class ActividadesComponent implements OnInit {
   actividades: Actividad[]
   fechaInicial: string
   fechaFinal: string
+  actividad: any[]=[
+{
+  actividad:"Excursion a IBM",
+  inicio:"2021-10-06",
+  fin:"2022-10-06",
+  descripcion:"Una excursión muy chingona para ver qué onda",
+  validado:"Validado"
+},
+{
+  actividad:"Exposicion Auditorio UTM",
+  inicio:"2021-10-06",
+  fin:"2022-10-06",
+  descripcion:"Ver a papi rector",
+  validado:"No validado"
+},
+{
+  actividad:"Ponencia Sobre Super Computadoras",
+  inicio:"2021-10-06",
+  fin:"2022-10-06",
+  descripcion:"Computadoras vrgas",
+  validado:"Validado"
+},
 
+  ]
   constructor(private actividadService: ActividadService, private route: ActivatedRoute) {
     this.idProfesor = 0
     this.actividades = []

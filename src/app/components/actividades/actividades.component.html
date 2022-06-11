@@ -12,21 +12,21 @@
 		</div>
 	</div>
 
-	<table>
+	<table id="tablaActividades">
 		<tr>
-			<th>Fecha Inicio</th>
-			<th>Fecha Fin</th>
-			<th>Actividad</th>
-			<th>Descripción</th>
-			<th>Validado</th>
+			<th class="intro" onclick="sortTable(0, 'str', 'tablaActividades')">Actividad</th>
+			<th class="intro" >Descripción</th>
+			<th class="intro" onclick="sortTable(1, 'str', 'tablaActividades')">Validado</th>
+			<th class="intro" onclick="sortTable(2, 'str', 'tablaActividades')">Fecha Inicio</th>
+			<th class="intro" onclick="sortTable(3, 'str', 'tablaActividades')">Fecha Fin</th>
 		</tr>
 
-		<tr *ngFor="let actividad of actividades">
-			<td>{{actividad.inicio}}</td>
-			<td>{{actividad.fin}}</td>
-			<td>{{actividad.actividad}}</td>
-			<td>{{actividad.descripcion}}</td>
-			<td>{{actividad.validado}}</td>
+		<tr *ngFor="let activid of actividad">
+			<td>{{activid.actividad}}</td>
+			<td>{{activid.descripcion}}</td>
+			<td>{{activid.validado}}</td>
+			<td>{{activid.inicio}}</td>
+			<td>{{activid.fin}}</td>
 		</tr>
 	</table>
 
