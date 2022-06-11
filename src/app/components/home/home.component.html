@@ -253,11 +253,7 @@
                 </div>
                 <div class="input-field col s12">
                     <input id="patente_fechaObt" [(ngModel)]="patente.obtencion" required type="date">
-                    <label for="patente_fechaObt">Fecha de obtención</label>
-                </div>
-                <div class="input-field col s12">
-                    <input id="patente_colaboradores" required type="text">
-                    <label for="patente_colaboradores">Colaboradores</label>
+                    <label for="patente_fechaObt" min="patente_fechaReg">Fecha de obtención</label>
                 </div>
                 <div class="input-field col s12">
                     <input id="patente_resumen" [(ngModel)]="patente.resumen" required type="text">
