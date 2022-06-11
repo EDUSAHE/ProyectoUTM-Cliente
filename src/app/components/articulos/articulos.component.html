@@ -361,32 +361,138 @@
 
 
 		<div style="border: .5px solid #78909c; padding: 10px;">
+			<!--Tabla Sugerencias -->
 			<table>
-				<tr>
-					<th>Prioridad</th>
-					<th>Nombre</th>
+				<tr >
+					<th><h6>Sugerencias</h6></th>
+					
 				</tr>
 
-				<tr *ngFor="let profesor of ordenProfesores;let indice1=index" style="list-style: circle">
-					<td>
-						<select [(ngModel)]='profesor.pos' class="browser-default" value="Congreso">
-							<option *ngFor="let profesor of ordenProfesores; let indice = index">{{indice+1}}</option>
-						</select>
-					</td>
-					<td>
-						{{profesor.nombre}}
-					</td>
+				<tr *ngFor="let profesor of Profesores2;">
+				
+					<th>
+						<label>
+							<input type="checkbox" [(ngModel)]="profesor.agregado" />
+							<span>Agregar</span>
+						  </label>
+					</th>
+					
+					  
+					<th style=" width:8rem; " > <select [(ngModel)]="profesor.prioridad" class="browser-default" style=" width:8rem; ">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+						<option value="10">10</option>
+					</select></th>
+
+					<th style=" width:16rem;"><label>
+						<h6>{{profesor.nombre}}</h6>
+					  </label>
+
+					</th>
 				</tr>
-
-
 			</table>
+			
 			<br>
 			<div class="row">
-				<div class="col s6 center">
-					<a class="modal-action modal-close waves-effect btn-large" (click)="MostrarOrden()">Guardar</a>
+				<div class="col s12 center" >
+					<a class="modal-action modal-close waves-effect btn-large"style="width:10rem;" (click)="AutoresExternosSugerencias()">Guardar</a>
 				</div>
-				<div class="col s6 center">
-					<a class="modal-action modal-close waves-effect btn-large">Cancelar</a>
+			</div>
+
+
+
+
+
+
+
+			<!--Tabla Buscar autor existente -->
+			<table>
+				<tr >
+					<th><h6>Buscar autor existente</h6></th>
+					
+				</tr>
+
+				<tr>
+					<th style=" width:8rem; " > <select  [(ngModel)]="externoexistente.prioridad" class="browser-default" style=" width:8rem; ">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+						<option value="10">10</option>
+					</select></th>
+					<th style=" width:22rem; " > <select [(ngModel)]="externoexistente.nombre" class="browser-default" style=" width:22rem; ">
+						<option *ngFor="let profesor of Profesores;" value={{profesor.nombre}}>{{profesor.nombre}}</option>
+					</select></th>
+
+					
+				</tr>
+			</table>	
+			<br>
+			<div class="row">
+				<div class="col s12 center" >
+					<a class="modal-action modal-close waves-effect btn-large"style="width:10rem;" (click)="ExternoExistente()">Guardar</a>
+				</div>
+			</div>
+
+<!--Agregar Nuevo autor externo -->
+<table>
+	<tr>
+		<h6>Agregar Nuevo autor externo</h6>
+		
+	</tr>
+	AutorNuevoexterno
+	<tr>
+		<th > <select [(ngModel)]="AutorNuevoexterno.Prioridad" class="browser-default" style=" width:8rem; ">
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+			<option value="6">6</option>
+			<option value="7">7</option>
+			<option value="8">8</option>
+			<option value="9">9</option>
+			<option value="10">10</option>
+		</select>
+		
+	</th>
+	<th class="col s16">
+		<p>Los datos para un autor exxterno incluye el o los nombre y el apellido paterno, para soportar el formato APA</p>
+	</th>
+	
+	</tr>
+	<tr> 
+		<th><h6>Nombre</h6></th>
+		<th><input  [(ngModel)]="AutorNuevoexterno.Nombre" required type="text"></th>	
+	</tr>
+	<tr> 
+		<th><h6>Apellido Paterno</h6></th>
+		<th><input  [(ngModel)]="AutorNuevoexterno.Apellido" required type="text"></th>	
+	</tr>
+	<tr> 
+		<th><h6>Correo</h6></th>
+		<th><input [(ngModel)]="AutorNuevoexterno.Correo" required type="text"></th>	
+	</tr>
+	
+</table>
+
+				
+			<br>
+			<div class="row">
+				<div class="col s12 center" >
+					<a class="modal-action modal-close waves-effect btn-large"style="width:10rem;" (click)="crearNuecoAutorExterno()">Guardar</a>
 				</div>
 			</div>
 		</div>

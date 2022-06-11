@@ -25,8 +25,18 @@ export class ArticulosComponent implements OnInit {
 	ordenProfesores: any;
 
 	tiposCLR = ["Congreso", "Revista", "Libro", "Cap Libro", "Reporte Técnico"];
+	Profesores2 =[{nombre:"Juan Lopez",agregado:false,prioridad:1},{nombre:"Carlos Cruz",agregado:false,prioridad:1},{nombre:"David Cruz",agregado:false,prioridad:1},{nombre:"Pedro Lopez",agregado:false,prioridad:1},{nombre:"Alonso perez",agregado:false,prioridad:1}];
 	Profesores =[{nombre:"Juan Lopez",agregado:false,prioridad:1},{nombre:"Carlos Cruz",agregado:false,prioridad:1},{nombre:"David Cruz",agregado:false,prioridad:1},{nombre:"Pedro Lopez",agregado:false,prioridad:1},{nombre:"Alonso perez",agregado:false,prioridad:1},{nombre:"Eduardo Gonzalez",agregado:false,prioridad:1},{nombre:"Pancho Lopez",agregado:false,prioridad:1},{nombre:"Modesto Seara",agregado:false,prioridad:1},{nombre:"Victor Manuel",agregado:false,prioridad:1},{nombre:"Erick Cruz",agregado:false,prioridad:1}];
-
+	AutorNuevoexterno={
+		Nombre:"",
+		Apellido:"",
+		Correo:"",
+		Prioridad:1,
+	}
+	externoexistente={
+		prioridad:1,
+		nombre:""
+	}
 	constructor(private route: ActivatedRoute, private articulosService: ArticulosService, private cambioInforService: CambioInfoService, private imagenesService: ImagenesService) {
 		this.idProfesor = 0
 		this.articulos = []
@@ -154,8 +164,16 @@ export class ArticulosComponent implements OnInit {
 	AutoresUTM(){
 		console.log(this.Profesores);
 	}
+	AutoresExternosSugerencias(){
+		console.log(this.Profesores2);
+	}
+	crearNuecoAutorExterno(){
+		console.log(this.AutorNuevoexterno);
 
-
+	}
+	ExternoExistente(){
+		console.log(this.externoexistente);
+	}
 
 	cargarArchivo(archivos: any, idArticulo: number): void {
 		let archivo = archivos.files
