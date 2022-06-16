@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ActividadService } from 'src/app/services/actividad.service';
-<<<<<<< Updated upstream
-=======
 import { Carrera } from 'src/app/models/carrera.model';
 import { Instituto } from 'src/app/models/instituto.model';
 import { Profesor } from 'src/app/models/profesor.model';
 import { CarreraService } from 'src/app/services/carrera.service';
->>>>>>> Stashed changes
 import { InstitutoService } from 'src/app/services/instituto.service';
 import { ProfesorService } from 'src/app/services/profesor.service';
 declare var $: any
@@ -50,5 +47,9 @@ export class ActividadesComponent implements OnInit {
         this.actividadService.obtenerActividadesProfesor(this.idProfesor, this.fechaInicial, this.fechaFinal).subscribe((actividadesRes: any) => {
           this.actividades = actividadesRes
         }, err => console.error(err))
+  }
+
+  convertirFecha(fecha: string){
+	  return new Date(fecha).toLocaleDateString("en-CA");
   }
 }
