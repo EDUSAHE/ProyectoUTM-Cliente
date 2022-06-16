@@ -6,11 +6,7 @@ export class Actividad {
 	fin: string
 	descripcion: string
 	validado: string
-<<<<<<< Updated upstream
 	comprobante: string
-=======
-	// comprobante: string
->>>>>>> Stashed changes
 
 	constructor() {
 		this.idActividad = 0
@@ -20,10 +16,6 @@ export class Actividad {
 		this.fin = ''
 		this.descripcion = ''
 		this.validado = ''
-<<<<<<< Updated upstream
 		this.comprobante = ''
-=======
-		// this.comprobante = ''
->>>>>>> Stashed changes
 	}
 }
