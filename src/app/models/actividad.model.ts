@@ -6,7 +6,7 @@ export class Actividad {
 	fin: string
 	descripcion: string
 	validado: number
-	// comprobante: string
+	comprobante: string
 
 	constructor() {
 		this.idActividad = 0
@@ -16,6 +16,6 @@ export class Actividad {
 		this.fin = ''
 		this.descripcion = ''
 		this.validado = 0
-		// this.comprobante = ''
+		this.comprobante = ''
 	}
 }

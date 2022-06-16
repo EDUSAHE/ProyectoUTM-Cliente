@@ -4,4 +4,5 @@ export class Patente {
 	registro: string = '';
 	obtencion: number = 0;
 	resumen: string = '';
+	comprobante: string = '';
 }

@@ -10,7 +10,7 @@ export class ArticulosService {
   constructor(private http: HttpClient) { }
 
   getArticulosByProfesor(idProfesor: number, fechaInicial: string, fechaFinal: string) {
-    return this.http.get(`${environment.API_URI}/articulos/articulosByProfesor/${idProfesor}/${fechaInicial}/${fechaFinal}`);
+    return this.http.get(`${environment.API_URI}/articulos/listArticulosByProfesorByPeriodo/${idProfesor}/${fechaInicial}/${fechaFinal}`);
   }
 
   getArticulosByPeriodo(fechaInicial: any, fechaFinal: any) {

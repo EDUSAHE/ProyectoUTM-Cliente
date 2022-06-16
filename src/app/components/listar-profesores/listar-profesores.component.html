@@ -29,7 +29,7 @@
 					<img src="{{urlImagenes}}/{{profesor.idProfesor}}.png" alt="" class="circle responsive-img">
 				</td>
 				<td>{{profesor.grado}}</td>
-				<td>{{profesor.nombreProfesor}} {{profesor.apellidoPaterno}} {{profesor.apellidoMaterno}}</td>
+				<td>{{profesor.nombreProfesor}}</td>
 				<td>
 					<a href="#editarProfesor" class="waves-effect waves-light btn-small modal-trigger" style="margin-right: 12px;" (click)="profesorEditar=profesores[i]"><i
 							class="material-icons">edit</i></a>
@@ -56,10 +56,10 @@
 				<div class="input-field col m6 l6">
 					<i class="material-icons prefix">person</i>
 					<input [(ngModel)]='profesorEditar.nombreProfesor' type="text" autocomplete="off">
-					<label for="nombres" class="active">Nombres</label>
+					<label for="nombres" class="active">Nombre del profesor</label>
 				</div>
 
-				<div class="input-field col m6 l6">
+				<!-- <div class="input-field col m6 l6">
 					<i class="material-icons prefix">person</i>
 					<input [(ngModel)]='profesorEditar.apellidoPaterno' type="text">
 					<label for="apellidoPaterno" class="active">Apellido Paterno</label>
@@ -69,7 +69,7 @@
 					<i class="material-icons prefix">person</i>
 					<input [(ngModel)]='profesorEditar.apellidoMaterno' type="text">
 					<label for="apellidoMaterno" class="active">Apellido Materno</label>
-				</div>
+				</div> -->
 
 				<div class="input-field col s6">
 					<i class="material-icons prefix">person</i>

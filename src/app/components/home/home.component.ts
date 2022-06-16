@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Articulo } from 'src/app/models/articulo.model';
-import { Revision } from 'src/app/models/revision.model';
+import { Revisor } from 'src/app/models/revisor.model';
+// import { Revision } from 'src/app/models/revision.model';
 import { ArticulosService } from 'src/app/services/articulos.service';
 import { CambioInfoService } from 'src/app/services/cambio-info.service';
 import { Patente } from 'src/app/models/patente.model';
@@ -18,13 +19,13 @@ declare var $: any
 export class HomeComponent implements OnInit {
 
   articulo: Articulo;
-  revision:Revision;
+  revisor:Revisor;
   evento:Evento;
   patente:Patente;
   actividad :Actividad;
   constructor(private articuloService: ArticulosService, private cambioInfoService: CambioInfoService) {
     this.articulo = new Articulo()
-    this.revision = new Revision();
+    this.revisor = new Revisor();
     this.evento=new Evento()
     this.patente= new Patente();
     this.actividad = new Actividad();
@@ -46,7 +47,7 @@ export class HomeComponent implements OnInit {
 
   agregarArticulo() {
     console.log("Agregar Publicacion");
-    $('#agregarArticulo').modal({ dismissible: false });
+    $('#agregarArticulo').modal();
     $('#agregarArticulo').modal('open');
   }
   //creaar la Publicacion
@@ -56,7 +57,7 @@ export class HomeComponent implements OnInit {
 
   agregarRevivision(){ 
     console.log("CrearRevision");
-      $('#CrearRevision').modal({ dismissible: false });
+      $('#CrearRevision').modal();
       $('##CrearRevision').modal('open');
   }
   crearActividad(){
@@ -70,8 +71,8 @@ export class HomeComponent implements OnInit {
 
 
 crearRevision(){
-  this.revision.idProfesor=Number(localStorage.getItem('idProfesor'));
-  console.log(this.revision);
+  this.revisor.idProfesor=Number(localStorage.getItem('idProfesor'));
+  console.log(this.revisor);
 }
 
   enviarMensajeArticulo() {
@@ -80,7 +81,7 @@ crearRevision(){
 
   nuevaPatente() {
     console.log("Agregar Patente");
-    $('#nuevaPatente').modal({ dismissible: false });
+    $('#nuevaPatente').modal();
     $('#nuevaPatente').modal('open');
   }
 
@@ -90,7 +91,7 @@ crearRevision(){
 
   crearEvento(evento:any){
     console.log(evento)
-    $('#nuevoEvento').modal({ dismissible: false });
+    $('#nuevoEvento').modal();
     $('#nuevoEvento').modal('open');
   }
 

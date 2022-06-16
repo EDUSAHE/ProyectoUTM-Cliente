@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
 
   modalCambiarContrasena(): void {
     console.log('Formulario para contraseña')
-    $('#modalCambiarContrasenya').modal({ dismissible: false });
+    $('#modalCambiarContrasenya').modal();
     $('#modalCambiarContrasenya').modal('open');
   }
 

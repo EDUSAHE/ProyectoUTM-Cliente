@@ -29,7 +29,7 @@
 				<td colspan="6">
 					<b>Autores</b><br>
 					<span *ngFor="let profesor of articulo.profesores;">
-						{{profesor.nombreProfesor}} {{profesor.apellidoPaterno}} {{profesor.apellidoMaterno}}
+						{{profesor.nombreProfesor}}
 						<a class="waves-effect waves-teal btn-flat"><i class="tiny material-icons">delete</i></a>
 					</span>
 				</td>
@@ -38,7 +38,7 @@
 			<tr>
 				<td style="width: 10%;">
 					<b>Tipo</b><br><br>
-					{{articulo.tipCLR}}
+					{{articulo.tipoCRL}}
 				</td>
 				<td style="width: 10%;">
 					<b>Estado</b><br><br>

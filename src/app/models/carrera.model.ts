@@ -1,7 +1,7 @@
 export class Carrera {
 	idCarrera: number
-	codigoCarrera: string
 	nombreCarrera: string
+	codigoCarrera: string
 	idInstituto: number
 	siglas: string
 

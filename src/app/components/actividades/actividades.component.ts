@@ -10,7 +10,7 @@ import { ActividadService } from 'src/app/services/actividad.service';
 })
 export class ActividadesComponent implements OnInit {
 
-  idProfesor: number
+  idProfesor: number = 0
   actividades: Actividad[]
   fechaInicial: string
   fechaFinal: string
@@ -39,7 +39,9 @@ export class ActividadesComponent implements OnInit {
 
   ]
   constructor(private actividadService: ActividadService, private route: ActivatedRoute) {
-    this.idProfesor = 0
+    this.route.paramMap.subscribe(params => {
+		this.idProfesor = Number(params.get('idProfesor'))
+	})
     this.actividades = []
     let hoy = new Date()
     this.fechaInicial = `${hoy.getFullYear() - 1}-${('0' + (hoy.getMonth() + 1)).slice(-2)}-${('0' + hoy.getDate()).slice(-2)}`
@@ -47,14 +49,11 @@ export class ActividadesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
-      this.idProfesor = Number(params.get('idProfesor'))
-
-      this.actualizarActividades()
-    })
+	this.actualizarActividades()
   }
 
   actualizarActividades() {
+	  console.log(this.idProfesor)
     this.actividadService.obtenerActividadesProfesor(this.idProfesor, this.fechaInicial, this.fechaFinal).subscribe((eventosRes: any) => {
       this.actividades = eventosRes
 
