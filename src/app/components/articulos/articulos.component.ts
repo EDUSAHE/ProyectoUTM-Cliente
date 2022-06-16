@@ -15,7 +15,7 @@ declare var $: any
 export class ArticulosComponent implements OnInit {
 
 	idProfesor: number
-	articulos: Articulo[]
+	articulos: any[]
 	fileToUpload: any
 	fechaInicial: string
 	fechaFinal: string

@@ -18,13 +18,19 @@
                         </td>
                     </tr>
 
+					<tr class="hide-line">
+                        <td colspan="6">
+							<b>Título: </b> {{articulo.titulo}}
+                        </td>
+                    </tr>
+
                     <tr class="hide-line">
                         <td colspan="6">
-                            <b>Autores</b><br>
-                            <span *ngFor="let profesor of articulo.profesores;">
-						{{profesor.nombreProfesor}}
-						<a class="waves-effect waves-teal btn-flat"><i class="tiny material-icons">delete</i></a>
-					</span>
+                            <b>Autores:</b><br>
+                            <span *ngFor="let profesor of articulo.autores;">
+								{{profesor.nombreProfesor}}
+								<a class="waves-effect waves-teal btn-flat"><i class="tiny material-icons">delete</i></a>
+							</span>
                         </td>
                     </tr>
 
