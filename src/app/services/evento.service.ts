@@ -10,20 +10,27 @@ export class EventoService {
 
   constructor(private http: HttpClient) { }
 
-  agregarEvento(evento: Evento) {
-    return this.http.post(`${environment.API_URI}/eventos/create`, evento)
+  // agregarEvento(evento: Evento) {
+  //   return this.http.post(`${environment.API_URI}/eventos/create`, evento)
+  // }
+
+  // obtenerEventosProfesor(idProfesor: number, fechaIni: string, fechafin: string) {
+  //   return this.http.get(`${environment.API_URI}/eventos/eventosByProfesor/${idProfesor}/${fechaIni}/${fechafin}`)
+  // }
+
+  // obtenerEventosInstituto(idInstituto: number, fechaIni: string, fechafin: string) {
+  //   return this.http.get(`${environment.API_URI}/eventos/eventosByInstituto/${idInstituto}/${fechaIni}/${fechafin}`)
+  // }
+
+  // obtenerEventosCarrera(idCarrera: number, fechaIni: string, fechafin: string) {
+  //   return this.http.get(`${environment.API_URI}/eventos/eventosByCarrera/${idCarrera}/${fechaIni}/${fechafin}`)
+  // }
+
+  // Servicios solicitados al servidor
+
+  listEventosByPeriodo(idProfesor:number, fechaIni:any, fechaFin:any){
+    return this.http.get(`${environment.API_URI}/eventos/listEventosByPeriodo/${idProfesor}/${fechaIni}/${fechaFin}`);
   }
 
-  obtenerEventosProfesor(idProfesor: number, fechaIni: string, fechafin: string) {
-    return this.http.get(`${environment.API_URI}/eventos/eventosByProfesor/${idProfesor}/${fechaIni}/${fechafin}`)
-  }
-
-  obtenerEventosInstituto(idInstituto: number, fechaIni: string, fechafin: string) {
-    return this.http.get(`${environment.API_URI}/eventos/eventosByInstituto/${idInstituto}/${fechaIni}/${fechafin}`)
-  }
-
-  obtenerEventosCarrera(idCarrera: number, fechaIni: string, fechafin: string) {
-    return this.http.get(`${environment.API_URI}/eventos/eventosByCarrera/${idCarrera}/${fechaIni}/${fechafin}`)
-  }
-
+  
 }
