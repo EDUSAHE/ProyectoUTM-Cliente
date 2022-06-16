@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Articulo } from 'src/app/models/articulo.model';
 import { Revisor } from 'src/app/models/revisor.model';
-// import { Revision } from 'src/app/models/revision.model';
 import { ArticulosService } from 'src/app/services/articulos.service';
 import { CambioInfoService } from 'src/app/services/cambio-info.service';
 import { Patente } from 'src/app/models/patente.model';
 import Swal from 'sweetalert2';
 import { Evento } from 'src/app/models/evento.model';
 import { Actividad } from 'src/app/models/actividad.model';
+import {RevisionesService} from 'src/app/services/revisiones.service'
 
 declare var $: any
 
@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
   evento:Evento;
   patente:Patente;
   actividad :Actividad;
-  constructor(private articuloService: ArticulosService, private cambioInfoService: CambioInfoService) {
+  constructor(private articuloService: ArticulosService, private cambioInfoService: CambioInfoService,private revicionesServices:RevisionesService) {
     this.articulo = new Articulo()
     this.revisor = new Revisor();
     this.evento=new Evento()
@@ -73,6 +73,15 @@ export class HomeComponent implements OnInit {
 
 crearRevision(){
   this.revisor.idProfesor=Number(localStorage.getItem('idProfesor'));
+  
+  this.revicionesServices.createRevision(this.revisor).subscribe(res => {
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Revision  Agregada'
+    })
+  }, err => console.error(err))
+  
   console.log(this.revisor);
 }
 
