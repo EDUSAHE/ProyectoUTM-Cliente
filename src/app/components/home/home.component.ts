@@ -41,6 +41,7 @@ export class HomeComponent implements OnInit {
         direction: 'left',
         hoverEnabled: false
       })
+	  $('.tooltipped').tooltip();
       $('.modal').modal()
     })
   }

@@ -1,63 +1,55 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Actividad } from 'src/app/models/actividad.model';
 import { ActividadService } from 'src/app/services/actividad.service';
-
+import { Carrera } from 'src/app/models/carrera.model';
+import { Instituto } from 'src/app/models/instituto.model';
+import { Profesor } from 'src/app/models/profesor.model';
+import { CarreraService } from 'src/app/services/carrera.service';
+import { InstitutoService } from 'src/app/services/instituto.service';
+import { ProfesorService } from 'src/app/services/profesor.service';
+declare var $: any
 @Component({
   selector: 'app-actividades',
   templateUrl: './actividades.component.html',
   styleUrls: ['./actividades.component.css']
 })
 export class ActividadesComponent implements OnInit {
-
-  idProfesor: number = 0
-  actividades: Actividad[]
+  todasactividades:any=[]
+  idProfesor: number
+  actividades: any[]
   fechaInicial: string
   fechaFinal: string
-  actividad: any[]=[
-{
-  actividad:"Excursion a IBM",
-  inicio:"2021-10-06",
-  fin:"2022-10-06",
-  descripcion:"Una excursión muy chingona para ver qué onda",
-  validado:"Validado"
-},
-{
-  actividad:"Exposicion Auditorio UTM",
-  inicio:"2021-10-06",
-  fin:"2022-10-06",
-  descripcion:"Ver a papi rector",
-  validado:"No validado"
-},
-{
-  actividad:"Ponencia Sobre Super Computadoras",
-  inicio:"2021-10-06",
-  fin:"2022-10-06",
-  descripcion:"Computadoras vrgas",
-  validado:"Validado"
-},
-
-  ]
-  constructor(private actividadService: ActividadService, private route: ActivatedRoute) {
-    this.route.paramMap.subscribe(params => {
-		this.idProfesor = Number(params.get('idProfesor'))
-	})
+  todasActividades: any[]
+  institutos:any=[]
+  idInstituto: number
+  idCarrera: number
+  constructor(private institutoService: InstitutoService, private actividadService: ActividadService, private route: ActivatedRoute) {
     this.actividades = []
+    this.todasActividades = []
+    this.idInstituto = -1
+    this.idCarrera = -1
+    this.idProfesor = -1
+    this.institutos=[]
     let hoy = new Date()
     this.fechaInicial = `${hoy.getFullYear() - 1}-${('0' + (hoy.getMonth() + 1)).slice(-2)}-${('0' + hoy.getDate()).slice(-2)}`
     this.fechaFinal = `${hoy.getFullYear()}-${('0' + (hoy.getMonth() + 1)).slice(-2)}-${('0' + hoy.getDate()).slice(-2)}`
   }
 
   ngOnInit(): void {
-	this.actualizarActividades()
+    this.route.paramMap.subscribe(params => {
+      this.idProfesor = Number(params.get('idProfesor'))
+      this.actualizarActividades()
+    })
   }
 
   actualizarActividades() {
-	  console.log(this.idProfesor)
-    this.actividadService.obtenerActividadesProfesor(this.idProfesor, this.fechaInicial, this.fechaFinal).subscribe((eventosRes: any) => {
-      this.actividades = eventosRes
-
-    }, err => console.error(err))
+        // Mostrar actividades del profesor
+        this.actividadService.obtenerActividadesProfesor(this.idProfesor, this.fechaInicial, this.fechaFinal).subscribe((actividadesRes: any) => {
+          this.actividades = actividadesRes
+        }, err => console.error(err))
   }
 
+  convertirFecha(fecha: string){
+	  return new Date(fecha).toLocaleDateString("en-CA");
+  }
 }
