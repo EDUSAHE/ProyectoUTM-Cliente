@@ -12,5 +12,9 @@
 		display: none;
 	}
 
+	.tooltipped {
+		border-radius: 5px;
+	}
+
 	/* Se puede ocultar todos los elementos que se deseen */
 }
