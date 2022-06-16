@@ -26,4 +26,11 @@ export class EventoService {
     return this.http.get(`${environment.API_URI}/eventos/eventosByCarrera/${idCarrera}/${fechaIni}/${fechafin}`)
   }
 
+  // Servicios solicitados al servidor
+
+  listEventosByPeriodo(idProfesor:number, fechaIni:any, fechaFin:any){
+    return this.http.get(`${environment.API_URI}/eventos/listEventosByPeriodo/${idProfesor}/${fechaIni}/${fechaFin}`);
+  }
+
+  
 }

@@ -10,7 +10,7 @@ export class ArticulosService {
   constructor(private http: HttpClient) { }
 
   getArticulosByProfesor(idProfesor: number, fechaInicial: string, fechaFinal: string) {
-    return this.http.get(`${environment.API_URI}/articulos/articulosByProfesor/${idProfesor}/${fechaInicial}/${fechaFinal}`);
+    return this.http.get(`${environment.API_URI}/articulos/listArticulosByProfesorByPeriodo/${idProfesor}/${fechaInicial}/${fechaFinal}`);
   }
 
   getArticulosByPeriodo(fechaInicial: any, fechaFinal: any) {
@@ -39,6 +39,34 @@ export class ArticulosService {
 
   obtenerTodoDivididoPorFecha(fechaInicial: string, fechaFinal: string) {
     return this.http.get(`${environment.API_URI}/articulos/todoDividido/${fechaInicial}/${fechaFinal}`);
+  }
+
+  // Servicios solicitados al servidor
+
+  listArticulosByProfesorByPeriodo(idProfesor:number, fechaIni:any, fechaFin:any){
+    return this.http.get(`${environment.API_URI}/articulos/listArticulosByProfesorByPeriodo/${idProfesor}/${fechaIni}/${fechaFin}`);
+  }
+
+  // 'profesor' es un JSON con los atributos: 
+  //  idProfesor, pos, esInterno
+  updatePrioridadesOfAutoresByPublicacion(idArticulo:number, profesor:any){
+    return this.http.put(`${environment.API_URI}/profesorYArticulo/updatePrioridadesOfAutoresByPublicacion/${idArticulo}`,profesor);
+  }
+
+  // 'profesor' es un JSON con los atributos:
+  // idProfesor, pos
+  addAutoresUTM(idArticulo:number, profesor:any){
+    return this.http.post(`${environment.API_URI}/profesorYArticulo/addAutoresUTM/${idArticulo}/`,profesor);
+  }
+
+  // 'profesor' es un JSON con los atributos:
+  // correo, nombre, nombreAPA
+  createExterno(idArticulo:number, pos:number, profesor:any){
+    return this.http.post(`${environment.API_URI}/profesorYArticulo/createExterno/${idArticulo}/${pos}`,profesor);
+  }
+
+  getSugerenciasExternoByAutorUTM(idProfesor:number){
+    return this.http.get(`${environment.API_URI}`);
   }
 
 }

@@ -101,15 +101,15 @@ export class ArticulosComponent implements OnInit {
 		this.fechaFinal = `${hoy.getFullYear()}-${('0' + (hoy.getMonth() + 1)).slice(-2)}-${('0' + hoy.getDate()).slice(-2)}`
 
 		this.urlArchivos = environment.URI_ARCHIVOS
-
+		this.obtenerArticulos()
 		cambioInforService.currentMsg$.subscribe(mensaje => {
-			this.obtenerArticulos()
+			
 		}, err => console.error(err))
 	}
 	//desplegar model
 	ActualizarArticuloModal(articulo: Articulo) {
 		this.ArticuloActual = articulo;
-		$('#ActualizarArticulo').modal({ dismissible: false });
+		$('#ActualizarArticulo').modal();
 		$('#ActualizarArticulo').modal('open');
 	}
 	//Actualiza la Publicacion
@@ -118,6 +118,10 @@ export class ArticulosComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		$(document).ready(function () {
+			$('.sidenav').sidenav()
+			$(".dropdown-trigger").dropdown({ coverTrigger: false })
+		  })
 		this.route.paramMap.subscribe(params => {
 			this.idProfesor = Number(params.get('idProfesor'))
 			this.obtenerArticulos()
@@ -135,21 +139,21 @@ export class ArticulosComponent implements OnInit {
 	//<!-- Modal AutoresExternos-->
 	ModalAutoresExternos() {
 		console.log("AutoresExternos");
-		$('#AutoresExternos').modal({ dismissible: false });
+		$('#AutoresExternos').modal();
 		$('#AutoresExternos').modal('open');
 	}
 
 	//<!-- Modal AutoresUTM-->
 		ModalAutoresUTM() {
 			console.log("AutoresUTM");
-			$('#AutoresUTM').modal({ dismissible: false });
+			$('#AutoresUTM').modal();
 			$('#AutoresUTM').modal('open');
 		}
 
 	//<!-- Modal Prioridades autores Publicacion-->
 	ModalPrioridades(profesores: any) {
 		console.log("modalPrioridad");
-		$('#modalPrioridad').modal({ dismissible: false });
+		$('#modalPrioridad').modal();
 		$('#modalPrioridad').modal('open');
 		this.profesoresActuales = profesores;
 		console.log(this.profesoresActuales);

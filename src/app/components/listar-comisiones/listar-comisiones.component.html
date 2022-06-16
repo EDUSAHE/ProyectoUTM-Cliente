@@ -25,8 +25,9 @@
             <label for="Profesor">Profesor</label>
             <select class="browser-default">
                 <option value="0">Todos</option>
-                <option *ngFor="let profe of profesores" [value]="profe.idProfesor">{{profe.nombreProfesor}}
-                    {{profe.apellidoPaterno}} {{profe.apellidoMaterno}}</option>
+                <option *ngFor="let profe of profesores" [value]="profe.idProfesor">
+					{{profe.nombreProfesor}}
+				</option>
             </select>
         </div>
     </div>

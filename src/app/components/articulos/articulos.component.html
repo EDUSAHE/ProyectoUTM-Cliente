@@ -2,72 +2,67 @@
 
     <h3 class="center-align">Articulos</h3>
 
-    <div class="row">
-        <div class="col s6">
-            <label class="">Fecha Inicial:</label>
-            <input type="date" [(ngModel)]="fechaInicial" (change)="obtenerArticulos()">
-        </div>
-        <div class="col s6">
-            <label>Fecha Final:</label>
-            <input type="date" [(ngModel)]="fechaFinal" (change)="obtenerArticulos()">
-        </div>
-    </div>
-
     <table>
         <ng-container *ngFor="let articulo of articulos">
             <tr class="hide-line">
                 <td colspan="6">
-                    <b class="color-blue">Capturado el {{articulo.fechaedicion}}</b><b class="color-red"> Validado</b>
+                    <!-- <b class="color-blue">Capturado el {{articulo.fechaedicion}}</b><b class="color-red"> Validado</b> -->
                 </td>
             </tr>
 
-            <tr class="hide-line">
-                <td colspan="6"><b>Titulo:</b> {{articulo.titulo}}<br></td>
-            </tr>
+            <table>
+                <ng-container *ngFor="let articulo of articulos">
+                    <tr class="hide-line">
+                        <td colspan="6">
+                            <b class="color-blue">Capturado el {{articulo.fechaedicion}}</b><b class="color-red"> Validado</b>
+                        </td>
+                    </tr>
 
-            <tr class="hide-line">
-                <td colspan="6">
-                    <b>Autores</b><br>
-                    <span *ngFor="let profesor of articulo.profesores;">
-						{{profesor.nombreProfesor}} {{profesor.apellidoPaterno}} {{profesor.apellidoMaterno}}
+                    <tr class="hide-line">
+                        <td colspan="6">
+                            <b>Autores</b><br>
+                            <span *ngFor="let profesor of articulo.profesores;">
+						{{profesor.nombreProfesor}}
 						<a class="waves-effect waves-teal btn-flat"><i class="tiny material-icons">delete</i></a>
 					</span>
-                </td>
-            </tr>
+                        </td>
+                    </tr>
 
-            <tr>
-                <td style="width: 10%;">
-                    <b>Tipo</b><br><br> {{articulo.tipCLR}}
-                </td>
-                <td style="width: 10%;">
-                    <b>Estado</b><br><br> {{articulo.estado}}
-                </td>
-                <td style="width: 10%;">
-                    <b>Año</b><br><br> {{articulo.anyo}}
-                </td>
-                <td style="width: 20%;">
-                    <b>Modificar</b><br><br>
-                    <a href="javascript: void(0);" class="space" (click)="ActualizarArticuloModal(articulo)"><i
+                    <tr>
+                        <td style="width: 10%;">
+                            <b>Tipo</b><br><br> {{articulo.tipoCRL}}
+                        </td>
+                        <td style="width: 10%;">
+                            <b>Estado</b><br><br> {{articulo.estado}}
+                        </td>
+                        <td style="width: 10%;">
+                            <b>Año</b><br><br> {{articulo.anyo}}
+                        </td>
+                        <td style="width: 20%;">
+                            <b>Modificar</b><br><br>
+                            <a href="javascript: void(0);" class="space" (click)="ActualizarArticuloModal(articulo)"><i
 							class="material-icons">edit</i>Editar</a>
-                    <a href="javascript: void(0);" (click)="ModalPrioridades(articulo.profesores)">
-                        <i class="material-icons">edit</i>Prioridades</a>
-                </td>
-                <td style="width: 20%;">
-                    <b>Agregar</b><br><br>
-                    <a href="javascript: void(0);" class="space" (click)="ModalAutoresUTM()"><i class="material-icons">add</i>UTM</a>
-                    <a href="javascript: void(0);" (click)="ModalAutoresExternos()"><i class="material-icons" >add</i>Externo</a>
-                </td>
-                <td>
-                    <b>Opciones</b><br><br>
-                    <a href="javascript: void(0);" class="space">
-                        <i class="material-icons">edit</i>Modificar</a>
-                    <a href="javascript: void(0);" class="space">
-                        <i class="material-icons">delete</i>Eliminar</a>
-                    <a class="icono-archivo" *ngFor="let archivo of articulo.archivos" href="{{urlArchivos}}/{{archivo.idArchivoYArticulo}}.{{archivo.extension}}" target="_blank">
-                        <i class="material-icons small">{{archivo.icono}}</i>
-                    </a>
-                </td>
-            </tr>
+                            <a href="javascript: void(0);" (click)="ModalPrioridades(articulo.profesores)">
+                                <i class="material-icons">edit</i>Prioridades</a>
+                        </td>
+                        <td style="width: 20%;">
+                            <b>Agregar</b><br><br>
+                            <a href="javascript: void(0);" class="space" (click)="ModalAutoresUTM()"><i class="material-icons">add</i>UTM</a>
+                            <a href="javascript: void(0);" (click)="ModalAutoresExternos()"><i class="material-icons" >add</i>Externo</a>
+                        </td>
+                        <td>
+                            <b>Opciones</b><br><br>
+                            <a href="javascript: void(0);" class="space">
+                                <i class="material-icons">edit</i>Modificar</a>
+                            <a href="javascript: void(0);" class="space">
+                                <i class="material-icons">delete</i>Eliminar</a>
+                            <a class="icono-archivo" *ngFor="let archivo of articulo.archivos" href="{{urlArchivos}}/{{archivo.idArchivoYArticulo}}.{{archivo.extension}}" target="_blank">
+                                <i class="material-icons small">{{archivo.icono}}</i>
+                            </a>
+                        </td>
+                    </tr>
+                </ng-container>
+            </table>
         </ng-container>
     </table>
 </div>

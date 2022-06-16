@@ -26,4 +26,11 @@ export class ActividadService {
     return this.http.get(`${environment.API_URI}/actividades/actividadesByCarrera/${idCarrera}/${fechaIni}/${fechafin}`)
   }
 
+  // Servicios solicitados al servidor
+
+  listActividadesByProfesorByPeriodo(idProfesor:number, fechaIni:any, fechaFin:any){
+    return this.http.get(`${environment.API_URI}/actividades/listActividadesByProfesorByPeriodo/${idProfesor}/${fechaIni}/${fechaFin}`);
+  }
+
+
 }

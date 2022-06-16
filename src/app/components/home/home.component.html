@@ -10,33 +10,39 @@
     </a>
     <ul>
         <li>
-            <a href="#agregarArticulo" class="btn-floating black modal-trigger">
+            <a href="#agregarArticulo" class="btn-floating tooltipped black modal-trigger"
+				data-position="top" data-tooltip="Publicación">
                 <i class="material-icons">create</i>
             </a>
           
         </li>
         <li>
-            <a href="#agregarRevivision" class="btn-floating black modal-trigger">
+            <a href="#agregarRevivision" class="btn-floating tooltipped black modal-trigger"
+				data-position="top" data-tooltip="Revisión">
                     <i class="material-icons">assignment_turned_in</i>
             </a>
         </li>
         <li>
-            <a href="#agregarProyecto" class="btn-floating black modal-trigger">
+            <a href="#agregarProyecto" class="btn-floating tooltipped black modal-trigger"
+				data-position="top" data-tooltip="Proyecto">
                 <i class="material-icons">class</i>
             </a>
         </li>
         <li>
-            <a href="#nuevaPatente" class="btn-floating black modal-trigger">
+            <a href="#nuevaPatente" class="btn-floating tooltipped black modal-trigger"
+				data-position="top" data-tooltip="Patente">
                 <i class="material-icons">attach_money</i>
             </a>
         </li>
         <li>
-            <a href="#nuevoEvento" class="btn-floating black modal-trigger">
+            <a href="#nuevoEvento" class="btn-floating tooltipped black modal-trigger"
+				data-position="top" data-tooltip="Evento">
                 <i class="material-icons">assignment_late</i>
             </a>
         </li>
         <li>
-            <a href="#nuevaActividad" class="btn-floating black modal-trigger">
+            <a href="#nuevaActividad" class="btn-floating tooltipped black modal-trigger"
+				data-position="top" data-tooltip="Actividad">
                 <i class="material-icons">directions_run</i>
             </a>
         </li>
@@ -59,7 +65,7 @@
 
                 <div class="col s12" style="margin-bottom: 1rem;">
                     <label>Congreso/Revista/Libro/Cap Libro</label>
-                    <select [(ngModel)]="articulo.tipCLR" class="browser-default">
+                    <select [(ngModel)]="articulo.tipoCRL" class="browser-default">
 						<option value="Congreso">Congreso</option>
 						<option value="Revista">Revista</option>
 						<option value="Libro">Libro</option>
@@ -74,7 +80,7 @@
                 </div>
 
                 <div class="input-field col s12">
-                    <input id="articulo_nombreCRL" [(ngModel)]="articulo.nombreCLR" required type="text">
+                    <input id="articulo_nombreCRL" [(ngModel)]="articulo.nombreCRL" required type="text">
                     <label for="articulo_nombreCRL">Nombre del Congreso/Revista/Libro/Institución</label>
                 </div>
 
@@ -192,7 +198,7 @@
                 <tbody>
                   <tr>
                     <h6>Tipo de revisión</h6>
-                    <select [(ngModel)]="revision.tipoRp"  class="browser-default" >
+                    <select [(ngModel)]="revisor.tipoRP"  class="browser-default" >
 						<option value="Artículo">Articulo</option>
 						<option value="Proyecto">Proyecto</option>
 
@@ -202,17 +208,17 @@
                   </tr>
                   <tr>
                     <h6>Nombre de revista o institución</h6>
-                    <input type="text" [(ngModel)]="revision.nombreRI">
+                    <input type="text" [(ngModel)]="revisor.nombreRI">
                   
                   </tr>
                   <tr>
                      <h6>Fecha</h6>
-                    <input type="date" [(ngModel)]="revision.fecha">
+                    <input type="date" [(ngModel)]="revisor.fecha">
                     
                   </tr>
                   <tr>
                     <h6>Título de artículo</h6>
-                    <input type="text" [(ngModel)]="revision.tituloRP">
+                    <input type="text" [(ngModel)]="revisor.tituloRP">
                     
                   </tr>
 
@@ -277,7 +283,7 @@
     <div class="modal-content">
         <div class="row" style="margin-bottom: 0px !important;">
             <div class="col s12">
-                <h3 class="center">Evento Nuevo </h3>
+                <h3 class="center">Nuevo Evento</h3>
             </div>
         </div>
         <div class="row" style="margin-bottom: 0px !important;">
@@ -287,13 +293,12 @@
             <div class="row">
                 <div class="col s12" style="margin-bottom: 1rem;">
                     <label>Evento</label>
-                    <select [(ngModel)]="evento.evento" class="browser-default">
+                    <select [(ngModel)]="evento.tipoEvento" class="browser-default">
 						<option value="Congreso">Congreso</option>
                         <option value="Curso">Curso</option>
                         <option value="Seminario">Seminario</option>
 						<option value="Taller">Taller</option>
 						<option value="Simposium">Simposium</option>
-						
 					</select>
                 </div>
                 <div class="input-field col s12">
@@ -311,7 +316,7 @@
 
                 <div class="col s12" style="margin-bottom: 1rem;">
                     <label>LAGC del CA</label>
-                    <select [(ngModel)]="evento.lagcCA" class="browser-default">
+                    <select [(ngModel)]="evento.afectaLinea" class="browser-default">
 						<option value="Si">Si</option>
 						<option value="No">No</option>
 					</select>

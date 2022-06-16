@@ -7,5 +7,6 @@ export class Tesista {
 	fin: string = '';
 	nombreTesis: string = '';
 	nombreEstudiante: string = '';
-	nivel: string = '';
+	nivel: number = 0;
+	comprobante: string = '';
 }

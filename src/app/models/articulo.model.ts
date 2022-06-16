@@ -3,35 +3,35 @@ import { Profesor } from "./profesor.model"
 
 export class Articulo {
 	idArticulo: number
-	tipCLR: string
+	tipoCRL: string
 	titulo: string
-	nombreCLR: string
-	doi: string
+	nombreCRL: string
+	estado: string
 	fechaedicion: string
 	tipoNI: string
 	issnisbn: string
-	anyo: string
 	volumen: string
 	paginas: string
-	pais: string
-	estado: string
-	indexada: string
-	editores: string
-	editorial: string
-	ciudad: string
+	anyo: string
+	doi: string
 	comprobante: string
+	indexada: string
 	issue: string
+	editores: string
+	ciudad: string
+	pais: string
+	editorial: string
 	profesores: Profesor[]
 	archivos: ArchivoArticulo[]
 
 	constructor() {
 		this.idArticulo = 0
-		this.tipCLR = 'Congreso'
+		this.tipoCRL = 'Congreso'
 		this.titulo = ''
 		this.estado = 'Enviado'
 		this.editorial = ''
 		this.indexada = 'No'
-		this.nombreCLR = ''
+		this.nombreCRL = ''
 		this.fechaedicion = ''
 		this.tipoNI = 'Nacional'
 		this.issnisbn = ''

@@ -15,7 +15,7 @@
 			<select [(ngModel)]="idProfesor" id="profesores" class="browser-default" (change)="actualizarArticulos()">
 				<option value="-1">Todos</option>
 				<option *ngFor="let profesor of profesores" [value]="profesor.idProfesor">
-					{{profesor.nombreProfesor}} {{profesor.apellidoPaterno}} {{profesor.apellidoMaterno}}
+					{{profesor.nombreProfesor}}
 				</option>
 			</select>
 		</div>
