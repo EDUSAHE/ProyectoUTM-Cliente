@@ -15,7 +15,7 @@ export class PatentesService {
 
   // Servicios solicitados al Servidor
   listPatentesByProfesorByPeriodo(idProfesor:number, fechaIni:any, fechaFin:any){
-    return this.http.get(`${environment.API_URI}/`);
+    return this.http.get(`${environment.API_URI}/patentes/listPatentesByProfesorByPeriodo/${idProfesor}/${fechaIni}/${fechaFin}`);
   }
 
   listColaboradoresExternosPatentes(idProfesor:number){
