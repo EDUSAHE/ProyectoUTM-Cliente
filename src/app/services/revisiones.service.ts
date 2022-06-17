@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Revision } from '../models/revision.model';
+import { Revisor } from '../models/revisor.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,4 +15,15 @@ export class RevisionesService {
   listRevisionByProfesor(idProfesor:number, fechaIni:any, fechaFin:any){
     return this.http.get(`${environment.API_URI}/revisor`);
   }
+
+  createRevision(revision:Revisor){
+    return this.http.post(`${environment.API_URI}/revisor/create`,revision);
+  }
+
+  // Servicios solicitados al servidor
+
+  listRevisionByPeriodo(idProfesor:number, fechaIni:any, fechaFin:any){
+    return this.http.get(`${environment.API_URI}/revisor/listRevisionByProfesor/${idProfesor}/${fechaIni}/${fechaFin}`);
+  }
+
 }

@@ -9,6 +9,9 @@ import { Patente } from '../models/patente.model';
 export class PatentesService {
 
   constructor(private http: HttpClient) { }
+  guardarPatente(patente:Patente){
+    return this.http.post(`${environment.API_URI}/patentes/create`, patente);
+  }
 
   // Servicios solicitados al Servidor
   listPatentesByProfesorByPeriodo(idProfesor:number, fechaIni:any, fechaFin:any){
