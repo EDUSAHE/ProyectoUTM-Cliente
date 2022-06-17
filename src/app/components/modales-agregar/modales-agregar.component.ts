@@ -128,8 +128,4 @@ export class ModalesAgregarComponent implements OnInit {
     console.log(this.comision);
   }
 
-  AgregarProyecto(proyect:any): void {
-    console.log("Proyecto");
-    console.log(proyect);
-  }
 }

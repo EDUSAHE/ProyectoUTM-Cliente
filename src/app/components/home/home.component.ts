@@ -11,7 +11,8 @@ import {RevisionesService} from 'src/app/services/revisiones.service'
 import {EventoService} from  'src/app/services/evento.service'
 import {ActividadService} from 'src/app/services/actividad.service'
 import { PatentesService } from 'src/app/services/patentes.service';
-
+import { Proyecto } from 'src/app/models/proyecto.model';
+import {ProyectosService} from 'src/app/services/proyectos.service';
 declare var $: any
 
 @Component({
@@ -20,18 +21,19 @@ declare var $: any
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
+  proyecto:Proyecto
   articulo: Articulo;
   revisor:Revisor;
   evento:Evento;
   patente:Patente;
   actividad :Actividad;
-  constructor(private articuloService: ArticulosService, private cambioInfoService: CambioInfoService,private revicionesServices:RevisionesService,private enventoServices:EventoService, private patenteServices:PatentesService, private actividadServices:ActividadService) {
+  constructor(private proyectoService:ProyectosService,private articuloService: ArticulosService, private cambioInfoService: CambioInfoService,private revicionesServices:RevisionesService,private enventoServices:EventoService, private patenteServices:PatentesService, private actividadServices:ActividadService) {
     this.articulo = new Articulo()
     this.revisor = new Revisor();
     this.evento=new Evento()
     this.patente= new Patente();
     this.actividad = new Actividad();
+    this.proyecto=new Proyecto()
   patente: Patente;
   evento: Evento;
   let hoy = new Date();
@@ -48,7 +50,7 @@ export class HomeComponent implements OnInit {
         direction: 'left',
         hoverEnabled: false
       })
-	  $('.tooltipped').tooltip({delay:50});
+    $('.tooltipped').tooltip({delay:50});
       $('.modal').modal()
     })
   }
@@ -61,7 +63,7 @@ export class HomeComponent implements OnInit {
   //creaar la Publicacion
   crearArticulo(articulos: any) {
     console.log(articulos)
-	$('#agregarArticulo').modal('close');
+  $('#agregarArticulo').modal('close');
   }
 
   agregarRevivision(){ 
@@ -141,5 +143,19 @@ crearRevision(){
     }, err => console.error(err))
     
     console.log(this.evento)
+  }
+  
+  AgregarProyecto(): void {
+
+
+    this.proyectoService.agregarProyecto(this.proyecto).subscribe(res => {
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Proyecto   Agregado'
+      })
+    }, err => console.error(err))
+    
+    console.log(this.proyecto)
   }
 }
