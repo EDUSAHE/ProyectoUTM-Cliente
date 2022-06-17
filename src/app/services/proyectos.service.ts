@@ -11,7 +11,11 @@ export class ProyectosService {
 
   constructor(private http: HttpClient) { }
 
+<<<<<<< HEAD
   agreagarProyecto(proyecto:any){
+=======
+  agregarProyecto(proyecto:any){
+>>>>>>> 946bcc072208465c92adb61a43aaac495814080e
 
     return this.http.post(`${environment.API_URI}/proyectos/create`,proyecto);
   }
