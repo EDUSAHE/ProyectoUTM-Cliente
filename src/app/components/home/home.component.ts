@@ -10,6 +10,8 @@ import { Actividad } from 'src/app/models/actividad.model';
 import {RevisionesService} from 'src/app/services/revisiones.service'
 import {EventoService} from  'src/app/services/evento.service'
 import {ActividadService} from 'src/app/services/actividad.service'
+import { PatentesService } from 'src/app/services/patentes.service';
+
 declare var $: any
 
 @Component({
@@ -24,7 +26,7 @@ export class HomeComponent implements OnInit {
   evento:Evento;
   patente:Patente;
   actividad :Actividad;
-  constructor(private articuloService: ArticulosService, private cambioInfoService: CambioInfoService,private revicionesServices:RevisionesService,private enventoServices:EventoService,private actividadServices:ActividadService) {
+  constructor(private articuloService: ArticulosService, private cambioInfoService: CambioInfoService,private revicionesServices:RevisionesService,private enventoServices:EventoService, private patenteServices:PatentesService, private actividadServices:ActividadService) {
     this.articulo = new Articulo()
     this.revisor = new Revisor();
     this.evento=new Evento()
@@ -32,6 +34,10 @@ export class HomeComponent implements OnInit {
     this.actividad = new Actividad();
   patente: Patente;
   evento: Evento;
+  let hoy = new Date();
+    this.patente.registro = hoy.getFullYear() + '-' + ((hoy.getMonth() + 1) < 10 ? '0' + (hoy.getMonth() + 1) : '' + (hoy.getMonth() + 1)) + '-' + (hoy.getDate() < 10 ? '0' + hoy.getDate() : '' + hoy.getDate());
+    this.patente.obtencion = hoy.getFullYear() + '-' + ((hoy.getMonth() + 1) < 10 ? '0' + (hoy.getMonth() + 1) : '' + (hoy.getMonth() + 1)) + '-' + ((hoy.getDate()) < 9 ? '0' + (hoy.getDate()+1) : '' + (hoy.getDate()+1));
+    this.articulo.fechaedicion = hoy.getFullYear() + '-' + ((hoy.getMonth() + 1) < 10 ? '0' + (hoy.getMonth() + 1) : '' + (hoy.getMonth() + 1)) + '-' + (hoy.getDate() < 10 ? '0' + hoy.getDate() : '' + hoy.getDate());
 
   }
 
@@ -91,7 +97,23 @@ crearRevision(){
   }
 
   crearPatente(patente: any) {
-    console.log(patente)
+    if (this.patente.registro < this.patente.obtencion) {
+      this.patenteServices.guardarPatente(this.patente).subscribe((resUsuario: any) =>
+      {
+      }, err => console.error(err));
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Registro nueva patente'
+      })
+    }
+    else {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Fecha de obtención debe de ser posterior'
+      })
+    }
   }
 
   crearEvento(){

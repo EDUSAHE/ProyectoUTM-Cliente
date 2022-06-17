@@ -10,39 +10,39 @@
     </a>
     <ul>
         <li>
-            <a href="#agregarArticulo" class="btn-floating tooltipped black modal-trigger"
-				data-position="top" data-tooltip="Publicación">
+            <a href="#agregarArticulo" class="btn-floating tooltipped black modal-trigger" data-position="top"
+                data-tooltip="Publicación">
                 <i class="material-icons">create</i>
             </a>
-          
+
         </li>
         <li>
-            <a href="#agregarRevivision" class="btn-floating tooltipped black modal-trigger"
-				data-position="top" data-tooltip="Revisión">
-                    <i class="material-icons">assignment_turned_in</i>
+            <a href="#agregarRevivision" class="btn-floating tooltipped black modal-trigger" data-position="top"
+                data-tooltip="Revisión">
+                <i class="material-icons">assignment_turned_in</i>
             </a>
         </li>
         <li>
-            <a href="#agregarProyecto" class="btn-floating tooltipped black modal-trigger"
-				data-position="top" data-tooltip="Proyecto">
+            <a href="#agregarProyecto" class="btn-floating tooltipped black modal-trigger" data-position="top"
+                data-tooltip="Proyecto">
                 <i class="material-icons">class</i>
             </a>
         </li>
         <li>
-            <a href="#nuevaPatente" class="btn-floating tooltipped black modal-trigger"
-				data-position="top" data-tooltip="Patente">
+            <a href="#nuevaPatente" class="btn-floating tooltipped black modal-trigger" data-position="top"
+                data-tooltip="Patente">
                 <i class="material-icons">attach_money</i>
             </a>
         </li>
         <li>
-            <a href="#nuevoEvento" class="btn-floating tooltipped black modal-trigger"
-				data-position="top" data-tooltip="Evento">
+            <a href="#nuevoEvento" class="btn-floating tooltipped black modal-trigger" data-position="top"
+                data-tooltip="Evento">
                 <i class="material-icons">assignment_late</i>
             </a>
         </li>
         <li>
-            <a href="#nuevaActividad" class="btn-floating tooltipped black modal-trigger"
-				data-position="top" data-tooltip="Actividad">
+            <a href="#nuevaActividad" class="btn-floating tooltipped black modal-trigger" data-position="top"
+                data-tooltip="Actividad">
                 <i class="material-icons">directions_run</i>
             </a>
         </li>
@@ -58,178 +58,184 @@
             </div>
         </div>
         <div style="border: .5px solid #78909c; padding: 10px;">
-			<form (ngSubmit)="crearArticulo(articulo)" ngNativeValidate>
-				<div class="row">
-					<div class="col s12" style="margin-bottom: 1rem;">
-						<label>Congreso/Revista/Libro/Cap Libro</label>
-						<select name="tipoCRL" [(ngModel)]="articulo.tipoCRL" class="browser-default">
-							<option value="Congreso">Congreso</option>
-							<option value="Revista">Revista</option>
-							<option value="Libro">Libro</option>
-							<option value="Cap Libro">Cap Libro</option>
-							<option value="Reporte Técnico">Reporte Técnico</option>
-						</select>
-					</div>
-	
-					<div class="input-field col s12">
-						<input name="titulo" id="articulo_titulo" [(ngModel)]="articulo.titulo" required type="text">
-						<label for="articulo_titulo">Titulo del Artículo</label>
-					</div>
-	
-					<div class="input-field col s12">
-						<input name="nombreCRL" id="articulo_nombreCRL" [(ngModel)]="articulo.nombreCRL" required type="text">
-						<label for="articulo_nombreCRL">Nombre del Congreso/Revista/Libro/Institución</label>
-					</div>
-	
-					<div class="col s12" style="margin-bottom: 1rem;">
-						<label>Indexada</label>
-						<select name="indexada" [(ngModel)]="articulo.indexada" class="browser-default">
-							<option value="No">No</option>
-							<option value="Si">Si</option>
-							<option value="JRC">JCR</option>
-						</select>
-					</div>
-	
-					<div class="col s12" style="margin-bottom: 1rem;">
-						<label>Nacinal/Internacional</label>
-						<select name="tipoNI" [(ngModel)]="articulo.tipoNI" class="browser-default">
-							<option value="Nacional">Nacional</option>
-							<option value="Internacional">Internacional</option>
-						</select>
-					</div>
-	
-					<div class="input-field col s12">
-						<input name="volumen" id="articulo_volumen" [(ngModel)]="articulo.volumen" required type="text">
-						<label for="articulo_volumen">Volumen/Capítulo</label>
-					</div>
-	
-					<div class="input-field col s12">
-						<input name="paginas" id="articulo_paginas" [(ngModel)]="articulo.paginas" required type="text">
-						<label for="articulo_paginas">Páginas</label>
-					</div>
-	
-					<div class="input-field col s12">
-						<input name="anyo" id="articulo_anyo" [(ngModel)]="articulo.anyo" required type="text">
-						<label for="articulo_anyo">Año</label>
-					</div>
-	
-					<div class="input-field col s12">
-						<input name="issnisbn" id="articulo_issnisbn" [(ngModel)]="articulo.issnisbn" required type="text">
-						<label for="articulo_issnisbn">Código ISSN/ISBN</label>
-					</div>
-	
-					<div class="input-field col s12">
-						<input name="doi" id="articulo_doi" [(ngModel)]="articulo.doi" required type="text">
-						<label for="articulo_doi">Doi</label>
-					</div>
-	
-					<div class="input-field col s12">
-						<input name="editores" id="articulo_editores" [(ngModel)]="articulo.editores" required type="text">
-						<label for="articulo_editores">Editores</label>
-					</div>
-	
-					<div class="input-field col s12">
-						<input name="editorial" id="articulo_editorial" [(ngModel)]="articulo.editorial" required type="text">
-						<label for="articulo_editorial">Editorial</label>
-					</div>
-	
-					<div class="input-field col s12">
-						<input name="pais" id="articulo_pais" [(ngModel)]="articulo.pais" required type="text">
-						<label for="articulo_pais">País</label>
-					</div>
-	
-					<div class="input-field col s12">
-						<input name="ciudad" id="articulo_ciudad" [(ngModel)]="articulo.ciudad" required type="text">
-						<label for="articulo_ciudad">Ciudad</label>
-					</div>
-	
-					<div class="col s12" style="margin-bottom: 1rem;">
-						<label>Estado del artículo</label>
-						<select name="estado" [(ngModel)]="articulo.estado" class="browser-default" value="Enviado">
-							<option value="Enviado">Enviado</option>
-							<option value="Aceptado">Aceptado</option>
-							<option value="Publicado">Publicado</option>
-						</select>
-					</div>
-	
-					<div class="input-field col s12">
-						<input name="fechaedi" id="carrera_fechaedicion" [(ngModel)]="articulo.fechaedicion" required type="date">
-						<label for="carrera_fechaedicion">Fecha de envío/aceptado/publicado</label>
-					</div>
-	
-				</div>
-	
-				<div class="row">
-					<div class="col s6 center">
-						<input type="submit" class="waves-effect btn-large brown lighten-3" value="Enviar">
-					</div>
-					<div class="col s6 center">
-						<a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text">Cancelar</a>
-					</div>
-				</div>
-			</form>
+            <form (ngSubmit)="crearArticulo(articulo)" ngNativeValidate>
+                <div class="row">
+                    <div class="col s12" style="margin-bottom: 1rem;">
+                        <label>Congreso/Revista/Libro/Cap Libro</label>
+                        <select name="tipoCRL" [(ngModel)]="articulo.tipoCRL" class="browser-default">
+                            <option value="Congreso">Congreso</option>
+                            <option value="Revista">Revista</option>
+                            <option value="Libro">Libro</option>
+                            <option value="Cap Libro">Cap Libro</option>
+                            <option value="Reporte Técnico">Reporte Técnico</option>
+                        </select>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <input name="titulo" id="articulo_titulo" [(ngModel)]="articulo.titulo" required type="text">
+                        <label for="articulo_titulo">Titulo del Artículo</label>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <input name="nombreCRL" id="articulo_nombreCRL" [(ngModel)]="articulo.nombreCRL" required
+                            type="text">
+                        <label for="articulo_nombreCRL">Nombre del Congreso/Revista/Libro/Institución</label>
+                    </div>
+
+                    <div class="col s12" style="margin-bottom: 1rem;">
+                        <label>Indexada</label>
+                        <select name="indexada" [(ngModel)]="articulo.indexada" class="browser-default">
+                            <option value="No">No</option>
+                            <option value="Si">Si</option>
+                            <option value="JRC">JCR</option>
+                        </select>
+                    </div>
+
+                    <div class="col s12" style="margin-bottom: 1rem;">
+                        <label>Nacinal/Internacional</label>
+                        <select name="tipoNI" [(ngModel)]="articulo.tipoNI" class="browser-default">
+                            <option value="Nacional">Nacional</option>
+                            <option value="Internacional">Internacional</option>
+                        </select>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <input name="volumen" id="articulo_volumen" [(ngModel)]="articulo.volumen" required type="text">
+                        <label for="articulo_volumen">Volumen/Capítulo</label>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <input name="paginas" id="articulo_paginas" [(ngModel)]="articulo.paginas" required type="text">
+                        <label for="articulo_paginas">Páginas</label>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <input name="anyo" id="articulo_anyo" [(ngModel)]="articulo.anyo" required type="text">
+                        <label for="articulo_anyo">Año</label>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <input name="issnisbn" id="articulo_issnisbn" [(ngModel)]="articulo.issnisbn" required
+                            type="text">
+                        <label for="articulo_issnisbn">Código ISSN/ISBN</label>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <input name="doi" id="articulo_doi" [(ngModel)]="articulo.doi" required type="text">
+                        <label for="articulo_doi">Doi</label>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <input name="editores" id="articulo_editores" [(ngModel)]="articulo.editores" required
+                            type="text">
+                        <label for="articulo_editores">Editores</label>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <input name="editorial" id="articulo_editorial" [(ngModel)]="articulo.editorial" required
+                            type="text">
+                        <label for="articulo_editorial">Editorial</label>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <input name="pais" id="articulo_pais" [(ngModel)]="articulo.pais" required type="text">
+                        <label for="articulo_pais">País</label>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <input name="ciudad" id="articulo_ciudad" [(ngModel)]="articulo.ciudad" required type="text">
+                        <label for="articulo_ciudad">Ciudad</label>
+                    </div>
+
+                    <div class="col s12" style="margin-bottom: 1rem;">
+                        <label>Estado del artículo</label>
+                        <select name="estado" [(ngModel)]="articulo.estado" class="browser-default" value="Enviado">
+                            <option value="Enviado">Enviado</option>
+                            <option value="Aceptado">Aceptado</option>
+                            <option value="Publicado">Publicado</option>
+                        </select>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <input name="fechaedi" id="carrera_fechaedicion" [(ngModel)]="articulo.fechaedicion" required
+                            type="date">
+                        <label for="carrera_fechaedicion">Fecha de envío/aceptado/publicado</label>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col s6 center">
+                        <input type="submit" class="waves-effect btn-large brown lighten-3" value="Enviar">
+                    </div>
+                    <div class="col s6 center">
+                        <a
+                            class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text">Cancelar</a>
+                    </div>
+                </div>
+            </form>
         </div>
 
-		
+
     </div>
 </div>
 
 
 <!-- Modal Crear Revision -->
 <div id="agregarRevivision" class="modal">
-	<div class="modal-content" >
+    <div class="modal-content">
 
-		<div class="row" style="margin-bottom: 0px !important;">
-			<div class="col s12">
-				<h3 class="center">Nueva Revisión</h3>
-			</div>
-		</div>
+        <div class="row" style="margin-bottom: 0px !important;">
+            <div class="col s12">
+                <h3 class="center">Nueva Revisión</h3>
+            </div>
+        </div>
 
 
-		<div style="border: .5px solid #78909c; padding: 10px;">
-			<table class="striped">
-               
-        
+        <div style="border: .5px solid #78909c; padding: 10px;">
+            <table class="striped">
+
+
                 <tbody>
-                  <tr>
-                    <h6>Tipo de revisión</h6>
-                    <select [(ngModel)]="revisor.tipoRP"  class="browser-default" >
-						<option value="Artículo">Articulo</option>
-						<option value="Proyecto">Proyecto</option>
+                    <tr>
+                        <h6>Tipo de revisión</h6>
+                        <select [(ngModel)]="revisor.tipoRP" class="browser-default">
+                            <option value="Artículo">Articulo</option>
+                            <option value="Proyecto">Proyecto</option>
 
-					</select>
-                   
-                    
-                  </tr>
-                  <tr>
-                    <h6>Nombre de revista o institución</h6>
-                    <input type="text" [(ngModel)]="revisor.nombreRI">
-                  
-                  </tr>
-                  <tr>
-                     <h6>Fecha</h6>
-                    <input type="date" [(ngModel)]="revisor.fecha">
-                    
-                  </tr>
-                  <tr>
-                    <h6>Título de artículo</h6>
-                    <input type="text" [(ngModel)]="revisor.tituloRP">
-                    
-                  </tr>
+                        </select>
+
+
+                    </tr>
+                    <tr>
+                        <h6>Nombre de revista o institución</h6>
+                        <input type="text" [(ngModel)]="revisor.nombreRI">
+
+                    </tr>
+                    <tr>
+                        <h6>Fecha</h6>
+                        <input type="date" [(ngModel)]="revisor.fecha">
+
+                    </tr>
+                    <tr>
+                        <h6>Título de artículo</h6>
+                        <input type="text" [(ngModel)]="revisor.tituloRP">
+
+                    </tr>
 
                 </tbody>
-              </table>
-			<br>
-			<div class="row">
-				<div class="col s6 center">
-					<a class="modal-action modal-close waves-effect btn-large" (click)="crearRevision()" >Enviar</a>
-				</div>
-				<div class="col s6 center">
-					<a class="modal-action modal-close waves-effect btn-large">Cancelar</a>
-				</div>
-			</div>
-		</div>
-	</div>
+            </table>
+            <br>
+            <div class="row">
+                <div class="col s6 center">
+                    <a class="modal-action modal-close waves-effect btn-large" (click)="crearRevision()">Enviar</a>
+                </div>
+                <div class="col s6 center">
+                    <a class="modal-action modal-close waves-effect btn-large">Cancelar</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 
@@ -242,37 +248,36 @@
                 <h3 class="center">Nueva Patente</h3>
             </div>
         </div>
-        <div class="row" style="margin-bottom: 0px !important;">
-
-        </div>
         <div style="border: .5px solid #78909c; padding: 10px;">
-            <div class="row">
-                <div class="input-field col s12">
-                    <input id="patente_titulo" [(ngModel)]="patente.nombrePatente" required type="text">
-                    <label for="patente_titulo">Nombre de la patente</label>
+            <form (ngSubmit)="crearPatente(patente)" ngNativeValidate>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input name="nombrePatente" id="patente_titulo" [(ngModel)]="patente.nombrePatente" required type="text">
+                        <label for="patente_titulo">Nombre de la patente</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input name="registroPatente" id="patente_fechaReg" [(ngModel)]="patente.registro" required type="date">
+                        <label for="patente_fechaReg">Fecha de registro</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input name="obtencion" id="patente_fechaObt" [(ngModel)]="patente.obtencion" required type="date">
+                        <label for="patente_fechaObt" min="patente_fechaReg">Fecha de obtención</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input name="resumenPantente" id="patente_resumen" [(ngModel)]="patente.resumen" type="text">
+                        <label for="patente_resumen">Resumen</label>
+                    </div>
                 </div>
-                <div class="input-field col s12">
-                    <input id="patente_fechaReg" [(ngModel)]="patente.registro" required type="date">
-                    <label for="patente_fechaReg">Fecha de registro</label>
-                </div>
-                <div class="input-field col s12">
-                    <input id="patente_fechaObt" [(ngModel)]="patente.obtencion" required type="date">
-                    <label for="patente_fechaObt" min="patente_fechaReg">Fecha de obtención</label>
-                </div>
-                <div class="input-field col s12">
-                    <input id="patente_resumen" [(ngModel)]="patente.resumen" required type="text">
-                    <label for="patente_resumen">Resumen</label>
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="col s6 center">
-                    <a class="modal-action modal-close waves-effect btn-large" (click)="crearPatente(patente)">Enviar</a>
+                <div class="row">
+                    <div class="col s6 center">
+                        <input type="submit" class="waves-effect btn-large brown lighten-3" value="Enviar">
+                    </div>
+                    <div class="col s6 center">
+                        <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text">Cancelar</a>
+                    </div>
                 </div>
-                <div class="col s6 center">
-                    <a class="modal-action modal-close waves-effect btn-large">Cancelar</a>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>
@@ -295,12 +300,12 @@
                 <div class="col s12" style="margin-bottom: 1rem;">
                     <label>Evento</label>
                     <select [(ngModel)]="evento.tipoEvento" class="browser-default">
-						<option value="Congreso">Congreso</option>
+                        <option value="Congreso">Congreso</option>
                         <option value="Curso">Curso</option>
                         <option value="Seminario">Seminario</option>
-						<option value="Taller">Taller</option>
-						<option value="Simposium">Simposium</option>
-					</select>
+                        <option value="Taller">Taller</option>
+                        <option value="Simposium">Simposium</option>
+                    </select>
                 </div>
                 <div class="input-field col s12">
                     <input id="evento_titulo" [(ngModel)]="evento.nombreEvento" required type="text">
@@ -309,27 +314,27 @@
                 <div class="col s12" style="margin-bottom: 1rem;">
                     <label>Participación</label>
                     <select [(ngModel)]="evento.participacion" class="browser-default">
-						<option value="Nacional">Nacional</option>
-						<option value="Internacional">Internacional</option>
-						
-					</select>
+                        <option value="Nacional">Nacional</option>
+                        <option value="Internacional">Internacional</option>
+
+                    </select>
                 </div>
 
                 <div class="col s12" style="margin-bottom: 1rem;">
                     <label>LAGC del CA</label>
                     <select [(ngModel)]="evento.afectaLinea" class="browser-default">
-						<option value="Si">Si</option>
-						<option value="No">No</option>
-					</select>
+                        <option value="Si">Si</option>
+                        <option value="No">No</option>
+                    </select>
                 </div>
 
                 <div class="col s12" style="margin-bottom: 1rem;">
                     <label>Tipo de participación</label>
                     <select [(ngModel)]="evento.tipoParticipacion" class="browser-default">
-						<option value="Asistente">Asistente</option>
-						<option value="Ponente">Ponente</option>
-						
-					</select>
+                        <option value="Asistente">Asistente</option>
+                        <option value="Ponente">Ponente</option>
+
+                    </select>
                 </div>
                 <div class="input-field col s12">
                     <input id="evento_titulotrabajo" [(ngModel)]="evento.titulo" required type="text">
@@ -386,10 +391,10 @@
                     <label for="actividad_inicio">Inicio</label>
                 </div>
                 <div class="input-field col s12">
-                    <input id="actividad_fin" [(ngModel)]="actividad.fin" required type = "date">
+                    <input id="actividad_fin" [(ngModel)]="actividad.fin" required type="date">
                     <label for="actividad_fin">Fin</label>
                 </div>
-              
+
             </div>
 
             <div class="row">
@@ -403,4 +408,3 @@
         </div>
     </div>
 </div>
-
