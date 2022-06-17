@@ -4,11 +4,11 @@
 	<div class="row">
 		<div class="col s6">
 			<label class="">A partir de:</label>
-			<input type="date" [(ngModel)]="fechaInicial">
+			<input type="date" [(ngModel)]="fechaInicial" (change)="cambioIni()" id="fechaIni">
 		</div>
 		<div class="col s6">
 			<label>Hasta:</label>
-			<input type="date" [(ngModel)]="fechaFinal">
+			<input type="date" [(ngModel)]="fechaFinal" (change)="cambioFin()" id="fechaFin">
 		</div>
 	</div>
 
@@ -22,16 +22,16 @@
 			<th class="intro">Opciones</th>
 		</tr>
 
-		<ng-container *ngFor="let patente of patentes">
+		<ng-container *ngFor="let patente of patentes; let i=index">
 			<tr>
 				<td>{{patente.nombrePatente}}</td>
-				<td>{{patente.registro}}</td>
-				<td>{{patente.obtencion}}</td>
+				<td>{{convertirFecha(patente.registro)}}</td>
+				<td>{{convertirFecha(patente.obtencion)}}</td>
 				<td>{{patente.colaboradores}}</td>
 				<td>{{patente.resumen}}</td>
 				<td><a href="javascript: void(0);" class="space">
 						<i class="material-icons">edit</i>Modificar</a>
-					<a href="javascript: void(0);" class="space">
+					<a href="javascript: void(0);" class="space" (click)="eliminarPatente(patente.idPatente)">
 						<i class="material-icons">delete</i>Eliminar</a>
 				</td>
 			</tr>
