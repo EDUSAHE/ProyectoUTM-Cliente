@@ -1,5 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
 
+.btn-option {
+	background: none;
+	border: none;
+	padding: 0;
+	color: rgb(56, 163, 216);
+	cursor: pointer;
+}
+
+.btn-option:focus {     
+    background-color: transparent;
+}
+
 @media only screen and (min-width: 993px) {
 	.container {
 		width: 90%;

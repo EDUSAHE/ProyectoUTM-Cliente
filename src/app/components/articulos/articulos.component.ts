@@ -131,7 +131,7 @@ export class ArticulosComponent implements OnInit {
 	obtenerArticulos(): void {
 		this.articulosService.getArticulosByProfesor(this.idProfesor, this.fechaInicial, this.fechaFinal).subscribe((resArticulos: any) => {
 			this.articulos = resArticulos
-			console.log(this.articulos)
+			// console.log(this.articulos)
 		},
 			err => console.error(err))
 	}

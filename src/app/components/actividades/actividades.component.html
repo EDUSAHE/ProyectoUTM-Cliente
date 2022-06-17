@@ -19,14 +19,23 @@
 			<th class="intro" onclick="sortTable(2, 'str', 'tablaActividades')">Validado</th>
 			<th class="intro" onclick="sortTable(3, 'str', 'tablaActividades')">Fecha Inicio</th>
 			<th class="intro" onclick="sortTable(4, 'str', 'tablaActividades')">Fecha Fin</th>
+			<th class="intro center">Opciones</th>
 		</tr>
 
-		<tr *ngFor="let activid of actividades">
-			<td>{{activid.actividad}}</td>
-			<td>{{activid.descripcion}}</td>
-			<td>{{activid.validado}}</td>
-			<td>{{convertirFecha(activid.inicio)}}</td>
-			<td>{{convertirFecha(activid.fin)}}</td>
+		<tr *ngFor="let actividad of actividades">
+			<td>{{actividad.actividad}}</td>
+			<td>{{actividad.descripcion}}</td>
+			<td>{{actividad.validado}}</td>
+			<td>{{convertirFecha(actividad.inicio)}}</td>
+			<td>{{convertirFecha(actividad.fin)}}</td>
+			<td>
+				<button class="space btn-option">
+					<i class="material-icons">edit</i>Modificar
+				</button>
+				<button class="space btn-option" (click)="eliminarActividad(actividad.idActividad)">
+					<i class="material-icons">delete</i>Eliminar
+				</button>
+			</td>
 		</tr>
 	</table>
 

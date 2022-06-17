@@ -54,10 +54,10 @@ export class ModalesAgregarComponent implements OnInit {
   }
 
   actualizarCarreras(): void {
-    this.carreraService.obtenerCarrerasPorInstituto(this.profesorNuevo.idInstituto).subscribe((carrerasRes: any) => {
-      this.carreras = carrerasRes
-      this.profesorNuevo.idCarrera = this.carreras[0]?.idCarrera
-    }, err => console.error(err))
+    // this.carreraService.obtenerCarrerasPorInstituto(this.profesorNuevo.idInstituto).subscribe((carrerasRes: any) => {
+    //   this.carreras = carrerasRes
+    //   this.profesorNuevo.idCarrera = this.carreras[0]?.idCarrera
+    // }, err => console.error(err))
   }
 
   agregarProfesor(): void {
