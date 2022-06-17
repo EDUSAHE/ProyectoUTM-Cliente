@@ -12,26 +12,10 @@
 			</div>
 		</div>
 
-		<!-- <div class="row">
-			<div class="input-field col s12">
-				<i class="material-icons prefix">person</i>
-				<input type="text" [(ngModel)]="profesor.apellidoPaterno">
-				<label class="active">{{"Apellido Paterno" | translate}}</label>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="input-field col s12">
-				<i class="material-icons prefix">person</i>
-				<input type="text" [(ngModel)]="profesor.apellidoMaterno">
-				<label class="active">{{"Apellido Materno" | translate}}</label>
-			</div>
-		</div> -->
-
 		<div class="row">
 			<div class="input-field col s12">
 				<i class="material-icons prefix">alternate_email</i>
-				<input type="email" [(ngModel)]="profesor.correo">
+				<input type="email" [(ngModel)]="profesor.correo" disabled>
 				<label class="active">{{"Correo" | translate}}</label>
 			</div>
 		</div>
@@ -41,6 +25,27 @@
 				<i class="material-icons prefix">school</i>
 				<input type="text" value="{{carrera.nombreCarrera}}" disabled>
 				<label class="active">{{"Carrera" | translate}}</label>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="input-field col s6">
+				<i class="material-icons prefix">history_edu</i>
+				<input type="text" [(ngModel)]="profesor.grado" disabled>
+				<label class="active">{{"Grado Académico" | translate}}</label>
+			</div>
+			<div class="input-field col s6">
+				<i class="material-icons prefix">badge</i>
+				<input type="text" [(ngModel)]="profesor.nivel" disabled>
+				<label class="active">{{"Nivel" | translate}}</label>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="input-field col s12">
+				<i class="material-icons prefix">fingerprint</i>
+				<input type="text" [(ngModel)]="profesor.nombreApa">
+				<label class="active">{{"Nombre APA" | translate}}</label>
 			</div>
 		</div>
 
