@@ -20,4 +20,10 @@ export class RevisionesService {
     return this.http.post(`${environment.API_URI}/revisor/create`,revision);
   }
 
+  // Servicios solicitados al servidor
+
+  listRevisionByPeriodo(idProfesor:number, fechaIni:any, fechaFin:any){
+    return this.http.get(`${environment.API_URI}/revisor/listRevisionByProfesor/${idProfesor}/${fechaIni}/${fechaFin}`);
+  }
+
 }

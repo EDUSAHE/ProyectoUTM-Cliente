@@ -27,7 +27,7 @@ export class EventosComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.idProfesor = Number(params.get('idProfesor'))
-	  this.listarEventos()
+	    this.listarEventos()
       this.actualizarEventos()
     })
   }
