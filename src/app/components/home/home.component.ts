@@ -9,7 +9,7 @@ import { Evento } from 'src/app/models/evento.model';
 import { Actividad } from 'src/app/models/actividad.model';
 import {RevisionesService} from 'src/app/services/revisiones.service'
 import {EventoService} from  'src/app/services/evento.service'
-
+import {ActividadService} from 'src/app/services/actividad.service'
 declare var $: any
 
 @Component({
@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
   evento:Evento;
   patente:Patente;
   actividad :Actividad;
-  constructor(private articuloService: ArticulosService, private cambioInfoService: CambioInfoService,private revicionesServices:RevisionesService,private enventoServices:EventoService) {
+  constructor(private articuloService: ArticulosService, private cambioInfoService: CambioInfoService,private revicionesServices:RevisionesService,private enventoServices:EventoService,private actividadServices:ActividadService) {
     this.articulo = new Articulo()
     this.revisor = new Revisor();
     this.evento=new Evento()
@@ -63,13 +63,6 @@ export class HomeComponent implements OnInit {
       $('#CrearRevision').modal();
       $('##CrearRevision').modal('open');
   }
-  crearActividad(){
-
-    console.log(this.actividad);
-
-    
-  }
-
 
 
 
@@ -114,5 +107,17 @@ crearRevision(){
     
     console.log(this.evento)
   }
-
+  crearActividad(){
+   
+    this.actividad.idProfesor=Number(localStorage.getItem('idProfesor'));
+    this.actividadServices.agregarActividad(this.actividad).subscribe(res => {
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Actividad  Agregada'
+      })
+    }, err => console.error(err))
+    
+    console.log(this.evento)
+  }
 }
