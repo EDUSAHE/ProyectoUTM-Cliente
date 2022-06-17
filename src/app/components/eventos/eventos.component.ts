@@ -12,47 +12,7 @@ export class EventosComponent implements OnInit {
 
 	idProfesor: number;
 
-	eventos: Evento[] = [
-		{
-			idEvento: 0,
-			idProfesor: 1,
-			tipoEvento: "Congreso",
-			nombreEvento: "Congreso nacional del gel antibacterial",
-			participacion: "Nacional",
-			afectaLinea: "Si",
-			tipoParticipacion: "Asistente",
-			titulo: "Como crear el gel antibacterial",
-			inicio: "2022-06-01",
-			fin: "2022-06-05",
-			comprobante: "Sí"
-		},
-		{
-			idEvento: 0,
-			idProfesor: 2,
-			tipoEvento: "Taller",
-			nombreEvento: "Pabellón de la informatica del CONALEP",
-			participacion: "Nacional",
-			afectaLinea: "Si",
-			tipoParticipacion: "Ponente",
-			titulo: "Programación con Kinect",
-			inicio: "2017-05-30",
-			fin: "2017-05-30",
-			comprobante: "Sí"
-		},
-		{
-			idEvento: 0,
-			idProfesor: 3,
-			tipoEvento: "Simposium",
-			nombreEvento: "IX Simposium de Software Libre de la Mixteca",
-			participacion: "Nacional",
-			afectaLinea: "Si",
-			tipoParticipacion: "Asistente",
-			titulo: "Linux en la vida cotidiana",
-			inicio: "2017-04-26",
-			fin: "2017-04-28",
-			comprobante: "Sí"
-		}
-	];
+	eventos: Evento[] = [];
 
 	fechaInicial: string;
 	fechaFinal: string;
@@ -67,7 +27,7 @@ export class EventosComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.idProfesor = Number(params.get('idProfesor'))
-
+	  this.listarEventos()
       this.actualizarEventos()
     })
   }
@@ -77,6 +37,11 @@ export class EventosComponent implements OnInit {
     //   this.eventos = eventosRes
 
     // }, err => console.error(err))
+  }
+  listarEventos(){
+	this.eventoService.listEventosByPeriodo(this.idProfesor, this.fechaInicial, this.fechaFinal).subscribe((eventosRes: any) => {
+   	this.eventos = eventosRes
+    }, err => console.error(err))
   }
 
 }

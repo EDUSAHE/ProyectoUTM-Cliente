@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import { Evento } from 'src/app/models/evento.model';
 import { Actividad } from 'src/app/models/actividad.model';
 import {RevisionesService} from 'src/app/services/revisiones.service'
+import {EventoService} from  'src/app/services/evento.service'
 
 declare var $: any
 
@@ -23,7 +24,7 @@ export class HomeComponent implements OnInit {
   evento:Evento;
   patente:Patente;
   actividad :Actividad;
-  constructor(private articuloService: ArticulosService, private cambioInfoService: CambioInfoService,private revicionesServices:RevisionesService) {
+  constructor(private articuloService: ArticulosService, private cambioInfoService: CambioInfoService,private revicionesServices:RevisionesService,private enventoServices:EventoService) {
     this.articulo = new Articulo()
     this.revisor = new Revisor();
     this.evento=new Evento()
@@ -99,10 +100,18 @@ crearRevision(){
     console.log(patente)
   }
 
-  crearEvento(evento:any){
-    console.log(evento)
-    $('#nuevoEvento').modal();
-    $('#nuevoEvento').modal('open');
+  crearEvento(){
+   
+    this.evento.idProfesor=Number(localStorage.getItem('idProfesor'));
+    this.enventoServices.agregarEvento(this.evento).subscribe(res => {
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Evento  Agregado'
+      })
+    }, err => console.error(err))
+    
+    console.log(this.evento)
   }
 
 }
