@@ -54,6 +54,7 @@ export class HomeComponent implements OnInit {
   //creaar la Publicacion
   crearArticulo(articulos: any) {
     console.log(articulos)
+	$('#agregarArticulo').modal('close');
   }
 
   agregarRevivision(){ 
