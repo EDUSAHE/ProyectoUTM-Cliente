@@ -147,7 +147,6 @@ crearRevision(){
   
   AgregarProyecto(): void {
 
-
     this.proyectoService.agregarProyecto(this.proyecto).subscribe(res => {
       Swal.fire({
         position: 'center',
