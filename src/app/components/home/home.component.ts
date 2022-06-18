@@ -110,13 +110,11 @@ export class HomeComponent implements OnInit {
           'pos':1,
           'esInterno':1
         }
-        console.log(nuevo);
         this.patenteServices.guardarProfesoryPatente(nuevo).subscribe((resNuevo:any)=>{
           
         },err=>console.error(err));
         
       }, err => console.error(err));
-      console.log(this.patente.idPatente);
       Swal.fire({
         position: 'center',
         icon: 'success',
