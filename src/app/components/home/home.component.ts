@@ -73,8 +73,9 @@ export class HomeComponent implements OnInit {
   agregarRevivision() {
     console.log("CrearRevision");
     $('#CrearRevision').modal();
-    $('##CrearRevision').modal('open');
+    $('#CrearRevision').modal('open');
   }
+ 
 
 
 
@@ -82,6 +83,7 @@ export class HomeComponent implements OnInit {
     this.revisor.idProfesor = Number(localStorage.getItem('idProfesor'));
 
     this.revicionesServices.createRevision(this.revisor).subscribe(res => {
+      $('#agregarRevivision').modal('close');
       Swal.fire({
         position: 'center',
         icon: 'success',
