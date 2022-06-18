@@ -103,7 +103,7 @@ export class HomeComponent implements OnInit {
 
   crearPatente(patente: any) {
     if (this.patente.registro < this.patente.obtencion) {
-      this.patenteServices.guardarPatente(this.patente).subscribe((resPatente: any) => {
+      this.patenteServices.guardarPatente(patente).subscribe((resPatente: any) => {
         let nuevo={
           'idProfesor':this.idProfesor,
           'idPatente':resPatente.insertId,
