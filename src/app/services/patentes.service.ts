@@ -21,7 +21,7 @@ export class PatentesService {
     return this.http.post(`${environment.API_URI}/profesorYPatente/create`, nuevo);
   }
 
-  eliminarProfesoryPatente(idPatente:number, idProfesor:number, esInterno:any){
+  eliminarProfesoryPatente(idProfesor:number, idPatente:number, esInterno:any){
     return this.http.delete(`${environment.API_URI}/profesorYPatente/delete/${idProfesor}/${idPatente}/${esInterno}`);
   }
 
