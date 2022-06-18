@@ -11,10 +11,14 @@ export class ProyectosService {
 
   constructor(private http: HttpClient) { }
 
+  agregarProyecto(proyecto:any,idProfesor:any){
+
+    return this.http.post(`${environment.API_URI}/proyectos/create/${idProfesor}`,proyecto);
+  }
   // Servicios solicitados al Servidor
 
-  listProyectosByProfesorByPeriodo(idProfesor:number, fechaIni:any, fechaFin:any){
-    return this.http.get(`${environment.API_URI}/`);
+  listProyectosByProfesorByPeriodo(idProfesor:any, fechaIni:any, fechaFin:any){
+    return this.http.get(`${environment.API_URI}/proyectos/listProyectosByProfesorByPeriodo/${idProfesor}/${fechaIni}/${fechaFin}`);
   }
 
   listColaboradoresExternosProyectos(idProfesor:number){

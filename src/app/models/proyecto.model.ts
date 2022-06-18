@@ -7,5 +7,5 @@ export class Proyecto {
 	inicio: string = '';
 	fin: string = '';
 	patrocinador: string = '';
-	comprobante: string = '';
+	comprobante: string = 'si';
 }

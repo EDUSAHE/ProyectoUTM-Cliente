@@ -20,6 +20,13 @@ export class RevisionesService {
     return this.http.post(`${environment.API_URI}/revisor/create`,revision);
   }
 
+  EliminarRevision(idRevision:any){
+    return this.http.delete(`${environment.API_URI}/revisor/delete/${idRevision}`)
+  }
+  EditarRevision(idRevision:any,revision:Revisor){
+    return this.http.put(`${environment.API_URI}/revisor/update/${idRevision}`,revision);
+  }
+  
   // Servicios solicitados al servidor
 
   listRevisionByPeriodo(idProfesor:number, fechaIni:any, fechaFin:any){

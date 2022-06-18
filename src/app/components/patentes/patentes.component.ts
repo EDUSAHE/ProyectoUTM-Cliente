@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { PatentesService } from 'src/app/services/patentes.service';
+import Swal from 'sweetalert2';
 
+declare var $: any;
 @Component({
 	selector: 'app-patentes',
 	templateUrl: './patentes.component.html',
@@ -7,46 +11,82 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PatentesComponent implements OnInit {
 
-	fechaInicial: string;
-	fechaFinal: string;
+	fechaInicial: any;
+	fechaFinal: any;
+	idProfesor: any;
+	patentes: any[] = []
+	idPatente: any;
 
-	patentes: any[] = [
-		{
-			idPatente: 1,
-			idProfesor: 4,
-			nombrePatente: "Patente 1",
-			registro: "2017-04-26",
-			obtencion: "2017-04-28",
-			colaboradores: "Juan Perez, Luis Luis",
-			resumen: "Prueba de patente 1"
-		},
-		{
-			idPatente: 2,
-			idProfesor: 4,
-			nombrePatente: "Patente 2",
-			registro: "2017-05-26",
-			obtencion: "2017-05-28",
-			colaboradores: "Julian Ruiz, Pedro pedro",
-			resumen: "Prueba de patente 2"
-		},
-		{
-			idPatente: 3,
-			idProfesor: 4,
-			nombrePatente: "Patente 3",
-			registro: "2017-06-26",
-			obtencion: "2017-06-28",
-			colaboradores: "Pedro, Damian",
-			resumen: "Prueba de patente 3"
-		}
-	]
-
-	constructor() {
+	constructor(private route: ActivatedRoute, private patenteServices: PatentesService) {
 		let hoy = new Date()
 		this.fechaInicial = `${hoy.getFullYear() - 1}-${('0' + (hoy.getMonth() + 1)).slice(-2)}-${('0' + hoy.getDate()).slice(-2)}`
 		this.fechaFinal = `${hoy.getFullYear()}-${('0' + (hoy.getMonth() + 1)).slice(-2)}-${('0' + hoy.getDate()).slice(-2)}`
 	}
 
 	ngOnInit(): void {
+		this.idProfesor = Number(localStorage.getItem('idProfesor'));
+		this.listarPatentes();
 	}
 
+	listarPatentes() {
+		this.patenteServices.listPatentesByProfesorByPeriodo(this.idProfesor, this.fechaInicial, this.fechaFinal).subscribe((resPatentes: any) => {
+			this.patentes = resPatentes;
+			console.log(this.patentes);
+
+		}, err => console.error(err))
+	}
+	cambioIni() {
+		console.log("cambio fecha de inicio");
+		this.fechaInicial = $('#fechaIni').val();
+		console.log(this.fechaInicial);
+		this.patenteServices.listPatentesByProfesorByPeriodo(this.idProfesor, this.fechaInicial, this.fechaFinal).subscribe((resPatentes: any) => {
+			this.patentes = resPatentes;
+			console.log(this.patentes);
+
+		}, err => console.error(err))
+
+	}
+	cambioFin() {
+		console.log("cambio fecha de fin");
+		this.fechaFinal = $('#fechaFin').val();
+		console.log(this.fechaFinal);
+		this.patenteServices.listPatentesByProfesorByPeriodo(this.idProfesor, this.fechaInicial, this.fechaFinal).subscribe((resPatentes: any) => {
+			this.patentes = resPatentes;
+			console.log(this.patentes);
+
+		}, err => console.error(err))
+	}
+	convertirFecha(fecha: string) {
+		return new Date(fecha).toLocaleDateString("en-CA");
+	}
+
+	eliminarPatente(patente: any) {
+		Swal.fire({
+			title: '¿Estas seguro de querer eliminar?',
+			position: 'center',
+			icon: 'question',
+			showDenyButton: true,
+			showConfirmButton: true,
+			confirmButtonText: 'Sí'
+		})
+			.then(respuesta => {
+				if (respuesta.isConfirmed) {
+					this.patenteServices.eliminarProfesoryPatente(this.idProfesor, patente.idPatente, 1).subscribe((resElimina: any) => {
+						this.patenteServices.eliminarPatente(patente.idPatente).subscribe({ 
+							next: (resEliminar: any) => {
+								this.listarPatentes();
+								Swal.fire({
+									position: 'center',
+									icon: 'success',
+									text: 'Patente Eliminada'
+								})
+							},
+							error: err => console.error(err)
+						});
+					}, err => console.error(err));
+
+
+				}
+			})
+	}
 }
