@@ -28,6 +28,7 @@ export class HomeComponent implements OnInit {
   evento: Evento;
   patente: Patente;
   actividad: Actividad;
+  idProfesorProyecto:any
   idProfesor:any;
   constructor(private route: ActivatedRoute,private proyectoService: ProyectosService, private articuloService: ArticulosService, private cambioInfoService: CambioInfoService, private revicionesServices: RevisionesService, private enventoServices: EventoService, private patenteServices: PatentesService, private actividadServices: ActividadService) {
     this.articulo = new Articulo()
@@ -74,8 +75,9 @@ export class HomeComponent implements OnInit {
   agregarRevivision() {
     console.log("CrearRevision");
     $('#CrearRevision').modal();
-    $('##CrearRevision').modal('open');
+    $('#CrearRevision').modal('open');
   }
+ 
 
 
 
@@ -83,6 +85,7 @@ export class HomeComponent implements OnInit {
     this.revisor.idProfesor = Number(localStorage.getItem('idProfesor'));
 
     this.revicionesServices.createRevision(this.revisor).subscribe(res => {
+      $('#agregarRevivision').modal('close');
       Swal.fire({
         position: 'center',
         icon: 'success',
@@ -160,8 +163,9 @@ export class HomeComponent implements OnInit {
   }
 
   AgregarProyecto(): void {
+    this.idProfesorProyecto= Number(localStorage.getItem('idProfesor'));
 
-    this.proyectoService.agregarProyecto(this.proyecto).subscribe(res => {
+    this.proyectoService.agregarProyecto(this.proyecto, this.idProfesorProyecto).subscribe(res => {
       Swal.fire({
         position: 'center',
         icon: 'success',
