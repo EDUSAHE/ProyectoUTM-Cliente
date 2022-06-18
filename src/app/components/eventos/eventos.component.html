@@ -27,7 +27,12 @@
 				<td>{{evento.titulo}}</td>
 				<td>{{evento.tipoEvento}}</td>
 				<td>{{evento.tipoParticipacion}}</td>
-				<td>{{evento.inicio}}</td>
+				<td>{{convertirFecha(evento.inicio)}}</td>
+				<td>
+					<a href="javascript: void(0);" class="space">
+						<i class="material-icons">edit</i>Modificar</a>
+					<a href="javascript: void(0);" class="space"  (click)="eliminarEvento(evento.idEvento)">
+					<i class="material-icons" >delete</i>Eliminar</a></td>
 			</tr>
 		</ng-container>
 	</table>
