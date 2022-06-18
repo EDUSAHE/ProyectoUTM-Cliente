@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {RevisionesService}  from 'src/app/services/revisiones.service'
+import Swal from 'sweetalert2';
 @Component({
 	selector: 'app-revisiones',
 	templateUrl: './revisiones.component.html',
@@ -12,7 +13,6 @@ export class RevisionesComponent implements OnInit {
 	fechaFinal: string;
 	idProfesor: number;
 	revisiones: any[] = []
-
 	constructor( private route: ActivatedRoute,private revisionesServices:RevisionesService) {
 		let hoy = new Date()
 		this.idProfesor = 0
@@ -27,10 +27,40 @@ export class RevisionesComponent implements OnInit {
 			console.log(this.revisiones)
 		  
 	}
+	convertirFecha(fecha: string) {
+		return new Date(fecha).toLocaleDateString("en-CA");
+	}
 
 	listarRevisiones(){
 		this.revisionesServices.listRevisionByPeriodo(this.idProfesor, this.fechaInicial, this.fechaFinal).subscribe((eventosRes: any) => {
 			this.revisiones = eventosRes
 		 }, err => console.error(err))
+	}
+	EliminarRevision(idRevision:any){
+		console.log("ELiminarRevision");
+
+		Swal.fire({
+			title: '¿Estas seguro de querer eliminar?',
+			position: 'center',
+			icon: 'question',
+			showDenyButton: true,
+			showConfirmButton: true,
+			confirmButtonText: 'Sí'
+		})
+			.then(respuesta => {
+				if (respuesta.isConfirmed) {
+					this.revisionesServices.EliminarRevision(idRevision).subscribe((resElimina: any) => {
+						
+								Swal.fire({
+									position: 'center',
+									icon: 'success',
+									text: 'Revision Eliminada'
+								})
+						
+					}, err => console.error(err));
+
+
+				}
+			})
 	}
 }

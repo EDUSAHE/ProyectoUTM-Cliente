@@ -25,9 +25,12 @@
 			<tr>
 				<td>{{revision.tipoRP}}</td>
 				<td>{{revision.nombreRI}}</td>
-				<td>{{revision.fecha}}</td>
+				<td>{{convertirFecha(revision.fecha)}}</td>
 				<td>{{revision.tituloRP}}</td>
-				<td></td>
+				<td><a href="javascript: void(0);" class="space">
+					<i class="material-icons">edit</i>Modificar</a>
+				<a href="javascript: void(0);" class="space"  (click)="EliminarRevision(revision.idRevisor)">
+					<i class="material-icons" >delete</i>Eliminar</a></td>
 			</tr>
 		</ng-container>
 	</table>
