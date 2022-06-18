@@ -31,6 +31,14 @@ export class RevisionesComponent implements OnInit {
 		return new Date(fecha).toLocaleDateString("en-CA");
 	}
 
+	cambioFin() {
+		console.log("cambio fecha");
+	this.listarRevisiones();
+	}
+	cambioIni() {
+		console.log("cambio fecha");
+	this.listarRevisiones();
+	}
 	listarRevisiones(){
 		this.revisionesServices.listRevisionByPeriodo(this.idProfesor, this.fechaInicial, this.fechaFinal).subscribe((eventosRes: any) => {
 			this.revisiones = eventosRes
