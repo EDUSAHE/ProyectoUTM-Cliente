@@ -28,6 +28,7 @@ export class HomeComponent implements OnInit {
   evento: Evento;
   patente: Patente;
   actividad: Actividad;
+  idProfesorProyecto:any
   idProfesor:any;
   constructor(private route: ActivatedRoute,private proyectoService: ProyectosService, private articuloService: ArticulosService, private cambioInfoService: CambioInfoService, private revicionesServices: RevisionesService, private enventoServices: EventoService, private patenteServices: PatentesService, private actividadServices: ActividadService) {
     this.articulo = new Articulo()
@@ -41,7 +42,9 @@ export class HomeComponent implements OnInit {
     this.patente.obtencion = hoy.getFullYear() + '-' + ((hoy.getMonth() + 1) < 10 ? '0' + (hoy.getMonth() + 1) : '' + (hoy.getMonth() + 1)) + '-' + ((hoy.getDate()) < 9 ? '0' + (hoy.getDate() + 1) : '' + (hoy.getDate() + 1));
     this.articulo.fechaedicion = hoy.getFullYear() + '-' + ((hoy.getMonth() + 1) < 10 ? '0' + (hoy.getMonth() + 1) : '' + (hoy.getMonth() + 1)) + '-' + (hoy.getDate() < 10 ? '0' + hoy.getDate() : '' + hoy.getDate());
     this.revisor.fecha = hoy.getFullYear() + '-' + ((hoy.getMonth() + 1) < 10 ? '0' + (hoy.getMonth() + 1) : '' + (hoy.getMonth() + 1)) + '-' + (hoy.getDate() < 10 ? '0' + hoy.getDate() : '' + hoy.getDate());
-
+    this.proyecto.inicio = hoy.getFullYear() + '-' + ((hoy.getMonth() + 1) < 10 ? '0' + (hoy.getMonth() + 1) : '' + (hoy.getMonth() + 1)) + '-' + (hoy.getDate() < 10 ? '0' + hoy.getDate() : '' + hoy.getDate());
+    this.proyecto.fin=hoy.getFullYear() + '-' + ((hoy.getMonth() + 1) < 10 ? '0' + (hoy.getMonth() + 1) : '' + (hoy.getMonth() + 1)) + '-' + ((hoy.getDate()) < 9 ? '0' + (hoy.getDate()+1) : '' + (hoy.getDate()+1));
+  
   }
 
   ngOnInit(): void {
@@ -161,8 +164,9 @@ export class HomeComponent implements OnInit {
   }
 
   AgregarProyecto(): void {
+    this.idProfesorProyecto= Number(localStorage.getItem('idProfesor'));
 
-    this.proyectoService.agregarProyecto(this.proyecto).subscribe(res => {
+    this.proyectoService.agregarProyecto(this.proyecto, this.idProfesorProyecto).subscribe(res => {
       Swal.fire({
         position: 'center',
         icon: 'success',
