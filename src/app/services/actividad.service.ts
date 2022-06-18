@@ -10,6 +10,10 @@ export class ActividadService {
 
   constructor(private http: HttpClient) { }
 
+  eliminarActividad(idActividad: number) {
+	  return this.http.delete(`${environment.API_URI}/actividades/delete/${idActividad}`);
+  }
+
   agregarActividad(actividad: Actividad) {
     return this.http.post(`${environment.API_URI}/actividades/create`, actividad)
   }

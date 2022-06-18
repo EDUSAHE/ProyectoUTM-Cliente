@@ -47,6 +47,7 @@ export class GeneralesComponent implements OnInit {
 
       this.profesorService.getProfesor(this.idProfesor).subscribe((resProfesor: any) => {
         this.profesor = resProfesor
+		console.log(this.profesor)
 
         // Obtener el nombre de la carera
         this.carreraService.obtenerCarreraPorId(this.profesor.idCarrera).subscribe((resCarrera: any) => {

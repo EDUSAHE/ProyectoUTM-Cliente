@@ -9,10 +9,25 @@ import { Patente } from '../models/patente.model';
 export class PatentesService {
 
   constructor(private http: HttpClient) { }
+  guardarPatente(patente:Patente){
+    return this.http.post(`${environment.API_URI}/patentes/create`, patente);
+  }
+
+  eliminarPatente(idPatente: number) {
+	  return this.http.delete(`${environment.API_URI}/patentes/delete/${idPatente}`);
+  }
+
+  guardarProfesoryPatente(nuevo:any){
+    return this.http.post(`${environment.API_URI}/profesorYPatente/create`, nuevo);
+  }
+
+  eliminarProfesoryPatente(idProfesor:number, idPatente:number, esInterno:any){
+    return this.http.delete(`${environment.API_URI}/profesorYPatente/delete/${idProfesor}/${idPatente}/${esInterno}`);
+  }
 
   // Servicios solicitados al Servidor
   listPatentesByProfesorByPeriodo(idProfesor:number, fechaIni:any, fechaFin:any){
-    return this.http.get(`${environment.API_URI}/`);
+    return this.http.get(`${environment.API_URI}/patentes/listPatentesByProfesorByPeriodo/${idProfesor}/${fechaIni}/${fechaFin}`);
   }
 
   listColaboradoresExternosPatentes(idProfesor:number){

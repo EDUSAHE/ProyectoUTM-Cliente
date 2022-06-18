@@ -168,62 +168,68 @@
     </div>
 </div>
 
+
 <!-- Modal Crear Revision -->
 <div id="agregarRevivision" class="modal">
     <div class="modal-content">
-
         <div class="row" style="margin-bottom: 0px !important;">
             <div class="col s12">
                 <h3 class="center">Nueva Revisión</h3>
             </div>
         </div>
 
-
         <div style="border: .5px solid #78909c; padding: 10px;">
-            <table class="striped">
+            <form (ngSubmit)="crearRevision()" ngNativeValidate>
+                <div class="row">
 
 
-                <tbody>
-                    <tr>
-                        <h6>Tipo de revisión</h6>
-                        <select [(ngModel)]="revisor.tipoRP" class="browser-default">
-						<option value="Artículo">Articulo</option>
-						<option value="Proyecto">Proyecto</option>
-
-					</select>
+                    <div class="col s12" style="margin-bottom: 1rem;">
+                        <select name="tipoCRL" [(ngModel)]="revisor.tipoRP" class="browser-default">
+                            <option value="Artículo">Articulo</option>
+                            <option value="Proyecto">Proyecto</option>
+                        </select>
+                    </div>
 
 
-                    </tr>
-                    <tr>
-                        <h6>Nombre de revista o institución</h6>
-                        <input type="text" [(ngModel)]="revisor.nombreRI">
+                    <div class="input-field col s12">
+                        <input name="Nombre de revista o institución" id="revisor_nombreRI" [(ngModel)]="revisor.nombreRI" required type="text">
+                        <label for="patente_titulo">Nombre de revista o institución</label>
+                    </div>
 
-                    </tr>
-                    <tr>
-                        <h6>Fecha</h6>
-                        <input type="date" [(ngModel)]="revisor.fecha">
 
-                    </tr>
-                    <tr>
-                        <h6>Título de artículo</h6>
-                        <input type="text" [(ngModel)]="revisor.tituloRP">
 
-                    </tr>
+                    <div class="input-field col s12">
+                        <input name="registroFecha" id="revisor_fecha" [(ngModel)]="revisor.fecha" required type="date">
+                        <label for="patente_fechaReg">Fecha</label>
+                    </div>
 
-                </tbody>
-            </table>
-            <br>
-            <div class="row">
-                <div class="col s6 center">
-                    <a class="modal-action modal-close waves-effect btn-large" (click)="crearRevision()">Enviar</a>
+
+
+
+
+                    <div class="input-field col s12">
+                        <input name="titulo" id="titulo_articulo" [(ngModel)]="revisor.tituloRP" required type="text">
+                        <label for="patente_fechaObt" min="patente_fechaReg">Título de artículo</label>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col s6 center" value="Enviar">
+                            <input type="submit" class="waves-effect btn-large brown lighten-3">
+                        </div>
+                        <div class="col s6 center">
+                            <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text">Cancelar</a>
+                        </div>
+                    </div>
+
                 </div>
-                <div class="col s6 center">
-                    <a class="modal-action modal-close waves-effect btn-large">Cancelar</a>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>
+
+
+
 <!-- Modal Crear Patente -->
 <div id="nuevaPatente" class="modal">
     <div class="modal-content">
@@ -232,40 +238,42 @@
                 <h3 class="center">Nueva Patente</h3>
             </div>
         </div>
-        <div class="row" style="margin-bottom: 0px !important;">
-
-        </div>
         <div style="border: .5px solid #78909c; padding: 10px;">
-            <div class="row">
-                <div class="input-field col s12">
-                    <input id="patente_titulo" [(ngModel)]="patente.nombrePatente" required type="text">
-                    <label for="patente_titulo">Nombre de la patente</label>
+            <form (ngSubmit)="crearPatente(patente)" ngNativeValidate>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input name="nombrePatente" id="patente_titulo" [(ngModel)]="patente.nombrePatente" required type="text">
+                        <label for="patente_titulo">Nombre de la patente</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input name="registroPatente" id="patente_fechaReg" [(ngModel)]="patente.registro" required type="date">
+                        <label for="patente_fechaReg">Fecha de registro</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input name="obtencion" id="patente_fechaObt" [(ngModel)]="patente.obtencion" required type="date">
+                        <label for="patente_fechaObt" min="patente_fechaReg">Fecha de obtención</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input name="resumenPantente" id="patente_resumen" [(ngModel)]="patente.resumen" type="text">
+                        <label for="patente_resumen">Resumen</label>
+                    </div>
                 </div>
-                <div class="input-field col s12">
-                    <input id="patente_fechaReg" [(ngModel)]="patente.registro" required type="date">
-                    <label for="patente_fechaReg">Fecha de registro</label>
-                </div>
-                <div class="input-field col s12">
-                    <input id="patente_fechaObt" [(ngModel)]="patente.obtencion" required type="date">
-                    <label for="patente_fechaObt" min="patente_fechaReg">Fecha de obtención</label>
-                </div>
-                <div class="input-field col s12">
-                    <input id="patente_resumen" [(ngModel)]="patente.resumen" required type="text">
-                    <label for="patente_resumen">Resumen</label>
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="col s6 center">
-                    <a class="modal-action modal-close waves-effect btn-large" (click)="crearPatente(patente)">Enviar</a>
+                <div class="row">
+                    <div class="col s6 center">
+                        <input type="submit" class="waves-effect btn-large brown lighten-3" value="Enviar">
+                    </div>
+                    <div class="col s6 center">
+                        <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text">Cancelar</a>
+                    </div>
                 </div>
-                <div class="col s6 center">
-                    <a class="modal-action modal-close waves-effect btn-large">Cancelar</a>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>
+
+
+
 <!--MODAL NUEVO EVENTO-->
 <div id="nuevoEvento" class="modal">
     <div class="modal-content">
@@ -282,12 +290,12 @@
                 <div class="col s12" style="margin-bottom: 1rem;">
                     <label>Evento</label>
                     <select [(ngModel)]="evento.tipoEvento" class="browser-default">
-						<option value="Congreso">Congreso</option>
+                        <option value="Congreso">Congreso</option>
                         <option value="Curso">Curso</option>
                         <option value="Seminario">Seminario</option>
-						<option value="Taller">Taller</option>
-						<option value="Simposium">Simposium</option>
-					</select>
+                        <option value="Taller">Taller</option>
+                        <option value="Simposium">Simposium</option>
+                    </select>
                 </div>
                 <div class="input-field col s12">
                     <input id="evento_titulo" [(ngModel)]="evento.nombreEvento" required type="text">
@@ -296,27 +304,27 @@
                 <div class="col s12" style="margin-bottom: 1rem;">
                     <label>Participación</label>
                     <select [(ngModel)]="evento.participacion" class="browser-default">
-						<option value="Nacional">Nacional</option>
-						<option value="Internacional">Internacional</option>
-						
-					</select>
+                        <option value="Nacional">Nacional</option>
+                        <option value="Internacional">Internacional</option>
+
+                    </select>
                 </div>
 
                 <div class="col s12" style="margin-bottom: 1rem;">
                     <label>LAGC del CA</label>
                     <select [(ngModel)]="evento.afectaLinea" class="browser-default">
-						<option value="Si">Si</option>
-						<option value="No">No</option>
-					</select>
+                        <option value="Si">Si</option>
+                        <option value="No">No</option>
+                    </select>
                 </div>
 
                 <div class="col s12" style="margin-bottom: 1rem;">
                     <label>Tipo de participación</label>
                     <select [(ngModel)]="evento.tipoParticipacion" class="browser-default">
-						<option value="Asistente">Asistente</option>
-						<option value="Ponente">Ponente</option>
-						
-					</select>
+                        <option value="Asistente">Asistente</option>
+                        <option value="Ponente">Ponente</option>
+
+                    </select>
                 </div>
                 <div class="input-field col s12">
                     <input id="evento_titulotrabajo" [(ngModel)]="evento.titulo" required type="text">
@@ -334,7 +342,7 @@
 
             <div class="row">
                 <div class="col s6 center">
-                    <a class="modal-action modal-close waves-effect btn-large" (click)="crearEvento(evento)">Enviar</a>
+                    <a class="modal-action modal-close waves-effect btn-large" (click)="crearEvento()">Enviar</a>
                 </div>
                 <div class="col s6 center">
                     <a class="modal-action modal-close waves-effect btn-large">Cancelar</a>
@@ -343,6 +351,9 @@
         </div>
     </div>
 </div>
+
+
+
 <!--FIN MODAL NUEVO EVENTO-->
 <!-- Modal Crear Actividad -->
 <div id="nuevaActividad" class="modal">
@@ -386,4 +397,96 @@
             </div>
         </div>
     </div>
+</div>
+
+
+<!-- Modal Agregar Proyecto -->
+<div id="agregarProyecto" class="modal">
+
+    <div class="modal-content row">
+
+        <!--Titulo-->
+        <div class="row">
+            <h3 class="center-align">Nuevo Proyecto</h3>
+        </div>
+
+
+        <div style="border: .5px solid #78909c; padding: 10px;">
+            <div class="col s12" style="margin-bottom: 1rem;">
+                <label> Estado</label>
+                <select [(ngModel)]="proyecto.estado" class="browser-default">
+                <option value="Iniciado">Iniciado</option>  
+                <option value="En proceso">En proceso</option>
+                <option value="Concluido">Concluido</option>
+            </select>
+            </div>
+
+
+
+            <div class="col s12" style="margin-bottom: 1rem;">
+                <label> Financiado</label>
+                <select [(ngModel)]="proyecto.financiado" class="browser-default">
+                <option value="Si">Si</option>  
+                <option value="No">No</option>
+
+            </select>
+            </div>
+
+
+
+            <div class="row col s12">
+                <div class="input-field">
+                    <input [(ngModel)]='proyecto.porcentajeAvance' id="porcentaje_proyecto" required type="text">
+                    <label for="porcentaje_proyecto">Porcentaje de avance</label>
+                </div>
+            </div>
+
+
+
+            <div class="input-field col s12">
+                <input id="inicio_proyecto" [(ngModel)]="proyecto.inicio" required type="date">
+                <label for="inicio_proyecto">Inicio</label>
+            </div>
+
+            <div class="input-field col s12">
+                <input id="fin_proyecto" [(ngModel)]="proyecto.fin" required type="date">
+                <label for="fin_proyecto">Fin</label>
+            </div>
+
+
+            <div class="row col s12">
+                <div class="input-field">
+                    <input [(ngModel)]='proyecto.patrocinador' id="patrocinador_proyecto" required type="text">
+                    <label for="patrocinador_proyecto">Patrocinador</label>
+                </div>
+            </div>
+
+
+
+            <div class="row col s12">
+                <div class="input-field">
+                    <input [(ngModel)]='proyecto.nombreProyecto' id="nombre_proyecto" required type="text">
+                    <label for="nombre_proyecto">Nombre del Proyecto</label>
+                </div>
+            </div>
+
+
+
+
+            <!-- Guardar y Cancelar-->
+            <div class="row">
+
+                <div class="col s6 center">
+                    <a class="modal-action modal-close waves-effect btn-large" (click)="AgregarProyecto()">Enviar</a>
+                </div>
+
+                <div class="col s6 center">
+                    <a class="modal-action modal-close waves-effect btn-large">Cancelar</a>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
 </div>
