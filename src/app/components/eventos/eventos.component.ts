@@ -28,20 +28,16 @@ export class EventosComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       this.idProfesor = Number(params.get('idProfesor'))
 	    this.listarEventos()
-      this.actualizarEventos()
     })
   }
 
-  actualizarEventos() {
-    // this.eventoService.obtenerEventosProfesor(this.idProfesor, this.fechaInicial, this.fechaFinal).subscribe((eventosRes: any) => {
-    //   this.eventos = eventosRes
-
-    // }, err => console.error(err))
-  }
   listarEventos(){
 	this.eventoService.listEventosByPeriodo(this.idProfesor, this.fechaInicial, this.fechaFinal).subscribe((eventosRes: any) => {
    	this.eventos = eventosRes
     }, err => console.error(err))
   }
 
+  convertirFecha(fecha: string) {
+	return new Date(fecha).toLocaleDateString("en-CA");
+  }
 }

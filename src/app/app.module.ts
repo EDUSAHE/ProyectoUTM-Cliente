@@ -17,6 +17,7 @@ import { CambiarContrasenaComponent } from './components/cambiar-contrasena/camb
 import { MateriasComponent } from './components/materias/materias.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { CambioInfoService } from './services/cambio-info.service';
+import { DatosPersonalesService } from './services/datos-personales.service';
 import { ListarProfesoresComponent } from './components/listar-profesores/listar-profesores.component';
 import { ListarArticulosPorInstitutoComponent } from './components/listar-articulos-por-instituto/listar-articulos-por-instituto.component';
 import { ListarInstitutosComponent } from './components/listar-institutos/listar-institutos.component';
@@ -102,6 +103,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   providers: [
     CambioInfoService,
+	DatosPersonalesService,
 	DatePipe
   ],
   bootstrap: [AppComponent]
