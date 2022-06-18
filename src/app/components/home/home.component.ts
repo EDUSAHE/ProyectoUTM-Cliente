@@ -100,8 +100,17 @@ crearRevision(){
 
   crearPatente(patente: any) {
     if (this.patente.registro < this.patente.obtencion) {
-      this.patenteServices.guardarPatente(this.patente).subscribe((resUsuario: any) =>
+      this.patenteServices.guardarPatente(this.patente).subscribe((resPatente: any) =>
       {
+        /* console.log(resPatente);
+        
+        let nuevo={
+          'idProfesor':Number(localStorage.getItem('idProfesor')),
+          'idPatente':patente.idPatente,
+          'pos':1,
+          'esInterno':1
+        }
+        console.log(nuevo); */
       }, err => console.error(err));
       Swal.fire({
         position: 'center',
