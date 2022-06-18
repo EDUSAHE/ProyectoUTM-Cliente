@@ -60,8 +60,7 @@ export class PatentesComponent implements OnInit {
 		return new Date(fecha).toLocaleDateString("en-CA");
 	}
 
-	eliminarPatente(idPatente: number) {
-		console.log(idPatente)
+	eliminarPatente(patente: any) {
 		Swal.fire({
 			title: '¿Estas seguro de querer eliminar?',
 			position: 'center',
@@ -72,19 +71,21 @@ export class PatentesComponent implements OnInit {
 		})
 			.then(respuesta => {
 				if (respuesta.isConfirmed) {
-					this.patenteServices.eliminarProfesoryPatente(this.idProfesor, idPatente, 1).subscribe({ /* esInterno tambien es atributo de la tabla Profesores o aqui se da por sentado que es 1 */
-						next: (resEliminar: any) => {
-							this.patenteServices.eliminarPatente(idPatente).subscribe((resElimina: any) => {
+					this.patenteServices.eliminarProfesoryPatente(this.idProfesor, patente.idPatente, 1).subscribe((resElimina: any) => {
+						this.patenteServices.eliminarPatente(patente.idPatente).subscribe({ 
+							next: (resEliminar: any) => {
 								this.listarPatentes();
 								Swal.fire({
 									position: 'center',
 									icon: 'success',
 									text: 'Patente Eliminada'
 								})
-							}, err => console.error(err))
-						},
-						error: err => console.error(err)
-					});
+							},
+							error: err => console.error(err)
+						});
+					}, err => console.error(err));
+
+
 				}
 			})
 	}
