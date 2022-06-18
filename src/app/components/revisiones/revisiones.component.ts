@@ -72,7 +72,7 @@ export class RevisionesComponent implements OnInit {
 					Swal.fire({
 						position: 'center',
 						icon: 'success',
-						text: 'Revision Actulizado'
+						text: 'Revision Actulizada'
 					})
 			
 		}, err => console.error(err));
