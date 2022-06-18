@@ -4,11 +4,11 @@
 	<div class="row">
 		<div class="col s6">
 			<label class="">Fecha Inicial:</label>
-			<input type="date" [(ngModel)]="fechaInicial" (change)="actualizarEventos()">
+			<input type="date" [(ngModel)]="fechaInicial" (change)="cambioIni()">
 		</div>
 		<div class="col s6">
 			<label>Fecha Final:</label>
-			<input type="date" [(ngModel)]="fechaFinal" (change)="actualizarEventos()">
+			<input type="date" [(ngModel)]="fechaFinal" (change)="cambioIni()">
 		</div>
 	</div>
 
@@ -19,6 +19,7 @@
 			<th class="intro" onclick="sortTable(2, 'str', 'tablaEventos')">Tipo de evento</th>
 			<th class="intro" onclick="sortTable(3, 'str', 'tablaEventos')">Tipo de participación</th>
 			<th class="intro" onclick="sortTable(4, 'str', 'tablaEventos')">Inicio</th>
+			<th class="intro" onclick="sortTable(4, 'str', 'tablaEventos')">Opciones</th>
 		</tr>
 
 		<ng-container *ngFor="let evento of eventos">
@@ -28,12 +29,93 @@
 				<td>{{evento.tipoEvento}}</td>
 				<td>{{evento.tipoParticipacion}}</td>
 				<td>{{convertirFecha(evento.inicio)}}</td>
+
+				
 				<td>
-					<a href="javascript: void(0);" class="space">
-						<i class="material-icons">edit</i>Modificar</a>
-					<a href="javascript: void(0);" class="space"  (click)="eliminarEvento(evento.idEvento)">
-					<i class="material-icons" >delete</i>Eliminar</a></td>
+					<a href="javascript: void(0);" class="space"   (click)="ActualizarEventoR(evento.idEvento,evento)"  ><i class="material-icons">edit</i>Modificar</a>
+					<a href="javascript: void(0);" class="space"  (click)="eliminarEvento(evento.idEvento)"><i class="material-icons" >delete</i>Eliminar</a></td>
 			</tr>
 		</ng-container>
 	</table>
+</div>
+
+
+
+
+<!--MODAL NUEVO EVENTO-->
+<div id="nuevoEventoActualizar" class="modal">
+    <div class="modal-content">
+        <div class="row" style="margin-bottom: 0px !important;">
+            <div class="col s12">
+                <h3 class="center">Actualizar Evento</h3>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: 0px !important;">
+
+        </div>
+        <div style="border: .5px solid #78909c; padding: 10px;">
+            <div class="row">
+                <div class="col s12" style="margin-bottom: 1rem;">
+                    <label>Evento</label>
+                    <select [(ngModel)]="evento.tipoEvento" class="browser-default">
+                        <option value="Congreso">Congreso</option>
+                        <option value="Curso">Curso</option>
+                        <option value="Seminario">Seminario</option>
+                        <option value="Taller">Taller</option>
+                        <option value="Simposium">Simposium</option>
+                    </select>
+                </div>
+                <div class="input-field col s12">
+                    <input id="evento_titulo" [(ngModel)]="evento.nombreEvento" required type="text">
+                    <label for="evento_titulo">Nombre del evento</label>
+                </div>
+                <div class="col s12" style="margin-bottom: 1rem;">
+                    <label>Participación</label>
+                    <select [(ngModel)]="evento.participacion" class="browser-default">
+                        <option value="Nacional">Nacional</option>
+                        <option value="Internacional">Internacional</option>
+
+                    </select>
+                </div>
+
+                <div class="col s12" style="margin-bottom: 1rem;">
+                    <label>LAGC del CA</label>
+                    <select [(ngModel)]="evento.afectaLinea" class="browser-default">
+                        <option value="Si">Si</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+
+                <div class="col s12" style="margin-bottom: 1rem;">
+                    <label>Tipo de participación</label>
+                    <select [(ngModel)]="evento.tipoParticipacion" class="browser-default">
+                        <option value="Asistente">Asistente</option>
+                        <option value="Ponente">Ponente</option>
+
+                    </select>
+                </div>
+                <div class="input-field col s12">
+                    <input id="evento_titulotrabajo" [(ngModel)]="evento.titulo" required type="text">
+                    <label for="evento_titulotrabajo">Titulo del trabajo</label>
+                </div>
+                <div class="input-field col s12">
+                    <input id="evento_fechaReg" [(ngModel)]="evento.inicio" required type="date">
+                    <label for="evento_fechaReg">Inicio</label>
+                </div>
+                <div class="input-field col s12">
+                    <input id="evento_fechaObt" [(ngModel)]="evento.fin" required type="date">
+                    <label for="evento_fechaObt">Fin</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s6 center"  (click)="ActualizarEventoBD()">
+                    <a class="modal-action modal-close waves-effect btn-large" >Enviar</a>
+                </div>
+                <div class="col s6 center">
+                    <a class="modal-action modal-close waves-effect btn-large">Cancelar</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

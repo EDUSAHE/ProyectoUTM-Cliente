@@ -29,6 +29,10 @@ export class EventoService {
     return this.http.delete(`${environment.API_URI}/eventos/delete/${idEvento}`)
   }
 
+  ActualizarEvento(id:any,evento:any){
+    return this.http.put(`${environment.API_URI}/eventos/update/${id}`,evento)
+
+  }
 
 
   // Servicios solicitados al servidor
