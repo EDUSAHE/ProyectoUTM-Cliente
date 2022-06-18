@@ -72,9 +72,9 @@ export class PatentesComponent implements OnInit {
 		})
 			.then(respuesta => {
 				if (respuesta.isConfirmed) {
-					this.patenteServices.eliminarProfesoryPatente(this.idProfesor, idPatente, 1).subscribe({ /* esInterno tambien es atributo de la tabla Profesores o aqui se da por sentado que es 1 */
+					this.patenteServices.eliminarPatente(idPatente).subscribe({ /* esInterno tambien es atributo de la tabla Profesores o aqui se da por sentado que es 1 */
 						next: (resEliminar: any) => {
-							this.patenteServices.eliminarPatente(idPatente).subscribe((resElimina: any) => {
+							this.patenteServices.eliminarProfesoryPatente(this.idProfesor, idPatente, 1).subscribe((resElimina: any) => {
 								this.listarPatentes();
 								Swal.fire({
 									position: 'center',

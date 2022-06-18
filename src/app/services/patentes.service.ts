@@ -17,7 +17,7 @@ export class PatentesService {
 	  return this.http.delete(`${environment.API_URI}/patentes/delete/${idPatente}`);
   }
 
-  guardarProfesoryPatente(nuevo:Patente){
+  guardarProfesoryPatente(nuevo:any){
     return this.http.post(`${environment.API_URI}/profesorYPatente/create`, nuevo);
   }
 
