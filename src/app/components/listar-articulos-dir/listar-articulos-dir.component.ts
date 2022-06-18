@@ -14,7 +14,7 @@ declare var $: any
 export class ListarArticulosDirComponent implements OnInit {
 
   profesores: Profesor[]
-  articulos: Articulo[]
+  articulos: any[]
   todosArticulos: any[]
   idInstituto: number
   idProfesor: number

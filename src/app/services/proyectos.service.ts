@@ -13,8 +13,8 @@ export class ProyectosService {
 
   // Servicios solicitados al Servidor
 
-  listProyectosByProfesorByPeriodo(idProfesor:number, fechaIni:any, fechaFin:any){
-    return this.http.get(`${environment.API_URI}/`);
+  listProyectosByProfesorByPeriodo(idProfesor:any, fechaIni:any, fechaFin:any){
+    return this.http.get(`${environment.API_URI}/proyectos/listProyectosByProfesorByPeriodo/${idProfesor}/${fechaIni}/${fechaFin}`);
   }
 
   listColaboradoresExternosProyectos(idProfesor:number){

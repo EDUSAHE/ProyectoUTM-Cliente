@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Articulo } from 'src/app/models/articulo.model';
 import { Revisor } from 'src/app/models/revisor.model';
+import { ActivatedRoute } from '@angular/router';
 // import { Revision } from 'src/app/models/revision.model';
 import { ArticulosService } from 'src/app/services/articulos.service';
 import { CambioInfoService } from 'src/app/services/cambio-info.service';
@@ -8,7 +9,6 @@ import { Patente } from 'src/app/models/patente.model';
 import Swal from 'sweetalert2';
 import { Evento } from 'src/app/models/evento.model';
 import { Actividad } from 'src/app/models/actividad.model';
-
 declare var $: any
 
 @Component({
@@ -19,29 +19,31 @@ declare var $: any
 export class HomeComponent implements OnInit {
 
   articulo: Articulo;
-  revisor:Revisor;
-  evento:Evento;
-  patente:Patente;
-  actividad :Actividad;
-  constructor(private articuloService: ArticulosService, private cambioInfoService: CambioInfoService) {
+  revisor: Revisor;
+  evento: Evento;
+  patente: Patente;
+  actividad: Actividad;
+  idProfesor: number;
+  constructor(private route: ActivatedRoute, private articuloService: ArticulosService, private cambioInfoService: CambioInfoService) {
     this.articulo = new Articulo()
     this.revisor = new Revisor();
-    this.evento=new Evento()
-    this.patente= new Patente();
+    this.evento = new Evento()
+    this.patente = new Patente();
     this.actividad = new Actividad();
-  patente: Patente;
-  evento: Evento;
-
+    this.idProfesor = 0;
+    patente: Patente;
+    evento: Evento;
+    this.idProfesor = Number(localStorage.getItem('idProfesor'))
   }
 
   ngOnInit(): void {
-    
+
     $(document).ready(function () {
       $('.fixed-action-btn').floatingActionButton({
         direction: 'left',
         hoverEnabled: false
       })
-	  $('.tooltipped').tooltip({delay:50});
+      $('.tooltipped').tooltip({ delay: 50 });
       $('.modal').modal()
     })
   }
@@ -54,28 +56,31 @@ export class HomeComponent implements OnInit {
   //creaar la Publicacion
   crearArticulo(articulos: any) {
     console.log(articulos)
-	$('#agregarArticulo').modal('close');
+    this.articuloService.agregar(articulos,this.idProfesor).subscribe((resArticulo: any) => {
+		},
+			err => console.error(err))
+    $('#agregarArticulo').modal('close');
   }
-
-  agregarRevivision(){ 
+  
+  agregarRevivision() {
     console.log("CrearRevision");
-      $('#CrearRevision').modal();
-      $('##CrearRevision').modal('open');
+    $('#CrearRevision').modal();
+    $('##CrearRevision').modal('open');
   }
-  crearActividad(){
+  crearActividad() {
 
     console.log(this.actividad);
 
-    
+
   }
 
 
 
 
-crearRevision(){
-  this.revisor.idProfesor=Number(localStorage.getItem('idProfesor'));
-  console.log(this.revisor);
-}
+  crearRevision() {
+    this.revisor.idProfesor = Number(localStorage.getItem('idProfesor'));
+    console.log(this.revisor);
+  }
 
   enviarMensajeArticulo() {
     this.cambioInfoService.enviar('')
@@ -91,7 +96,7 @@ crearRevision(){
     console.log(patente)
   }
 
-  crearEvento(evento:any){
+  crearEvento(evento: any) {
     console.log(evento)
     $('#nuevoEvento').modal();
     $('#nuevoEvento').modal('open');

@@ -17,7 +17,7 @@ export class ListarArticulosPorInstitutoComponent implements OnInit {
 
   institutos: Instituto[]
   profesores: Profesor[]
-  articulos: Articulo[]
+  articulos: any[]
   todosArticulos: any[]
   idInstituto: number
   idProfesor: number

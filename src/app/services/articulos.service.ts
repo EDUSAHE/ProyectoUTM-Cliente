@@ -9,6 +9,10 @@ export class ArticulosService {
 
   constructor(private http: HttpClient) { }
 
+  obtenerArticulo(idArticulo: number) {
+    return this.http.get(`${environment.API_URI}/articulos/${idArticulo}`);
+  }
+
   getArticulosByProfesor(idProfesor: number, fechaInicial: string, fechaFinal: string) {
     return this.http.get(`${environment.API_URI}/articulos/listArticulosByProfesorByPeriodo/${idProfesor}/${fechaInicial}/${fechaFinal}`);
   }
@@ -19,6 +23,10 @@ export class ArticulosService {
 
   agregar(articulo: any, idProfesor: any) {
     return this.http.post(`${environment.API_URI}/articulos/create/${idProfesor}`, articulo)
+  }
+
+  actualizarArticulo(articulo: any, idArticulo: any) {
+    return this.http.put(`${environment.API_URI}/articulos/update/${idArticulo}`, articulo)
   }
 
   obtenerArticulosPorInstitutoPorFechas(idIntituto: number, fechaIni: string, fechaFin: string) {
@@ -66,7 +74,7 @@ export class ArticulosService {
   }
 
   getSugerenciasExternoByAutorUTM(idProfesor:number){
-    return this.http.get(`${environment.API_URI}`);
+    return this.http.get(`${environment.API_URI}/articulos/getSugerenciasExternoByAutorUTM/${idProfesor}`);
   }
 
 }

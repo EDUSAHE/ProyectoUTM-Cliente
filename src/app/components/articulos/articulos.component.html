@@ -1,6 +1,25 @@
 <div class="container">
 
     <h3 class="center-align">Articulos</h3>
+    <div class="row">
+        <label for="tipoFiltrado">Filtrar por</label>
+        <select id="tipoFiltrado" class="browser-default">
+			<option value="1">Título</option>
+            <option value="2">Estado</option>
+            <option value="3">Año</option>
+            <option value="4">Tipo</option>
+		</select>
+    </div>
+    <div class="row">
+        <div class="col s6">
+            <label class="">Fecha Inicial:</label>
+            <input type="date" [(ngModel)]="fechaInicial" (change)="obtenerArticulos()">
+        </div>
+        <div class="col s6">
+            <label>Fecha Final:</label>
+            <input type="date" [(ngModel)]="fechaFinal" (change)="obtenerArticulos()">
+        </div>
+    </div>
 
     <table>
         <ng-container *ngFor="let articulo of articulos">
@@ -9,8 +28,7 @@
                     <!-- <b class="color-blue">Capturado el {{articulo.fechaedicion}}</b><b class="color-red"> Validado</b> -->
                 </td>
             </tr>
-
-            <table>
+            <table id="tablaArticulos">
                 <ng-container *ngFor="let articulo of articulos">
                     <tr class="hide-line">
                         <td colspan="6">
@@ -18,9 +36,9 @@
                         </td>
                     </tr>
 
-					<tr class="hide-line">
+                    <tr class="hide-line">
                         <td colspan="6">
-							<b>Título: </b> {{articulo.titulo}}
+                            <b>Título: </b> {{articulo.titulo}}
                         </td>
                     </tr>
 
@@ -44,22 +62,20 @@
                         <td style="width: 10%;">
                             <b>Año</b><br><br> {{articulo.anyo}}
                         </td>
-                        <td style="width: 20%;">
+                        <td style="width: 10%;">
                             <b>Modificar</b><br><br>
-                            <a href="javascript: void(0);" class="space" (click)="ActualizarArticuloModal(articulo)"><i
-							class="material-icons">edit</i>Editar</a>
                             <a href="javascript: void(0);" (click)="ModalPrioridades(articulo.profesores)">
                                 <i class="material-icons">edit</i>Prioridades</a>
                         </td>
-                        <td style="width: 20%;">
+                        <td style="width: 15%;">
                             <b>Agregar</b><br><br>
                             <a href="javascript: void(0);" class="space" (click)="ModalAutoresUTM()"><i class="material-icons">add</i>UTM</a>
                             <a href="javascript: void(0);" (click)="ModalAutoresExternos()"><i class="material-icons" >add</i>Externo</a>
                         </td>
                         <td>
                             <b>Opciones</b><br><br>
-                            <a href="javascript: void(0);" class="space">
-                                <i class="material-icons">edit</i>Modificar</a>
+                            <a href="javascript: void(0);" class="space" (click)="ActualizarArticuloModal(articulo.idArticulo)"><i
+                                class="material-icons">edit</i>Modificar</a>
                             <a href="javascript: void(0);" class="space">
                                 <i class="material-icons">delete</i>Eliminar</a>
                             <a class="icono-archivo" *ngFor="let archivo of articulo.archivos" href="{{urlArchivos}}/{{archivo.idArchivoYArticulo}}.{{archivo.extension}}" target="_blank">
@@ -128,137 +144,119 @@
                 <h3 class="center">Actualizar Publicación</h3>
             </div>
         </div>
-        <div class="row" style="margin-bottom: 0px !important;">
-
-        </div>
         <div style="border: .5px solid #78909c; padding: 10px;">
-            <div class="row">
+            <form (ngSubmit)="actualizarArticulo(ArticuloActual)" ngNativeValidate>
+                <div class="row">
+                    <div class="col s12" style="margin-bottom: 1rem;">
+                        <label>Congreso/Revista/Libro/Cap Libro</label>
+                        <select name="tipoCRL" [(ngModel)]="ArticuloActual.tipoCRL" class="browser-default">
+							<option value="Congreso">Congreso</option>
+							<option value="Revista">Revista</option>
+							<option value="Libro">Libro</option>
+							<option value="Cap Libro">Cap Libro</option>
+							<option value="Reporte Técnico">Reporte Técnico</option>
+						</select>
+                    </div>
 
-                <div class="col s12 " style="margin-bottom: 1rem;">
-                    <label>Congreso/Revista/Libro/Cap Libro</label>
-                    <select [(ngModel)]="ArticuloActual.tipCLR" class="browser-default" [value]="ArticuloActual.tipCLR">
-						<option *ngFor="let tipo of tiposCLR" value="{{tipo}}">
-							{{tipo}}
-						</option>
-					</select>
+                    <div class="input-field col s12">
+                        <input name="titulo" id="articulo_tituloE" [(ngModel)]="ArticuloActual.titulo" required type="text">
+                        <label for="articulo_tituloE" class="active">Titulo del Artículo</label>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <input name="nombreCRL" id="articulo_nombreCRLE" [(ngModel)]="ArticuloActual.nombreCRL" required type="text">
+                        <label for="articulo_nombreCRLE" class="active">Nombre del Congreso/Revista/Libro/Institución</label>
+                    </div>
+
+                    <div class="col s12" style="margin-bottom: 1rem;">
+                        <label>Indexada</label>
+                        <select name="indexada" [(ngModel)]="ArticuloActual.indexada" class="browser-default">
+							<option value="No">No</option>
+							<option value="Si">Si</option>
+							<option value="JRC">JCR</option>
+						</select>
+                    </div>
+
+                    <div class="col s12" style="margin-bottom: 1rem;">
+                        <label>Nacinal/Internacional</label>
+                        <select name="tipoNI" [(ngModel)]="ArticuloActual.tipoNI" class="browser-default">
+							<option value="Nacional">Nacional</option>
+							<option value="Internacional">Internacional</option>
+						</select>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <input name="volumen" id="articulo_volumenE" [(ngModel)]="ArticuloActual.volumen" required type="text">
+                        <label for="articulo_volumenE" class="active">Volumen/Capítulo</label>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <input name="paginas" id="articulo_paginasE" [(ngModel)]="ArticuloActual.paginas" required type="text">
+                        <label for="articulo_paginasE" class="active">Páginas</label>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <input name="anyo" id="articulo_anyoE" [(ngModel)]="ArticuloActual.anyo" required type="text">
+                        <label for="articulo_anyoE" class="active">Año</label>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <input name="issnisbn" id="articulo_issnisbnE" [(ngModel)]="ArticuloActual.issnisbn" required type="text">
+                        <label for="articulo_issnisbnE" class="active">Código ISSN/ISBN</label>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <input name="doi" id="articulo_doiE" [(ngModel)]="ArticuloActual.doi" required type="text">
+                        <label for="articulo_doiE" class="active">Doi</label>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <input name="editores" id="articulo_editoresE" [(ngModel)]="ArticuloActual.editores" required type="text">
+                        <label for="articulo_editoresE" class="active">Editores</label>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <input name="editorial" id="articulo_editorialE" [(ngModel)]="ArticuloActual.editorial" required type="text">
+                        <label for="articulo_editorialE" class="active">Editorial</label>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <input name="pais" id="articulo_paisE" [(ngModel)]="ArticuloActual.pais" required type="text">
+                        <label for="articulo_paisE" class="active">País</label>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <input name="ciudad" id="articulo_ciudadE" [(ngModel)]="ArticuloActual.ciudad" required type="text">
+                        <label for="articulo_ciudadE" class="active">Ciudad</label>
+                    </div>
+
+                    <div class="col s12" style="margin-bottom: 1rem;">
+                        <label>Estado del artículo</label>
+                        <select name="estado" [(ngModel)]="ArticuloActual.estado" class="browser-default" value="Enviado">
+							<option value="Enviado">Enviado</option>
+							<option value="Aceptado">Aceptado</option>
+							<option value="Publicado">Publicado</option>
+						</select>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <input name="fechaedi" id="carrera_fechaedicionE" [(ngModel)]="ArticuloActual.fechaedicion" required type="date">
+                        <label for="carrera_fechaedicionE" class="active">Fecha de envío/aceptado/publicado</label>
+                    </div>
                 </div>
 
-                <div class="input-field col s12">
-                    <label for="articulo_titulo1" class="active">Titulo del Artículo</label>
-                    <input [(ngModel)]="ArticuloActual.titulo" id="articulo_titulo1" required type="text">
+                <div class="row">
+                    <div class="col s6 center">
+                        <input type="submit" class="waves-effect btn-large brown lighten-3" value="Enviar">
+                    </div>
+                    <div class="col s6 center">
+                        <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text">Cancelar</a>
+                    </div>
                 </div>
-
-                <div class="input-field col s12">
-                    <label for="articulo_nombreCRL1" class="active">Nombre del
-						Congreso/Revista/Libro/Institución</label>
-                    <input [(ngModel)]="ArticuloActual.nombreCLR" id="articulo_nombreCLR1" required type="text">
-                </div>
-
-                <div class="col s12" style="margin-bottom: 1rem;">
-                    <label>Indexada</label>
-                    <select [(ngModel)]="ArticuloActual.indexa" class="browser-default" [value]="ArticuloActual.indexa">
-						<option value="0">No</option>
-						<option value="1">Si</option>
-						<option value="JRC">JCR</option>
-					</select>
-                </div>
-
-                <div class="col s12" style="margin-bottom: 1rem;">
-                    <label>Nacinal/Internacional</label>
-                    <select [(ngModel)]="ArticuloActual.tipoNI" class="browser-default" [value]="ArticuloActual.tipoNI">
-						<option value="Nacional">Nacional</option>
-						<option value="Internacional">Internacional</option>
-					</select>
-                </div>
-
-                <div class="input-field col s12">
-                    <label for="articulo_volumen1" class="active">Volumen/Capítulo</label>
-                    <input [(ngModel)]="ArticuloActual.volumen" id="articulo_volumen1" required type="text">
-                </div>
-
-                <div class="input-field col s12">
-                    <input [(ngModel)]="ArticuloActual.numero" id="articulo_numero1" required type="text">
-                    <label for="articulo_numero1" class="active">Número</label>
-                </div>
-
-                <div class="input-field col s12">
-                    <label for="articulo_paginas1" class="active">Páginas</label>
-                    <input [(ngModel)]="ArticuloActual.paginas" id="articulo_paginas1" required type="text">
-
-                </div>
-
-                <div class="input-field col s12">
-                    <label for="articulo_anyo1" class="active">Año</label>
-                    <input [(ngModel)]="ArticuloActual.anyo" id="articulo_anyo1" required type="text">
-
-                </div>
-
-                <div class="input-field col s12">
-
-                    <label for="articulo_issnisbn1" class="active">Código ISSN/ISBN</label>
-                    <input [(ngModel)]="ArticuloActual.issnisbn" id="articulo_issnisbn1" required type="text">
-
-
-                </div>
-
-                <div class="input-field col s12">
-                    <label for="articulo_doi1" class="active">Doi</label>
-                    <input [(ngModel)]="ArticuloActual.doi" id="articulo_doi1" required type="text">
-
-                </div>
-
-                <div class="input-field col s12">
-                    <label for="articulo_editores1" class="active">Editores</label>
-                    <input [(ngModel)]="ArticuloActual.editores" id="articulo_editores1" required type="text">
-
-                </div>
-
-                <div class="input-field col s12">
-                    <label for="articulo_editorial1" class="active">Editorial</label>
-                    <input [(ngModel)]="ArticuloActual.editorial" id="articulo_editorial1" required type="text">
-
-                </div>
-
-                <div class="input-field col s12">
-                    <label for="articulo_pais1" class="active">País</label>
-                    <input [(ngModel)]="ArticuloActual.pais" id="articulo_pais1" required type="text">
-
-                </div>
-
-                <div class="input-field col s12">
-                    <label for="articulo_ciudad1" class="active">Ciudad</label>
-                    <input [(ngModel)]="ArticuloActual.cuidad" id="articulo_ciudad1" required type="text">
-
-                </div>
-
-                <div class="col s12" style="margin-bottom: 1rem;">
-                    <label>Estado del artículo</label>
-                    <select [(ngModel)]="ArticuloActual.estado" class="browser-default" [value]="ArticuloActual.estado">
-						<option value="Enviado">Enviado</option>
-						<option value="Aceptado">Aceptado</option>
-						<option value="Publicado">Publicado</option>
-					</select>
-                </div>
-
-                <div class="input-field col s12">
-                    <input [(ngModel)]="ArticuloActual.fechaEdicion" id="articulo_fechaedicion" [value]="ArticuloActual.fechaEdicion" required type="date">
-                    <label for="carrera_fechaedicion" class="active">Fecha de envío/aceptado/publicado</label>
-                </div>
-
-            </div>
-
-            <div class="row">
-                <div class="col s6 center">
-                    <a class="modal-action modal-close waves-effect btn-large" (click)="ActualizarP(ArticuloActual)">Actualizar</a>
-                </div>
-                <div class="col s6 center">
-                    <a class="modal-action modal-close waves-effect btn-large">Cancelar</a>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>
-
 
 <!-- Modal Ageregar autores de la UTM -->
 <div id="AutoresUTM" class="modal">
@@ -266,7 +264,7 @@
 
         <div class="row" style="margin-bottom: 0px !important;">
             <div class="col s12">
-                <h4 class="center">Autores UTM</h4>
+                <h4 class="center">Agregar Autores UTM</h4>
             </div>
         </div>
 
@@ -349,159 +347,114 @@
 <!-- Modal Ageregar autores externos -->
 <div id="AutoresExternos" class="modal">
     <div class="modal-content">
-
         <div class="row" style="margin-bottom: 0px !important;">
             <div class="col s12">
-                <h4 class="center">Autores Externos</h4>
+                <h4 class="center">Agregar Autores Externos</h4>
             </div>
         </div>
-
-
         <div style="border: .5px solid #78909c; padding: 10px;">
             <!--Tabla Sugerencias -->
-            <table>
-                <tr>
-                    <th>
-                        <h6>Sugerencias</h6>
-                    </th>
-
-                </tr>
-
-                <tr *ngFor="let profesor of Profesores2;">
-
+            <table ALIGN=CENTER>
+                <caption>
+                    <h6>Sugerencias</h6>
+                </caption>
+                <tr *ngFor="let externo of sugerenciasExternos;">
                     <th>
                         <label>
-							<input type="checkbox" [(ngModel)]="profesor.agregado" />
-							<span>Agregar</span>
-						  </label>
+							<input type="checkbox" [(ngModel)]="externo.agregado" />
+							<span></span>
+						</label>
                     </th>
-
-
-                    <th style=" width:8rem; "> <select [(ngModel)]="profesor.prioridad" class="browser-default" style=" width:8rem; ">
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-						<option value="5">5</option>
-						<option value="6">6</option>
-						<option value="7">7</option>
-						<option value="8">8</option>
-						<option value="9">9</option>
-						<option value="10">10</option>
-					</select></th>
-
-                    <th style=" width:16rem;"><label>
-						<h6>{{profesor.nombre}}</h6>
-					  </label>
-
+                    <th style=" width:8rem; ">
+                        <select [(ngModel)]="externo.prioridad" class="browser-default" style=" width:8rem; ">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+					    </select>
                     </th>
-                </tr>
-            </table>
-
-            <br>
-            <div class="row">
-                <div class="col s12 center">
-                    <a class="modal-action modal-close waves-effect btn-large" style="width:10rem;" (click)="AutoresExternosSugerencias()">Guardar</a>
-                </div>
-            </div>
-
-
-
-
-
-
-
-            <!--Tabla Buscar autor existente -->
-            <table>
-                <tr>
-                    <th>
-                        <h6>Buscar autor existente</h6>
+                    <th style=" width:16rem;">
+                        <label>
+						    <h6>{{externo.nombreAPA}}</h6>
+					    </label>
                     </th>
-
-                </tr>
-
-                <tr>
-                    <th style=" width:8rem; "> <select [(ngModel)]="externoexistente.prioridad" class="browser-default" style=" width:8rem; ">
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-						<option value="5">5</option>
-						<option value="6">6</option>
-						<option value="7">7</option>
-						<option value="8">8</option>
-						<option value="9">9</option>
-						<option value="10">10</option>
-					</select></th>
-                    <th style=" width:22rem; "> <select [(ngModel)]="externoexistente.nombre" class="browser-default" style=" width:22rem; ">
-						<option *ngFor="let profesor of Profesores;" value={{profesor.nombre}}>{{profesor.nombre}}</option>
-					</select></th>
-
-
                 </tr>
             </table>
             <br>
             <div class="row">
                 <div class="col s12 center">
-                    <a class="modal-action modal-close waves-effect btn-large" style="width:10rem;" (click)="ExternoExistente()">Guardar</a>
+                    <a class="waves-effect btn-large brown lighten-3">Guardar</a>
                 </div>
             </div>
 
-            <!--Agregar Nuevo autor externo -->
-            <table>
-                <tr>
-                    <h6>Agregar Nuevo autor externo</h6>
+            <!-- Formulario Agregar Nuevo Autor Externo -->
+            <form (ngSubmit)="ExternoExistente()" ngNativeValidate>
+                <!-- <div class="row">
+                    <div class="col s12" style="margin-bottom: 1rem;">
+                        <label>Congreso/Revista/Libro/Cap Libro</label>
+                        <select name="tipoCRL" class="browser-default">
+							<option value="Congreso">Congreso</option>
+							<option value="Revista">Revista</option>
+							<option value="Libro">Libro</option>
+							<option value="Cap Libro">Cap Libro</option>
+							<option value="Reporte Técnico">Reporte Técnico</option>
+						</select>
+                    </div>
+                </div> -->
 
-                </tr>
-                AutorNuevoexterno
-                <tr>
-                    <th> <select [(ngModel)]="AutorNuevoexterno.Prioridad" class="browser-default" style=" width:8rem; ">
-			<option value="1">1</option>
-			<option value="2">2</option>
-			<option value="3">3</option>
-			<option value="4">4</option>
-			<option value="5">5</option>
-			<option value="6">6</option>
-			<option value="7">7</option>
-			<option value="8">8</option>
-			<option value="9">9</option>
-			<option value="10">10</option>
-		</select>
-
-                    </th>
-                    <th class="col s16">
-                        <p>Los datos para un autor exxterno incluye el o los nombre y el apellido paterno, para soportar el formato APA</p>
-                    </th>
-
-                </tr>
-                <tr>
-                    <th>
-                        <h6>Nombre</h6>
-                    </th>
-                    <th><input [(ngModel)]="AutorNuevoexterno.Nombre" required type="text"></th>
-                </tr>
-                <tr>
-                    <th>
-                        <h6>Apellido Paterno</h6>
-                    </th>
-                    <th><input [(ngModel)]="AutorNuevoexterno.Apellido" required type="text"></th>
-                </tr>
-                <tr>
-                    <th>
-                        <h6>Correo</h6>
-                    </th>
-                    <th><input [(ngModel)]="AutorNuevoexterno.Correo" required type="text"></th>
-                </tr>
-
-            </table>
-
-
-            <br>
-            <div class="row">
-                <div class="col s12 center">
-                    <a class="modal-action modal-close waves-effect btn-large" style="width:10rem;" (click)="crearNuecoAutorExterno()">Guardar</a>
+                <div class="row">
+                    <label for="Externos">Externos:</label>
+                    <select id="Externos" class="browser-default">
+                        <option *ngFor="let externo of externos" [value]="externo.idExternoAPA">
+                            {{externo.nombreAPA}}
+                        </option>
+                    </select>
                 </div>
-            </div>
+
+
+                <div class="row">
+                    <div class="col s12 center">
+                        <input type="submit" class="waves-effect btn-large brown lighten-3" value="Guardar">
+                    </div>
+                </div>
+            </form>
+
+
+
+
+
+            <!-- Formulario Agregar Nuevo Autor Externo -->
+            <form (ngSubmit)="crearNuevoAutorExterno(externo)" ngNativeValidate>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input name="Nombres" id="externo_nombre" [(ngModel)]="externo.nombre" required type="text">
+                        <label for="externo_nombre">Nombre</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input name="NombreAPA" id="externo_APA" [(ngModel)]="externo.nombreAPA" required type="text">
+                        <label for="externo_APA">NombreAPA</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input name="correo" id="externo_correo" [(ngModel)]="externo.correo" required type="email">
+                        <label for="externo_correo">Correo</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s6 center">
+                        <input type="submit" class="waves-effect btn-large brown lighten-3" value="Guardar">
+                    </div>
+                    <div class="col s6 center">
+                        <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text">Cancelar</a>
+                    </div>
+                </div>
+            </form>
+
         </div>
     </div>
 </div>

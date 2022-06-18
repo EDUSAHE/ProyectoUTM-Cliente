@@ -1,6 +1,3 @@
-import { ArchivoArticulo } from "./archivo.model"
-import { Profesor } from "./profesor.model"
-
 export class Articulo {
 	idArticulo: number
 	tipoCRL: string
@@ -21,8 +18,6 @@ export class Articulo {
 	ciudad: string
 	pais: string
 	editorial: string
-	profesores: Profesor[]
-	archivos: ArchivoArticulo[]
 
 	constructor() {
 		this.idArticulo = 0
@@ -44,7 +39,5 @@ export class Articulo {
 		this.paginas = ''
 		this.comprobante = ''
 		this.issue = ''
-		this.profesores = []
-		this.archivos = []
 	}
 }

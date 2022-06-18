@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProyectosService } from 'src/app/services/proyectos.service';
 
 @Component({
 	selector: 'app-proyectos',
@@ -9,53 +10,25 @@ export class ProyectosComponent implements OnInit {
 
 	fechaInicial: string;
 	fechaFinal: string;
-
-	proyectos: any[] = [
-		{
-			idProyecto: 1,
-			nombreProyecto: "Plataforma de investigación 1",
-			estado: "Iniciado",
-			financiado: "No",
-			porcentajeAvance: 10,
-			inicio: "2020-04-30",
-			fin: "2021-05-10",
-			patrocinador: "UTM",
-			responsable: "Profesor 1",
-			colaboradores: ""
-		},
-		{
-			idProyecto: 2,
-			nombreProyecto: "Plataforma de investigación 2",
-			estado: "Iniciado",
-			financiado: "Sí",
-			porcentajeAvance: 40,
-			inicio: "2022-04-30",
-			fin: "2023-12-20",
-			patrocinador: "UMAR",
-			responsable: "Profesor 2",
-			colaboradores: ""
-		},
-		{
-			idProyecto: 3,
-			nombreProyecto: "Plataforma de investigación 3",
-			estado: "Iniciado",
-			financiado: "No",
-			porcentajeAvance: 56,
-			inicio: "2018-01-15",
-			fin: "2019-08-12",
-			patrocinador: "UNSIS",
-			responsable: "Profesor 3",
-			colaboradores: ""
-		}
-	]
-
-	constructor() {
+	proyectos: any[]
+	idProfesor : any
+	constructor(private proyectoservice : ProyectosService) {
 		let hoy = new Date()
+		this.proyectos = []
 		this.fechaInicial = `${hoy.getFullYear() - 1}-${('0' + (hoy.getMonth() + 1)).slice(-2)}-${('0' + hoy.getDate()).slice(-2)}`
 		this.fechaFinal = `${hoy.getFullYear()}-${('0' + (hoy.getMonth() + 1)).slice(-2)}-${('0' + hoy.getDate()).slice(-2)}`
+		this.idProfesor = Number(localStorage.getItem('idProfesor'))
 	}
 
 	ngOnInit(): void {
+		this.listarProyectos();
+	}
+	listarProyectos(){
+		this.proyectoservice.listProyectosByProfesorByPeriodo(this.idProfesor,this.fechaInicial,this.fechaFinal).subscribe((resProyectos: any) => {
+			this.proyectos = resProyectos;
+			console.log(resProyectos);	
+		},
+			err => console.error(err))
 	}
 
 }
