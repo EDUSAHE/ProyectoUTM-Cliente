@@ -1,42 +1,44 @@
 <div class="container">
-	<h3 class="center-align">Revisiones</h3>
+    <h3 class="center-align">Revisiones</h3>
 
-	<div class="row">
-		<div class="col s6">
-			<label class="">A partir de:</label>
-			<input type="date" [(ngModel)]="fechaInicial" (change)="cambioIni()">
-		</div>
-		<div class="col s6">
-			<label>Hasta:</label>
-			<input type="date" [(ngModel)]="fechaFinal" (change)="cambioFin()" id="fechaFin">
-		</div>
-	</div>
+    <div class="row">
+        <div class="col s6">
+            <label class="">A partir de:</label>
+            <input type="date" [(ngModel)]="fechaInicial" (change)="cambioIni()">
+        </div>
+        <div class="col s6">
+            <label>Hasta:</label>
+            <input type="date" [(ngModel)]="fechaFinal" (change)="cambioFin()" id="fechaFin">
+        </div>
+    </div>
 
-	<table id="tablaRevisiones">
-		<tr>
-			<th class="intro" onclick="sortTable(0, 'str', 'tablaRevisiones')">Tipo de revisión</th>
-			<th class="intro" onclick="sortTable(1, 'str', 'tablaRevisiones')">Nombre de revista o institución</th>
-			<th class="intro" onclick="sortTable(2, 'str', 'tablaRevisiones')">Fecha de revisión</th>
-			<th class="intro">Título del artículo</th>
-			<th class="intro">Opciones</th>
-		</tr>
+    <table id="tablaRevisiones">
+        <tr>
+            <th class="intro" onclick="sortTable(0, 'str', 'tablaRevisiones')">Tipo de revisión</th>
+            <th class="intro" onclick="sortTable(1, 'str', 'tablaRevisiones')">Nombre de revista o institución</th>
+            <th class="intro" onclick="sortTable(2, 'str', 'tablaRevisiones')">Fecha de revisión</th>
+            <th class="intro" onclick="sortTable(3, 'str', 'tablaRevisiones')">Título del artículo</th>
+            <th class="intro">Opciones</th>
+        </tr>
 
-		<ng-container *ngFor="let revision of revisiones">
-			<tr>
-				<td>{{revision.tipoRP}}</td>
-				<td>{{revision.nombreRI}}</td>
-				<td>{{convertirFecha(revision.fecha)}}</td>
-				<td>{{revision.tituloRP}}</td>
-				<td  ><a href="javascript: void(0);" class="space" (click)="EditarRevisionE(revision.idRevisor,revision)">
-					<i class="material-icons">edit</i>Modificar</a>
-				<a href="javascript: void(0);" class="space"  (click)="EliminarRevision(revision.idRevisor)">
-					<i class="material-icons" >delete</i>Eliminar</a></td>
-			</tr>
-		</ng-container>
-	</table>
+        <ng-container *ngFor="let revision of revisiones">
+            <tr>
+                <td>{{revision.tipoRP}}</td>
+                <td>{{revision.nombreRI}}</td>
+                <td>{{convertirFecha(revision.fecha)}}</td>
+                <td>{{revision.tituloRP}}</td>
+                <td>
+                    <a href="javascript: void(0);" class="space" (click)="EditarRevisionE(revision.idRevisor,revision)">
+                        <i class="material-icons">edit</i>Modificar</a>
+                    <a href="javascript: void(0);" class="space" (click)="EliminarRevision(revision.idRevisor)">
+                        <i class="material-icons">delete</i>Eliminar</a>
+                </td>
+            </tr>
+        </ng-container>
+    </table>
 </div>
 
-<!-- Modal Crear Revision -->
+<!-- Modal Modificar Revision -->
 <div id="EditarRevivision" class="modal">
     <div class="modal-content">
         <div class="row" style="margin-bottom: 0px !important;">
@@ -47,11 +49,11 @@
 
 
         <div style="border: .5px solid #78909c; padding: 10px;">
-            <form  (ngSubmit)="EditarRevisionServer()" ngNativeValidate>
+            <form (ngSubmit)="EditarRevisionServer()" ngNativeValidate>
                 <div class="row">
 
 
-                    <div class="col s12" style="margin-bottom: 1rem;"> 
+                    <div class="col s12" style="margin-bottom: 1rem;">
                         <select name="tipoCRL" [(ngModel)]="revisor.tipoRP" class="browser-default">
                             <option value="Artículo">Articulo</option>
                             <option value="Proyecto">Proyecto</option>
@@ -60,37 +62,37 @@
 
 
                     <div class="input-field col s12">
-                        <input name="Nombre de revista o institución" id="revisor_nombreRI" [(ngModel)]="revisor.nombreRI" required type="text">
-                        <label for="patente_titulo">Nombre de revista o institución</label>
+                        <input name="Nombre de revista o institución" id="Revisor_nombreRI" [(ngModel)]="revisor.nombreRI" required type="text">
+                        <label class="active" for="Revisor_nombreRI">Nombre de revista o institución</label>
                     </div>
-                    
-                    
-                    
-                    <div class="input-field col s12">
-                        <input name="registroFecha" id="revisor_fecha" [(ngModel)]="revisor.fecha" required type="date">
-                        <label for="patente_fechaReg">Fecha</label>
-                    </div>
-
-
 
 
 
                     <div class="input-field col s12">
-                        <input name="titulo" id="titulo_articulo" [(ngModel)]="revisor.tituloRP" required type="text">
-                        <label for="patente_fechaObt" min="patente_fechaReg">Título de artículo</label>
+                        <input name="registroFecha" id="Revisor_fecha" [(ngModel)]="revisor.fecha" required type="date">
+                        <label class="active" for="Revisor_fecha">Fecha</label>
                     </div>
 
 
-                <div class="row">
-                    <div class="col s6 center"  value="Enviar">
-                        <input type="submit" class="waves-effect btn-large brown lighten-3">
+
+
+
+                    <div class="input-field col s12">
+                        <input name="titulo" id="Titulo_Articulo" [(ngModel)]="revisor.tituloRP" required type="text">
+                        <label class="active" for="Titulo_Articulo" min="Titulo_Articulo">Título de artículo</label>
                     </div>
-                    <div class="col s6 center">
-                        <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text">Cancelar</a>
+
+
+                    <div class="row">
+                        <div class="col s6 center" value="Enviar">
+                            <input type="submit" class="waves-effect btn-large brown lighten-3">
+                        </div>
+                        <div class="col s6 center">
+                            <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text">Cancelar</a>
+                        </div>
                     </div>
+
                 </div>
-                
-            </div>
             </form>
         </div>
     </div>
