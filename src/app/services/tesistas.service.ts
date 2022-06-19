@@ -12,6 +12,6 @@ export class TesistasService {
   constructor(private http: HttpClient) { }
 
   listTesistasByProfesorByPeriodo(idProfesor:number, fechaIni:any, fechaFin:any){
-    return this.http.get(`${environment.API_URI}/tesistas`);
+    return this.http.get(`${environment.API_URI}/tesistas/listTesistasByProfesorByPeriodo/${idProfesor}/${fechaIni}/${fechaFin}`);
   }
 }

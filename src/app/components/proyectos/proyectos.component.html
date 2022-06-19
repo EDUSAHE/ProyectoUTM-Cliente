@@ -10,7 +10,7 @@
 		</div>
 		<div class="col s6">
 			<label>Fecha Final:</label>
-			<input type="date" [(ngModel)]="fechaFinal" (change)="cambioIni()" id="fechaFin" >
+			<input type="date" [(ngModel)]="fechaFinal" (change)="cambioFin()" id="fechaFin" >
 		</div>
 	</div>
     
@@ -52,16 +52,17 @@
                         </td>
 						
 						<td style="width: 10%;">
-                            <b>Inicio</b><br><br> {{proyecto.inicio}}
-                        </td>
+                            <b>Inicio</b><br><br> {{convertirFecha(proyecto.inicio)}}
+                   
 						<td style="width: 10%;">
-                            <b>Fin</b><br><br> {{proyecto.fin}}
+                            <b>Fin</b><br><br> {{convertirFecha(proyecto.fin)}}
                         </td>
 						<td style="width: 10%;">
                             <b>Patrocinador</b><br><br> {{proyecto.patrocinador}}
                         </td>
                     
                     </tr>
+					
                 </ng-container>
             </table>
       
