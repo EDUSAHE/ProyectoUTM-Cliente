@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Articulo } from 'src/app/models/articulo.model';
+import { Externo } from 'src/app/models/externo.model';
 import { ArticulosService } from 'src/app/services/articulos.service';
 import { CambioInfoService } from 'src/app/services/cambio-info.service';
+import { ExternoService } from 'src/app/services/externo.service';
 import { ImagenesService } from 'src/app/services/imagenes.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
@@ -15,87 +17,31 @@ declare var $: any
 export class ArticulosComponent implements OnInit {
 
 	idProfesor: number
+	Profesores: any []
 	articulos: any[]
+	articulo:any
 	fileToUpload: any
 	fechaInicial: string
 	fechaFinal: string
-	ArticuloActual: any
+	ArticuloActual: Articulo
 	urlArchivos: string
 	profesoresActuales: any
-	ordenProfesores: any;
-
-	tiposCLR = ["Congreso", "Revista", "Libro", "Cap Libro", "Reporte Técnico"];
-	Profesores2 =[{nombre:"Juan Lopez",agregado:false,prioridad:1},{nombre:"Carlos Cruz",agregado:false,prioridad:1},{nombre:"David Cruz",agregado:false,prioridad:1},{nombre:"Pedro Lopez",agregado:false,prioridad:1},{nombre:"Alonso perez",agregado:false,prioridad:1}];
-	Profesores =[{nombre:"Juan Lopez",agregado:false,prioridad:1},{nombre:"Carlos Cruz",agregado:false,prioridad:1},{nombre:"David Cruz",agregado:false,prioridad:1},{nombre:"Pedro Lopez",agregado:false,prioridad:1},{nombre:"Alonso perez",agregado:false,prioridad:1},{nombre:"Eduardo Gonzalez",agregado:false,prioridad:1},{nombre:"Pancho Lopez",agregado:false,prioridad:1},{nombre:"Modesto Seara",agregado:false,prioridad:1},{nombre:"Victor Manuel",agregado:false,prioridad:1},{nombre:"Erick Cruz",agregado:false,prioridad:1}];
-	AutorNuevoexterno={
-		Nombre:"",
-		Apellido:"",
-		Correo:"",
-		Prioridad:1,
-	}
-	externoexistente={
-		prioridad:1,
-		nombre:""
-	}
-	constructor(private route: ActivatedRoute, private articulosService: ArticulosService, private cambioInforService: CambioInfoService, private imagenesService: ImagenesService) {
+	ordenProfesores: any
+	externo: Externo
+	externos: Externo[]
+	sugerenciasExternos: any []
+	constructor(private externoService:ExternoService, private route: ActivatedRoute, private articulosService: ArticulosService, private cambioInforService: CambioInfoService, private imagenesService: ImagenesService) {
 		this.idProfesor = 0
+		this.sugerenciasExternos = []
+		this.externo = new Externo();
+		this.articulo;
+		this.Profesores = []
 		this.articulos = []
+		this.externos = []
 		this.profesoresActuales = []
-		this.ArticuloActual = {
-			tipCLR: 'Revista',
-			titulo: 'La Computación Educacional',
-			nombreCRL: 'Revista La audiencia',
-			doi: 'http://lecturas.com',
-			numero: '1',
-			fechaedicion: '2020-05-19',
-			tipoNI: 'Nacional',
-			issnisbn: 'ccc001ascvw',
-			anyo: '2020',
-			volumen: '2',
-			paginas: '152',
-			pais: 'México',
-			estado: 'Enviado',
-			indexada: 'Si',
-			editores: 'Juan',
-			editorial: 'El Planeta',
-			ciudad: 'Huajuapan'
-		}
+		this.ArticuloActual = new Articulo()
 		this.fileToUpload = null
-		this.ordenProfesores = [{
-			idProfesor: '1',
-			nombre: 'ejempol1',
-			idArticulo: '1',
-			pos: '1',
-			valido: 'si'
-		},
-		{
-			idProfesor: '2',
-			nombre: 'ejempol2',
-			idArticulo: '2',
-			pos: '2',
-			valido: 'si'
-		},
-		{
-			idProfesor: '3',
-			nombre: 'ejempol3',
-			idArticulo: '3',
-			pos: '3',
-			valido: 'si'
-		},
-		{
-			idProfesor: '4',
-			nombre: 'ejempol4',
-			idArticulo: '4',
-			pos: '4',
-			valido: 'si'
-		},
-		{
-			idProfesor: '5',
-			nombre: 'ejempol5',
-			idArticulo: '5',
-			pos: '5',
-			valido: 'si'
-		}]
+		this.ordenProfesores;
 		let hoy = new Date()
 		this.fechaInicial = `${hoy.getFullYear() - 1}-${('0' + (hoy.getMonth() + 1)).slice(-2)}-${('0' + hoy.getDate()).slice(-2)}`
 		this.fechaFinal = `${hoy.getFullYear()}-${('0' + (hoy.getMonth() + 1)).slice(-2)}-${('0' + hoy.getDate()).slice(-2)}`
@@ -103,52 +49,66 @@ export class ArticulosComponent implements OnInit {
 		this.urlArchivos = environment.URI_ARCHIVOS
 		this.obtenerArticulos()
 		cambioInforService.currentMsg$.subscribe(mensaje => {
-			
+
 		}, err => console.error(err))
-	}
-	//desplegar model
-	ActualizarArticuloModal(articulo: Articulo) {
-		this.ArticuloActual = articulo;
-		$('#ActualizarArticulo').modal();
-		$('#ActualizarArticulo').modal('open');
-	}
-	//Actualiza la Publicacion
-	ActualizarP(articulo: any) {
-		console.log(articulo)
 	}
 
 	ngOnInit(): void {
 		$(document).ready(function () {
 			$('.sidenav').sidenav()
 			$(".dropdown-trigger").dropdown({ coverTrigger: false })
-		  })
+		})
 		this.route.paramMap.subscribe(params => {
 			this.idProfesor = Number(params.get('idProfesor'))
 			this.obtenerArticulos()
 		})
+		this.AutoresExternosSugerencias();
 	}
 
 	obtenerArticulos(): void {
-		this.articulosService.getArticulosByProfesor(this.idProfesor, this.fechaInicial, this.fechaFinal).subscribe((resArticulos: any) => {
+		this.articulosService.listArticulosByProfesorByPeriodo(this.idProfesor, this.fechaInicial, this.fechaFinal).subscribe((resArticulos: any) => {
 			this.articulos = resArticulos
 			// console.log(this.articulos)
 		},
 			err => console.error(err))
 	}
 
+	//desplegar model
+	ActualizarArticuloModal(idArticulo:any) {
+		this.articulosService.obtenerArticulo(idArticulo).subscribe((resArticulo:any)=>{
+			this.ArticuloActual=resArticulo;
+		},
+			err => console.error(err))
+		$('#ActualizarArticulo').modal();
+		$('#ActualizarArticulo').modal('open');
+	}
+	//Actualiza la Publicacion
+	actualizarArticulo(articulo: any) {
+		console.log(articulo)
+		delete articulo.autores;
+		console.log(this.articulo)
+		this.articulosService.actualizarArticulo(articulo,articulo.idArticulo).subscribe((resActualiza: any) => {
+		},
+			err => console.error(err))
+		this.obtenerArticulos();
+		$('#ActualizarArticulo').modal('close');
+	}
+
 	//<!-- Modal AutoresExternos-->
 	ModalAutoresExternos() {
 		console.log("AutoresExternos");
+		this.AutoresExternosSugerencias()
+		this.ExternoExistente()
 		$('#AutoresExternos').modal();
 		$('#AutoresExternos').modal('open');
 	}
 
 	//<!-- Modal AutoresUTM-->
-		ModalAutoresUTM() {
-			console.log("AutoresUTM");
-			$('#AutoresUTM').modal();
-			$('#AutoresUTM').modal('open');
-		}
+	ModalAutoresUTM() {
+		console.log("AutoresUTM");
+		$('#AutoresUTM').modal();
+		$('#AutoresUTM').modal('open');
+	}
 
 	//<!-- Modal Prioridades autores Publicacion-->
 	ModalPrioridades(profesores: any) {
@@ -165,18 +125,28 @@ export class ArticulosComponent implements OnInit {
 		console.log(this.ordenProfesores)
 	}
 
-	AutoresUTM(){
-		console.log(this.Profesores);
+	AutoresUTM() {
+		console.log();
 	}
-	AutoresExternosSugerencias(){
-		console.log(this.Profesores2);
+	AutoresExternosSugerencias() {
+		this.articulosService.getSugerenciasExternoByAutorUTM(this.idProfesor).subscribe((resExternosSugeridos: any) => {
+			this.sugerenciasExternos = resExternosSugeridos
+		},
+			err => console.error(err))
 	}
-	crearNuecoAutorExterno(){
-		console.log(this.AutorNuevoexterno);
-
+	crearNuevoAutorExterno(NuevoExterno:any) {
+		this.externoService.crearExterno(NuevoExterno).subscribe((resExterno:any) => {
+			console.log(NuevoExterno);
+		},
+			err => console.error(err))
+		$('#AutoresExternos').modal('close');
 	}
-	ExternoExistente(){
-		console.log(this.externoexistente);
+	ExternoExistente() {
+		this.externoService.listExternos().subscribe((resExternos:any)=>{
+			this.externos =	resExternos.filter((el: any) => !this.sugerenciasExternos.includes(el));
+			console.log(this.externos);
+		},
+			err => console.error(err))
 	}
 
 	cargarArchivo(archivos: any, idArticulo: number): void {
