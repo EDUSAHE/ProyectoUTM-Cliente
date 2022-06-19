@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Profesor } from 'src/app/models/profesor.model';
 import { DatosPersonalesService } from 'src/app/services/datos-personales.service';
 import { MateriasService } from 'src/app/services/materias.service';
 import { PlanesService } from 'src/app/services/planes.service';
@@ -11,48 +12,11 @@ import { PlanesService } from 'src/app/services/planes.service';
 export class MateriasComponent implements OnInit {
 
 	idProfesor: number;
-	profesor = {
-		nombre: "Erik Germán Ramos Pérez"
-	}
+	datosProf: Profesor = new Profesor();
+	materiasProfesor: any[] = [];
+	materiasMulti: any[] = [];
 
-	materias: any[] = [
-		{
-			nombreMateria: "Programación web II",
-			grupo: "602-A",
-			carrera: "Ingeniería en Computación",
-			nombrePlan: "5",
-			periodo: "2022-B"
-		},
-		{
-			nombreMateria: "Programación web I",
-			grupo: "502-A",
-			carrera: "Ingeniería en Computación",
-			nombrePlan: "5",
-			periodo: "2022-A"
-		},
-		{
-			nombreMateria: "Procesamiento del imágenes",
-			grupo: "902-A",
-			carrera: "Ingeniería en Computación",
-			nombrePlan: "5",
-			periodo: "2022-A"
-		}
-	];
-
-	materiasMulti: any[] = [
-		{
-			nombreMateria: "Programación estructurada",
-			grupos: [
-				"102",
-				"407"
-			],
-			carrera: "Ingeniería en Computación",
-			nombrePlan: "2",
-			periodo: "2022-B"
-		}
-	]
-
-	planes: Map<number, string> = new Map();
+	materias: Map<number, string> = new Map();
 
 	fechaActual: string;
 	fechaInicial: string;
@@ -65,14 +29,35 @@ export class MateriasComponent implements OnInit {
 		this.fechaFinal = hoy.getFullYear() + "";
 		this.fechaInicial = (hoy.getFullYear() - 1) + "";
 		this.idProfesor = datosPersonalesService.idProfesor;
+
+		this.datosPersonalesService.datosPersonales$.subscribe(prof => {
+			this.datosProf = prof;
+		});
+
+		this.materiasService.list().subscribe({
+			next: (resMaterias: any) => {
+				resMaterias.forEach((materia: any) => {
+					this.materias.set(materia.idMateria, materia.nombreMateria);
+				});
+			}
+		});
 	}
 
 	ngOnInit(): void {
+		this.obtenerMaterias();
+	}
+
+	obtenerMaterias() {
 		this.materiasService
-		.listMateriasByAnyoByPeriodo(this.idProfesor, this.fechaInicial, this.fechaFinal).subscribe({
+		.listMateriasByAnyoByPeriodo(this.idProfesor, this.fechaInicial + "-01-01", this.fechaFinal + "-12-31").subscribe({
 			next: (resMaterias: any) => {
-				// En espera de la corrección del controller
-				console.log(resMaterias)
+				this.materiasProfesor = resMaterias;
+				this.materiasService
+				.listMateriasByAnyoByPeriodoMultiple(this.idProfesor, this.fechaInicial + "-01-01", this.fechaFinal + "-12-31").subscribe({
+					next: (resMultiple: any) => {
+						this.materiasMulti = resMultiple;
+					}
+				});
 			}
 		});
 	}
