@@ -2,13 +2,13 @@
 	<h3 class="center-align">Materias</h3>
 
 	<div class="row">
-		<div class="col s6">
-			<label class="">Fecha Inicial:</label>
-			<input type="date" [(ngModel)]="fechaInicial">
+		<div class="col offset-s3 s3">
+			<label class="">Año Inicial:</label>
+			<input type="number" min="1991" max="{{fechaActual}}" step="1" [(ngModel)]="fechaInicial">
 		</div>
-		<div class="col s6">
-			<label>Fecha Final:</label>
-			<input type="date" [(ngModel)]="fechaFinal">
+		<div class="col s3">
+			<label>Año Final:</label>
+			<input type="number" min="{{fechaInicial}}" max="{{fechaActual}}" step="1" [(ngModel)]="fechaFinal">
 		</div>
 	</div>
 

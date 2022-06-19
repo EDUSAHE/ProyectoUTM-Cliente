@@ -11,7 +11,7 @@ export class DatosPersonalesService {
 	private datosPersonalesSource = new BehaviorSubject<Profesor>(new Profesor());
 	datosPersonales$ = this.datosPersonalesSource.asObservable();
 
-	private idProfesor: number;
+	idProfesor: number;
 
 	constructor(private profesorService: ProfesorService) {
 		let id = localStorage.getItem('id');

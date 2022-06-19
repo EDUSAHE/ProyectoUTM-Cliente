@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { DatePipe } from '@angular/common';
+import { DatosPersonalesService } from 'src/app/services/datos-personales.service';
+import { MateriasService } from 'src/app/services/materias.service';
+import { PlanesService } from 'src/app/services/planes.service';
 
 @Component({
-  selector: 'app-materias',
-  templateUrl: './materias.component.html',
-  styleUrls: ['./materias.component.css']
+	selector: 'app-materias',
+	templateUrl: './materias.component.html',
+	styleUrls: ['./materias.component.css']
 })
 export class MateriasComponent implements OnInit {
 
+	idProfesor: number;
 	profesor = {
 		nombre: "Erik Germán Ramos Pérez"
 	}
@@ -49,21 +52,29 @@ export class MateriasComponent implements OnInit {
 		}
 	]
 
+	planes: Map<number, string> = new Map();
+
+	fechaActual: string;
 	fechaInicial: string;
 	fechaFinal: string;
 
-	constructor(private datePipe: DatePipe) {
+	constructor(private materiasService: MateriasService, private planesService: PlanesService,
+		private datosPersonalesService: DatosPersonalesService) {
 		let hoy = new Date();
-
-		// Obtiene fecha de hoy
-		this.fechaFinal = this.datePipe.transform(hoy, "yyyy-MM-dd") as string;
-
-		// Obtiene fecha de un mes atrás
-		hoy.setMonth(hoy.getMonth() - 1);
-		this.fechaInicial = this.datePipe.transform(hoy, "yyyy-MM-dd") as string;
+		this.fechaActual = hoy.getFullYear() + "";
+		this.fechaFinal = hoy.getFullYear() + "";
+		this.fechaInicial = (hoy.getFullYear() - 1) + "";
+		this.idProfesor = datosPersonalesService.idProfesor;
 	}
 
-  ngOnInit(): void {
-  }
+	ngOnInit(): void {
+		this.materiasService
+		.listMateriasByAnyoByPeriodo(this.idProfesor, this.fechaInicial, this.fechaFinal).subscribe({
+			next: (resMaterias: any) => {
+				// En espera de la corrección del controller
+				console.log(resMaterias)
+			}
+		});
+	}
 
 }
