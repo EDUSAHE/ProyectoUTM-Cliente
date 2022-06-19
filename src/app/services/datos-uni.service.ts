@@ -18,8 +18,8 @@ export class DatosUniService {
 		this.datos$ = this.datosSourse.asObservable();
 
 		// Guarda los datos de la bd
-		let institutos = new Map<number, string>();
-		let carreras = new Map<number, string>();
+		const institutos = new Map<number, string>();
+		const carreras = new Map<number, string>();
 
 		this.instService.obtenerTodo().subscribe({
 			next: (resInstitutos: any) => {
