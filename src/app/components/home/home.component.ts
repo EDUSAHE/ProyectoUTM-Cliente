@@ -72,10 +72,11 @@ export class HomeComponent implements OnInit {
   //creaar la Publicacion
   crearArticulo(articulos: any) {
     console.log(articulos)
-    this.articuloService.agregar(articulos,this.idProfesor).subscribe((resArticulo: any) => {
-		},
+    this.articuloService.agregar(articulos,this.idProfesor, new Date().toLocaleDateString("en-CA")).subscribe((resArticulo: any) => {
+		$('#agregarArticulo').modal('close');
+		this.articulo = new Articulo();
+	},
 			err => console.error(err))
-    $('#agregarArticulo').modal('close');
   }
   
   agregarRevivision() {

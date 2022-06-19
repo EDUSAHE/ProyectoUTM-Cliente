@@ -185,7 +185,7 @@
 
                     <div class="col s12" style="margin-bottom: 1rem;">
                         <select name="tipoCRL" [(ngModel)]="revisor.tipoRP" class="browser-default">
-                            <option value="Artículo">Articulo</option>
+                            <option value="Artículo">Artículo</option>
                             <option value="Proyecto">Proyecto</option>
                         </select>
                     </div>
@@ -410,7 +410,6 @@
             <h3 class="center-align">Nuevo Proyecto</h3>
         </div>
 
-
         <div style="border: .5px solid #78909c; padding: 10px;">
             <div class="col s12" style="margin-bottom: 1rem;">
                 <label> Estado</label>
@@ -421,18 +420,13 @@
             </select>
             </div>
 
-
-
             <div class="col s12" style="margin-bottom: 1rem;">
                 <label> Financiado</label>
                 <select [(ngModel)]="proyecto.financiado" class="browser-default">
-                <option value="Si">Si</option>  
-                <option value="No">No</option>
-
-            </select>
+                	<option value="Si">Si</option>  
+                	<option value="No">No</option>
+				</select>
             </div>
-
-
 
             <div class="row col s12">
                 <div class="input-field">
@@ -440,8 +434,6 @@
                     <label for="porcentaje_proyecto">Porcentaje de avance</label>
                 </div>
             </div>
-
-
 
             <div class="input-field col s12">
                 <input id="inicio_proyecto" [(ngModel)]="proyecto.inicio" required type="date">
@@ -453,15 +445,12 @@
                 <label for="fin_proyecto">Fin</label>
             </div>
 
-
             <div class="row col s12">
                 <div class="input-field">
                     <input [(ngModel)]='proyecto.patrocinador' id="patrocinador_proyecto" required type="text">
                     <label for="patrocinador_proyecto">Patrocinador</label>
                 </div>
             </div>
-
-
 
             <div class="row col s12">
                 <div class="input-field">
@@ -470,12 +459,8 @@
                 </div>
             </div>
 
-
-
-
             <!-- Guardar y Cancelar-->
             <div class="row">
-
                 <div class="col s6 center">
                     <a class="modal-action modal-close waves-effect btn-large" (click)="AgregarProyecto()">Enviar</a>
                 </div>
@@ -483,7 +468,6 @@
                 <div class="col s6 center">
                     <a class="modal-action modal-close waves-effect btn-large">Cancelar</a>
                 </div>
-
             </div>
 
         </div>

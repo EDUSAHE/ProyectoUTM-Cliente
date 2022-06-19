@@ -21,8 +21,8 @@ export class ArticulosService {
     return this.http.get(`${environment.API_URI}/articulos/${fechaInicial}/${fechaFinal}`);
   }
 
-  agregar(articulo: any, idProfesor: any) {
-    return this.http.post(`${environment.API_URI}/articulos/create/${idProfesor}`, articulo)
+  agregar(articulo: any, idProfesor: any, fechaCap: any) {
+    return this.http.post(`${environment.API_URI}/articulos/create/${idProfesor}/${fechaCap}`, articulo)
   }
 
   actualizarArticulo(articulo: any, idArticulo: any) {
