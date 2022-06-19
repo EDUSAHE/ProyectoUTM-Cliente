@@ -74,8 +74,13 @@ export class HomeComponent implements OnInit {
   crearArticulo(articulos: any) {
     console.log(articulos)
     this.articuloService.agregar(articulos,this.idProfesor, new Date().toLocaleDateString("en-CA")).subscribe((resArticulo: any) => {
-		$('#agregarArticulo').modal('close');
-		this.articulo = new Articulo();
+		  $('#agregarArticulo').modal('close');
+		  this.articulo = new Articulo();
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Articulo  Agregado'
+      })
 	},
 			err => console.error(err))
   }
@@ -83,7 +88,7 @@ export class HomeComponent implements OnInit {
   agregarRevivision() {
     console.log("CrearRevision");
     $('#CrearRevision').modal();
-    $('##CrearRevision').modal('open');
+    $('#CrearRevision').modal('open');
   }
 
 
@@ -97,9 +102,9 @@ export class HomeComponent implements OnInit {
         icon: 'success',
         title: 'Revision  Agregada'
       })
+      this.revisor = new Revisor();
     }, err => console.error(err))
 
-    console.log(this.revisor);
   }
 
   enviarMensajeArticulo() {
@@ -126,10 +131,11 @@ export class HomeComponent implements OnInit {
         },err=>console.error(err));
         
       }, err => console.error(err));
+      $('#nuevaPatente').modal('close');
       Swal.fire({
         position: 'center',
         icon: 'success',
-        title: 'Registro nueva patente'
+        title: 'Patente Registrada'
       })
     }
     else {
@@ -139,46 +145,47 @@ export class HomeComponent implements OnInit {
         title: 'Fecha de obtención debe de ser posterior'
       })
     }
+    this.patente = new Patente();
   }
 
   crearEvento() {
-
-    this.evento.idProfesor = Number(localStorage.getItem('idProfesor'));
+    this.evento.idProfesor = this.idProfesor
     this.enventoServices.agregarEvento(this.evento).subscribe(res => {
+      $('#nuevoEvento').modal('close');
       Swal.fire({
         position: 'center',
         icon: 'success',
         title: 'Evento  Agregado'
       })
     }, err => console.error(err))
-
     console.log(this.evento)
+    this.evento = new Evento()
   }
   crearActividad() {
-
-    this.actividad.idProfesor = Number(localStorage.getItem('idProfesor'));
+    this.actividad.idProfesor = this.idProfesor
     this.actividadServices.agregarActividad(this.actividad).subscribe(res => {
+      $('#nuevaActividad').modal('close');
       Swal.fire({
         position: 'center',
         icon: 'success',
         title: 'Actividad  Agregada'
       })
     }, err => console.error(err))
-
     console.log(this.evento)
+    this.actividad = new Actividad;
   }
 
   AgregarProyecto(): void {
-    this.idProfesorProyecto= Number(localStorage.getItem('idProfesor'));
-
+    this.idProfesorProyecto = this.idProfesor
     this.proyectoService.agregarProyecto(this.proyecto, this.idProfesorProyecto).subscribe(res => {
+      $('#agregarProyecto').modal('close');
       Swal.fire({
         position: 'center',
         icon: 'success',
-        title: 'Proyecto   Agregado'
+        title: 'Proyecto  Agregado'
       })
     }, err => console.error(err))
-
     console.log(this.proyecto)
+    this.proyecto = new Proyecto()
   }
 }
