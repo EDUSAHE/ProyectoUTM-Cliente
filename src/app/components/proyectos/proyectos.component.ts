@@ -65,8 +65,7 @@ export class ProyectosComponent implements OnInit {
 	}
 	
 	listProyectosByProfesorByPeriodo(){
-		
-		this.proyectoService.listProyectosByProfesorByPeriodo(this.idProfesor, this.fechaInicial, this.fechaFinal).subscribe((proyectoRes: any) => {
+this.proyectoService.listProyectosByProfesorByPeriodo(this.idProfesor, this.fechaInicial, this.fechaFinal).subscribe((proyectoRes: any) => {
 			this.proyectos = proyectoRes
 			console.log(proyectoRes);
 		 }, err => console.error(err))
