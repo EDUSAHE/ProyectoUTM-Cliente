@@ -23,7 +23,9 @@ export class RevisionesService {
   EliminarRevision(idRevision:any){
     return this.http.delete(`${environment.API_URI}/revisor/delete/${idRevision}`)
   }
-
+  EditarRevision(idRevision:any,revision:Revisor){
+    return this.http.put(`${environment.API_URI}/revisor/update/${idRevision}`,revision);
+  }
   
   // Servicios solicitados al servidor
 

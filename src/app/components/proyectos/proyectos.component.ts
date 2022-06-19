@@ -27,6 +27,7 @@ export class ProyectosComponent implements OnInit {
 
 		this.fechaInicial = `${hoy.getFullYear() - 1}-${('0' + (hoy.getMonth() + 1)).slice(-2)}-${('0' + hoy.getDate()).slice(-2)}`
 		this.fechaFinal = `${hoy.getFullYear()}-${('0' + (hoy.getMonth() + 1)).slice(-2)}-${('0' + hoy.getDate()).slice(-2)}`
+		this.idProfesor = Number(localStorage.getItem('idProfesor'))
 	}
 
 	ngOnInit(): void {

@@ -7,7 +7,7 @@ import { Evento } from '../models/evento.model';
   providedIn: 'root'
 })
 export class EventoService {
-
+ 
   constructor(private http: HttpClient) { }
 
   agregarEvento(evento: Evento) {
@@ -25,6 +25,15 @@ export class EventoService {
   obtenerEventosCarrera(idCarrera: number, fechaIni: string, fechafin: string) {
     return this.http.get(`${environment.API_URI}/eventos/eventosByCarrera/${idCarrera}/${fechaIni}/${fechafin}`)
   }
+  eliminarEvento(idEvento:number){
+    return this.http.delete(`${environment.API_URI}/eventos/delete/${idEvento}`)
+  }
+
+  ActualizarEvento(id:any,evento:any){
+    return this.http.put(`${environment.API_URI}/eventos/update/${id}`,evento)
+
+  }
+
 
   // Servicios solicitados al servidor
 

@@ -16,7 +16,7 @@ export class Evento {
 	constructor() {
 		this.idEvento = 0
 		this.idProfesor = 0
-		this.tipoEvento = ''
+		this.tipoEvento = 'Congreso'
 		// this.evento = 'Congreso'
 		this.nombreEvento = ''
 		this.participacion = 'Nacional'

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Articulo } from 'src/app/models/articulo.model';
 import { Revisor } from 'src/app/models/revisor.model';
+// import { Revision } from 'src/app/models/revision.model';
 import { ArticulosService } from 'src/app/services/articulos.service';
 import { CambioInfoService } from 'src/app/services/cambio-info.service';
 import { Patente } from 'src/app/models/patente.model';
@@ -36,15 +37,15 @@ export class HomeComponent implements OnInit {
     this.evento = new Evento()
     this.patente = new Patente();
     this.actividad = new Actividad();
+    this.idProfesor = Number(localStorage.getItem('idProfesor'))
     this.proyecto = new Proyecto()
     let hoy = new Date();
     this.patente.registro = hoy.getFullYear() + '-' + ((hoy.getMonth() + 1) < 10 ? '0' + (hoy.getMonth() + 1) : '' + (hoy.getMonth() + 1)) + '-' + (hoy.getDate() < 10 ? '0' + hoy.getDate() : '' + hoy.getDate());
     this.patente.obtencion = hoy.getFullYear() + '-' + ((hoy.getMonth() + 1) < 10 ? '0' + (hoy.getMonth() + 1) : '' + (hoy.getMonth() + 1)) + '-' + ((hoy.getDate()) < 9 ? '0' + (hoy.getDate() + 1) : '' + (hoy.getDate() + 1));
     this.articulo.fechaedicion = hoy.getFullYear() + '-' + ((hoy.getMonth() + 1) < 10 ? '0' + (hoy.getMonth() + 1) : '' + (hoy.getMonth() + 1)) + '-' + (hoy.getDate() < 10 ? '0' + hoy.getDate() : '' + hoy.getDate());
     this.revisor.fecha = hoy.getFullYear() + '-' + ((hoy.getMonth() + 1) < 10 ? '0' + (hoy.getMonth() + 1) : '' + (hoy.getMonth() + 1)) + '-' + (hoy.getDate() < 10 ? '0' + hoy.getDate() : '' + hoy.getDate());
-    this.proyecto.inicio = hoy.getFullYear() + '-' + ((hoy.getMonth() + 1) < 10 ? '0' + (hoy.getMonth() + 1) : '' + (hoy.getMonth() + 1)) + '-' + (hoy.getDate() < 10 ? '0' + hoy.getDate() : '' + hoy.getDate());
-    this.proyecto.fin=hoy.getFullYear() + '-' + ((hoy.getMonth() + 1) < 10 ? '0' + (hoy.getMonth() + 1) : '' + (hoy.getMonth() + 1)) + '-' + ((hoy.getDate()) < 9 ? '0' + (hoy.getDate()+1) : '' + (hoy.getDate()+1));
-  
+    this.evento.inicio = hoy.getFullYear() + '-' + ((hoy.getMonth() + 1) < 10 ? '0' + (hoy.getMonth() + 1) : '' + (hoy.getMonth() + 1)) + '-' + (hoy.getDate() < 10 ? '0' + hoy.getDate() : '' + hoy.getDate());
+    this.evento.fin = hoy.getFullYear() + '-' + ((hoy.getMonth() + 1) < 10 ? '0' + (hoy.getMonth() + 1) : '' + (hoy.getMonth() + 1)) + '-' + ((hoy.getDate()) < 9 ? '0' + (hoy.getDate() + 1) : '' + (hoy.getDate() + 1));
   }
 
   ngOnInit(): void {
@@ -70,9 +71,13 @@ export class HomeComponent implements OnInit {
   //creaar la Publicacion
   crearArticulo(articulos: any) {
     console.log(articulos)
-    $('#agregarArticulo').modal('close');
+    this.articuloService.agregar(articulos,this.idProfesor, new Date().toLocaleDateString("en-CA")).subscribe((resArticulo: any) => {
+		$('#agregarArticulo').modal('close');
+		this.articulo = new Articulo();
+	},
+			err => console.error(err))
   }
-
+  
   agregarRevivision() {
     console.log("CrearRevision");
     $('#CrearRevision').modal();
@@ -81,10 +86,10 @@ export class HomeComponent implements OnInit {
 
 
 
-  crearRevision() {
-    this.revisor.idProfesor = Number(localStorage.getItem('idProfesor'));
-
+  crearRevision(){
+    this.revisor.idProfesor = this.idProfesor;
     this.revicionesServices.createRevision(this.revisor).subscribe(res => {
+      $('#agregarRevivision').modal('close');
       Swal.fire({
         position: 'center',
         icon: 'success',
