@@ -192,20 +192,14 @@
 
 
                     <div class="input-field col s12">
-                        <input name="Nombre de revista o institución" id="revisor_nombreRI" [(ngModel)]="revisor.nombreRI" required type="text">
+                        <input name="re_nombreRI" id="revisor_nombreRI" [(ngModel)]="revisor.nombreRI" required type="text">
                         <label for="patente_titulo">Nombre de revista o institución</label>
                     </div>
-
-
 
                     <div class="input-field col s12">
                         <input name="registroFecha" id="revisor_fecha" [(ngModel)]="revisor.fecha" required type="date">
                         <label for="patente_fechaReg">Fecha</label>
                     </div>
-
-
-
-
 
                     <div class="input-field col s12">
                         <input name="titulo" id="titulo_articulo" [(ngModel)]="revisor.tituloRP" required type="text">
@@ -437,9 +431,8 @@
             </div>
 
             <div class="row col s12">
-                    <input [(ngModel)]='proyecto.porcentajeAvance' id="porcentaje_proyecto" required type="text">
-                    <label for="porcentaje_proyecto">Porcentaje de avance</label>
-
+                <input name="porcentajeAvance" [(ngModel)]='proyecto.porcentajeAvance' id="porcentaje_proyecto" required type="text">
+                <label for="porcentaje_proyecto">Porcentaje de avance</label>
             </div>
 
             <div class="input-field col s12">
