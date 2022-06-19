@@ -21,7 +21,7 @@ export class EventosComponent implements OnInit {
 	fechaFinal: string;
   evento: Evento;
   constructor(private eventoService: EventoService, private route: ActivatedRoute) {
-    this.idProfesor = 0
+    this.idProfesor = Number(localStorage.getItem('idProfesor'))
 
     this.evento = new Evento()
     this.idEvento=0
@@ -32,7 +32,6 @@ export class EventosComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-      this.idProfesor = Number(params.get('idProfesor'))
       this.idEvento= Number(params.get('idEvento'))
 	    this.listarEventos()
      
@@ -77,6 +76,7 @@ this.eventoService.ActualizarEvento(this.idEventoActual,this.eventoActual).subsc
 
 }
   listarEventos(){
+    console.log(this.idProfesor)
 	this.eventoService.listEventosByPeriodo(this.idProfesor, this.fechaInicial, this.fechaFinal).subscribe((eventosRes: any) => {
    	this.eventos = eventosRes
     console.log(this.eventos);

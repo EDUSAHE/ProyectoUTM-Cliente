@@ -1,48 +1,48 @@
 <div class="container">
-	<h3 class="center-align">Eventos</h3>
+    <h3 class="center-align">Eventos</h3>
 
-	<div class="row">
-		<div class="col s6">
-			<label class="">Fecha Inicial:</label>
-			<input type="date" [(ngModel)]="fechaInicial" (change)="cambioIni()">
-		</div>
-		<div class="col s6">
-			<label>Fecha Final:</label>
-			<input type="date" [(ngModel)]="fechaFinal" (change)="cambioIni()">
-		</div>
-	</div>
+    <div class="row">
+        <div class="col s6">
+            <label class="">Fecha Inicial:</label>
+            <input type="date" [(ngModel)]="fechaInicial" (change)="listarEventos()">
+        </div>
+        <div class="col s6">
+            <label>Fecha Final:</label>
+            <input type="date" [(ngModel)]="fechaFinal" (change)="listarEventos()">
+        </div>
+    </div>
 
-	<table id="tablaEventos">
-		<tr>
-			<th class="intro" onclick="sortTable(0, 'str', 'tablaEventos')">Nombre</th>
-			<th class="intro" onclick="sortTable(1, 'str', 'tablaEventos')">Titulo</th>
-			<th class="intro" onclick="sortTable(2, 'str', 'tablaEventos')">Tipo de evento</th>
-			<th class="intro" onclick="sortTable(3, 'str', 'tablaEventos')">Tipo de participación</th>
-			<th class="intro" onclick="sortTable(4, 'str', 'tablaEventos')">Inicio</th>
-			<th class="intro" onclick="sortTable(4, 'str', 'tablaEventos')">Opciones</th>
-		</tr>
+    <table id="tablaEventos">
+        <tr>
+            <th class="intro" onclick="sortTable(0, 'str', 'tablaEventos')">Nombre</th>
+            <th class="intro" onclick="sortTable(1, 'str', 'tablaEventos')">Titulo</th>
+            <th class="intro" onclick="sortTable(2, 'str', 'tablaEventos')">Tipo de evento</th>
+            <th class="intro" onclick="sortTable(3, 'str', 'tablaEventos')">Tipo de participación</th>
+            <th class="intro" onclick="sortTable(4, 'str', 'tablaEventos')">Inicio</th>
+            <th class="intro" onclick="sortTable(4, 'str', 'tablaEventos')">Opciones</th>
+        </tr>
 
-		<ng-container *ngFor="let evento of eventos">
-			<tr>
-				<td>{{evento.nombreEvento}}</td>
-				<td>{{evento.titulo}}</td>
-				<td>{{evento.tipoEvento}}</td>
-				<td>{{evento.tipoParticipacion}}</td>
-				<td>{{convertirFecha(evento.inicio)}}</td>
+        <ng-container *ngFor="let evento of eventos">
+            <tr>
+                <td>{{evento.nombreEvento}}</td>
+                <td>{{evento.titulo}}</td>
+                <td>{{evento.tipoEvento}}</td>
+                <td>{{evento.tipoParticipacion}}</td>
+                <td>{{convertirFecha(evento.inicio)}}</td>
 
-				
-				<td>
-					<a href="javascript: void(0);" class="space"   (click)="ActualizarEventoR(evento.idEvento,evento)"  ><i class="material-icons">edit</i>Modificar</a>
-					<a href="javascript: void(0);" class="space"  (click)="eliminarEvento(evento.idEvento)"><i class="material-icons" >delete</i>Eliminar</a></td>
-			</tr>
-		</ng-container>
-	</table>
+
+                <td>
+                    <a href="javascript: void(0);" class="space" (click)="ActualizarEventoR(evento.idEvento,evento)"><i class="material-icons">edit</i>Modificar</a>
+                    <a href="javascript: void(0);" class="space" (click)="eliminarEvento(evento.idEvento)"><i class="material-icons" >delete</i>Eliminar</a></td>
+            </tr>
+        </ng-container>
+    </table>
 </div>
 
 
 
 
-<!--MODAL NUEVO EVENTO-->
+<!--MODAL ACTUALIZAR EVENTO-->
 <div id="nuevoEventoActualizar" class="modal">
     <div class="modal-content">
         <div class="row" style="margin-bottom: 0px !important;">
@@ -66,8 +66,8 @@
                     </select>
                 </div>
                 <div class="input-field col s12">
-                    <input id="evento_titulo" [(ngModel)]="evento.nombreEvento" required type="text">
-                    <label for="evento_titulo">Nombre del evento</label>
+                    <input id="Evento_titulo" [(ngModel)]="evento.nombreEvento" required type="text">
+                    <label for="Evento_titulo" class="active">Nombre del evento</label>
                 </div>
                 <div class="col s12" style="margin-bottom: 1rem;">
                     <label>Participación</label>
@@ -95,22 +95,22 @@
                     </select>
                 </div>
                 <div class="input-field col s12">
-                    <input id="evento_titulotrabajo" [(ngModel)]="evento.titulo" required type="text">
-                    <label for="evento_titulotrabajo">Titulo del trabajo</label>
+                    <input id="Evento_titulotrabajo" [(ngModel)]="evento.titulo" required type="text">
+                    <label for="Evento_titulotrabajo" class="active">Titulo del trabajo</label>
                 </div>
                 <div class="input-field col s12">
-                    <input id="evento_fechaReg" [(ngModel)]="evento.inicio" required type="date">
-                    <label for="evento_fechaReg">Inicio</label>
+                    <input id="Evento_fechaReg" [(ngModel)]="evento.inicio" required type="date">
+                    <label for="Evento_fechaReg">Inicio</label>
                 </div>
                 <div class="input-field col s12">
-                    <input id="evento_fechaObt" [(ngModel)]="evento.fin" required type="date">
-                    <label for="evento_fechaObt">Fin</label>
+                    <input id="Evento_fechaObt" [(ngModel)]="evento.fin" required type="date">
+                    <label for="Evento_fechaObt">Fin</label>
                 </div>
             </div>
 
             <div class="row">
-                <div class="col s6 center"  (click)="ActualizarEventoBD()">
-                    <a class="modal-action modal-close waves-effect btn-large" >Enviar</a>
+                <div class="col s6 center" (click)="ActualizarEventoBD()">
+                    <a class="modal-action modal-close waves-effect btn-large">Enviar</a>
                 </div>
                 <div class="col s6 center">
                     <a class="modal-action modal-close waves-effect btn-large">Cancelar</a>
