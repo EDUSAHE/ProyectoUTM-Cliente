@@ -2,68 +2,67 @@
 
     <h3 class="center-align">Proyectos</h3>
 
-			
-	<div class="row">
-		<div class="col s6">
-			<label class="">Fecha Inicial:</label>
-			<input type="date" [(ngModel)]="fechaInicial" (change)="cambioIni()" id="fechaIni" >
-		</div>
-		<div class="col s6">
-			<label>Fecha Final:</label>
-			<input type="date" [(ngModel)]="fechaFinal" (change)="cambioFin()" id="fechaFin" >
-		</div>
-	</div>
-    
-            <table>
-                <ng-container *ngFor="let proyecto of proyectos">
 
-					<tr class="hide-line">
-                        <td class="intro" colspan="6">
-							<b >Nombre del Proyecto:</b> {{proyecto.nombreProyecto}} 
-                           
-                        </td>
-                    </tr>
+    <div class="row">
+        <div class="col s6">
+            <label class="">Fecha Inicial:</label>
+            <input type="date" [(ngModel)]="fechaInicial" (change)="cambioIni()" id="fechaIni">
+        </div>
+        <div class="col s6">
+            <label>Fecha Final:</label>
+            <input type="date" [(ngModel)]="fechaFinal" (change)="cambioFin()" id="fechaFin">
+        </div>
+    </div>
 
+    <table>
+        <ng-container *ngFor="let proyecto of proyectos">
 
-                    <tr class="hide-line">
-                        <td colspan="6">
-                            <b>Colaboradores Externos: </b><br>
-                        </td>
-                    </tr>
-
-					<tr class="hide-line">
-                        <td colspan="6">
-                            <b>Colaboradores Internos: </b><br>
-                        </td>
-                    </tr>
+            <tr class="hide-line">
+                <td class="intro" colspan="6">
+                    <b>Nombre del Proyecto:</b> {{proyecto.nombreProyecto}}
+                </td>
+            </tr>
 
 
-                    <tr>
-						<td style="width: 10%;">
-                            <b>Estado</b><br><br> {{proyecto.estado}}
-                        </td>
+            <tr class="hide-line">
+                <td colspan="6">
+                    <b>Colaboradores Externos: </b><br>
+                </td>
+            </tr>
 
-						<td style="width: 10%;">
-                            <b>Financiado</b><br><br> {{proyecto.financiado}}
-                        </td>
+            <tr class="hide-line">
+                <td colspan="6">
+                    <b>Colaboradores Internos: </b><br>
+                </td>
+            </tr>
 
-						<td style="width: 10%;">
-                            <b>% de Avance</b><br><br> {{proyecto.porcentajeAvance}}
-                        </td>
-						
-						<td style="width: 10%;">
-                            <b>Inicio</b><br><br> {{convertirFecha(proyecto.inicio)}}
-                   
-						<td style="width: 10%;">
-                            <b>Fin</b><br><br> {{convertirFecha(proyecto.fin)}}
-                        </td>
-						<td style="width: 10%;">
-                            <b>Patrocinador</b><br><br> {{proyecto.patrocinador}}
-                        </td>
-                    
-                    </tr>
-					
-                </ng-container>
-            </table>
-      
+
+            <tr>
+                <td style="width: 10%;">
+                    <b>Estado</b><br><br> {{proyecto.estado}}
+                </td>
+
+                <td style="width: 10%;">
+                    <b>Financiado</b><br><br> {{proyecto.financiado}}
+                </td>
+
+                <td style="width: 10%;">
+                    <b>% de Avance</b><br><br> {{proyecto.porcentajeAvance}}
+                </td>
+
+                <td style="width: 10%;">
+                    <b>Inicio</b><br><br> {{convertirFecha(proyecto.inicio)}}
+
+                    <td style="width: 10%;">
+                        <b>Fin</b><br><br> {{convertirFecha(proyecto.fin)}}
+                    </td>
+                    <td style="width: 10%;">
+                        <b>Patrocinador</b><br><br> {{proyecto.patrocinador}}
+                    </td>
+
+            </tr>
+
+        </ng-container>
+    </table>
+
 </div>

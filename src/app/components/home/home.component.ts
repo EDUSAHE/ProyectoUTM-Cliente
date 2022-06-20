@@ -171,7 +171,6 @@ export class HomeComponent implements OnInit {
         title: 'Actividad  Agregada'
       })
     }, err => console.error(err))
-    console.log(this.evento)
     this.actividad = new Actividad;
   }
 

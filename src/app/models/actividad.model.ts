@@ -15,7 +15,7 @@ export class Actividad {
 		this.inicio = ''
 		this.fin = ''
 		this.descripcion = ''
-		this.validado = ''
+		this.validado = '1'
 		this.comprobante = ''
 	}
 }
