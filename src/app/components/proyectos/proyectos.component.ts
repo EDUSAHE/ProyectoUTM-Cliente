@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Proyecto } from 'src/app/models/proyecto.model';
 import { ProyectosService } from 'src/app/services/proyectos.service';
+import Swal from 'sweetalert2';
 
 
 declare var $: any;
@@ -11,6 +12,8 @@ declare var $: any;
 })
 export class ProyectosComponent implements OnInit {
 
+	proyecto: Proyecto;
+	
 	
 	fechaInicial: any;
 	fechaFinal: any;
@@ -19,9 +22,10 @@ export class ProyectosComponent implements OnInit {
 	proyectos: any[];
 
 	constructor(private proyectoService: ProyectosService) {
-		
+
 		let hoy = new Date()
 		
+		this.proyecto= new Proyecto();
 		this.proyectos = []
 
 
@@ -66,12 +70,73 @@ export class ProyectosComponent implements OnInit {
 	}
 	
 	listProyectosByProfesorByPeriodo(){
-this.proyectoService.listProyectosByProfesorByPeriodo(this.idProfesor, this.fechaInicial, this.fechaFinal).subscribe((proyectoRes: any) => {
+			this.proyectoService.listProyectosByProfesorByPeriodo(this.idProfesor, this.fechaInicial, this.fechaFinal).subscribe((proyectoRes: any) => {
 			this.proyectos = proyectoRes
 			console.log(proyectoRes);
 		 }, err => console.error(err))
 
 	}
 
+	//proyecto es la variable nueva donde se guardan las actualizaciones, poryecto actual es el que ya esta
+editarProyectoE(proyectoActual:any) {	
+	this.editarProyecto();
+	this.proyecto=proyectoActual;	
 }
+
+editarProyecto() {
+		
+	$('#editarProyecto').modal();
+	$('#editarProyecto').modal('open');
+  }
+
+editarProyectoServer(){
+	console.log()
+	this.proyectoService.actualizarProyecto(this.proyecto,this.proyecto.idProyecto).subscribe((resElimina: any) => {
+		this.listProyectosByProfesorByPeriodo();
+		$('#EditarProyecto').modal('close');
+				Swal.fire({
+					position: 'center',
+					icon: 'success',
+					text: 'Proyecto Actualizado'
+				})
+		
+	}, err => console.error(err));
+	
+}
+
+
+eliminarProyecto(idProyecto:any){
+	console.log("Eliminar Proyecto");
+
+	Swal.fire({
+		title: '¿Estas seguro de querer eliminar?',
+		position: 'center',
+		icon: 'question',
+		showDenyButton: true,
+		showConfirmButton: true,
+		confirmButtonText: 'Sí'
+	})
+		.then(respuesta => {
+			if (respuesta.isConfirmed) {
+				this.proyectoService.eliminarProyecto(idProyecto).subscribe((resElimina: any) => {
+					this.listProyectosByProfesorByPeriodo();
+					
+							Swal.fire({
+								position: 'center',
+								icon: 'success',
+								text: 'Proyecto Eliminada'
+							})
+					
+				}, err => console.error(err));
+
+			
+			}
+		})
+}
+
+}
+
+
+
+
 
