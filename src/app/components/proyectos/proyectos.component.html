@@ -5,12 +5,12 @@
 
     <div class="row">
         <div class="col s6">
-            <label class="">Fecha Inicial:</label>
-            <input type="date" [(ngModel)]="fechaInicial" (change)="cambioIni()" id="fechaIni">
+            <label>Fecha Inicial:</label>
+            <input type="date" [(ngModel)]="fechaInicial" (change)="listProyectosByProfesorByPeriodo()" id="fechaIni">
         </div>
         <div class="col s6">
             <label>Fecha Final:</label>
-            <input type="date" [(ngModel)]="fechaFinal" (change)="cambioFin()" id="fechaFin">
+            <input type="date" [(ngModel)]="fechaFinal" (change)="listProyectosByProfesorByPeriodo()" id="fechaFin">
         </div>
     </div>
 
@@ -18,7 +18,7 @@
         <ng-container *ngFor="let proyecto of proyectos">
 
             <tr class="hide-line">
-                <td class="intro" colspan="6">
+                <td class="intro" colspan="12">
                     <b>Nombre del Proyecto:</b> {{proyecto.nombreProyecto}}
                 </td>
             </tr>
@@ -60,9 +60,102 @@
                         <b>Patrocinador</b><br><br> {{proyecto.patrocinador}}
                     </td>
 
+                    <td style="width: 10%;">
+                        <b>Opciones</b><br><br>
+                        <a href="javascript: void(0);" class="space" (click)="editarProyectoE(proyecto.idProyecto)"><i
+                                class="material-icons">edit</i>Modificar</a><br>
+                        <a href="javascript: void(0);" class="space" (click)="eliminarProyecto(proyecto.idProyecto)">
+                            <i class="material-icons">delete</i>Eliminar</a>
+                    </td>
+
             </tr>
 
         </ng-container>
     </table>
+
+</div>
+
+<!-- Modal editar Proyecto -->
+<div id="editarProyecto" class="modal">
+
+    <div class="modal-content">
+        <!--Titulo-->
+        <div class="row" style="margin-bottom: 0px !important;">
+            <div class="col s12">
+                <h3 class="center">Editar Proyecto</h3>
+            </div>
+        </div>
+
+        <div style="border: .5px solid #78909c; padding: 10px;">
+            <form (ngSubmit)="editarProyectoServer()" ngNativeValidate>
+
+                <div class="row">
+
+                    <div class="col s12" style="margin-bottom: 1rem;">
+                        <label>Estado</label>
+                        <select name="Estado" [(ngModel)]="proyecto.estado" class="browser-default">
+                <option value="Iniciado">Iniciado</option>  
+                <option value="En proceso">En proceso</option>
+                <option value="Concluido">Concluido</option>
+                <label for="estado">Estado</label>
+                </select>
+                    </div>
+
+
+                    <div class="col s12" style="margin-bottom: 1rem;">
+                        <label> Financiado</label>
+                        <select name="Financiado" [(ngModel)]="proyecto.financiado" class="browser-default">
+                	<option value="Si">Si</option>  
+                	<option value="No">No</option>
+                    <label for="Financiado">Financiado</label>
+				</select>
+                    </div>
+
+                    <div class="row col s12">
+                        <input name="PorcentajeAvance" [(ngModel)]='proyecto.porcentajeAvance' id="Porcentaje_proyecto" required type="text">
+                        <label for="Porcentaje_proyecto">Porcentaje de avance</label>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <input name="Inicio_Proyecto" id="Inicio_Proyecto" [(ngModel)]="proyecto.inicio" required type="date">
+                        <label for="Inicio_Proyecto">Inicio</label>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <input name="Fin_Proyecto" id="Fin_Proyecto" [(ngModel)]="proyecto.fin" required type="date">
+                        <label for="Fin_Proyecto">Fin</label>
+                    </div>
+
+
+                    <div class="row col s12">
+
+                        <input name="Patrocinador_Proyecto" [(ngModel)]='proyecto.patrocinador' id="Patrocinador_Proyecto" required type="text">
+                        <label for="Patrocinador_Proyecto">Patrocinador</label>
+
+                    </div>
+
+                    <div class="row col s12">
+
+                        <input name="Nombre_Proyecto" [(ngModel)]='proyecto.nombreProyecto' id="Nombre_Proyecto" required type="text">
+                        <label for="Nombre_Proyecto">Nombre del Proyecto</label>
+
+                    </div>
+
+                    <!-- Guardar y Cancelar-->
+
+                    <div class="row">
+                        <div class="col s6 center" value="Enviar">
+                            <input type="submit" class="waves-effect btn-large brown lighten-3">
+                        </div>
+                        <div class="col s6 center">
+                            <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text">Cancelar</a>
+                        </div>
+
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
 
 </div>
