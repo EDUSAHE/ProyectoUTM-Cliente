@@ -14,6 +14,6 @@ export class ComisionesService {
   // Servicios solicitados al Servidor
 
   listComisionesByProfesorByPeriodo(idProfesor:number, fechaIni:any, fechaFin:any){
-    return this.http.get(`${environment.API_URI}/comisiones`);
+    return this.http.get(`${environment.API_URI}/comisiones/listComisionesByProfesorByPeriodo/${idProfesor}/${fechaIni}/${fechaFin}`);
   }
 }

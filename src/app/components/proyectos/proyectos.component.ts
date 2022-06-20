@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Proyecto } from 'src/app/models/proyecto.model';
 import { ProyectosService } from 'src/app/services/proyectos.service';
+import Swal from 'sweetalert2';
 
 
 declare var $: any;
@@ -11,7 +12,9 @@ declare var $: any;
 })
 export class ProyectosComponent implements OnInit {
 
-	
+	proyecto: Proyecto;
+
+
 	fechaInicial: any;
 	fechaFinal: any;
 	idProfesor: any;
@@ -19,9 +22,10 @@ export class ProyectosComponent implements OnInit {
 	proyectos: any[];
 
 	constructor(private proyectoService: ProyectosService) {
-		
+
 		let hoy = new Date()
-		
+
+		this.proyecto = new Proyecto();
 		this.proyectos = []
 
 
@@ -31,47 +35,88 @@ export class ProyectosComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.idProfesor=Number(localStorage.getItem('idProfesor'));
+		this.idProfesor = Number(localStorage.getItem('idProfesor'));
 		this.listProyectosByProfesorByPeriodo();
 		console.log(this.proyectoService)
 	}
 
-	cambioIni() {
-		console.log("cambio fecha de inicio");
-		this.fechaInicial = $('#fechaIni').val();
-		console.log(this.fechaInicial);
-		this.proyectoService.listProyectosByProfesorByPeriodo(this.idProfesor, this.fechaInicial, this.fechaFinal).subscribe((proyectoRes: any) => {
-			this.proyectos = proyectoRes;
-			console.log(this.proyectos);
-
-		}, err => console.error(err))
-
-	}
-
-	cambioFin() {
-		console.log("cambio fecha de fin");
-		this.fechaFinal = $('#fechaFin').val();
-		console.log(this.fechaFinal);
-		this.proyectoService.listProyectosByProfesorByPeriodo(this.idProfesor, this.fechaInicial, this.fechaFinal).subscribe((proyectoRes: any) => {
-			this.proyectos = proyectoRes;
-			console.log(this.proyectos);
-
-		}, err => console.error(err))
-	}
-
-
-
 	convertirFecha(fecha: string) {
 		return new Date(fecha).toLocaleDateString("en-CA");
 	}
-	
-	listProyectosByProfesorByPeriodo(){
-this.proyectoService.listProyectosByProfesorByPeriodo(this.idProfesor, this.fechaInicial, this.fechaFinal).subscribe((proyectoRes: any) => {
+
+	listProyectosByProfesorByPeriodo() {
+		this.proyectoService.listProyectosByProfesorByPeriodo(this.idProfesor, this.fechaInicial, this.fechaFinal).subscribe((proyectoRes: any) => {
 			this.proyectos = proyectoRes
 			console.log(proyectoRes);
-		 }, err => console.error(err))
+		}, err => console.error(err))
 
 	}
 
+	//proyecto es la variable nueva donde se guardan las actualizaciones, poryecto actual es el que ya esta
+	editarProyectoE(idProyecto: any) {
+		this.proyectoService.listProyecto(idProyecto).subscribe((resProyecto: any) => {
+			this.proyecto = resProyecto;
+			this.proyecto.inicio=this.convertirFecha(resProyecto.inicio)
+			this.proyecto.fin=this.convertirFecha(resProyecto.fin)
+			console.log(this.proyecto);
+		},
+			err => console.error(err))
+		this.editarProyecto();
+	}
+
+	editarProyecto() {
+		$('#editarProyecto').modal();
+		$('#editarProyecto').modal('open');
+	}
+
+	editarProyectoServer() {
+		console.log()
+		this.proyectoService.actualizarProyecto(this.proyecto, this.proyecto.idProyecto).subscribe((resElimina: any) => {
+			this.listProyectosByProfesorByPeriodo();
+			$('#EditarProyecto').modal('close');
+			Swal.fire({
+				position: 'center',
+				icon: 'success',
+				text: 'Proyecto Actualizado'
+			})
+
+		}, err => console.error(err));
+
+	}
+
+
+	eliminarProyecto(idProyecto: any) {
+		console.log("Eliminar Proyecto");
+
+		Swal.fire({
+			title: '¿Estas seguro de querer eliminar?',
+			position: 'center',
+			icon: 'question',
+			showDenyButton: true,
+			showConfirmButton: true,
+			confirmButtonText: 'Sí'
+		})
+			.then(respuesta => {
+				if (respuesta.isConfirmed) {
+					this.proyectoService.eliminarProyecto(idProyecto).subscribe((resElimina: any) => {
+						this.listProyectosByProfesorByPeriodo();
+
+						Swal.fire({
+							position: 'center',
+							icon: 'success',
+							text: 'Proyecto Eliminada'
+						})
+
+					}, err => console.error(err));
+
+
+				}
+			})
+	}
+
 }
+
+
+
+
 
