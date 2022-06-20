@@ -18,6 +18,7 @@
             <th class="intro" onclick="sortTable(1, 'str', 'tablaEventos')">Titulo</th>
             <th class="intro" onclick="sortTable(2, 'str', 'tablaEventos')">Tipo de evento</th>
             <th class="intro" onclick="sortTable(3, 'str', 'tablaEventos')">Tipo de participación</th>
+            <th class="intro" onclick="sortTable(4, 'str', 'tablaEventos')">Participación</th>
             <th class="intro" onclick="sortTable(4, 'str', 'tablaEventos')">Inicio</th>
             <th class="intro" onclick="sortTable(4, 'str', 'tablaEventos')">Opciones</th>
         </tr>
@@ -28,6 +29,7 @@
                 <td>{{evento.titulo}}</td>
                 <td>{{evento.tipoEvento}}</td>
                 <td>{{evento.tipoParticipacion}}</td>
+                <td>{{evento.participacion}}</td>
                 <td>{{convertirFecha(evento.inicio)}}</td>
 
 

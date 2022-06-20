@@ -285,68 +285,70 @@
 
         </div>
         <div style="border: .5px solid #78909c; padding: 10px;">
-            <div class="row">
-                <div class="col s12" style="margin-bottom: 1rem;">
-                    <label>Evento</label>
-                    <select [(ngModel)]="evento.tipoEvento" class="browser-default">
-                        <option value="Congreso">Congreso</option>
-                        <option value="Curso">Curso</option>
-                        <option value="Seminario">Seminario</option>
-                        <option value="Taller">Taller</option>
-                        <option value="Simposium">Simposium</option>
-                    </select>
+            <form (ngSubmit)="crearEvento()" ngNativeValidate>
+                <div class="row">
+                    <div class="col s12" style="margin-bottom: 1rem;">
+                        <label>Evento</label>
+                        <select name="tipoEvento" [(ngModel)]="evento.tipoEvento" class="browser-default">
+                            <option value="Congreso">Congreso</option>
+                            <option value="Curso">Curso</option>
+                            <option value="Seminario">Seminario</option>
+                            <option value="Taller">Taller</option>
+                            <option value="Simposium">Simposium</option>
+                        </select>
+                    </div>
+                    <div class="input-field col s12">
+                        <input name="nombreEvento" id="evento_titulo" [(ngModel)]="evento.nombreEvento" required type="text">
+                        <label for="evento_titulo">Nombre del evento</label>
+                    </div>
+                    <div class="col s12" style="margin-bottom: 1rem;">
+                        <label>Participación</label>
+                        <select name="participacion" [(ngModel)]="evento.participacion" class="browser-default">
+                            <option value="Nacional">Nacional</option>
+                            <option value="Internacional">Internacional</option>
+            
+                        </select>
+                    </div>
+            
+                    <div class="col s12" style="margin-bottom: 1rem;">
+                        <label>LAGC del CA</label>
+                        <select name="afectaLinea" [(ngModel)]="evento.afectaLinea" class="browser-default">
+                            <option value="Si">Si</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+            
+                    <div class="col s12" style="margin-bottom: 1rem;">
+                        <label>Tipo de participación</label>
+                        <select name="tipoParticipacion" [(ngModel)]="evento.tipoParticipacion" class="browser-default">
+                            <option value="Asistente">Asistente</option>
+                            <option value="Ponente">Ponente</option>
+            
+                        </select>
+                    </div>
+                    <div class="input-field col s12">
+                        <input name="titulo" id="evento_titulotrabajo" [(ngModel)]="evento.titulo" required type="text">
+                        <label for="evento_titulotrabajo">Titulo del trabajo</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input name="inicio" id="evento_fechaReg" [(ngModel)]="evento.inicio" required type="date">
+                        <label for="evento_fechaReg">Inicio</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input name="fin" id="evento_fechaObt" [(ngModel)]="evento.fin" required type="date">
+                        <label for="evento_fechaObt">Fin</label>
+                    </div>
                 </div>
-                <div class="input-field col s12">
-                    <input id="evento_titulo" [(ngModel)]="evento.nombreEvento" required type="text">
-                    <label for="evento_titulo">Nombre del evento</label>
+            
+                <div class="row">
+                    <div class="col s6 center">
+                        <input type="submit" class="waves-effect btn-large brown lighten-3" value="Enviar">
+                    </div>
+                    <div class="col s6 center">
+                        <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text">Cancelar</a>
+                    </div>
                 </div>
-                <div class="col s12" style="margin-bottom: 1rem;">
-                    <label>Participación</label>
-                    <select [(ngModel)]="evento.participacion" class="browser-default">
-                        <option value="Nacional">Nacional</option>
-                        <option value="Internacional">Internacional</option>
-
-                    </select>
-                </div>
-
-                <div class="col s12" style="margin-bottom: 1rem;">
-                    <label>LAGC del CA</label>
-                    <select [(ngModel)]="evento.afectaLinea" class="browser-default">
-                        <option value="Si">Si</option>
-                        <option value="No">No</option>
-                    </select>
-                </div>
-
-                <div class="col s12" style="margin-bottom: 1rem;">
-                    <label>Tipo de participación</label>
-                    <select [(ngModel)]="evento.tipoParticipacion" class="browser-default">
-                        <option value="Asistente">Asistente</option>
-                        <option value="Ponente">Ponente</option>
-
-                    </select>
-                </div>
-                <div class="input-field col s12">
-                    <input id="evento_titulotrabajo" [(ngModel)]="evento.titulo" required type="text">
-                    <label for="evento_titulotrabajo">Titulo del trabajo</label>
-                </div>
-                <div class="input-field col s12">
-                    <input id="evento_fechaReg" [(ngModel)]="evento.inicio" required type="date">
-                    <label for="evento_fechaReg">Inicio</label>
-                </div>
-                <div class="input-field col s12">
-                    <input id="evento_fechaObt" [(ngModel)]="evento.fin" required type="date">
-                    <label for="evento_fechaObt">Fin</label>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col s6 center">
-                    <a class="modal-action modal-close waves-effect btn-large" (click)="crearEvento()">Enviar</a>
-                </div>
-                <div class="col s6 center">
-                    <a class="modal-action modal-close waves-effect btn-large">Cancelar</a>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>

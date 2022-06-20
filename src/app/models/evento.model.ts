@@ -20,7 +20,7 @@ export class Evento {
 		// this.evento = 'Congreso'
 		this.nombreEvento = ''
 		this.participacion = 'Nacional'
-		this.afectaLinea = ''
+		this.afectaLinea = 'Si'
 		// this.lagcCA = 'Si'
 		this.tipoParticipacion = 'Asistente'
 		this.titulo = ''
