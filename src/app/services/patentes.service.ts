@@ -9,8 +9,8 @@ import { Patente } from '../models/patente.model';
 export class PatentesService {
 
   constructor(private http: HttpClient) { }
-  guardarPatente(patente:Patente){
-    return this.http.post(`${environment.API_URI}/patentes/create`, patente);
+  guardarPatente(patente:Patente,idProfesor:number){
+    return this.http.post(`${environment.API_URI}/patentes/create/${idProfesor}`, patente);
   }
 
   eliminarPatente(idPatente: number) {

@@ -29,9 +29,9 @@ export class HomeComponent implements OnInit {
   evento: Evento;
   patente: Patente;
   actividad: Actividad;
-  idProfesorProyecto:any
-  idProfesor:any;
-  constructor(private route: ActivatedRoute,private proyectoService: ProyectosService, private articuloService: ArticulosService, private cambioInfoService: CambioInfoService, private revicionesServices: RevisionesService, private enventoServices: EventoService, private patenteServices: PatentesService, private actividadServices: ActividadService) {
+  idProfesorProyecto: any
+  idProfesor: any;
+  constructor(private route: ActivatedRoute, private proyectoService: ProyectosService, private articuloService: ArticulosService, private cambioInfoService: CambioInfoService, private revicionesServices: RevisionesService, private enventoServices: EventoService, private patenteServices: PatentesService, private actividadServices: ActividadService) {
     this.articulo = new Articulo()
     this.revisor = new Revisor();
     this.evento = new Evento()
@@ -46,12 +46,12 @@ export class HomeComponent implements OnInit {
     this.revisor.fecha = hoy.getFullYear() + '-' + ((hoy.getMonth() + 1) < 10 ? '0' + (hoy.getMonth() + 1) : '' + (hoy.getMonth() + 1)) + '-' + (hoy.getDate() < 10 ? '0' + hoy.getDate() : '' + hoy.getDate());
     this.evento.inicio = hoy.getFullYear() + '-' + ((hoy.getMonth() + 1) < 10 ? '0' + (hoy.getMonth() + 1) : '' + (hoy.getMonth() + 1)) + '-' + (hoy.getDate() < 10 ? '0' + hoy.getDate() : '' + hoy.getDate());
     this.evento.fin = hoy.getFullYear() + '-' + ((hoy.getMonth() + 1) < 10 ? '0' + (hoy.getMonth() + 1) : '' + (hoy.getMonth() + 1)) + '-' + ((hoy.getDate()) < 9 ? '0' + (hoy.getDate() + 1) : '' + (hoy.getDate() + 1));
-  
+
     this.proyecto.inicio = hoy.getFullYear() + '-' + ((hoy.getMonth() + 1) < 10 ? '0' + (hoy.getMonth() + 1) : '' + (hoy.getMonth() + 1)) + '-' + (hoy.getDate() < 10 ? '0' + hoy.getDate() : '' + hoy.getDate());
-    this.proyecto.fin=hoy.getFullYear() + '-' + ((hoy.getMonth() + 1) < 10 ? '0' + (hoy.getMonth() + 1) : '' + (hoy.getMonth() + 1)) + '-' + ((hoy.getDate()) < 9 ? '0' + (hoy.getDate()+1) : '' + (hoy.getDate()+1));}
+    this.proyecto.fin = hoy.getFullYear() + '-' + ((hoy.getMonth() + 1) < 10 ? '0' + (hoy.getMonth() + 1) : '' + (hoy.getMonth() + 1)) + '-' + ((hoy.getDate()) < 9 ? '0' + (hoy.getDate() + 1) : '' + (hoy.getDate() + 1));
+  }
 
   ngOnInit(): void {
-
     $(document).ready(function () {
       $('.fixed-action-btn').floatingActionButton({
         direction: 'left',
@@ -61,8 +61,8 @@ export class HomeComponent implements OnInit {
       $('.modal').modal()
     })
     this.route.paramMap.subscribe(params => {
-			this.idProfesor = Number(localStorage.getItem('idProfesor'));
-		})
+      this.idProfesor = Number(localStorage.getItem('idProfesor'));
+    })
   }
 
   agregarArticulo() {
@@ -73,18 +73,18 @@ export class HomeComponent implements OnInit {
   //creaar la Publicacion
   crearArticulo(articulos: any) {
     console.log(articulos)
-    this.articuloService.agregar(articulos,this.idProfesor, new Date().toLocaleDateString("en-CA")).subscribe((resArticulo: any) => {
-		  $('#agregarArticulo').modal('close');
-		  this.articulo = new Articulo();
+    this.articuloService.agregar(articulos, this.idProfesor, new Date().toLocaleDateString("en-CA")).subscribe((resArticulo: any) => {
+      $('#agregarArticulo').modal('close');
+      this.articulo = new Articulo();
       Swal.fire({
         position: 'center',
         icon: 'success',
         title: 'Articulo  Agregado'
       })
-	},
-			err => console.error(err))
+    },
+      err => console.error(err))
   }
-  
+
   agregarRevivision() {
     console.log("CrearRevision");
     $('#CrearRevision').modal();
@@ -93,7 +93,7 @@ export class HomeComponent implements OnInit {
 
 
 
-  crearRevision(){
+  crearRevision() {
     this.revisor.idProfesor = this.idProfesor;
     this.revicionesServices.createRevision(this.revisor).subscribe(res => {
       $('#agregarRevivision').modal('close');
@@ -119,24 +119,14 @@ export class HomeComponent implements OnInit {
 
   crearPatente(patente: any) {
     if (this.patente.registro < this.patente.obtencion) {
-      this.patenteServices.guardarPatente(patente).subscribe((resPatente: any) => {
-        let nuevo={
-          'idProfesor':this.idProfesor,
-          'idPatente':resPatente.insertId,
-          'pos':1,
-          'esInterno':1
-        }
-        this.patenteServices.guardarProfesoryPatente(nuevo).subscribe((resNuevo:any)=>{
-          
-        },err=>console.error(err));
-        
+      this.patenteServices.guardarPatente(patente, this.idProfesor).subscribe((resPatente: any) => {
       }, err => console.error(err));
       $('#nuevaPatente').modal('close');
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Patente Registrada'
-      })
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Patente Registrada'
+        })
     }
     else {
       Swal.fire({
