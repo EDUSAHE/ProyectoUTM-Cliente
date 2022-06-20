@@ -14,8 +14,8 @@ export class PatentesService {
     return this.http.get(`${environment.API_URI}/patentes/${idPatente}`);
   }
 
-  guardarPatente(patente:Patente){
-    return this.http.post(`${environment.API_URI}/patentes/create`, patente);
+  guardarPatente(patente:Patente, idProfesor: number){
+    return this.http.post(`${environment.API_URI}/patentes/create/${idProfesor}`, patente);
   }
 
   modificarPatente(idPatente: number,patente:any) {

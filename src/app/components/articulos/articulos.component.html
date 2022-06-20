@@ -22,71 +22,80 @@
     </div>
 
     <table>
-        <ng-container *ngFor="let articulo of articulos">
-            <tr class="hide-line">
-                <td colspan="6">
-                    <!-- <b class="color-blue">Capturado el {{articulo.fechaedicion}}</b><b class="color-red"> Validado</b> -->
-                </td>
-            </tr>
-            <table id="tablaArticulos">
-                <ng-container *ngFor="let articulo of articulos">
-                    <tr class="hide-line">
-                        <td colspan="6">
-                            <b class="color-blue">Capturado el {{articulo.fechaedicion}}</b><b class="color-red"> Validado</b>
-                        </td>
-                    </tr>
+    	<ng-container *ngFor="let articulo of articulos  | 
+			paginate: {
+				itemsPerPage: pageSize,
+				currentPage: p 
+			};"
+		>
+			
+    	    <tr class="hide-line">
+    	        <td colspan="6">
+    	            <b class="color-blue">Capturado el {{articulo.fechaedicion}}</b><b class="color-red"> Validado</b>
+    	        </td>
+    	    </tr>
 
-                    <tr class="hide-line">
-                        <td colspan="6">
-                            <b>Título: </b> {{articulo.titulo}}
-                        </td>
-                    </tr>
+    	    <tr class="hide-line">
+    	        <td colspan="6">
+    	            <b>Título: </b> {{articulo.titulo}}
+    	        </td>
+    	    </tr>
 
-                    <tr class="hide-line">
-                        <td colspan="6">
-                            <b>Autores:</b><br>
-                            <span *ngFor="let profesor of articulo.autores;">
-								{{profesor.nombreProfesor}}
-								<a class="waves-effect waves-teal btn-flat"><i class="tiny material-icons">delete</i></a>
-							</span>
-                        </td>
-                    </tr>
+    	    <tr class="hide-line">
+    	        <td colspan="6">
+    	            <b>Autores:</b><br>
+    	            <span *ngFor="let profesor of articulo.autores;">
+						{{profesor.nombreProfesor}}
+						<a class="waves-effect waves-teal btn-flat"><i class="tiny material-icons">delete</i></a>
+					</span>
+    	        </td>
+    	    </tr>
 
-                    <tr>
-                        <td style="width: 10%;">
-                            <b>Tipo</b><br><br> {{articulo.tipoCRL}}
-                        </td>
-                        <td style="width: 10%;">
-                            <b>Estado</b><br><br> {{articulo.estado}}
-                        </td>
-                        <td style="width: 10%;">
-                            <b>Año</b><br><br> {{articulo.anyo}}
-                        </td>
-                        <td style="width: 10%;">
-                            <b>Modificar</b><br><br>
-                            <a href="javascript: void(0);" (click)="ModalPrioridades(articulo.profesores)">
-                                <i class="material-icons">edit</i>Prioridades</a>
-                        </td>
-                        <td style="width: 15%;">
-                            <b>Agregar</b><br><br>
-                            <a href="javascript: void(0);" class="space" (click)="ModalAutoresUTM()"><i class="material-icons">add</i>UTM</a>
-                            <a href="javascript: void(0);" (click)="ModalAutoresExternos()"><i class="material-icons" >add</i>Externo</a>
-                        </td>
-                        <td>
-                            <b>Opciones</b><br><br>
-                            <a href="javascript: void(0);" class="space" (click)="ActualizarArticuloModal(articulo.idArticulo)"><i
-                                class="material-icons">edit</i>Modificar</a>
-                            <a href="javascript: void(0);" class="space">
-                                <i class="material-icons">delete</i>Eliminar</a>
-                            <a class="icono-archivo" *ngFor="let archivo of articulo.archivos" href="{{urlArchivos}}/{{archivo.idArchivoYArticulo}}.{{archivo.extension}}" target="_blank">
-                                <i class="material-icons small">{{archivo.icono}}</i>
-                            </a>
-                        </td>
-                    </tr>
-                </ng-container>
-            </table>
-        </ng-container>
+    	    <tr>
+    	        <td style="width: 10%;">
+    	            <b>Tipo</b><br><br> {{articulo.tipoCRL}}
+    	        </td>
+    	        <td style="width: 10%;">
+    	            <b>Estado</b><br><br> {{articulo.estado}}
+    	        </td>
+    	        <td style="width: 10%;">
+    	            <b>Año</b><br><br> {{articulo.anyo}}
+    	        </td>
+    	        <td style="width: 10%;">
+    	            <b>Modificar</b><br><br>
+    	            <a href="javascript: void(0);" (click)="ModalPrioridades(articulo.profesores)">
+    	                <i class="material-icons">edit</i>Prioridades</a>
+    	        </td>
+    	        <td style="width: 15%;">
+    	            <b>Agregar</b><br><br>
+    	            <a href="javascript: void(0);" class="space" (click)="ModalAutoresUTM()"><i class="material-icons">add</i>UTM</a>
+    	            <a href="javascript: void(0);" (click)="ModalAutoresExternos()"><i class="material-icons" >add</i>Externo</a>
+    	        </td>
+    	        <td>
+    	            <b>Opciones</b><br><br>
+					<button class="space btn-option" (click)="ActualizarArticuloModal(articulo.idArticulo)">
+						<i class="material-icons">edit</i>Modificar
+					</button>
+					<button class="space btn-option" (click)="eliminarArticulo(articulo.idArticulo)">
+						<i class="material-icons">delete</i>Eliminar
+					</button>
+    	            <a class="icono-archivo" *ngFor="let archivo of articulo.archivos" href="{{urlArchivos}}/{{archivo.idArchivoYArticulo}}.{{archivo.extension}}" target="_blank">
+    	                <i class="material-icons small">{{archivo.icono}}</i>
+    	            </a>
+    	        </td>
+    	    </tr>
+    	</ng-container>
     </table>
+	<br><br>
+	<div class="row center-align">
+		<pagination-controls
+			class="my-pagination"
+			(pageChange)="p = ($event)"
+			previousLabel="Anterior"
+			nextLabel="Siguiente"
+		>
+		</pagination-controls>
+	</div>
 </div>
 
 
@@ -145,7 +154,7 @@
             </div>
         </div>
         <div style="border: .5px solid #78909c; padding: 10px;">
-            <form (ngSubmit)="actualizarArticulo(ArticuloActual)" ngNativeValidate>
+            <form (ngSubmit)="actualizarArticulo()" ngNativeValidate>
                 <div class="row">
                     <div class="col s12" style="margin-bottom: 1rem;">
                         <label>Congreso/Revista/Libro/Cap Libro</label>
@@ -175,6 +184,11 @@
 							<option value="Si">Si</option>
 							<option value="JRC">JCR</option>
 						</select>
+                    </div>
+
+					<div class="input-field col s12">
+                        <input name="issue" id="articulo_issueM" [(ngModel)]="ArticuloActual.issue" required type="text">
+                        <label for="articulo_issueM">Issue</label>
                     </div>
 
                     <div class="col s12" style="margin-bottom: 1rem;">

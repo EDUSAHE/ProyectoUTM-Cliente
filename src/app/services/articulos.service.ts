@@ -9,6 +9,10 @@ export class ArticulosService {
 
   constructor(private http: HttpClient) { }
 
+  eliminarArticulo(idArticulo: number) {
+	return this.http.delete(`${environment.API_URI}/articulos/delete/${idArticulo}`);  
+  }
+
   obtenerArticulo(idArticulo: number) {
     return this.http.get(`${environment.API_URI}/articulos/${idArticulo}`);
   }

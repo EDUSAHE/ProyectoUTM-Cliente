@@ -15,6 +15,8 @@ import { ActividadService } from 'src/app/services/actividad.service'
 import { PatentesService } from 'src/app/services/patentes.service';
 import { Proyecto } from 'src/app/models/proyecto.model';
 import { ProyectosService } from 'src/app/services/proyectos.service';
+import { RecargaService } from 'src/app/services/recarga.service';
+
 declare var $: any
 
 @Component({
@@ -31,7 +33,17 @@ export class HomeComponent implements OnInit {
   actividad: Actividad;
   idProfesorProyecto: any
   idProfesor: any;
-  constructor(private route: ActivatedRoute, private proyectoService: ProyectosService, private articuloService: ArticulosService, private cambioInfoService: CambioInfoService, private revicionesServices: RevisionesService, private enventoServices: EventoService, private patenteServices: PatentesService, private actividadServices: ActividadService) {
+  constructor(
+	  private route: ActivatedRoute, 
+	  private proyectoService: ProyectosService, 
+	  private articuloService: ArticulosService, 
+	  private cambioInfoService: CambioInfoService, 
+	  private revicionesServices: RevisionesService, 
+	  private enventoServices: EventoService, 
+	  private patenteServices: PatentesService, 
+	  private actividadServices: ActividadService,
+	  private recargaService: RecargaService
+  ) {
     this.articulo = new Articulo()
     this.revisor = new Revisor();
     this.evento = new Evento()
@@ -79,8 +91,9 @@ export class HomeComponent implements OnInit {
       Swal.fire({
         position: 'center',
         icon: 'success',
-        title: 'Articulo  Agregado'
-      })
+        title: 'Articulo Agregado'
+      });
+	  this.recargaService.recargar();
     },
       err => console.error(err))
   }

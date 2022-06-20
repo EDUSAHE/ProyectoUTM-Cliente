@@ -2,13 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Articulo } from 'src/app/models/articulo.model';
 import { Externo } from 'src/app/models/externo.model';
+import { RecargaService } from 'src/app/services/recarga.service';
 import { ArticulosService } from 'src/app/services/articulos.service';
 import { CambioInfoService } from 'src/app/services/cambio-info.service';
 import { ExternoService } from 'src/app/services/externo.service';
 import { ImagenesService } from 'src/app/services/imagenes.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
-declare var $: any
+
+declare var $: any;
+
 @Component({
 	selector: 'app-articulos',
 	templateUrl: './articulos.component.html',
@@ -30,7 +33,19 @@ export class ArticulosComponent implements OnInit {
 	externo: Externo
 	externos: Externo[]
 	sugerenciasExternos: any []
-	constructor(private externoService:ExternoService, private route: ActivatedRoute, private articulosService: ArticulosService, private cambioInforService: CambioInfoService, private imagenesService: ImagenesService) {
+
+	// Paginación
+	pageSize = 3;
+	p = 1;
+
+	constructor(
+		private recargaService: RecargaService,
+		private externoService:ExternoService, 
+		private route: ActivatedRoute, 
+		private articulosService: ArticulosService, 
+		private cambioInforService: CambioInfoService, 
+		private imagenesService: ImagenesService
+	) {
 		this.idProfesor = 0
 		this.sugerenciasExternos = []
 		this.externo = new Externo();
@@ -45,6 +60,8 @@ export class ArticulosComponent implements OnInit {
 		let hoy = new Date()
 		this.fechaInicial = `${hoy.getFullYear() - 1}-${('0' + (hoy.getMonth() + 1)).slice(-2)}-${('0' + hoy.getDate()).slice(-2)}`
 		this.fechaFinal = `${hoy.getFullYear()}-${('0' + (hoy.getMonth() + 1)).slice(-2)}-${('0' + hoy.getDate()).slice(-2)}`
+
+		this.recargaService.recarga$.subscribe(signal => this.obtenerArticulos());
 
 		this.urlArchivos = environment.URI_ARCHIVOS
 		this.obtenerArticulos()
@@ -77,21 +94,22 @@ export class ArticulosComponent implements OnInit {
 	ActualizarArticuloModal(idArticulo:any) {
 		this.articulosService.obtenerArticulo(idArticulo).subscribe((resArticulo:any)=>{
 			this.ArticuloActual=resArticulo;
+			$('#ActualizarArticulo').modal();
+			$('#ActualizarArticulo').modal('open');
 		},
 			err => console.error(err))
-		$('#ActualizarArticulo').modal();
-		$('#ActualizarArticulo').modal('open');
 	}
+
 	//Actualiza la Publicacion
-	actualizarArticulo(articulo: any) {
-		console.log(articulo)
-		delete articulo.autores;
-		console.log(this.articulo)
-		this.articulosService.actualizarArticulo(articulo,articulo.idArticulo).subscribe((resActualiza: any) => {
-		},
-			err => console.error(err))
-		this.obtenerArticulos();
-		$('#ActualizarArticulo').modal('close');
+	actualizarArticulo() {
+		// console.log(articulo)
+		// delete articulo.autores;
+		console.log(this.ArticuloActual)
+		// this.articulosService.actualizarArticulo(this.ArticuloActual, this.ArticuloActual.idArticulo).subscribe((resActualiza: any) => {
+		// 	this.obtenerArticulos();
+		// 	$('#ActualizarArticulo').modal('close');
+		// },
+		// 	err => console.error(err))
 	}
 
 	//<!-- Modal AutoresExternos-->
@@ -147,6 +165,26 @@ export class ArticulosComponent implements OnInit {
 			console.log(this.externos);
 		},
 			err => console.error(err))
+	}
+
+	eliminarArticulo(idArticulo: number) {
+		Swal.fire({
+			title: '¿Estas seguro de querer eliminar?',
+			position: 'center',
+			icon: 'question',
+			showDenyButton: true,
+			showConfirmButton: true,
+			confirmButtonText: 'Sí'
+		})
+		.then(respuesta => {
+				if (respuesta.isConfirmed) {
+					this.articulosService.eliminarArticulo(idArticulo).subscribe({
+						next: (resEliminar: any) => {
+							this.obtenerArticulos();
+						}
+					});
+				}
+		});
 	}
 
 	cargarArchivo(archivos: any, idArticulo: number): void {

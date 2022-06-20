@@ -84,6 +84,11 @@
 						</select>
                     </div>
 
+					<div class="input-field col s12">
+                        <input name="issue" id="articulo_issue" [(ngModel)]="articulo.issue" required type="text">
+                        <label for="articulo_issue">Issue</label>
+                    </div>
+
                     <div class="col s12" style="margin-bottom: 1rem;">
                         <label>Nacinal/Internacional</label>
                         <select name="tipoNI" [(ngModel)]="articulo.tipoNI" class="browser-default">

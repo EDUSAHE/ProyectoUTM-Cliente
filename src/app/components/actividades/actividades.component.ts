@@ -64,7 +64,7 @@ export class ActividadesComponent implements OnInit {
 			showConfirmButton: true,
 			confirmButtonText: 'Sí'
 		})
-			.then(respuesta => {
+		.then(respuesta => {
 				if (respuesta.isConfirmed) {
 					this.actividadService.eliminarActividad(id).subscribe({
 						next: (resEliminar: any) => {
@@ -78,6 +78,6 @@ export class ActividadesComponent implements OnInit {
 						error: err => console.error(err)
 					});
 				}
-			})
+		});
 	}
 }
