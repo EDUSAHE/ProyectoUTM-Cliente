@@ -119,7 +119,7 @@ export class HomeComponent implements OnInit {
 
   crearPatente(patente: any) {
     if (this.patente.registro < this.patente.obtencion) {
-      this.patenteServices.guardarPatente(patente, this.idProfesor).subscribe((resPatente: any) => {
+      this.patenteServices.guardarPatente(patente).subscribe((resPatente: any) => {
       }, err => console.error(err));
       $('#nuevaPatente').modal('close');
         Swal.fire({
