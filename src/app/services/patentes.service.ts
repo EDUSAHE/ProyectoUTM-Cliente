@@ -9,8 +9,17 @@ import { Patente } from '../models/patente.model';
 export class PatentesService {
 
   constructor(private http: HttpClient) { }
+
+  obtenerPatente(idPatente:number){
+    return this.http.get(`${environment.API_URI}/patentes/${idPatente}`);
+  }
+
   guardarPatente(patente:Patente){
     return this.http.post(`${environment.API_URI}/patentes/create`, patente);
+  }
+
+  modificarPatente(idPatente: number,patente:any) {
+	  return this.http.put(`${environment.API_URI}/patentes/actualizar/${idPatente}`,patente);
   }
 
   eliminarPatente(idPatente: number) {

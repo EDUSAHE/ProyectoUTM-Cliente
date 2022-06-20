@@ -22,19 +22,60 @@
 			<th class="intro">Opciones</th>
 		</tr>
 
-		<ng-container *ngFor="let patente of patentes; let i=index">
+		<ng-container *ngFor="let patente of patentes">
 			<tr>
 				<td>{{patente.nombrePatente}}</td>
 				<td>{{convertirFecha(patente.registro)}}</td>
 				<td>{{convertirFecha(patente.obtencion)}}</td>
 				<td>{{patente.colaboradores}}</td>
 				<td>{{patente.resumen}}</td>
-				<td><a href="javascript: void(0);" class="space">
-						<i class="material-icons">edit</i>Modificar</a>
-					<a href="javascript: void(0);" class="space" (click)="eliminarPatente(patente)">
-						<i class="material-icons">delete</i>Eliminar</a>
+				<td>
+                    <a href="javascript: void(0);" class="space" (click)="modificarPatenteModal(patente.idPatente)"><i class="material-icons">edit</i>Modificar</a>
+                    <a href="javascript: void(0);" class="space" (click)="eliminarPatente(patente)"><i class="material-icons" >delete</i>Eliminar</a>
 				</td>
 			</tr>
 		</ng-container>
 	</table>
+</div>
+
+<!-- Modal Modificar Patente -->
+<div id="ModificarPatente" class="modal">
+    <div class="modal-content">
+        <div class="row" style="margin-bottom: 0px !important;">
+            <div class="col s12">
+                <h3 class="center">Modificar Patente</h3>
+            </div>
+        </div>
+        <div style="border: .5px solid #78909c; padding: 10px;">
+            <form (ngSubmit)="modificarPatente(patenteActual)" ngNativeValidate>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input name="patente_titulo2" id="patente_titulo2" [(ngModel)]="patenteActual.nombrePatente" required type="text">
+                        <label class="active" for="patente_titulo2">Nombre de la patente</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input name="patente_fechaReg2" id="patente_fechaReg2" [(ngModel)]="patenteActual.registro" required type="date">
+                        <label for="patente_fechaReg2">Fecha de registro</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input name="patente_fechaObt2" id="patente_fechaObt2" [(ngModel)]="patenteActual.obtencion" required type="date">
+                        <label for="patente_fechaObt2" min="patente_fechaReg">Fecha de obtención</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input name="patente_resumen2" id="patente_resumen2" [(ngModel)]="patenteActual.resumen" type="text">
+                        <label class="active" for="patente_resumen2">Resumen</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col s6 center">
+                        <input type="submit" class="waves-effect btn-large brown lighten-3" value="Enviar">
+                    </div>
+                    <div class="col s6 center">
+                        <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text">Cancelar</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>

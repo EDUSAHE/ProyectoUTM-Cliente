@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Patente } from 'src/app/models/patente.model';
 import { PatentesService } from 'src/app/services/patentes.service';
 import Swal from 'sweetalert2';
 
@@ -13,18 +14,21 @@ export class PatentesComponent implements OnInit {
 
 	fechaInicial: any;
 	fechaFinal: any;
-	idProfesor: any;
+	idProfesor: number;
 	patentes: any[] = []
 	idPatente: any;
+	patenteActual: Patente;
 
 	constructor(private route: ActivatedRoute, private patenteServices: PatentesService) {
 		let hoy = new Date()
+		this.idProfesor = Number(localStorage.getItem('idProfesor'));
+		this.patentes = []
+		this.patenteActual = new Patente
 		this.fechaInicial = `${hoy.getFullYear() - 1}-${('0' + (hoy.getMonth() + 1)).slice(-2)}-${('0' + hoy.getDate()).slice(-2)}`
 		this.fechaFinal = `${hoy.getFullYear()}-${('0' + (hoy.getMonth() + 1)).slice(-2)}-${('0' + hoy.getDate()).slice(-2)}`
 	}
 
 	ngOnInit(): void {
-		this.idProfesor = Number(localStorage.getItem('idProfesor'));
 		this.listarPatentes();
 	}
 
@@ -58,6 +62,25 @@ export class PatentesComponent implements OnInit {
 	}
 	convertirFecha(fecha: string) {
 		return new Date(fecha).toLocaleDateString("en-CA");
+	}
+
+	modificarPatenteModal(idPatente:any){
+		this.patenteServices.obtenerPatente(idPatente).subscribe((resPatente:any)=>{
+			this.patenteActual = resPatente;
+			console.log(this.patenteActual)
+		},
+			err => console.error(err))
+		$('#ModificarPatente').modal();
+		$('#ModificarPatente').modal('open');
+	}
+
+	modificarPatente(patente:any) {
+		console.log(patente)
+		this.patenteServices.modificarPatente(patente.idPatente,patente).subscribe((resPatente:any)=>{
+		},
+			err => console.error(err))
+		$('#ModificarPatente').modal('close');
+		this.listarPatentes()
 	}
 
 	eliminarPatente(patente: any) {
