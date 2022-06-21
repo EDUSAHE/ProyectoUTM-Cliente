@@ -15,14 +15,14 @@
 	<table id="tablaActividades">
 		<tr>
 			<th class="intro" onclick="sortTable(0, 'str', 'tablaActividades')">Actividad</th>
-			<th class="intro" >Descripción</th>
+			<th class="intro">Descripción</th>
 			<th class="intro" onclick="sortTable(2, 'str', 'tablaActividades')">Validado</th>
 			<th class="intro" onclick="sortTable(3, 'str', 'tablaActividades')">Fecha Inicio</th>
 			<th class="intro" onclick="sortTable(4, 'str', 'tablaActividades')">Fecha Fin</th>
 			<th class="intro center">Opciones</th>
 		</tr>
 
-		<tr *ngFor="let actividad of actividades">
+		<tr *ngFor="let actividad of actividades; let i = index;">
 			<td>{{actividad.actividad}}</td>
 			<td>{{actividad.descripcion}}</td>
 			<td>{{actividad.validado}}</td>
@@ -32,6 +32,9 @@
 				<!-- <button class="space btn-option">
 					<i class="material-icons">edit</i>Modificar
 				</button> -->
+				<button class="space btn-option" (click)="abreEditarActividad(i)">
+					<i class="material-icons">edit</i>Modificar
+				</button>
 				<button class="space btn-option" (click)="eliminarActividad(actividad.idActividad)">
 					<i class="material-icons">delete</i>Eliminar
 				</button>
@@ -39,4 +42,46 @@
 		</tr>
 	</table>
 
+</div>
+
+<!-- Modal editar Actividad -->
+<div id="editarActividad" class="modal">
+    <div class="modal-content">
+        <div class="row" style="margin-bottom: 0px !important;">
+            <div class="col s12">
+                <h3 class="center">Editar Actividad</h3>
+            </div>
+        </div>
+        <div style="border: .5px solid #78909c; padding: 10px;">
+			<form (ngSubmit)="editarActividad()"  ngNativeValidate>
+				<div class="row">
+					<div class="col s12">
+						<input name="actividad" id="actedit_actividad" [(ngModel)]="actividadActual.actividad" required type="text">
+						<label for="actividad_actividad">Actividad</label>
+					</div>
+					<div class="col s12">
+						<input name="act_descrip" id="actedit_descripcion" [(ngModel)]="actividadActual.descripcion" required type="text">
+						<label for="actividad_descripcion">Descripción</label>
+					</div>
+					<div class="col s12">
+						<input name="act_ini" id="actedit_inicio" [(ngModel)]="actividadActual.inicio" required type="date">
+						<label for="actividad_inicio">Inicio</label>
+					</div>
+					<div class="col s12">
+						<input name="act_fin" id="actedit_fin" [(ngModel)]="actividadActual.fin" required type="date">
+						<label for="actividad_fin">Fin</label>
+					</div>
+				</div>
+	
+                <div class="row">
+                    <div class="col s6 center">
+                        <input type="submit" class="waves-effect btn-large brown lighten-3" value="Enviar">
+                    </div>
+                    <div class="col s6 center">
+                        <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text">Cancelar</a>
+                    </div>
+                </div>
+			</form>
+        </div>
+    </div>
 </div>

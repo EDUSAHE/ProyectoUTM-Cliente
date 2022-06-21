@@ -4,7 +4,6 @@ import { Articulo } from 'src/app/models/articulo.model';
 import { Revisor } from 'src/app/models/revisor.model';
 // import { Revision } from 'src/app/models/revision.model';
 import { ArticulosService } from 'src/app/services/articulos.service';
-import { CambioInfoService } from 'src/app/services/cambio-info.service';
 import { Patente } from 'src/app/models/patente.model';
 import Swal from 'sweetalert2';
 import { Evento } from 'src/app/models/evento.model';
@@ -16,6 +15,7 @@ import { PatentesService } from 'src/app/services/patentes.service';
 import { Proyecto } from 'src/app/models/proyecto.model';
 import { ProyectosService } from 'src/app/services/proyectos.service';
 import { RecargaService } from 'src/app/services/recarga.service';
+import { DatePipe } from '@angular/common';
 
 declare var $: any
 
@@ -25,42 +25,33 @@ declare var $: any
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  proyecto: Proyecto
-  articulo: Articulo;
-  revisor: Revisor;
-  evento: Evento;
-  patente: Patente;
-  actividad: Actividad;
-  idProfesorProyecto: any
+  
+  proyecto: Proyecto = new Proyecto();
+  articulo: Articulo = new Articulo();
+  revisor: Revisor = new Revisor();
+  evento: Evento = new Evento();
+  patente: Patente = new Patente();
+  actividad: Actividad = new Actividad();
+  idProfesorProyecto: any;
   idProfesor: any;
+
   constructor(
-	  private route: ActivatedRoute, 
+	  private route: ActivatedRoute,
+	  private datePipe: DatePipe,
 	  private proyectoService: ProyectosService, 
-	  private articuloService: ArticulosService, 
-	  private cambioInfoService: CambioInfoService, 
+	  private articuloService: ArticulosService,
 	  private revicionesServices: RevisionesService, 
 	  private enventoServices: EventoService, 
 	  private patenteServices: PatentesService, 
 	  private actividadServices: ActividadService,
 	  private recargaService: RecargaService
   ) {
-    this.articulo = new Articulo()
-    this.revisor = new Revisor();
-    this.evento = new Evento()
-    this.patente = new Patente();
-    this.actividad = new Actividad();
-    this.idProfesor = Number(localStorage.getItem('idProfesor'))
-    this.proyecto = new Proyecto()
-    let hoy = new Date();
-    this.patente.registro = hoy.getFullYear() + '-' + ((hoy.getMonth() + 1) < 10 ? '0' + (hoy.getMonth() + 1) : '' + (hoy.getMonth() + 1)) + '-' + (hoy.getDate() < 10 ? '0' + hoy.getDate() : '' + hoy.getDate());
-    this.patente.obtencion = hoy.getFullYear() + '-' + ((hoy.getMonth() + 1) < 10 ? '0' + (hoy.getMonth() + 1) : '' + (hoy.getMonth() + 1)) + '-' + ((hoy.getDate()) < 9 ? '0' + (hoy.getDate() + 1) : '' + (hoy.getDate() + 1));
-    this.articulo.fechaedicion = hoy.getFullYear() + '-' + ((hoy.getMonth() + 1) < 10 ? '0' + (hoy.getMonth() + 1) : '' + (hoy.getMonth() + 1)) + '-' + (hoy.getDate() < 10 ? '0' + hoy.getDate() : '' + hoy.getDate());
-    this.revisor.fecha = hoy.getFullYear() + '-' + ((hoy.getMonth() + 1) < 10 ? '0' + (hoy.getMonth() + 1) : '' + (hoy.getMonth() + 1)) + '-' + (hoy.getDate() < 10 ? '0' + hoy.getDate() : '' + hoy.getDate());
-    this.evento.inicio = hoy.getFullYear() + '-' + ((hoy.getMonth() + 1) < 10 ? '0' + (hoy.getMonth() + 1) : '' + (hoy.getMonth() + 1)) + '-' + (hoy.getDate() < 10 ? '0' + hoy.getDate() : '' + hoy.getDate());
-    this.evento.fin = hoy.getFullYear() + '-' + ((hoy.getMonth() + 1) < 10 ? '0' + (hoy.getMonth() + 1) : '' + (hoy.getMonth() + 1)) + '-' + ((hoy.getDate()) < 9 ? '0' + (hoy.getDate() + 1) : '' + (hoy.getDate() + 1));
-
-    this.proyecto.inicio = hoy.getFullYear() + '-' + ((hoy.getMonth() + 1) < 10 ? '0' + (hoy.getMonth() + 1) : '' + (hoy.getMonth() + 1)) + '-' + (hoy.getDate() < 10 ? '0' + hoy.getDate() : '' + hoy.getDate());
-    this.proyecto.fin = hoy.getFullYear() + '-' + ((hoy.getMonth() + 1) < 10 ? '0' + (hoy.getMonth() + 1) : '' + (hoy.getMonth() + 1)) + '-' + ((hoy.getDate()) < 9 ? '0' + (hoy.getDate() + 1) : '' + (hoy.getDate() + 1));
+	this.setFechaArticulo();
+	this.setFechaRevision();
+	this.setFechaProyecto();
+	this.setFechaPatente();
+	this.setFechaEvento();
+	this.setFechaActividad();
   }
 
   ngOnInit(): void {
@@ -78,16 +69,22 @@ export class HomeComponent implements OnInit {
   }
 
   agregarArticulo() {
-    console.log("Agregar Publicacion");
+    this.articulo = new Articulo();
+	this.setFechaArticulo();
     $('#agregarArticulo').modal();
     $('#agregarArticulo').modal('open');
   }
-  //creaar la Publicacion
+
+  setFechaArticulo() {
+	  const fecha = new Date();
+	  this.articulo.fechaedicion = this.datePipe.transform(fecha, "yyyy-MM-dd") as string;
+  }
+
+  //crear la Publicacion
   crearArticulo(articulos: any) {
     console.log(articulos)
     this.articuloService.agregar(articulos, this.idProfesor, new Date().toLocaleDateString("en-CA")).subscribe((resArticulo: any) => {
       $('#agregarArticulo').modal('close');
-      this.articulo = new Articulo();
       Swal.fire({
         position: 'center',
         icon: 'success',
@@ -98,18 +95,22 @@ export class HomeComponent implements OnInit {
       err => console.error(err))
   }
 
-  agregarRevivision() {
-    console.log("CrearRevision");
-    $('#CrearRevision').modal();
-    $('#CrearRevision').modal('open');
+  agregarRevision() {
+    this.revisor = new Revisor();
+	this.setFechaRevision();
+    $('#agregarRevision').modal();
+    $('#agregarRevision').modal('open');
   }
 
-
+  setFechaRevision() {
+	const fecha = new Date();
+	this.revisor.fecha = this.datePipe.transform(fecha, "yyyy-MM-dd") as string;
+  }
 
   crearRevision() {
     this.revisor.idProfesor = this.idProfesor;
     this.revicionesServices.createRevision(this.revisor).subscribe(res => {
-      $('#agregarRevivision').modal('close');
+      $('#agregarRevision').modal('close');
       Swal.fire({
         position: 'center',
         icon: 'success',
@@ -117,67 +118,24 @@ export class HomeComponent implements OnInit {
       })
       this.revisor = new Revisor();
     }, err => console.error(err))
-
   }
 
-  enviarMensajeArticulo() {
-    this.cambioInfoService.enviar('')
+  agregarProyecto() {
+	this.proyecto = new Proyecto();
+	this.setFechaProyecto();
+    $('#agregarProyecto').modal();
+    $('#agregarProyecto').modal('open');
   }
 
-  nuevaPatente() {
-    console.log("Agregar Patente");
-    $('#nuevaPatente').modal();
-    $('#nuevaPatente').modal('open');
+  setFechaProyecto() {
+	const fecha = new Date();
+	this.proyecto.inicio = this.datePipe.transform(fecha, "yyyy-MM-dd") as string;
+
+	fecha.setDate(fecha.getDate() + 1);
+	this.proyecto.fin = this.datePipe.transform(fecha, "yyyy-MM-dd") as string;
   }
 
-  crearPatente(patente: any) {
-    if (this.patente.registro < this.patente.obtencion) {
-      this.patenteServices.guardarPatente(patente,this.idProfesor).subscribe((resPatente: any) => {
-      }, err => console.error(err));
-      $('#nuevaPatente').modal('close');
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Patente Registrada'
-        })
-    }
-    else {
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: 'Fecha de obtención debe de ser posterior'
-      })
-    }
-    this.patente = new Patente();
-  }
-
-  crearEvento() {
-    this.evento.idProfesor = this.idProfesor
-    this.enventoServices.agregarEvento(this.evento).subscribe(res => {
-      $('#nuevoEvento').modal('close');
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Evento  Agregado'
-      })
-    }, err => console.error(err))
-    console.log(this.evento)
-    this.evento = new Evento()
-  }
-  crearActividad() {
-    this.actividad.idProfesor = this.idProfesor
-    this.actividadServices.agregarActividad(this.actividad).subscribe(res => {
-      $('#nuevaActividad').modal('close');
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Actividad  Agregada'
-      })
-    }, err => console.error(err))
-    this.actividad = new Actividad;
-  }
-
-  AgregarProyecto(): void {
+  crearProyecto(): void {
     this.idProfesorProyecto = this.idProfesor
     this.proyectoService.agregarProyecto(this.proyecto, this.idProfesorProyecto).subscribe(res => {
       $('#agregarProyecto').modal('close');
@@ -187,7 +145,94 @@ export class HomeComponent implements OnInit {
         title: 'Proyecto  Agregado'
       })
     }, err => console.error(err))
-    console.log(this.proyecto)
-    this.proyecto = new Proyecto()
+  }
+
+  agregarPatente() {
+    this.patente = new Patente();
+	this.setFechaPatente();
+    $('#agregarPatente').modal();
+    $('#agregarPatente').modal('open');
+  }
+
+  setFechaPatente() {
+	const fecha = new Date();
+	this.patente.registro = this.datePipe.transform(fecha, "yyyy-MM-dd") as string;
+
+	fecha.setDate(fecha.getDate() + 1);
+	this.patente.obtencion = this.datePipe.transform(fecha, "yyyy-MM-dd") as string;
+  }
+
+  crearPatente(patente: any) {
+    if (this.patente.registro < this.patente.obtencion) {
+      this.patenteServices.guardarPatente(patente,this.idProfesor).subscribe((resPatente: any) => {
+	    $('#agregarPatente').modal('close');
+	    Swal.fire({
+		  position: 'center',
+		  icon: 'success',
+		  title: 'Patente Registrada'
+	  	});
+	  }, err => console.error(err));
+    }
+    else {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Fecha de obtención debe de ser posterior'
+      })
+    }
+  }
+
+  agregarEvento() {
+	this.evento = new Evento();
+	this.setFechaEvento();
+    $('#agregarEvento').modal();
+    $('#agregarEvento').modal('open');
+  }
+
+  setFechaEvento() {
+	const fecha = new Date();
+	this.evento.inicio = this.datePipe.transform(fecha, "yyyy-MM-dd") as string;
+
+	fecha.setDate(fecha.getDate() + 1);
+	this.evento.fin = this.datePipe.transform(fecha, "yyyy-MM-dd") as string;
+  }
+
+  crearEvento() {
+    this.evento.idProfesor = this.idProfesor;
+    this.enventoServices.agregarEvento(this.evento).subscribe(res => {
+      $('#agregarEvento').modal('close');
+	  Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Evento  Agregado'
+      })
+    }, err => console.error(err))
+  }
+
+  agregarActividad() {
+	this.actividad = new Actividad();
+	this.setFechaActividad();
+    $('#agregarActividad').modal();
+    $('#agregarActividad').modal('open');
+  }
+
+  setFechaActividad() {
+	const fecha = new Date();
+	this.actividad.inicio = this.datePipe.transform(fecha, "yyyy-MM-dd") as string;
+
+	fecha.setDate(fecha.getDate() + 1);
+	this.actividad.fin = this.datePipe.transform(fecha, "yyyy-MM-dd") as string;
+  }
+  
+  crearActividad() {
+    this.actividad.idProfesor = this.idProfesor
+    this.actividadServices.agregarActividad(this.actividad).subscribe(res => {
+      $('#agregarActividad').modal('close');
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Actividad  Agregada'
+      })
+    }, err => console.error(err))
   }
 }

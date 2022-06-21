@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ActividadService } from 'src/app/services/actividad.service';
+import { Actividad } from 'src/app/models/actividad.model';
 import { Carrera } from 'src/app/models/carrera.model';
 import { Instituto } from 'src/app/models/instituto.model';
 import { Profesor } from 'src/app/models/profesor.model';
@@ -16,18 +17,22 @@ declare var $: any
 	styleUrls: ['./actividades.component.css']
 })
 export class ActividadesComponent implements OnInit {
+	
 	todasactividades: any = []
 	idProfesor: number
 	actividades: any[]
+	actividadActual: Actividad;
 	fechaInicial: string
 	fechaFinal: string
 	todasActividades: any[]
 	institutos: any = []
 	idInstituto: number
 	idCarrera: number
+
 	constructor(private institutoService: InstitutoService, private actividadService: ActividadService, private route: ActivatedRoute) {
 		this.actividades = []
 		this.todasActividades = []
+		this.actividadActual = new Actividad()
 		this.idInstituto = -1
 		this.idCarrera = -1
 		this.idProfesor = -1
@@ -47,12 +52,33 @@ export class ActividadesComponent implements OnInit {
 	actualizarActividades() {
 		// Mostrar actividades del profesor
 		this.actividadService.obtenerActividadesProfesor(this.idProfesor, this.fechaInicial, this.fechaFinal).subscribe((actividadesRes: any) => {
-			this.actividades = actividadesRes
+			actividadesRes.forEach((act: any) => {
+				delete act.nombreProfesor;
+			});
+			this.actividades = actividadesRes;
 		}, err => console.error(err))
 	}
 
 	convertirFecha(fecha: string) {
 		return new Date(fecha).toLocaleDateString("en-CA");
+	}
+
+	abreEditarActividad(index: number) {
+		this.actividadActual = this.actividades[index];
+		$('#editarActividad').modal();
+		$('#editarActividad').modal('open');
+	}
+
+	editarActividad() {
+		this.actividadActual.idProfesor = this.idProfesor;
+		this.actividadService.actualizarActividad(this.actividadActual).subscribe(res => {
+		  $('#editarActividad').modal('close');
+		  Swal.fire({
+			position: 'center',
+			icon: 'success',
+			title: 'Actividad Editada'
+		  })
+		}, err => console.error(err))
 	}
 
 	eliminarActividad(id: number) {
