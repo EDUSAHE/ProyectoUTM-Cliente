@@ -4,11 +4,11 @@
     <div class="row">
         <label for="tipoFiltrado">Filtrar por</label>
         <select id="tipoFiltrado" class="browser-default">
-			<option value="1">Título</option>
+            <option value="1">Título</option>
             <option value="2">Estado</option>
             <option value="3">Año</option>
             <option value="4">Tipo</option>
-		</select>
+        </select>
     </div>
     <div class="row">
         <div class="col s6">
@@ -44,9 +44,9 @@
                 <td colspan="6">
                     <b>Autores:</b><br>
                     <span *ngFor="let profesor of articulo.autores;">
-						{{profesor.nombreProfesor}}
-						<a class="waves-effect waves-teal btn-flat"><i class="tiny material-icons">delete</i></a>
-					</span>
+                        {{profesor.nombreProfesor}}
+                        <a class="waves-effect waves-teal btn-flat"><i class="tiny material-icons">delete</i></a>
+                    </span>
                 </td>
             </tr>
 
@@ -67,17 +67,19 @@
                 </td>
                 <td style="width: 15%;">
                     <b>Agregar</b><br><br>
-                    <a href="javascript: void(0);" class="space" (click)="ModalAutoresUTM()"><i class="material-icons">add</i>UTM</a>
-                    <a href="javascript: void(0);" (click)="ModalAutoresExternos()"><i class="material-icons" >add</i>Externo</a>
+                    <a href="javascript: void(0);" class="space" (click)="ModalAutoresUTM(articulo.idArticulo)"><i
+                            class="material-icons">add</i>UTM</a>
+                    <a href="javascript: void(0);" (click)="ModalAutoresExternos()"><i
+                            class="material-icons">add</i>Externo</a>
                 </td>
                 <td>
                     <b>Opciones</b><br><br>
                     <button class="space btn-option" (click)="ActualizarArticuloModal(articulo.idArticulo)">
-						<i class="material-icons">edit</i>Modificar
-					</button>
+                        <i class="material-icons">edit</i>Modificar
+                    </button>
                     <button class="space btn-option" (click)="eliminarArticulo(articulo.idArticulo)">
-						<i class="material-icons">delete</i>Eliminar
-					</button>
+                        <i class="material-icons">delete</i>Eliminar
+                    </button>
                     <a class="icono-archivo" *ngFor="let archivo of articulo.archivos" href="{{urlArchivos}}/{{archivo.idArchivoYArticulo}}.{{archivo.extension}}" target="_blank">
                         <i class="material-icons small">{{archivo.icono}}</i>
                     </a>
@@ -116,8 +118,8 @@
                 <tr *ngFor="let profesor of ordenProfesores;let indice1=index" style="list-style: circle">
                     <td>
                         <select [(ngModel)]='profesor.pos' class="browser-default" value="Congreso">
-							<option *ngFor="let profesor of ordenProfesores; let indice = index">{{indice+1}}</option>
-						</select>
+                            <option *ngFor="let profesor of ordenProfesores; let indice = index">{{indice+1}}</option>
+                        </select>
                     </td>
                     <td>
                         {{profesor.nombre}}
@@ -153,12 +155,12 @@
                     <div class="col s12" style="margin-bottom: 1rem;">
                         <label>Congreso/Revista/Libro/Cap Libro</label>
                         <select name="tipoCRL" [(ngModel)]="ArticuloActual.tipoCRL" class="browser-default">
-							<option value="Congreso">Congreso</option>
-							<option value="Revista">Revista</option>
-							<option value="Libro">Libro</option>
-							<option value="Cap Libro">Cap Libro</option>
-							<option value="Reporte Técnico">Reporte Técnico</option>
-						</select>
+                            <option value="Congreso">Congreso</option>
+                            <option value="Revista">Revista</option>
+                            <option value="Libro">Libro</option>
+                            <option value="Cap Libro">Cap Libro</option>
+                            <option value="Reporte Técnico">Reporte Técnico</option>
+                        </select>
                     </div>
 
                     <div class="input-field col s12">
@@ -168,16 +170,17 @@
 
                     <div class="input-field col s12">
                         <input name="nombreCRL" id="articulo_nombreCRLE" [(ngModel)]="ArticuloActual.nombreCRL" required type="text">
-                        <label for="articulo_nombreCRLE" class="active">Nombre del Congreso/Revista/Libro/Institución</label>
+                        <label for="articulo_nombreCRLE" class="active">Nombre del
+                            Congreso/Revista/Libro/Institución</label>
                     </div>
 
                     <div class="col s12" style="margin-bottom: 1rem;">
                         <label>Indexada</label>
                         <select name="indexada" [(ngModel)]="ArticuloActual.indexada" class="browser-default">
-							<option value="No">No</option>
-							<option value="Si">Si</option>
-							<option value="JRC">JCR</option>
-						</select>
+                            <option value="No">No</option>
+                            <option value="Si">Si</option>
+                            <option value="JRC">JCR</option>
+                        </select>
                     </div>
 
                     <div class="input-field col s12">
@@ -188,9 +191,9 @@
                     <div class="col s12" style="margin-bottom: 1rem;">
                         <label>Nacinal/Internacional</label>
                         <select name="tipoNI" [(ngModel)]="ArticuloActual.tipoNI" class="browser-default">
-							<option value="Nacional">Nacional</option>
-							<option value="Internacional">Internacional</option>
-						</select>
+                            <option value="Nacional">Nacional</option>
+                            <option value="Internacional">Internacional</option>
+                        </select>
                     </div>
 
                     <div class="input-field col s12">
@@ -241,10 +244,10 @@
                     <div class="col s12" style="margin-bottom: 1rem;">
                         <label>Estado del artículo</label>
                         <select name="estado" [(ngModel)]="ArticuloActual.estado" class="browser-default" value="Enviado">
-							<option value="Enviado">Enviado</option>
-							<option value="Aceptado">Aceptado</option>
-							<option value="Publicado">Publicado</option>
-						</select>
+                            <option value="Enviado">Enviado</option>
+                            <option value="Aceptado">Aceptado</option>
+                            <option value="Publicado">Publicado</option>
+                        </select>
                     </div>
 
                     <div class="input-field col s12">
@@ -269,75 +272,49 @@
 <!-- Modal Ageregar autores de la UTM -->
 <div id="AutoresUTM" class="modal">
     <div class="modal-content">
-
         <div class="row" style="margin-bottom: 0px !important;">
             <div class="col s12">
                 <h4 class="center">Agregar Autores UTM</h4>
             </div>
         </div>
 
-
         <div style="border: .5px solid #78909c; padding: 10px;">
+            <div class="row">
+                <label for="Institutos">Instituto</label>
+                <select id="Institutos" [(ngModel)]="idInstitutoActual" class="browser-default" (change)="cambioInstituto()">
+                    <option *ngFor="let instituto of institutos" [value]="instituto.idInstituto">
+                        {{instituto.nombreInstituto}}
+                    </option>
+                </select>
+            </div>
             <table>
-                <tr>
-                    <th>
-                        <h6>Instituto</h6>
+                <tr *ngFor="let profesorInstituto of profesoresInstituto;">
+                    <th [width]="10">
+                        <label>
+                            <input [(ngModel)]="autorNuevo.idProfesor" type="checkbox"  [value]="profesorInstituto.idProfesor"/>
+                            <span></span>
+                        </label>
                     </th>
-                    <th style=" width:30rem;"> <select class="browser-default">
-						<option value="Instituto de electrónica y mecatrónica">Instituto de electrónica y mecatrónica</option>
-						<option value="Instituto de computación">Instituto de computación</option>
-						<option value="Instituto de diseño">Instituto de diseño</option>
-						<option value="Instituto de física y matemáticas">Instituto de física y matemáticas</option>
-						<option value="Instituto de ciencias sociales y humanidades">Instituto de ciencias sociales y humanidades</option>
-						<option value="Instituto de agroindustrias">Instituto de agroindustrias</option>
-						<option value="Instituto de hidrología">Instituto de hidrología</option>
-						<option value="Instituto de minería">Instituto de minería</option>
-						<option value="Materiales">Materiales</option>
-						<option value="Centro de Idiomas">Centro de Idiomas</option>
-						<option value="Instituto de Ingeniería Industrial y Automotriz">Instituto de Ingeniería Industrial y Automotriz</option>
-						<option value="Posgrado">Posgrado</option>
-					</select></th>
-                </tr>
-
-                <tr *ngFor="let profesor of Profesores;">
-
+                    <th [width]="65">
+                        <select class="browser-default" [(ngModel)]="autorNuevo.pos">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                    </th>
                     <th>
                         <label>
-							<input type="checkbox" [(ngModel)]="profesor.agregado" />
-							<span>Agregar</span>
-						  </label>
+                            <h6>{{profesorInstituto.nombreProfesor}}</h6>
+                        </label>
                     </th>
-
-
-                    <th style=" width:8rem; "> <select [(ngModel)]="profesor.prioridad" class="browser-default" style=" width:8rem; ">
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-						<option value="5">5</option>
-						<option value="6">6</option>
-						<option value="7">7</option>
-						<option value="8">8</option>
-						<option value="9">9</option>
-						<option value="10">10</option>
-					</select></th>
-
-                    <th style=" width:16rem;"><label>
-						<h6>{{profesor.nombre}}</h6>
-					  </label>
-
-                    </th>
-
-
-
-
-
                 </tr>
-
-
-
-
-
             </table>
             <br>
             <div class="row">
@@ -369,9 +346,9 @@
                 <tr *ngFor="let externo of sugerenciasExternos;">
                     <th>
                         <label>
-							<input type="checkbox" [(ngModel)]="externo.agregado" />
-							<span></span>
-						</label>
+                            <input type="checkbox" [(ngModel)]="externo.agregado" />
+                            <span></span>
+                        </label>
                     </th>
                     <th style=" width:8rem; ">
                         <select [(ngModel)]="externo.prioridad" class="browser-default" style=" width:8rem; ">
@@ -385,12 +362,12 @@
                             <option value="8">8</option>
                             <option value="9">9</option>
                             <option value="10">10</option>
-					    </select>
+                        </select>
                     </th>
                     <th style=" width:16rem;">
                         <label>
-						    <h6>{{externo.nombreAPA}}</h6>
-					    </label>
+                            <h6>{{externo.nombreAPA}}</h6>
+                        </label>
                     </th>
                 </tr>
             </table>
@@ -403,19 +380,6 @@
 
             <!-- Formulario Agregar Nuevo Autor Externo -->
             <form (ngSubmit)="ExternoExistente()" ngNativeValidate>
-                <!-- <div class="row">
-                    <div class="col s12" style="margin-bottom: 1rem;">
-                        <label>Congreso/Revista/Libro/Cap Libro</label>
-                        <select name="tipoCRL" class="browser-default">
-							<option value="Congreso">Congreso</option>
-							<option value="Revista">Revista</option>
-							<option value="Libro">Libro</option>
-							<option value="Cap Libro">Cap Libro</option>
-							<option value="Reporte Técnico">Reporte Técnico</option>
-						</select>
-                    </div>
-                </div> -->
-
                 <div class="row">
                     <label for="Externos">Externos:</label>
                     <select id="Externos" class="browser-default">
