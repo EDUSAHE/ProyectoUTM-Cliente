@@ -9,6 +9,9 @@ import { ExternoService } from 'src/app/services/externo.service';
 import { ImagenesService } from 'src/app/services/imagenes.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
+import { InstitutoService } from 'src/app/services/instituto.service';
+import { ProfesorService } from 'src/app/services/profesor.service';
+import { AutoresUTM } from 'src/app/models/autoresUTM.model';
 
 declare var $: any;
 
@@ -20,8 +23,13 @@ declare var $: any;
 export class ArticulosComponent implements OnInit {
 
 	idProfesor: number
+	idArticuloActual: number
+	idInstitutoActual : number
+	profesoresInstituto : any[]
 	Profesores: any []
 	articulos: any[]
+	autoresNuevos: AutoresUTM[]
+	autorNuevo: AutoresUTM
 	articulo:any
 	fileToUpload: any
 	fechaInicial: string
@@ -33,19 +41,25 @@ export class ArticulosComponent implements OnInit {
 	externo: Externo
 	externos: Externo[]
 	sugerenciasExternos: any []
-
+	institutos : any []
 	// Paginación
 	pageSize = 3;
 	p = 1;
 
 	constructor(
 		private recargaService: RecargaService,
+		private profesorService: ProfesorService,
+		private institutoService : InstitutoService,
 		private externoService:ExternoService, 
 		private route: ActivatedRoute, 
 		private articulosService: ArticulosService, 
 		private cambioInforService: CambioInfoService, 
 		private imagenesService: ImagenesService
 	) {
+		this.profesoresInstituto = []
+		this.idInstitutoActual = 0
+		this.idArticuloActual = 0
+		this.institutos = []
 		this.idProfesor = 0
 		this.sugerenciasExternos = []
 		this.externo = new Externo();
@@ -54,6 +68,8 @@ export class ArticulosComponent implements OnInit {
 		this.articulos = []
 		this.externos = []
 		this.profesoresActuales = []
+		this.autoresNuevos = [];
+		this.autorNuevo = new AutoresUTM()
 		this.ArticuloActual = new Articulo()
 		this.fileToUpload = null
 		this.ordenProfesores;
@@ -128,10 +144,29 @@ export class ArticulosComponent implements OnInit {
 	}
 
 	//<!-- Modal AutoresUTM-->
-	ModalAutoresUTM() {
+	ModalAutoresUTM(idArticulo:any) {
+		this.idArticuloActual = idArticulo
+		this.institutoService.obtenerTodo().subscribe((resInstitutos:any)=>{
+			this.institutos = resInstitutos;
+			this.institutos.splice(0, 1)
+			this.idInstitutoActual = this.institutos[0].idInstituto
+			this.cambioInstituto()
+		},
+			err => console.error(err))
 		console.log("AutoresUTM");
 		$('#AutoresUTM').modal();
 		$('#AutoresUTM').modal('open');
+	}
+	cambioInstituto(){
+		this.profesorService.obtenerProfesoresPorInstituto(this.idInstitutoActual).subscribe((resProfesores:any)=>{
+			this.profesoresInstituto = resProfesores;
+		},
+			err => console.error(err))
+	}
+
+	addAutor(){
+		console.log(this.autorNuevo)
+		this.autoresNuevos.push(this.autorNuevo)
 	}
 
 	//<!-- Modal Prioridades autores Publicacion-->
