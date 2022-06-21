@@ -11,6 +11,13 @@
                 <label class="active">{{"Nombres" | translate}}</label>
             </div>
         </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">fingerprint</i>
+                <input type="text" [(ngModel)]="profesor.nombreApa">
+                <label class="active">{{"Nombre APA" | translate}}</label>
+            </div>
+        </div>
 
         <div class="row">
             <div class="input-field col s12">
@@ -33,14 +40,6 @@
                 <i class="material-icons prefix">history_edu</i>
                 <input type="text" [(ngModel)]="profesor.grado" disabled>
                 <label class="active">{{"Grado Académico" | translate}}</label>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="input-field col s12">
-                <i class="material-icons prefix">fingerprint</i>
-                <input type="text" [(ngModel)]="profesor.nombreApa">
-                <label class="active">{{"Nombre APA" | translate}}</label>
             </div>
         </div>
 
