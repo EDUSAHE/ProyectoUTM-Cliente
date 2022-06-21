@@ -104,7 +104,7 @@ export class ProyectosComponent implements OnInit {
 						Swal.fire({
 							position: 'center',
 							icon: 'success',
-							text: 'Proyecto Eliminada'
+							text: 'Proyecto Eliminado'
 						})
 
 					}, err => console.error(err));
