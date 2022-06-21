@@ -85,7 +85,7 @@ export class ArticulosComponent implements OnInit {
 	obtenerArticulos(): void {
 		this.articulosService.listArticulosByProfesorByPeriodo(this.idProfesor, this.fechaInicial, this.fechaFinal).subscribe((resArticulos: any) => {
 			this.articulos = resArticulos
-			// console.log(this.articulos)
+			//console.log(this.articulos)
 		},
 			err => console.error(err))
 	}
@@ -94,6 +94,7 @@ export class ArticulosComponent implements OnInit {
 	ActualizarArticuloModal(idArticulo:any) {
 		this.articulosService.obtenerArticulo(idArticulo).subscribe((resArticulo:any)=>{
 			this.ArticuloActual=resArticulo;
+			this.ArticuloActual.fechaedicion = this.convertirFecha(resArticulo.fechaedicion)
 			$('#ActualizarArticulo').modal();
 			$('#ActualizarArticulo').modal('open');
 		},
@@ -102,14 +103,19 @@ export class ArticulosComponent implements OnInit {
 
 	//Actualiza la Publicacion
 	actualizarArticulo() {
-		// console.log(articulo)
-		// delete articulo.autores;
 		console.log(this.ArticuloActual)
-		// this.articulosService.actualizarArticulo(this.ArticuloActual, this.ArticuloActual.idArticulo).subscribe((resActualiza: any) => {
-		// 	this.obtenerArticulos();
-		// 	$('#ActualizarArticulo').modal('close');
-		// },
-		// 	err => console.error(err))
+		this.articulosService.actualizarArticulo(this.ArticuloActual, this.ArticuloActual.idArticulo).subscribe((resActualiza: any) => {
+			this.obtenerArticulos();
+			$('#ActualizarArticulo').modal('close');
+			Swal.fire({
+				position: 'center',
+				icon: 'success',
+				title: 'Articulo Modificado',
+				showConfirmButton: false,
+				timer: 1000
+			  })
+		},
+			err => console.error(err))
 	}
 
 	//<!-- Modal AutoresExternos-->
@@ -185,6 +191,10 @@ export class ArticulosComponent implements OnInit {
 					});
 				}
 		});
+	}
+
+	convertirFecha(fecha: string) {
+		return new Date(fecha).toLocaleDateString("en-CA");
 	}
 
 	cargarArchivo(archivos: any, idArticulo: number): void {

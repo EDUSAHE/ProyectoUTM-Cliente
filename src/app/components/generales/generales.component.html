@@ -1,57 +1,52 @@
 <div class="container row">
-	<h3 class="center-align">{{"Datos Generales" | translate}}</h3>
-	<div class="col s2 offset-s5">
-		<img src="{{urlImagenes}}/{{idProfesor}}.png" alt="" class="circle responsive-img">
-	</div>
-	<section class="col s8 offset-s2">
-		<div class="row">
-			<div class="input-field col s12">
-				<i class="material-icons prefix">person</i>
-				<input type="text" [(ngModel)]="profesor.nombreProfesor">
-				<label class="active">{{"Nombres" | translate}}</label>
-			</div>
-		</div>
+    <h3 class="center-align">{{"Datos Generales" | translate}}</h3>
+    <div class="col s2 offset-s5">
+        <img src="{{urlImagenes}}/{{idProfesor}}.png" alt="" class="circle responsive-img">
+    </div>
+    <section class="col s8 offset-s2">
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">person</i>
+                <input type="text" [(ngModel)]="profesor.nombreProfesor">
+                <label class="active">{{"Nombres" | translate}}</label>
+            </div>
+        </div>
 
-		<div class="row">
-			<div class="input-field col s12">
-				<i class="material-icons prefix">alternate_email</i>
-				<input type="email" [(ngModel)]="profesor.correo" disabled>
-				<label class="active">{{"Correo" | translate}}</label>
-			</div>
-		</div>
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">alternate_email</i>
+                <input type="email" [(ngModel)]="profesor.correo">
+                <label class="active">{{"Correo" | translate}}</label>
+            </div>
+        </div>
 
-		<div class="row">
-			<div class="input-field col s12">
-				<i class="material-icons prefix">school</i>
-				<input type="text" value="{{carrera.nombreCarrera}}" disabled>
-				<label class="active">{{"Carrera" | translate}}</label>
-			</div>
-		</div>
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">school</i>
+                <input type="text" value="{{carrera.nombreCarrera}}" disabled>
+                <label class="active">{{"Carrera" | translate}}</label>
+            </div>
+        </div>
 
-		<div class="row">
-			<div class="input-field col s6">
-				<i class="material-icons prefix">history_edu</i>
-				<input type="text" [(ngModel)]="profesor.grado" disabled>
-				<label class="active">{{"Grado Académico" | translate}}</label>
-			</div>
-			<div class="input-field col s6">
-				<i class="material-icons prefix">badge</i>
-				<input type="text" [(ngModel)]="profesor.nivel" disabled>
-				<label class="active">{{"Nivel" | translate}}</label>
-			</div>
-		</div>
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">history_edu</i>
+                <input type="text" [(ngModel)]="profesor.grado" disabled>
+                <label class="active">{{"Grado Académico" | translate}}</label>
+            </div>
+        </div>
 
-		<div class="row">
-			<div class="input-field col s12">
-				<i class="material-icons prefix">fingerprint</i>
-				<input type="text" [(ngModel)]="profesor.nombreApa">
-				<label class="active">{{"Nombre APA" | translate}}</label>
-			</div>
-		</div>
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">fingerprint</i>
+                <input type="text" [(ngModel)]="profesor.nombreApa">
+                <label class="active">{{"Nombre APA" | translate}}</label>
+            </div>
+        </div>
 
-		<div class="row center-align">
-			<a (click)="actualizarProfesor()" class="btn">{{"Guardar Cambios" | translate}}</a>
-		</div>
+        <div class="row center-align">
+            <a (click)="actualizarProfesor()" class="btn">{{"Guardar Cambios" | translate}}</a>
+        </div>
 
-	</section>
+    </section>
 </div>
