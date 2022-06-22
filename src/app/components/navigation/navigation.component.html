@@ -27,9 +27,43 @@
 						<i class="material-icons right">arrow_drop_down</i>
 					</a>
                 </li>
-                <li *ngIf="nivel==3">
-                    <a class="dropdown-trigger" data-target="dropdown-menu-agregar-jc" href="#">
-						Agregar
+
+                <!-- Menús Asginar -->
+				<li *ngIf="nivel == 3">
+                    <a class="dropdown-trigger" data-target="dropdown-menu-asignar-jefe" href="#">
+						Asignar
+						<i class="material-icons right">arrow_drop_down</i>
+					</a>
+                </li>
+
+                <!-- Menús Concentrados -->
+				<li *ngIf="nivel == 3">
+                    <a class="dropdown-trigger" data-target="dropdown-menu-concentrados-jefe" href="#">
+						Concentrados
+						<i class="material-icons right">arrow_drop_down</i>
+					</a>
+                </li>
+
+                <!-- Menús Exportar Comprobantes -->
+				<li *ngIf="nivel == 3">
+                    <a class="dropdown-trigger" data-target="dropdown-menu-expcomp-jefe" href="#">
+						Exportar Comprobantes
+						<i class="material-icons right">arrow_drop_down</i>
+					</a>
+                </li>
+
+                <!-- Menús Imprimir -->
+                <li>
+                    <a class="dropdown-trigger" data-target="dropdown-menu-imprimir" href="#">
+						Imprimir
+						<i class="material-icons right">arrow_drop_down</i>
+					</a>
+                </li>
+
+                <!-- Menús Validaciones -->
+				<li *ngIf="nivel == 3">
+                    <a class="dropdown-trigger" data-target="dropdown-menu-valida-jefe" href="#">
+						Validaciones
 						<i class="material-icons right">arrow_drop_down</i>
 					</a>
                 </li>
@@ -47,25 +81,17 @@
 						<i class="material-icons right">arrow_drop_down</i>
 					</a>
                 </li>
-                <li *ngIf="nivel==3">
+                <!-- <li *ngIf="nivel==3">
                     <a class="dropdown-trigger" data-target="dropdown-menu-listar-jc" href="#">
 						Listar
 						<i class="material-icons right">arrow_drop_down</i>
 					</a>
-                </li>
+                </li> -->
 
                 <!-- Menús Asignar -->
                 <li *ngIf="nivel==1">
                     <a class="dropdown-trigger" data-target="dropdown-menu-asignar-vice" href="#">
 						Asignar
-						<i class="material-icons right">arrow_drop_down</i>
-					</a>
-                </li>
-
-                <!-- Menús Imprimir -->
-                <li>
-                    <a class="dropdown-trigger" data-target="dropdown-menu-imprimir" href="#">
-						Imprimir
 						<i class="material-icons right">arrow_drop_down</i>
 					</a>
                 </li>
@@ -83,12 +109,12 @@
 						<i class="material-icons right">arrow_drop_down</i>
 					</a>
                 </li>
-                <li *ngIf="nivel==3">
+                <!-- <li *ngIf="nivel==3">
                     <a class="dropdown-trigger" data-target="dropdown-menu-importar-jc" href="#">
 						Importar
 						<i class="material-icons right">arrow_drop_down</i>
 					</a>
-                </li>
+                </li> -->
 
                 <li *ngIf="nivel==1">
                     <a class="dropdown-trigger" data-target="dropdown-menu-exportar" href="#">
@@ -121,27 +147,69 @@
 
             <ul id="dropdown-menu-ver" class="dropdown-content" style="min-width: 150px;">
                 <li><a href="/home/generales/{{idProfesor}}">Datos Generales</a></li>
-				<li><a href="/home/materias">Materias</a></li>
-                <li><a href="/home/articulos/{{idProfesor}}">Articulos</a></li>
-                <li><a href="/home/eventos/{{idProfesor}}">Eventos</a></li>
-                <li><a href="/home/actividades/{{idProfesor}}">Actividades</a></li>
-				<li><a href="/home/tesistas">Tesistas</a></li>
-				<li><a href="/home/tutorados">Tutorados</a></li>
-				<li><a href="/home/patentes">Patentes</a></li>
-				<li><a href="/home/revisiones">Revisiones</a></li>
-				<li><a href="/home/comisiones">Comisiones</a></li>
-				<li><a href="/home/proyectos">Proyectos</a></li>
+				<li *ngIf="nivel == 3"><a href="/home/generales/{{idProfesor}}">Planes de estudio</a></li>
+				
+				<li *ngIf="nivel == 3"><a href="/home/generales/{{idProfesor}}">Articulos</a></li>
+				<li *ngIf="nivel == 4"><a href="/home/articulos/{{idProfesor}}">Articulos</a></li>
+				
+				<li *ngIf="nivel == 3"><a href="/home/generales/{{idProfesor}}">Eventos</a></li>
+				<li *ngIf="nivel == 4"><a href="/home/eventos/{{idProfesor}}">Eventos</a></li>
+                
+				<li *ngIf="nivel == 4"><a href="/home/actividades/{{idProfesor}}">Actividades</a></li>
+				
+				<li *ngIf="nivel == 3"><a href="/home/generales/{{idProfesor}}">Tesistas</a></li>
+				<li *ngIf="nivel == 4"><a href="/home/tesistas">Tesistas</a></li>
+				
+				<li *ngIf="nivel == 3"><a href="/home/generales/{{idProfesor}}">Tutorados</a></li>
+				<li *ngIf="nivel == 4"><a href="/home/tutorados">Tutorados</a></li>
+
+				<li *ngIf="nivel == 3"><a href="/home/generales/{{idProfesor}}">Patentes</a></li>
+				<li *ngIf="nivel == 4"><a href="/home/patentes">Patentes</a></li>
+
+				<li *ngIf="nivel == 3"><a href="/home/generales/{{idProfesor}}">Revisiones</a></li>
+				<li *ngIf="nivel == 4"><a href="/home/revisiones">Revisiones</a></li>
+
+				<li *ngIf="nivel == 3"><a href="/home/generales/{{idProfesor}}">Proyectos</a></li>
+				<li *ngIf="nivel == 4"><a href="/home/proyectos">Proyectos</a></li>
+
+				<li *ngIf="nivel == 3"><a href="/home/generales/{{idProfesor}}">Materias</a></li>
+				<li *ngIf="nivel == 3"><a href="/home/generales/{{idProfesor}}">Materias por Semestre</a></li>
+				<li *ngIf="nivel == 4"><a href="/home/materias">Materias</a></li>
+
+				<li *ngIf="nivel == 3"><a href="/home/generales/{{idProfesor}}">Extraordinarios/Especiales</a></li>
+
+				<li *ngIf="nivel == 4"><a href="/home/comisiones">Comisiones</a></li>
             </ul>
+
+            <!-- Menús Asignar -->
+            <ul id="dropdown-menu-asignar-jefe" class="dropdown-content" *ngIf="nivel == 3">
+                <li><a href="/home/generales/{{idProfesor}}" class="modal-trigger">Materias</a></li>
+                <li><a href="#agregarComisionJC" class="modal-trigger">Comisiones</a></li>
+                <li><a href="/home/generales/{{idProfesor}}" class="modal-trigger">Tesistas</a></li>
+                <li><a href="/home/generales/{{idProfesor}}" class="modal-trigger">Tutorados</a></li>
+            </ul>
+
+            <!-- Menús Concentrados -->
+            <ul id="dropdown-menu-concentrados-jefe" class="dropdown-content" *ngIf="nivel == 3">
+                <li><a href="/home/generales/{{idProfesor}}">PRODEP</a></li>
+            </ul>
+
+            <!-- Menús Exportar comprobantes -->
+            <ul id="dropdown-menu-expcomp-jefe" class="dropdown-content" *ngIf="nivel == 3">
+                <li><a href="/home/generales/{{idProfesor}}">Placeholder</a></li>
+            </ul>
+
+            <!-- Menús Validaciones -->
+            <ul id="dropdown-menu-valida-jefe" class="dropdown-content" *ngIf="nivel == 3">
+                <li><a href="/home/generales/{{idProfesor}}">Actividades</a></li>
+				<li><a href="/home/generales/{{idProfesor}}">Publicaciones</a></li>
+			</ul>
 
             <!-- Menús Agregar -->
             <ul id="dropdown-menu-agregar-vice" class="dropdown-content" *ngIf="nivel==1">
                 <li><a href="#agregarProfesorVice" class="modal-trigger">Profesor</a></li>
                 <li><a href="#agregarInstitutoVice" class="modal-trigger">Instituto</a></li>
                 <li><a href="#agregarCarreraVice" class="modal-trigger">Carrera</a></li>
-                <li><a href="#agregarComisionJC" class="modal-trigger">Comisiones</a></li>
-            </ul>
-            <ul id="dropdown-menu-agregar-jc" class="dropdown-content" *ngIf="nivel==3">
-                <li><a href="#agregarProfesorJC" class="modal-trigger">Profesor</a></li>
                 <li><a href="#agregarComisionJC" class="modal-trigger">Comisiones</a></li>
             </ul>
 
@@ -155,20 +223,17 @@
                 <li><a href="/home/listarActividades/">Actividades</a></li>
                 <li><a href="/home/listarComisionesJC/">Comisiones</a></li>
             </ul>
+
             <ul id="dropdown-menu-listar-dir" class="dropdown-content" *ngIf="nivel==2">
                 <li><a href="/home/listarArticulosDir/">Articulos</a></li>
                 <li><a href="/home/listarEventosDir/">Eventos</a></li>
                 <li><a href="/home/listarActividadesDir/">Actividades</a></li>
             </ul>
-            <ul id="dropdown-menu-listar-jc" class="dropdown-content" *ngIf="nivel==3">
+            
+			<!-- <ul id="dropdown-menu-listar-jc" class="dropdown-content" *ngIf="nivel==3">
                 <li><a href="/home/listarProfesoresJC/">Profesores</a></li>
                 <li><a href="/home/listarComisionesJC/">Comisiones</a></li>
-            </ul>
-
-            <!-- Menús Asignar -->
-            <ul id="dropdown-menu-asignar-vice" class="dropdown-content" *ngIf="nivel==1">
-                <li><a href="/home/asignarMaterias/">Materias</a></li>
-            </ul>
+            </ul> -->
 
             <!-- Menús Importar -->
             <ul id="dropdown-menu-importar" class="dropdown-content" *ngIf="nivel==1">
@@ -181,13 +246,18 @@
                 <li><a href="#importarEventosDir" class="modal-trigger">Eventos</a></li>
                 <li><a href="#importarActividadesDir" class="modal-trigger">Actividades</a></li>
             </ul>
-            <ul id="dropdown-menu-importar-jc" class="dropdown-content" *ngIf="nivel==3">
+            <!-- <ul id="dropdown-menu-importar-jc" class="dropdown-content" *ngIf="nivel==3">
                 <li><a href="#importarProfesoresJC" class="modal-trigger">Profesores</a></li>
-            </ul>
+            </ul> -->
 
             <!-- Menús Imprimir -->
             <ul id="dropdown-menu-imprimir" class="dropdown-content">
-                <li><a href="/home/imprimirArticulos/{{idProfesor}}" class="modal-trigger">Articulos</a></li>
+                <li *ngIf="nivel == 4">
+					<a href="/home/imprimirArticulos/{{idProfesor}}">Articulos</a>
+				</li>
+				<li *ngIf="nivel == 3">
+					<a href="/home/generales/{{idProfesor}}">Asignaciones de Materias</a>
+				</li>
             </ul>
 
             <!-- Menú Exportar -->

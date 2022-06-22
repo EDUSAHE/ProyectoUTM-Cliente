@@ -32,7 +32,6 @@ export class NavigationComponent implements OnInit {
   }
 
   logout() {
-    console.log("logout");
     localStorage.removeItem('idProfesor');
     this.router.navigateByUrl('/');
   }
