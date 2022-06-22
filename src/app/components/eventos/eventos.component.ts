@@ -27,7 +27,8 @@ export class EventosComponent implements OnInit {
     this.idEvento=0
     let hoy = new Date()
     this.fechaInicial = `${hoy.getFullYear() - 1}-${('0' + (hoy.getMonth() + 1)).slice(-2)}-${('0' + hoy.getDate()).slice(-2)}`
-    this.fechaFinal = `${hoy.getFullYear()}-${('0' + (hoy.getMonth() + 1)).slice(-2)}-${('0' + hoy.getDate()).slice(-2)}`
+    this.fechaFinal = `${hoy.getFullYear()}-${('0' + (hoy.getMonth() + 1)).slice(-2)}-${('0' + hoy.getDate()+3).slice(-2)}`
+  
   }
 
   ngOnInit(): void {
@@ -77,6 +78,8 @@ this.eventoService.ActualizarEvento(this.idEventoActual,this.eventoActual).subsc
 }
   listarEventos(){
     console.log(this.idProfesor)
+    console.log(this.fechaFinal);
+    console.log(this.fechaInicial);
 	this.eventoService.listEventosByPeriodo(this.idProfesor, this.fechaInicial, this.fechaFinal).subscribe((eventosRes: any) => {
    	this.eventos = eventosRes
     console.log(this.eventos);
