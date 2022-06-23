@@ -9,6 +9,10 @@ export class ArticulosService {
 
   constructor(private http: HttpClient) { }
 
+  eliminarAutor(idArticulo:any, idProfesor:any, esInterno:any){
+    return this.http.delete(`${environment.API_URI}/profesorYArticulo/delete/${idArticulo}/${idProfesor}/${esInterno}`);
+  }
+
   eliminarArticulo(idArticulo: number) {
 	return this.http.delete(`${environment.API_URI}/articulos/delete/${idArticulo}`);  
   }
@@ -61,8 +65,8 @@ export class ArticulosService {
 
   // 'profesor' es un JSON con los atributos: 
   //  idProfesor, pos, esInterno
-  updatePrioridadesOfAutoresByPublicacion(idArticulo:number, profesor:any){
-    return this.http.put(`${environment.API_URI}/profesorYArticulo/updatePrioridadesOfAutoresByPublicacion/${idArticulo}`,profesor);
+  updatePrioridadesOfAutoresByPublicacion(idArticulo:number, autores:any){
+    return this.http.put(`${environment.API_URI}/profesorYArticulo/updatePrioridadesOfAutoresByPublicacion/${idArticulo}`,autores);
   }
 
   // 'profesor' es un JSON con los atributos:

@@ -36,14 +36,14 @@ export class ArticulosComponent implements OnInit {
 	fechaFinal: string
 	ArticuloActual: Articulo
 	urlArchivos: string
-	profesoresActuales: any
+	profesoresActuales: any []
 	ordenProfesores: any
 	externo: Externo
 	externos: Externo[]
 	sugerenciasExternos: any []
 	institutos : any []
 	// Paginación
-	pageSize = 3;
+	pageSize = 10;
 	p = 1;
 
 	constructor(
@@ -101,7 +101,7 @@ export class ArticulosComponent implements OnInit {
 	obtenerArticulos(): void {
 		this.articulosService.listArticulosByProfesorByPeriodo(this.idProfesor, this.fechaInicial, this.fechaFinal).subscribe((resArticulos: any) => {
 			this.articulos = resArticulos
-			//console.log(this.articulos)
+			console.log(this.articulos)
 		},
 			err => console.error(err))
 	}
@@ -170,18 +170,61 @@ export class ArticulosComponent implements OnInit {
 	}
 
 	//<!-- Modal Prioridades autores Publicacion-->
-	ModalPrioridades(profesores: any) {
+	ModalPrioridades(idArticulo:any,profesores: any) {
 		console.log("modalPrioridad");
+		this.idArticuloActual = idArticulo;
+		this.profesoresActuales = profesores;
 		$('#modalPrioridad').modal();
 		$('#modalPrioridad').modal('open');
-		this.profesoresActuales = profesores;
 		console.log(this.profesoresActuales);
 	}
 
+	eliminarAutorPublicacion(idArticulo:any,idProfesor:any,esInterno:any){
+		Swal.fire({
+			title: '¿Deseas eliminar este Autor?',
+			position: 'center',
+			icon: 'question',
+			showDenyButton: true,
+			showConfirmButton: true,
+			confirmButtonText: 'Sí'
+		})
+		.then(respuesta => {
+				if (respuesta.isConfirmed) {
+					this.articulosService.eliminarAutor(idArticulo,idProfesor,esInterno).subscribe({
+						next: (resEliminar: any) => {
+							Swal.fire({
+								position: 'center',
+								icon: 'success',
+								title: 'Autor Eliminado',
+								showConfirmButton: false,
+								timer: 1000
+							  })
+							this.obtenerArticulos();
+						}
+					});
+				}
+		});
+	}
 
-	MostrarOrden() {
-		console.log("ordenPrioridades");
-		console.log(this.ordenProfesores)
+
+	CambiarPrioridad() {
+		let aux: any[] = []
+		for(let i=0; i<this.profesoresActuales.length;i++){
+			aux.push({idProfesor:this.profesoresActuales[i].idProfesor,
+				pos:this.profesoresActuales[i].pos,
+				esInterno:this.profesoresActuales[i].esInterno})
+		}
+		this.articulosService.updatePrioridadesOfAutoresByPublicacion(this.idArticuloActual,aux).subscribe((resNewPos:any)=>{
+			Swal.fire({
+				position: 'center',
+				icon: 'success',
+				title: 'Prioridades Actualizadas',
+				showConfirmButton: false,
+				timer: 1000
+			  })
+			this.obtenerArticulos();
+		},
+			err => console.error(err))
 	}
 
 	AutoresUTM() {
@@ -210,7 +253,7 @@ export class ArticulosComponent implements OnInit {
 
 	eliminarArticulo(idArticulo: number) {
 		Swal.fire({
-			title: '¿Estas seguro de querer eliminar?',
+			title: '¿Estas seguro de querer eliminar el Articulo?',
 			position: 'center',
 			icon: 'question',
 			showDenyButton: true,
@@ -221,6 +264,13 @@ export class ArticulosComponent implements OnInit {
 				if (respuesta.isConfirmed) {
 					this.articulosService.eliminarArticulo(idArticulo).subscribe({
 						next: (resEliminar: any) => {
+							Swal.fire({
+								position: 'center',
+								icon: 'success',
+								title: 'Articulo Eliminado',
+								showConfirmButton: false,
+								timer: 1000
+							  })
 							this.obtenerArticulos();
 						}
 					});
