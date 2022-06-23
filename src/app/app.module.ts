@@ -45,6 +45,7 @@ import { PatentesComponent } from './components/patentes/patentes.component';
 import { RevisionesComponent } from './components/revisiones/revisiones.component';
 import { ComisionesComponent } from './components/comisiones/comisiones.component';
 import { ProyectosComponent } from './components/proyectos/proyectos.component';
+import { ListarEventosJcComponent } from './components/listar-eventos-jc/listar-eventos-jc.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
 }
@@ -85,7 +86,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     PatentesComponent,
     RevisionesComponent,
     ComisionesComponent,
-    ProyectosComponent
+    ProyectosComponent,
+    ListarEventosJcComponent
   ],
   imports: [
     BrowserModule,

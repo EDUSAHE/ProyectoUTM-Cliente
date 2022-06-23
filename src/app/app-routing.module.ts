@@ -29,6 +29,7 @@ import { PatentesComponent } from './components/patentes/patentes.component';
 import { RevisionesComponent } from './components/revisiones/revisiones.component';
 import { ComisionesComponent } from './components/comisiones/comisiones.component';
 import { ProyectosComponent } from './components/proyectos/proyectos.component';
+import { ListarEventosJcComponent } from './components/listar-eventos-jc/listar-eventos-jc.component';
 
 const routes: Routes = [
   {
@@ -153,6 +154,10 @@ const routes: Routes = [
       {
         path: 'listarComisionesJC',
         component: ListarComisionesComponent
+      },
+      {
+        path: 'listarEventosJC',
+        component:ListarEventosJcComponent
       }
     ]
   }
