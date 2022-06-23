@@ -30,7 +30,7 @@ import { RevisionesComponent } from './components/revisiones/revisiones.componen
 import { ComisionesComponent } from './components/comisiones/comisiones.component';
 import { ProyectosComponent } from './components/proyectos/proyectos.component';
 import { ListarEventosJcComponent } from './components/listar-eventos-jc/listar-eventos-jc.component';
-
+import {  ListMateriaporsemestreComponent} from "./components/list-materiaporsemestre/list-materiaporsemestre.component";
 const routes: Routes = [
   {
     path: "",
@@ -158,6 +158,12 @@ const routes: Routes = [
       {
         path: 'listarEventosJC',
         component:ListarEventosJcComponent
+      },
+      //Materia por semestre
+      { 
+        path: 'listarMateriasemestre',
+        component:ListMateriaporsemestreComponent
+
       }
     ]
   }
