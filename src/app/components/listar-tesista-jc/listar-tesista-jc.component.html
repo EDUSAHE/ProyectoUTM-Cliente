@@ -1,0 +1,74 @@
+<div class="container">
+
+    <h3 class="center-align">Tesistas</h3>
+    <div class="row">
+        <div class="col s6">
+            <label class="">Fecha Inicial:</label>
+            <input type="date" [(ngModel)]="fechaInicial" (change)="obtenerTesistas()">
+        </div>
+        <div class="col s6">
+            <label>Fecha Final:</label>
+            <input type="date" [(ngModel)]="fechaFinal" (change)="obtenerTesistas()">
+        </div>
+    </div>
+    <table id="tablaArticulos">
+
+        <ng-container *ngFor="let tesis of tesistas">
+            <tr>
+                <th colspan="12" class="intro">Tesis: {{tesis.nombreTesis}}</th>
+            </tr>
+            <tr >
+                <th colspan="12" class="intro">Alumno: {{tesis.nombreEstudiante}}</th>
+            </tr>
+            <tr>
+                <th colspan="12" class="intro">Matricula: {{tesis.matricula}}</th>
+            </tr>
+            <tr>
+                <th colspan="12" class="intro">Nivel: {{tesis.nivel}}</th>
+            </tr>
+            <tr>
+                <th class="">Profesor(es)</th>
+                <th class="">Estado</th>
+                <th class="">Inicio</th>
+                <th class="">Fin</th>
+                <th class="">Modificar</th>
+                <th class="">Agregar</th>
+                <th class="">Opciones</th>
+            </tr>
+
+
+            <tr>
+                <td>
+                    <span *ngFor="let profe of tesis.profesores;">
+                
+                        <a href="javascript: void(0);" class="waves-effect waves-light btn-small">
+                        <i class="material-icons">delete</i></a> {{profe.nombreProfesor}} <br>
+                    </span>
+                </td>
+                <td>{{tesis.status}}</td>
+                <td>{{tesis.inicio}}</td>
+                <td>{{tesis.fin}}</td>
+                
+                <td>
+                    <a href="javascript: void(0);" class="waves-effect waves-light btn-small" ><i
+                            class="material-icons left">format_list_numbered</i>Prioridades</a>
+                </td>
+                <td>
+                    <a href="javascript: void(0);" class="waves-effect waves-light btn-small" ><i
+                            class="material-icons left">group_add</i>Codirecto UTM</a>
+                    <br>
+                    <a href="javascript: void(0);" class="waves-effect waves-light btn-small" ><i class="material-icons left">group_add</i>Codirector Externo</a>
+                </td>
+                <td>
+                    <a href="javascript: void(0);" class="waves-effect waves-light btn-small" >
+                        <i class="material-icons left">create</i>Modificar
+                    </a>
+                    <br>
+                    <a href="javascript: void(0);" class="waves-effect waves-light btn-small">
+                        <i class="material-icons left">delete</i>Eliminar
+                    </a>
+                </td>
+            </tr>
+        </ng-container>
+    </table>
+

@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
-
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -47,6 +47,7 @@ import { ComisionesComponent } from './components/comisiones/comisiones.componen
 import { ProyectosComponent } from './components/proyectos/proyectos.component';
 import { ListarEventosJcComponent } from './components/listar-eventos-jc/listar-eventos-jc.component';
 import { ListMateriaporsemestreComponent } from './components/list-materiaporsemestre/list-materiaporsemestre.component';
+import { ListarTesistasJcComponent } from './components/listar-tesista-jc/listar-tesista-jc.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
 }
@@ -89,7 +90,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ComisionesComponent,
     ProyectosComponent,
     ListarEventosJcComponent,
-    ListMateriaporsemestreComponent
+    ListMateriaporsemestreComponent,
+    ListarTesistasJcComponent
   ],
   imports: [
     BrowserModule,
