@@ -14,9 +14,9 @@
             <label>Profesor:</label>
             <select class="browser-default" (change)="actualizarEventos()">
                 <option value="-1">Todos</option>
-                <!-- <option *ngFor="let profesor of profesores" [value]="profesor.idProfesor">
+                <option *ngFor="let profesor of profesores" [value]="profesor.idProfesor"> 
                     {{profesor.nombreProfesor}}
-                </option> -->
+                </option>
             </select>
         </div>
     </div>

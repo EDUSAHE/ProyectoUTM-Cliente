@@ -12,7 +12,7 @@ export class ListarEventosJcComponent implements OnInit {
   fechaInicial: string
   fechaFinal: string
   eventos: any[]
-  profesores=[]
+  profesores:any[]
   // Paginación
   pageSize = 10;
   p = 1;
@@ -31,6 +31,10 @@ export class ListarEventosJcComponent implements OnInit {
     this.profesorServices.getProfesor(this.idProfesor).subscribe((resProfesor: any) => {
       this.idCarrera = resProfesor.idCarrera
       this.actualizarEventos()
+      this.profesorServices.obtenerProfesoresPorCarrera(this.idCarrera).subscribe((resProfesor: any) => {
+        console.log(resProfesor);
+        this.profesores=resProfesor
+      }, err => console.error(err));
     }, err => console.error(err));
   }
 
