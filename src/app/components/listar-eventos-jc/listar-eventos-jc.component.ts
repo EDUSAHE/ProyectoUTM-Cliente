@@ -32,17 +32,24 @@ export class ListarEventosJcComponent implements OnInit {
       this.idCarrera = resProfesor.idCarrera
       this.actualizarEventos()
       this.profesorServices.obtenerProfesoresPorCarrera(this.idCarrera).subscribe((resProfesor: any) => {
-        console.log(resProfesor);
         this.profesores=resProfesor
       }, err => console.error(err));
     }, err => console.error(err));
   }
 
   actualizarEventos() {
-    this.eventoService.obtenerEventosCarrera(this.idCarrera, this.fechaInicial, this.fechaFinal).subscribe((resEventos: any) => {
-      console.log(resEventos);
-      this.eventos = resEventos
-    }, err => console.error(err));
+    if(this.idProfesor == -1){
+      this.eventoService.obtenerEventosCarrera(this.idCarrera, this.fechaInicial, this.fechaFinal).subscribe((resEventos: any) => {
+        console.log(resEventos);
+        this.eventos = resEventos
+      }, err => console.error(err));
+    } 
+    else{
+      this.eventoService.obtenerEventosProfesor(this.idProfesor, this.fechaInicial, this.fechaFinal).subscribe((resEventosP: any) => {
+        console.log(resEventosP);
+        this.eventos = resEventosP
+      }, err => console.error(err));
+    }
     /* this.eventos = []
     this.todosEventos = []
     if (this.idInstituto == -1) {
