@@ -32,6 +32,7 @@ import { ProyectosComponent } from './components/proyectos/proyectos.component';
 import { ListarEventosJcComponent } from './components/listar-eventos-jc/listar-eventos-jc.component';
 import {  ListMateriaporsemestreComponent} from "./components/list-materiaporsemestre/list-materiaporsemestre.component";
 import { ListarTesistasJcComponent } from './components/listar-tesista-jc/listar-tesista-jc.component';
+import { ListarTutoradosJcComponent } from './components/listar-tutorados-jc/listar-tutorados-jc.component';
 const routes: Routes = [
   {
     path: "",
@@ -77,6 +78,10 @@ const routes: Routes = [
 	  {
 		  path: 'tutorados',
 		  component: TutoradosComponent
+	  },
+    {
+		  path: 'listarTutoradosJC',
+		  component: ListarTutoradosJcComponent
 	  },
 	  {
 		  path: 'patentes',
