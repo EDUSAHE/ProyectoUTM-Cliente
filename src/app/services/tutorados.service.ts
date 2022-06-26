@@ -17,4 +17,7 @@ export class TutoradosService {
     return this.http.get(`${environment.API_URI}/tutorados/listTutoradosByPeriodo/${idProfesor}/${fechaIni}/${fechaFin}`);
   }
   
+  listTutoradosByCarreraByPeriodo(idCarrera:number, fechaIni:any, fechaFin:any){
+    return this.http.get(`${environment.API_URI}/tutorados/listTutoradosByCarreraByPeriodo/${idCarrera}/${fechaIni}/${fechaFin}`);
+  }
 }

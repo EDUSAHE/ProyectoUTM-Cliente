@@ -49,6 +49,7 @@ import { ListarEventosJcComponent } from './components/listar-eventos-jc/listar-
 import { ListMateriaporsemestreComponent } from './components/list-materiaporsemestre/list-materiaporsemestre.component';
 import { ListarTesistasJcComponent } from './components/listar-tesista-jc/listar-tesista-jc.component';
 import { MateriasJcComponent } from './components/materias-jc/materias-jc.component';
+import { ListarTutoradosJcComponent } from './components/listar-tutorados-jc/listar-tutorados-jc.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
 }
@@ -93,7 +94,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ListarEventosJcComponent,
     ListMateriaporsemestreComponent,
     ListarTesistasJcComponent,
-    MateriasJcComponent
+    MateriasJcComponent,
+    ListarTutoradosJcComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,56 @@
+<div class="container">
+    <h3 class="center-align">Tutorados</h3>
+
+    <div class="row">
+        <label for="FiltradoTutoradosJC">Filtrar por</label>
+        <select id="FiltradoTutoradosJC" [(ngModel)]="opcionFiltrado" class="browser-default" (change)="listarTutoradosSelect()">
+            <option value="1">Todos</option>
+            <option value="2">Uno en especifico</option>
+        </select>
+    </div>
+
+    <div class="row" *ngIf="opcionFiltrado==2">
+        <label for="profesorSelect">Filtrar por</label>
+        <select id="profesorSelect" [(ngModel)]="idProfesorSelect" class="browser-default" (change)="listTutoradosByPeriodo()">
+            <option *ngFor="let profesor of profesores;" [ngValue]="profesor.idProfesor">
+                {{profesor.nombreProfesor}}
+            </option>
+        </select>
+    </div>
+
+    <div class="row">
+        <div class="col s6">
+            <label class="">Fecha Inicial:</label>
+            <input type="date" [(ngModel)]="fechaIni" (change)="listTutoradosByCarreraByPeriodo()">
+        </div>
+        <div class="col s6">
+            <label>Fecha Final:</label>
+            <input type="date" [(ngModel)]="fechaFin" (change)="listTutoradosByCarreraByPeriodo()">
+        </div>
+    </div>
+
+    <table id="tablaTutorados">
+        <tr>
+            <th class="intro" onclick="sortTable(1, 'str', 'tablaTutorados')">Profesor</th>
+            <th class="intro">Número</th>
+            <th class="intro" onclick="sortTable(2, 'str', 'tablaTutorados')">Nivel</th>
+            <th class="intro" onclick="sortTable(3, 'str', 'tablaTutorados')">Carrera</th>
+            <th class="intro" onclick="sortTable(4, 'str', 'tablaTutorados')">Estado</th>
+            <th class="intro" onclick="sortTable(5, 'str', 'tablaTutorados')">Inicio de asignación</th>
+            <th class="intro">Fin de asignación</th>
+        </tr>
+
+        <ng-container *ngFor="let tutorado of tutorados">
+            <tr>
+                <td>{{tutorado.idProfesor}}</td>
+                <td>{{tutorado.numero}}</td>
+                <td>{{niveles.get(tutorado.nivel)}}</td>
+                <td>{{carreras.get(tutorado.idCarrera)}}</td>
+                <td>{{tutorado.estado}}</td>
+                <td>{{convertirFecha(tutorado.inicio)}}</td>
+                <td>{{convertirFecha(tutorado.fin)}}</td>
+            </tr>
+        </ng-container>
+        
+    </table>
+</div>
