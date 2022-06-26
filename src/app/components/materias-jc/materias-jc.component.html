@@ -1,0 +1,185 @@
+<div class="container">
+	
+	<h3 class="center-align">Materias</h3>
+
+	<!-- Filtro por plan -->
+	<div class="row">
+		<div class="col offset-s4 s4">
+			<label for="plan">Plan</label>
+			<select id="plan" class="browser-default" (change)="cambioPlan($event.target)">
+				<option *ngFor="let plan of planes;" [value]="plan.idPlan">
+					{{plan.plan}}
+				</option>
+			</select>
+		</div>
+	</div>
+
+	<!-- Para agregar una nueva materia -->
+	<div class="row">
+		<button class="col btn" (click)="abreFormularioMateria()">
+			Agregar materia
+		</button>
+	</div>
+
+	<!-- Tabla de materias -->
+	<table>
+		<thead>
+			<th class="intro">Semestre</th>
+			<th class="intro">Materia</th>
+			<th class="intro" style="text-align:center;">Modificar</th>
+			<th class="intro" style="text-align:center;">Eliminar</th>
+		</thead>
+		<tbody>
+			<ng-container *ngFor="let mats of materias;">
+				<tr *ngFor="let materia of mats; let i = index;">
+					<ng-container *ngIf="i == 0">
+						<td style="width: 20%;" [rowSpan]="mats.length">
+							{{semestres.get(materia.semestre)}}
+						</td>
+					</ng-container>
+					<ng-container *ngIf="i != 0">
+						<td style="width: 20%;" *ngIf="materia.semestre != mats[i].semestre">
+							{{semestres.get(materia.semestre)}}
+						</td>
+					</ng-container>
+					<td>{{materia.nombre}}</td>
+					<td style="width: 10%; text-align:center;">
+						<button class="btn-option" (click)="abreEditarMateria(materia)">
+							<i class="material-icons">edit</i>
+						</button>
+					</td>
+					<td style="width: 10%; text-align:center;">
+						<button class="space btn-option" (click)="eliminarMateria(materia.idMateria)">
+							<i class="material-icons">delete</i>
+						</button>
+					</td>
+				</tr>
+			</ng-container>
+		</tbody>
+	</table>
+	
+</div>
+
+<!-- Modal agregar materia -->
+<div id="agregarMateria" class="modal">
+    <div class="modal-content">
+        <div class="row" style="margin-bottom: 0px !important;">
+            <div class="col s12">
+                <h3 class="center">Agregar Materia</h3>
+            </div>
+        </div>
+        <div style="border: .5px solid #78909c; padding: 10px;">
+			<form (ngSubmit)="agregarMateria()"  ngNativeValidate>
+				<div class="row">
+					<div class="col s12">
+						<label>Plan</label>
+                        <select	name="plan" 
+								[(ngModel)]="materiaNueva.idPlan" 
+								class="browser-default"
+						>
+							<option *ngFor="let plan of planes;" 
+									[ngValue]="plan.idPlan"
+							>{{plan.plan}}</option>
+                        </select>
+						<br>
+					</div>
+					<div class="input-field col s12">
+						<label>Nombre materia</label>
+						<input 	name="nombre"
+								[(ngModel)]="materiaNueva.nombre" 
+								required type="text"
+						>
+					</div>
+					<div class="col s12">
+						<br>
+						<label>Semestre</label>
+                        <select	name="semestre" 
+								[(ngModel)]="materiaNueva.semestre" 
+								class="browser-default"
+						>
+							<option *ngFor="let semestre of semestreArray();"
+									[ngValue]="semestre.llave"
+							>{{semestre.valor}}</option>
+                        </select>
+					</div>
+				</div>
+	
+                <div class="row">
+                    <div class="col s6 center">
+                        <input	type="submit" 
+								class="waves-effect btn-large brown lighten-3" 
+								value="Enviar"
+						>
+                    </div>
+                    <div class="col s6 center">
+                        <a class="modal-close waves-effect btn-large brown lighten-3 black-text">
+							Cancelar
+						</a>
+                    </div>
+                </div>
+			</form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal editar materia -->
+<div id="editarMateria" class="modal">
+    <div class="modal-content">
+        <div class="row" style="margin-bottom: 0px !important;">
+            <div class="col s12">
+                <h3 class="center">Editar Materia</h3>
+            </div>
+        </div>
+        <div style="border: .5px solid #78909c; padding: 10px;">
+			<form (ngSubmit)="editarMateria()"  ngNativeValidate>
+				<div class="row">
+					<div class="col s12">
+						<label>Plan</label>
+                        <select	name="plan" 
+								[(ngModel)]="materiaEditar.idPlan" 
+								class="browser-default"
+						>
+							<option *ngFor="let plan of planes;" 
+									[ngValue]="plan.idPlan"
+							>{{plan.plan}}</option>
+                        </select>
+						<br>
+					</div>
+					<div class="col s12">
+						<label>Nombre materia</label>
+						<input 	name="nombre"
+								[(ngModel)]="materiaEditar.nombre" 
+								required type="text"
+						>
+					</div>
+					<div class="col s12">
+						<br>
+						<label>Semestre</label>
+                        <select	name="semestre" 
+								[(ngModel)]="materiaEditar.semestre" 
+								class="browser-default"
+						>
+							<option *ngFor="let semestre of semestreArray();"
+									[ngValue]="semestre.llave"
+							>{{semestre.valor}}</option>
+                        </select>
+					</div>
+				</div>
+	
+                <div class="row">
+                    <div class="col s6 center">
+                        <input	type="submit" 
+								class="waves-effect btn-large brown lighten-3" 
+								value="Enviar"
+						>
+                    </div>
+                    <div class="col s6 center">
+                        <a class="modal-close waves-effect btn-large brown lighten-3 black-text">
+							Cancelar
+						</a>
+                    </div>
+                </div>
+			</form>
+        </div>
+    </div>
+</div>
