@@ -1,12 +1,12 @@
 export class Tesista {
-	idTesis: number = 0;
-	matricula: string = '';
-	idInstituto: number = 0;
-	status: string = '';
-	inicio: string = '';
-	fin: string = '';
-	nombreTesis: string = '';
-	nombreEstudiante: string = '';
-	nivel: number = 0;
-	comprobante: string = '';
+	idTesis: number = 0;			//si
+	matricula: string = '';			//si
+	idInstituto: number = 1;		//?
+	status: string = 'Iniciado';	//si
+	inicio: string = '';			//si
+	fin: string = '';				//si
+	nombreTesis: string = '';		//si
+	nombreEstudiante: string = '';	//si
+	nivel: number = 0;				//lo pone
+	comprobante: string = '';		//no va
 }
