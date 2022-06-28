@@ -16,6 +16,7 @@ export class TutoradosComponent implements OnInit {
 
 	tutorados: any[]
 	idProfesor: number
+	
 	constructor(private tutoradosService : TutoradosService) {
 		this.tutorados = []
 		let hoy = new Date()

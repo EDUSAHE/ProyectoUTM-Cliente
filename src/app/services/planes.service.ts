@@ -13,4 +13,8 @@ export class PlanesService {
 	listPlanes() {
 		return this.http.get(`${environment.API_URI}/plan`);
 	}
+
+	listPlanesByCarrera(idCarrera: number) {
+		return this.http.get(`${environment.API_URI}/plan/planesByCarrera/${idCarrera}`);
+	}
 }

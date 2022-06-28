@@ -12,8 +12,8 @@
         </div>
         <div class="col s12">
             <label>Profesor:</label>
-            <select class="browser-default" (change)="actualizarEventos()">
-                <option value="-1">Todos</option>
+            <select [(ngModel)]="idProfesor" class="browser-default" (change)="actualizarEventos()">
+                <option value="-1" selected>Todos</option>
                 <option *ngFor="let profesor of profesores" [value]="profesor.idProfesor"> 
                     {{profesor.nombreProfesor}}
                 </option>
@@ -30,7 +30,7 @@
 
             <tr class="hide-line">
                 <td colspan="6">
-                    <b class="color-blue">Capturado el </b>
+                    <b class="color-blue">Capturado el </b>{{evento.fin}}
                 </td>
             </tr>
 
