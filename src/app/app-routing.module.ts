@@ -34,6 +34,7 @@ import {  ListMateriaporsemestreComponent} from "./components/list-materiaporsem
 import { ListarTesistasJcComponent } from './components/listar-tesista-jc/listar-tesista-jc.component';
 import { MateriasJcComponent } from './components/materias-jc/materias-jc.component';
 import { ListarTutoradosJcComponent } from './components/listar-tutorados-jc/listar-tutorados-jc.component';
+import { ComisionesJcComponent } from './components/comisiones-jc/comisiones-jc.component';
 const routes: Routes = [
   {
     path: "",
@@ -173,6 +174,10 @@ const routes: Routes = [
       {
         path: 'listarTesistaJC',
         component:ListarTesistasJcComponent
+      },
+      {
+        path: 'comisionesJC',
+        component:ComisionesJcComponent
       },
       //Materia por semestre
       { 
