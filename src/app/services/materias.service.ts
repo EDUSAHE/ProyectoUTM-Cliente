@@ -28,4 +28,8 @@ export class MateriasService {
     return this.http.get(`${environment.API_URI}/materias/listMateriasByAnyoByPeriodoMultiple/${idProfesor}/${AnyoI}/${AnyoF}`);
   }
 
+  listMateriasByPlanBySemestreByPeriodo(idPlan:any,semestre:any,AnyoI:any,AnyoF:any){
+    return this.http.get(`${environment.API_URI}/materias/listMateriasByPlanBySemestreByPeriodo/${idPlan}/${semestre}/${AnyoI}/${AnyoF}`);
+  }
+
 }

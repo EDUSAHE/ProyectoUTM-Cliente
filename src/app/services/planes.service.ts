@@ -11,7 +11,7 @@ export class PlanesService {
 	constructor(private http: HttpClient) { }
 
 	listPlanes() {
-		return this.http.get(`${environment.API_URI}/plan`);
+		return this.http.get(`${environment.API_URI}/planes/`);
 	}
 
 	listPlanesByCarrera(idCarrera: number) {
