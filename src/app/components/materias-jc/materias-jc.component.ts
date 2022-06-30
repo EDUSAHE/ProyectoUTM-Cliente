@@ -150,6 +150,7 @@ export class MateriasJcComponent implements OnInit {
 
 	agregarMateria() {
 		console.log(this.materiaNueva);
+		$('#agregarMateria').modal('close');
 	}
 
 	abreEditarMateria(materia: Materia) {
