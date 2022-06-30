@@ -18,7 +18,7 @@ export class ComisionesJcComponent implements OnInit {
   
   constructor(private comisionesservice:ComisionesService,private profesorservices:ProfesorService) {
     let hoy = new Date()
-    this.idProfesor = 0
+    this.idProfesor = 1;
 		this.fechaInicial = `${hoy.getFullYear() - 1}-${('0' + (hoy.getMonth() + 1)).slice(-2)}-${('0' + hoy.getDate()).slice(-2)}`
 		this.fechaFinal = `${hoy.getFullYear()}-${('0' + (hoy.getMonth() + 1)).slice(-2)}-${('0' + hoy.getDate()).slice(-2)}`
 	
