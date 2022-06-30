@@ -11,6 +11,15 @@
             <input type="date" [(ngModel)]="fechaFinal" (change)="obtenerTesistas()">
         </div>
     </div>
+    <div class="col s12">
+        <label>Profesor:</label>
+        <select [(ngModel)]="idProfesor" class="browser-default" (change)="obtenerTesistas()">
+            <option value="-1" selected>Todos</option>
+            <option *ngFor="let profesor of profesores" [value]="profesor.idProfesor"> 
+                {{profesor.nombreProfesor}}
+            </option>
+        </select>
+    </div>
     <table id="tablaArticulos">
 
         <ng-container *ngFor="let tesis of tesistas">
