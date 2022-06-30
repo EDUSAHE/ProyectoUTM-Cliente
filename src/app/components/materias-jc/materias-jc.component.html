@@ -8,7 +8,7 @@
 			<label for="plan">Plan</label>
 			<select id="plan" class="browser-default" (change)="cambioPlan($event.target)">
 				<option *ngFor="let plan of planes;" [value]="plan.idPlan">
-					{{plan.plan}}
+					{{plan.nombrePlan}}
 				</option>
 			</select>
 		</div>
@@ -42,7 +42,7 @@
 							{{semestres.get(materia.semestre)}}
 						</td>
 					</ng-container>
-					<td>{{materia.nombre}}</td>
+					<td>{{materia.nombreMateria}}</td>
 					<td style="width: 10%; text-align:center;">
 						<button class="btn-option" (click)="abreEditarMateria(materia)">
 							<i class="material-icons">edit</i>
@@ -79,14 +79,14 @@
 						>
 							<option *ngFor="let plan of planes;" 
 									[ngValue]="plan.idPlan"
-							>{{plan.plan}}</option>
+							>{{plan.nombrePlan}}</option>
                         </select>
 						<br>
 					</div>
 					<div class="input-field col s12">
 						<label>Nombre materia</label>
 						<input 	name="nombre"
-								[(ngModel)]="materiaNueva.nombre" 
+								[(ngModel)]="materiaNueva.nombreMateria" 
 								required type="text"
 						>
 					</div>
@@ -140,14 +140,14 @@
 						>
 							<option *ngFor="let plan of planes;" 
 									[ngValue]="plan.idPlan"
-							>{{plan.plan}}</option>
+							>{{plan.nombrePlan}}</option>
                         </select>
 						<br>
 					</div>
 					<div class="col s12">
 						<label>Nombre materia</label>
 						<input 	name="nombre"
-								[(ngModel)]="materiaEditar.nombre" 
+								[(ngModel)]="materiaEditar.nombreMateria" 
 								required type="text"
 						>
 					</div>

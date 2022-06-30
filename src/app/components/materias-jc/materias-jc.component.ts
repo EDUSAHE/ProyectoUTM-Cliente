@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Materia } from 'src/app/models/materia.model';
+import { ProfesorService } from 'src/app/services/profesor.service';
+import { MateriasService } from 'src/app/services/materias.service';
 import { PlanesService } from 'src/app/services/planes.service';
+import { DatosPersonalesService } from 'src/app/services/datos-personales.service';
 import Swal from 'sweetalert2';
 
 declare var $: any;
@@ -12,86 +15,21 @@ declare var $: any;
 })
 export class MateriasJcComponent implements OnInit {
 
+	datosProf: any;
 	semestres: Map<number, string> = new Map();
 	materias: any[] = [];
 	materiaNueva: Materia = new Materia();
 	materiaEditar: Materia = new Materia();
+	planes: any[] = [];
+	planActual: number = 0;
 
-	// Datos estaticos en espera de controllers
-	materiasPrueba: Materia[] = [
-		{
-			idMateria: 1,
-			idPlan: 1,
-			semestre: 3,
-			nombre: "Diseño de algoritmos"
-		},
-		{
-			idMateria: 2,
-			idPlan: 2,
-			semestre: 1,
-			nombre: "Matematicas"
-		},
-		{
-			idMateria: 3,
-			idPlan: 3,
-			semestre: 5,
-			nombre: "Arquitectura de computadoras"
-		},
-		{
-			idMateria: 4,
-			idPlan: 4,
-			semestre: 4,
-			nombre: "Ensamblador"
-		},
-		{
-			idMateria: 5,
-			idPlan: 5,
-			semestre: 2,
-			nombre: "Estructura de datos"
-		},
-		{
-			idMateria: 6,
-			idPlan: 1,
-			semestre: 3,
-			nombre: "POO"
-		},
-		{
-			idMateria: 7,
-			idPlan: 2,
-			semestre: 1,
-			nombre: "Fisica"
-		},
-		{
-			idMateria: 8,
-			idPlan: 3,
-			semestre: 3,
-			nombre: "Matematicas discretas"
-		},
-	]
-	planes: any[] = [
-		{
-			idPlan: 1,
-			plan: "Plan 1"
-		},
-		{
-			idPlan: 2,
-			plan: "Plan 2"
-		},
-		{
-			idPlan: 3,
-			plan: "Plan 3"
-		},
-		{
-			idPlan: 4,
-			plan: "Plan 4"
-		},
-		{
-			idPlan: 5,
-			plan: "Plan 5"
-		}
-	]
-
-	constructor(private planesService: PlanesService) {
+	constructor(
+		private materiasService: MateriasService,
+		private planesService: PlanesService,
+		private profesorService: ProfesorService,
+		private datosPersonalesService: DatosPersonalesService
+	) {
+		this.semestres.set(-1, "Propedéutico Largo");
 		this.semestres.set(0, "Propedéutico");
 		this.semestres.set(1, "Primero");
 		this.semestres.set(2, "Segundo");
@@ -110,35 +48,46 @@ export class MateriasJcComponent implements OnInit {
 			$('.modal').modal();
 		});
 
-		this.materiasPrueba.sort((a, b) => {
-			if (a.semestre == b.semestre)
-				return 0;
-			
-			if (a.semestre < b.semestre)
-				return -1;
-			
-			return 1;
-		});
-
-		this.materias = this.materiasPrueba.reduce<any[]>((anterior, actual, i) => {
-			if (i == 0)
-				anterior.push([actual]);
-			else {
-				if (actual.semestre == anterior[anterior.length - 1][0].semestre) {
-					anterior[anterior.length - 1].push(actual);
-				} else {
-					anterior.push([actual]);
-				}
+		this.profesorService.getProfesor(this.datosPersonalesService.idProfesor).subscribe({
+			next: (resProfesor: any) => {
+				this.datosProf = resProfesor;
+				this.planesService.listPlanesByCarrera(this.datosProf.idCarrera).subscribe({
+					next: (resPlanes: any) => {
+						this.planes = resPlanes;
+						this.planActual =  this.planes[0].idPlan;
+						this.obtieneMaterias(this.planActual);
+					}
+				});
 			}
-
-			return anterior;
-		}, []);
+		});
 		
 	}
 
+	obtieneMaterias(idPlan: number) {
+		this.materiasService.listMateriasByPlan(idPlan).subscribe({
+			next: (resMaterias: any) => {
+				this.materias = resMaterias;
+				this.materias = this.materias.reduce<any[]>((anterior, actual, i) => {
+					if (i == 0)
+						anterior.push([actual]);
+					else {
+						if (actual.semestre == anterior[anterior.length - 1][0].semestre) {
+							anterior[anterior.length - 1].push(actual);
+						} else {
+							anterior.push([actual]);
+						}
+					}
+		
+					return anterior;
+				}, []);
+			}
+		});
+	}
+
 	cambioPlan(event: any) {
-		const plan = event.value;
-		console.log(plan);
+		const plan = Number(event.value);
+		this.planActual = plan;
+		this.obtieneMaterias(plan);
 	}
 
 	abreFormularioMateria() {
@@ -149,7 +98,16 @@ export class MateriasJcComponent implements OnInit {
 	}
 
 	agregarMateria() {
-		console.log(this.materiaNueva);
+		this.materiasService.create(this.materiaNueva).subscribe({
+			next: (resCrea: any) => {
+				this.obtieneMaterias(this.planActual);
+				Swal.fire({
+					position: 'center',
+					icon: 'success',
+					title: 'Materia agregada'
+				});
+			}
+		});
 		$('#agregarMateria').modal('close');
 	}
 
@@ -160,7 +118,16 @@ export class MateriasJcComponent implements OnInit {
 	}
 
 	editarMateria() {
-		console.log(this.materiaEditar);
+		this.materiasService.update(this.materiaEditar).subscribe({
+			next: (resEditar: any) => {
+				this.obtieneMaterias(this.planActual);
+				Swal.fire({
+					position: 'center',
+					icon: 'success',
+					title: 'Materia editada'
+				});
+			}
+		});
 		$('#editarMateria').modal('close');
 	}
 
@@ -175,7 +142,16 @@ export class MateriasJcComponent implements OnInit {
 		})
 		.then(respuesta => {
 			if (respuesta.isConfirmed) {
-				console.log(`Eliminando ${id}...`);
+				this.materiasService.delete(id).subscribe({
+					next: (resEliminar: any) => {
+						this.obtieneMaterias(this.planActual);
+						Swal.fire({
+							position: 'center',
+							icon: 'success',
+							title: 'Materia eliminada'
+						});
+					}
+				});
 			}
 		});
 	}
