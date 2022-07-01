@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { ProfesorService } from 'src/app/services/profesor.service';
+import { ProfesorService } from 'src/app/services/profesor.service'
 import { TutoradosService } from 'src/app/services/tutorados.service' //agregue
 
 @Component({
@@ -20,6 +20,7 @@ export class ListarTutoradosJcComponent implements OnInit {
 	idCarrera: number
 	profesores: any []
 	idProfesorSelect: number
+	nombreProfesorActual: any   //new
 	opcionFiltrado : number
 
   constructor(private tutoradosService : TutoradosService, private profesorService : ProfesorService) {
@@ -31,10 +32,11 @@ export class ListarTutoradosJcComponent implements OnInit {
 		this.fechaIni = `${hoy.getFullYear() - 1}-${('0' + (hoy.getMonth() + 1)).slice(-2)}-${('0' + hoy.getDate()).slice(-2)}`
 		this.fechaFin = `${hoy.getFullYear()}-${('0' + (hoy.getMonth() + 1)).slice(-2)}-${('0' + hoy.getDate()).slice(-2)}`
 		this.idProfesor = Number(localStorage.getItem('idProfesor'));
-		this.idCarrera = 0  ///
+		this.idCarrera = 0  
+		this.nombreProfesorActual; //String
 
 
-    this.carreras.set(2, 'Ingeniería en Computación');
+	    this.carreras.set(2, 'Ingeniería en Computación');
 		this.carreras.set(3, 'Ingeniería en Diseño');
 		this.carreras.set(4, 'Ingeniería en Electronica');
 		this.carreras.set(5, 'Licenciatura en Ciencias Empresariales');
@@ -70,11 +72,19 @@ export class ListarTutoradosJcComponent implements OnInit {
   }
 
   listTutoradosByPeriodo(){
+	console.log(this.idProfesorSelect);
+	this.profesorService.getProfesor(this.idProfesorSelect).subscribe((resProfesor:any)=>{
+		this.nombreProfesorActual=resProfesor.nombreProfesor;
 		this.tutoradosService.listTutoradosByPeriodo(this.idProfesorSelect, this.fechaIni, this.fechaFin).subscribe((resTutorados:any) =>{
 			this.tutorados = resTutorados;
+			for(let i=0;i<this.tutorados.length;i++){
+				this.tutorados[i].nombreProfesor=this.nombreProfesorActual;
+			}
 			console.log(this.tutorados);
 		},
 			err => console.error(err))
+	},
+		err => console.error(err))
 	}
 
 //	listTutoradosByCarreraByPeriodo
@@ -95,8 +105,15 @@ listarTutoradosSelect(){
 	}
 }
 
-  convertirFecha(fecha: string) {
+convertirFecha(fecha: string) {
 		return new Date(fecha).toLocaleDateString("en-CA");
 	}
 
+obtenerProfesoresPorCarrera() {
+	  this.profesorService.obtenerProfesoresPorCarrera(this.idCarrera).subscribe((resProfesor:any) =>{
+		this.profesores = resProfesor;
+		console.log(this.profesores);
+	},
+		err => console.error(err))
+}
 }

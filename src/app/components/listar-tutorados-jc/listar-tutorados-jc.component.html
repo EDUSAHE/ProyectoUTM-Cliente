@@ -12,7 +12,7 @@
     <div class="row" *ngIf="opcionFiltrado==2">
         <label for="profesorSelect">Filtrar por</label>
         <select id="profesorSelect" [(ngModel)]="idProfesorSelect" class="browser-default" (change)="listTutoradosByPeriodo()">
-            <option *ngFor="let profesor of profesores;" [ngValue]="profesor.idProfesor">
+            <option *ngFor="let profesor of profesores;"  [ngValue]="profesor.idProfesor">
                 {{profesor.nombreProfesor}}
             </option>
         </select>
@@ -42,7 +42,7 @@
 
         <ng-container *ngFor="let tutorado of tutorados">
             <tr>
-                <td>{{tutorado.idProfesor}}</td>
+                <td>{{tutorado.nombreProfesor}}</td>
                 <td>{{tutorado.numero}}</td>
                 <td>{{niveles.get(tutorado.nivel)}}</td>
                 <td>{{carreras.get(tutorado.idCarrera)}}</td>
