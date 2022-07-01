@@ -18,8 +18,8 @@
 		<div class="col offset-s3 s6">
 			<label class="">A partir de periodo:</label>
 			<select [(ngModel)]="periodoActual" class="browser-default" (change)="actualizarPeriodo()">
-				<option *ngFor="let profesor of profesores" [value]="profesor.idProfesor">
-					{{profesor.nombreProfesor}}
+				<option *ngFor="let periodo of periodos" [value]="periodo.idPeriodo">
+					{{periodo.nombre}}
 				</option>
 			</select>
 		</div>

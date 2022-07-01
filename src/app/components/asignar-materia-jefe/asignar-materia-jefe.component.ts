@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Carrera } from 'src/app/models/carrera.model';
+import { Periodo } from 'src/app/models/periodo.model';
 import { Profesor } from 'src/app/models/profesor.model';
 import { CarreraService } from 'src/app/services/carrera.service';
 import { DatosPersonalesService } from 'src/app/services/datos-personales.service';
 import { MateriasService } from 'src/app/services/materias.service';
 import { PlanesService } from 'src/app/services/planes.service';
 import { ProfesorService } from 'src/app/services/profesor.service';
+
 
 @Component({
   selector: 'app-asignar-materia-jefe',
@@ -31,7 +33,7 @@ export class AsignarMateriaJefeComponent implements OnInit {
 
   idCarreraJefe: number = 0;
   periodoActual: number = 0;
-   
+  periodos: Periodo[] = [];
 
   constructor(private materiasService: MateriasService, private planesService: PlanesService,
     private datosPersonalesService: DatosPersonalesService, private carreraService: CarreraService, private profesorService: ProfesorService) {
@@ -56,6 +58,9 @@ export class AsignarMateriaJefeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    
+
     this.profesorService.getProfesor(this.idProfesor).subscribe({
       next: (resProfesor: any) => {
           this.idCarreraJefe = Number(resProfesor.idCarrera);
