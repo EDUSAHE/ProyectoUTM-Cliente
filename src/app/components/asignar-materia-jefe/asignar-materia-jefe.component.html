@@ -1,0 +1,259 @@
+<div class="container">
+	<h3 class="center-align">Asignar Materias</h3>
+
+	<div class="row">
+		<div class="col offset-s3 s6">
+			<label class="">A partir de periodo:</label>
+			<select class="browser-default" (change)="actualizarPeriodo($event.target)">
+				<option 
+					*ngFor="let periodo of periodos" 
+					[value]="periodo.idPeriodo"
+					[selected]="periodo.actual == 1"
+				>
+					{{periodo.nombre}}
+				</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col offset-s3 s6">
+			<label class="">Profesores:</label>
+			<select class="browser-default" (change)="actualizarProfesor($event.target)">
+				<option value="-1" selected>Todos</option>
+				<option *ngFor="let profesor of profesores" [value]="profesor.idProfesor">
+					{{profesor.nombreProfesor}}
+				</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="row">
+		<button class="col btn " (click)="abreFormularioAsignarMateria()">
+			Asignar nueva materia
+		</button>
+
+		<button class="col btn" (click)="abreFormularioMultiAignacion()">
+			Multi-asignación nueva
+		</button>
+	</div>
+
+	
+
+	<ng-container *ngFor="let materia of materiasPorProfesor; let i = index">
+		<div class="nombre">
+			<p style="font-size: medium;">{{materia.nombreProfesor}}</p>
+		</div>
+		<table id="tablaMaterias">
+			<tr>
+				<th class="intro" onclick="sortTable(0, 'str', 'tablaMaterias'); 
+                                       sortTable(0, 'str', 'tablaMateriasMulti');">Materia</th>
+				<th class="intro" onclick="sortTable(1, 'str', 'tablaMaterias');
+			                           sortTable(1, 'str', 'tablaMateriasMulti');">Grupo</th>
+				<th class="intro" onclick="sortTable(2, 'str', 'tablaMaterias'); 
+			                           sortTable(2, 'str', 'tablaMateriasMulti');">Carrera</th>
+				<th class="intro" onclick="sortTable(3, 'str', 'tablaMaterias'); 
+			                           sortTable(3, 'str', 'tablaMateriasMulti');">Plan</th>
+				<th class="intro" onclick="sortTable(4, 'str', 'tablaMaterias'); 
+			                           sortTable(4, 'str', 'tablaMateriasMulti');">Periodo</th>
+				<th class="intro">Acciones</th>
+				<th class="intro"></th>
+				<th class="intro"></th>
+			</tr>
+			
+			<tr *ngFor="let materia of materiasPorProfesor[i].materias">
+				<td style="width: 30%;">{{materias.get(materia.idMateria)}}</td>
+				<td style="width: 7%;">{{materia.grupo}}</td>
+				<td style="width: 25%;">{{materia.nombreCarrera}}</td>
+				<td style="width: 7%;">{{materia.idPlan}}</td>
+				<td style="width: 8%;">{{periodoActual.nombre}}</td>
+				<td style="width: 10%;">
+					<button class="btn-option" (click)="abreEditarAsignacion()">
+						Modificar
+					</button>
+				</td>
+				<td style="width: 10%;">
+					<button class="btn-option" (click)="abreEliminarAsignacion()">
+						Eliminar
+					</button>
+				</td>
+				<td style="width: 3%;">
+					<img *ngIf="materia.actual === 1" src="assets/new.png" alt="logo nuevo" width="100%">
+				</td>
+			</tr>
+		</table>
+		<br>
+	</ng-container>
+
+	<br>
+
+	<ng-container *ngFor="let materia of materiasPorProfesorMulti; let i = index">
+		<div class="nombre">
+			<p style="font-size: medium;">{{materia.nombreProfesor}}</p>
+		</div>
+		<table id="tablaMateriasMulti">
+			<tr [hidden]="false">
+				<th class="intro" onclick="sortTable(0, 'str', 'tablaMaterias'); 
+                                       sortTable(0, 'str', 'tablaMateriasMulti');">Materia</th>
+				<th class="intro" onclick="sortTable(1, 'str', 'tablaMaterias');
+			                           sortTable(1, 'str', 'tablaMateriasMulti');">Grupo</th>
+				<th class="intro" onclick="sortTable(2, 'str', 'tablaMaterias'); 
+			                           sortTable(2, 'str', 'tablaMateriasMulti');">Carrera</th>
+				<th class="intro" onclick="sortTable(3, 'str', 'tablaMaterias'); 
+			                           sortTable(3, 'str', 'tablaMateriasMulti');">Plan</th>
+				<th class="intro" onclick="sortTable(4, 'str', 'tablaMaterias'); 
+			                           sortTable(4, 'str', 'tablaMateriasMulti');">Periodo</th>
+				<th class="intro">Acciones</th>
+				<th class="intro"></th>
+				<th class="intro"></th>
+			</tr>
+			<tr>
+				<td colspan="8" class="multi">
+					<p style="font-family: 'Arial Black'; font-size: 15px;">multi-asignación</p>
+				</td>
+			</tr>
+			<tr *ngFor="let materia of materiasPorProfesorMulti[i].atributos">
+				<td style="width: 30%;">{{materias.get(materia.idMateria)}}</td>
+				<td style="width: 7%;">
+					<span class="eliminarG" *ngFor="let grupo of materia.grupos">
+						{{grupo.grupo}}
+						<button class="btn-option " (click)="eliminarGrupo()">
+							<i class="material-icons">delete</i>
+						</button>
+						<br>
+					</span>
+				</td>
+				<td style="width: 25%;">{{materia.nombreCarrera}}</td>
+				<td style="width: 7%;">{{materia.idPlan}}</td>
+				<td style="width: 8%;">{{materia.nombre}}</td>
+				<td style="width: 10%;">
+					<button class="btn-option" (click)="abreEditarAsignacion()">
+						Agregar Grupo
+					</button>
+				</td>
+				<td style="width: 10%;">
+					<button class="btn-option" (click)="abreEliminarAsignacion()">
+						Eliminar
+					</button>
+				</td>
+				<td style="width: 3%;">
+					<img *ngIf="materia.actual === 1" src="assets/new.png" alt="logo nuevo" width="100%">
+				</td>
+
+			</tr>
+		</table>
+		<br>
+	</ng-container>
+
+</div>
+
+
+
+<div id="asignarMateria" class="modal">
+	<div class="modal-content">
+		 <div class="row" style="margin-bottom: 0px !important;">
+			  <div class="col s12">
+					<h3 class="center">Asignar Materia</h3>
+			  </div>
+		 </div>
+		 <div style="border: .5px solid #78909c; padding: 10px;">
+		  <form (ngSubmit)="asignarMateriaProfesor()"  ngNativeValidate>
+			  <div class="row">
+
+					<div class="col s12">
+						<label>Profesor</label>
+						<select 	name="profesor" 
+									[(ngModel)]="asignarNuevaMateria.idProfesor"
+								  	class="browser-default"
+						>
+							<option *ngFor="let profesor of profesorAsignar" 
+										[ngValue]="profesor.idProfesor"
+										>
+								{{profesor.nombreProfesor}}
+							</option>
+						</select>
+						<br>
+					</div>
+
+					<div class="col s12">
+						<label>Carrera</label>
+								<select	name="carrera_asignar" 
+											[(ngModel)]="asignarNuevaMateria.idCarrera" 
+											class="browser-default"
+								>
+								<option *ngFor="let carrera of carreraProfesor" 
+											[ngValue]="carrera.idCarrera"
+								>{{carrera.nombreCarrera}}</option>
+								</select>
+						<br>
+					</div>
+
+				  <div class="col s12">
+					  <label>Plan</label>
+							  <select	name="plan" 
+							  [(ngModel)]="asignarNuevaMateria.idPlan" 
+							  class="browser-default"
+					  >
+						  <option *ngFor="let plan of planes;" 
+								  [ngValue]="plan.idPlan"
+						  >{{plan.nombrePlan}}</option>
+							  </select>
+				  </div>
+
+				  <div class="col s12">
+					<br>
+					<label>Semestre</label>
+							<select	name="semestre" 
+							[(ngModel)]="asignarNuevaMateria.semestre" 
+							class="browser-default"
+					>
+						<option *ngFor="let semestre of semestreArray();"
+								[ngValue]="semestre.llave"
+						>{{semestre.valor}}</option>
+							</select>
+					</div>
+
+					<div class="col s12">
+						<br>
+						<label>Materia</label>
+								<select	name="plan" 
+								[(ngModel)]="asignarNuevaMateria.idPlan" 
+								class="browser-default"
+						>
+							<option *ngFor="let plan of planes;" 
+									[ngValue]="plan.idPlan"
+							>{{plan.nombrePlan}}</option>
+								</select>
+					</div>
+
+				  <div class="col s12">
+					<br>
+					<label>Grupo</label>
+							<select	name="grupo" 
+							[(ngModel)]="asignarNuevaMateria.grupo" 
+							class="browser-default"
+					>
+						<option *ngFor="let grupo of GrupoArray();"
+								[ngValue]="grupo.llave"
+						>{{grupo.valor}}</option>
+							</select>
+					</div>
+				  
+			  </div>
+  
+					<div class="row">
+						 <div class="col s6 center">
+					  <button type="submit" class="waves-effect btn-large brown lighten-3 black-text">
+						  Enviar
+					  </button>
+						 </div>
+						 <div class="col s6 center">
+							  <a class="modal-close waves-effect btn-large brown lighten-3 black-text">
+						  Cancelar
+					  </a>
+						 </div>
+					</div>
+		  </form>
+		 </div>
+	</div>
+</div>

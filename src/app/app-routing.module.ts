@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { ProfesoresComponent } from './components/profesores/profesores.component';
@@ -34,6 +34,10 @@ import {  ListMateriaporsemestreComponent} from "./components/list-materiaporsem
 import { ListarTesistasJcComponent } from './components/listar-tesista-jc/listar-tesista-jc.component';
 import { MateriasJcComponent } from './components/materias-jc/materias-jc.component';
 import { ListarTutoradosJcComponent } from './components/listar-tutorados-jc/listar-tutorados-jc.component';
+import { ComisionesJcComponent } from './components/comisiones-jc/comisiones-jc.component';
+import { AsignarMateriaJefeComponent } from './components/asignar-materia-jefe/asignar-materia-jefe.component';
+
+
 const routes: Routes = [
   {
     path: "",
@@ -174,11 +178,21 @@ const routes: Routes = [
         path: 'listarTesistaJC',
         component:ListarTesistasJcComponent
       },
+      {
+        path: 'comisionesJC',
+        component:ComisionesJcComponent
+      },
       //Materia por semestre
       { 
         path: 'listarMateriasemestre',
         component:ListMateriaporsemestreComponent
 
+      },
+      // Asignar materias Jefe de carrera
+      
+      {
+        path: 'asignarMateriasJefe/:idProfesor',
+        component: AsignarMateriaJefeComponent
       }
     ]
   }

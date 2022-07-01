@@ -11,6 +11,15 @@
             <input type="date" [(ngModel)]="fechaFinal" (change)="obtenerTesistas()">
         </div>
     </div>
+    <div class="col s12">
+        <label>Profesor:</label>
+        <select [(ngModel)]="idProfesor" class="browser-default" (change)="obtenerTesistas()">
+            <option value="-1" selected>Todos</option>
+            <option *ngFor="let profesor of profesores" [value]="profesor.idProfesor"> 
+                {{profesor.nombreProfesor}}
+            </option>
+        </select>
+    </div>
     <table id="tablaArticulos">
 
         <ng-container *ngFor="let tesis of tesistas">
@@ -50,7 +59,7 @@
                 <td>{{tesis.fin}}</td>
                 
                 <td>
-                    <a href="javascript: void(0);" class="waves-effect waves-light btn-small" ><i
+                    <a href="javascript: void(0);" class="waves-effect waves-light btn-small" (click)="ModalPrioridades(tesis.idTesis,tesis.Codirector)"><i
                             class="material-icons left">format_list_numbered</i>Prioridades</a>
                 </td>
                 <td>
@@ -60,11 +69,11 @@
                     <a href="javascript: void(0);" class="waves-effect waves-light btn-small" ><i class="material-icons left">group_add</i>Codirector Externo</a>
                 </td>
                 <td>
-                    <a href="javascript: void(0);" class="waves-effect waves-light btn-small" >
+                    <a href="javascript: void(0);" class="waves-effect waves-light btn-small" (click)="ActualizarTesisModal(tesis.idTesis)">
                         <i class="material-icons left">create</i>Modificar
                     </a>
                     <br>
-                    <a href="javascript: void(0);" class="waves-effect waves-light btn-small">
+                    <a href="javascript: void(0);" class="waves-effect waves-light btn-small" (click)="eliminarTesista(tesis.idTesis)">
                         <i class="material-icons left">delete</i>Eliminar
                     </a>
                 </td>
@@ -72,3 +81,96 @@
         </ng-container>
     </table>
 
+<!-- Modal Actualizar Prioridad -->
+<div id="modalPrioridad" class="modal">
+    <div class="modal-content">
+        <div class="row" style="margin-bottom: 0px !important;">
+            <div class="col s12">
+                <h4 class="center">Prioridades</h4>
+            </div>
+        </div>
+
+
+        <div style="border: .5px solid #78909c; padding: 10px;">
+            <table>
+                <tr>
+                    <th>Prioridad</th>
+                    <th>Nombre</th>
+                </tr>
+                <ng-container *ngFor="let profe of profesoresActuales">
+                    <tr>
+                        <td style="width:6rem;">
+                            <select [(ngModel)]='profe.pos' class="browser-default">
+                                <option *ngFor="let profesor of profesoresActuales; let i = index">{{i+1}}</option>
+                            </select>
+                        </td>
+                        <td>{{profe.nombreProfesor}}</td>
+                    </tr>
+                </ng-container>
+            </table>
+            <br>
+            <div class="row">
+                <div class="col s6 center">
+                    <a class="modal-action modal-close waves-effect btn-large" (click)="CambiarPrioridad()">Guardar</a>
+                </div>
+                <div class="col s6 center">
+                    <a class="modal-action modal-close waves-effect btn-large">Cancelar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div id="ActualizarTesis" class="modal">
+    <div class="modal-content">
+        <div class="row" style="margin-bottom: 0px !important;">
+            <div class="col s12">
+                <h3 class="center">Actualizar Tesis</h3>
+            </div>
+        </div>
+        <div style="border: .5px solid #78909c; padding: 10px;">
+            <form (ngSubmit)="actualizarArticulo()" ngNativeValidate>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input name="matricula" id="tesis_matricula" [(ngModel)]="tesisActual.matricula" required type="text">
+                        <label for="articulo_nombreCRLE" class="active">Matricula</label>
+                    </div>
+
+                    <div class="col s12" style="margin-bottom: 1rem;">
+                        <label>Status</label>
+                        <select name="status" [(ngModel)]="tesisActual.status" class="browser-default">
+                            <option value="No">Concluida</option>
+                            <option value="Si">Sin concluir</option>
+                        </select>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <input name="nombreTesis" id="articulo_tituloE" [(ngModel)]="tesisActual.nombreTesis" required type="text">
+                        <label for="articulo_tituloE" class="active">Nombre Tesis</label>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <input name="nombreEstudiante" id="articulo_nombreCRLE" [(ngModel)]="tesisActual.nombreEstudiante" required type="text">
+                        <label for="articulo_nombreCRLE" class="active">Nombre del Estudiante</label>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <input name="comprobante" id="articulo_issueM" [(ngModel)]="tesisActual.comprobante" required type="text">
+                        <label for="articulo_issueM">Cmprobante</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col s6 center">
+                        <input type="submit" class="waves-effect btn-large brown lighten-3" value="Enviar">
+                    </div>
+                    <div class="col s6 center">
+                        <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text">Cancelar</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
