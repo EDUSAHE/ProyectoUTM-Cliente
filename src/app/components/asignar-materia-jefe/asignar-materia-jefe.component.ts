@@ -88,7 +88,9 @@ export class AsignarMateriaJefeComponent implements OnInit {
               this.profesorService.obtenerProfesoresPorCarrera(resProfesor.idCarrera).subscribe({
                 next: (resProfesores:any) => {
                   this.profesores = resProfesores;
+                  this.profesorAsignar = resProfesores;
                   this.profesorActual = -1;
+                  this.profesorAsignarActual = this.profesorAsignar[0].idProfesor;
                   this.formularios();
                 }
               })
@@ -104,13 +106,8 @@ export class AsignarMateriaJefeComponent implements OnInit {
       next: (resPlanes:any) =>{
         this.planes = resPlanes;
         this.planActual =  this.planes[0].idPlan;
+        this.actualizaMaterias();
 
-        this.profesorService.obtenerTodo().subscribe({
-          next: (resProfe:any) =>{
-            this.profesorAsignar = resProfe;
-            this.actualizaMaterias();
-          }
-        })
       }
     })
   }
@@ -121,6 +118,7 @@ export class AsignarMateriaJefeComponent implements OnInit {
         this.materiasPorProfesor = resMatByPeByCa;
         this.materiasService.listMateriasMultiplesByCarreraByPeriodo(this.idCarreraJefe,this.periodoActual.idPeriodo).subscribe({
           next: (resMatMulti:any) => {
+            console.log("Todos");
             console.log(resMatMulti);
             this.materiasPorProfesorMulti = resMatMulti;
           }
@@ -146,11 +144,37 @@ export class AsignarMateriaJefeComponent implements OnInit {
           this.materiasPorProfesor = []; 
           this.profesorService.getProfesor(this.profesorActual).subscribe({
             next: (resDatosProf:any) =>{
-              const aux = resDatosProf.nombreProfesor
+              let aux = resDatosProf.nombreProfesor
               this.materiasPorProfesor[0] = {
                 'nombreProfesor': aux,
                 'materias': resMateriasProfesor
               };
+
+              this.materiasService.listMateriasMultiasignacionByPeriodoByProfesor(this.periodoActual.idPeriodo,this.profesorActual).subscribe({
+                next: (resMatMultiP : any) => {
+                  this.materiasPorProfesorMulti = [];
+                  if(resMatMultiP[0].materias.length != 0){
+                    let nombreP = resMatMultiP[0].nombreProfesor;
+                    let idP = resMatMultiP[0].nombreProfesor;
+                    
+                    let atributos =  [{
+                      'grupos': resMatMultiP[0].grupos,
+                      'idMateria': resMatMultiP[0].materias[0].idMateria,
+                      'idPlan': resMatMultiP[0].materias[0].idPlan,
+                      'idProfesorYMateriaMultiple': resMatMultiP[0].materias[0].idProfesorYMateriaMultiple,
+                      'nombre': resMatMultiP[0].materias[0].nombre,
+                      'nombreCarrera': resMatMultiP[0].materias[0].nombreCarrera,
+                      'nombreMateria': resMatMultiP[0].materias[0].nombreMateria,
+                      'semestre': resMatMultiP[0].materias[0].semestre,
+                    }]
+                    this.materiasPorProfesorMulti[0] = {
+                      'nombreProfesor': nombreP,
+                      'idProfesor' : idP, 
+                      'atributos': atributos
+                    }
+                  }
+                }
+              })
             }
           })
           
@@ -183,6 +207,10 @@ export class AsignarMateriaJefeComponent implements OnInit {
   }
 
   abreEliminarAsignacion(){
+
+  }
+
+  eliminarGrupo(){
 
   }
 

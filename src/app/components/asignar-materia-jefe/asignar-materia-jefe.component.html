@@ -85,6 +85,8 @@
 		<br>
 	</ng-container>
 
+	<br>
+
 	<ng-container *ngFor="let materia of materiasPorProfesorMulti; let i = index">
 		<div class="nombre">
 			<p style="font-size: medium;">{{materia.nombreProfesor}}</p>
@@ -112,7 +114,15 @@
 			</tr>
 			<tr *ngFor="let materia of materiasPorProfesorMulti[i].atributos">
 				<td style="width: 30%;">{{materias.get(materia.idMateria)}}</td>
-				<td style="width: 7%;"><span *ngFor="let grupo of materia.grupos">{{grupo.grupo}}<br></span></td>
+				<td style="width: 7%;">
+					<span class="eliminarG" *ngFor="let grupo of materia.grupos">
+						{{grupo.grupo}}
+						<button class="btn-option " (click)="eliminarGrupo()">
+							<i class="material-icons">delete</i>
+						</button>
+						<br>
+					</span>
+				</td>
 				<td style="width: 25%;">{{materia.nombreCarrera}}</td>
 				<td style="width: 7%;">{{materia.idPlan}}</td>
 				<td style="width: 8%;">{{materia.nombre}}</td>
@@ -138,6 +148,7 @@
 </div>
 
 
+
 <div id="asignarMateria" class="modal">
 	<div class="modal-content">
 		 <div class="row" style="margin-bottom: 0px !important;">
@@ -154,7 +165,9 @@
 						<select name="profesor" [(ngModel)]="asignarNuevaMateria.idProfesor"
 								  class="browser-default">
 							<option *ngFor="let profesor of profesorAsignar" 
-										[ngValue]="profesor.idProfesor">
+										[ngValue]="profesor.idProfesor"
+										[selected]="profesor.idProfesor == profesorAsignarActual"
+										>
 								{{profesor.nombreProfesor}}
 							</option>
 						</select>
