@@ -45,6 +45,13 @@ export class MateriasService {
   }
 
   listMateriasByPlan(idPlan: number) {
-	return this.http.get(`${environment.API_URI}/materias/listMateriasByPlan/${idPlan}`);
+	  return this.http.get(`${environment.API_URI}/materias/listMateriasByPlan/${idPlan}`);
+  }
+
+  listMateriasByCarreraByPeriodo(idCarrera: number, idPeriodo:number){
+    return this.http.get(`${environment.API_URI}/materias/listMateriasByCarreraByPeriodo/${idCarrera}/${idPeriodo}`);
+  }
+  listMateriasMultiplesByCarreraByPeriodo(idCarrera: number, idPeriodo:number){
+    return this.http.get(`${environment.API_URI}/materias/listMateriasMultiplesByCarreraByPeriodo/${idCarrera}/${idPeriodo}`);
   }
 }
