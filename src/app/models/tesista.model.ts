@@ -8,5 +8,5 @@ export class Tesista {
 	nombreTesis: string = '';		//si
 	nombreEstudiante: string = '';	//si
 	nivel: number = 0;				//lo pone
-	comprobante: string = '';		//no va
+	comprobante: string = 'si';		//no va
 }

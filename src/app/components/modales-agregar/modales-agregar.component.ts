@@ -8,6 +8,7 @@ import { Tesista } from 'src/app/models/tesista.model';
 import { CarreraService } from 'src/app/services/carrera.service';
 import { InstitutoService } from 'src/app/services/instituto.service';
 import { ProfesorService } from 'src/app/services/profesor.service';
+import { TesistasService } from 'src/app/services/tesistas.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -33,7 +34,7 @@ export class ModalesAgregarComponent implements OnInit {
   fechaInicial: string
 	fechaFinal: string
 
-  constructor(private carreraService: CarreraService, private institutoService: InstitutoService, private profesorService: ProfesorService) {
+  constructor(private carreraService: CarreraService, private institutoService: InstitutoService, private profesorService: ProfesorService, private tesistaService: TesistasService) {
     let hoy = new Date()
     this.fechaInicial = `${hoy.getFullYear() - 1}-${('0' + (hoy.getMonth() + 1)).slice(-2)}-${('0' + hoy.getDate()).slice(-2)}`
 		this.fechaFinal = `${hoy.getFullYear()}-${('0' + (hoy.getMonth() + 1)).slice(-2)}-${('0' + hoy.getDate()).slice(-2)}`
@@ -41,7 +42,7 @@ export class ModalesAgregarComponent implements OnInit {
     
     this.profesorByIns =[]
     this.idInstitutoActual = 0
-    this.idProfesorActual =0
+    this.idProfesorActual = 1
     this.Institutos =[]
     this.tesista = new Tesista()
     this.profesorNuevo = new Profesor()
@@ -153,13 +154,25 @@ export class ModalesAgregarComponent implements OnInit {
     console.log(this.comision);
   }
 
-  registroTesista(){
-    console.log(this.tesista);
+  crearTesista(){
+    this.tesistaService.crearTesis(this.idProfesorActual,this.tesista).subscribe(res => {
+          Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Tesita Agregado'
+      })
+    }, err => console.error(err));
+
+    this.tesista= new Tesista;
+    this.tesista.inicio=this.fechaInicial;
+    this.tesista.fin=this.fechaFinal;
+
   }
 
   cambioInstituto(){
     this.profesorService.obtenerProfesoresPorInstituto(this.tesista.idInstituto).subscribe((resProfesores:any) =>{
       this.profesorByIns = resProfesores;
+      this.idProfesorActual=this.profesorByIns[0].idProfesor;
       console.log(this.profesorByIns)
     },
       err => console.error(err))
