@@ -54,4 +54,8 @@ export class MateriasService {
   listMateriasMultiplesByCarreraByPeriodo(idCarrera: number, idPeriodo:number){
     return this.http.get(`${environment.API_URI}/materias/listMateriasMultiplesByCarreraByPeriodo/${idCarrera}/${idPeriodo}`);
   }
+
+  listMateriasByPeriodoByProfesor(idPeriodo: number, idProfesor: number){
+    return this.http.get(`${environment.API_URI}/materias/listMateriasByPeriodoByProfesor/${idPeriodo}/${idProfesor}`);
+  }
 }

@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { AsignarMateria } from 'src/app/models/asignarMateria.model';
 import { Carrera } from 'src/app/models/carrera.model';
 import { Periodo } from 'src/app/models/periodo.model';
 import { Profesor } from 'src/app/models/profesor.model';
 import { CarreraService } from 'src/app/services/carrera.service';
 import { DatosPersonalesService } from 'src/app/services/datos-personales.service';
 import { MateriasService } from 'src/app/services/materias.service';
+import { PeriodoService } from 'src/app/services/periodo.service';
 import { PlanesService } from 'src/app/services/planes.service';
 import { ProfesorService } from 'src/app/services/profesor.service';
 
-
+declare var $: any;
 @Component({
   selector: 'app-asignar-materia-jefe',
   templateUrl: './asignar-materia-jefe.component.html',
@@ -17,35 +19,47 @@ import { ProfesorService } from 'src/app/services/profesor.service';
 export class AsignarMateriaJefeComponent implements OnInit {
 
   idProfesor: number;
-  datosProf: Profesor[] = [];
-  datosProfAux: Profesor = new Profesor();
-  materiasProfesor: any[] = [];
-  materiasMulti: any[] = [];
-
   materias: Map<number, string> = new Map();
   profesores: Profesor[] = [];
   carreraProfesor: Carrera = new Carrera();
 
-  fechaActual: string;
-  fechaInicial: string;
-  fechaFinal: string;
+  materiasPorProfesor: any[] = [];
+  materiasPorProfesorMulti: any[] = [];
+
   profesorActual: number = -1;
 
   idCarreraJefe: number = 0;
-  periodoActual: number = 0;
+  periodoActual: Periodo = new Periodo();
   periodos: Periodo[] = [];
 
+  asignarNuevaMateria: AsignarMateria = new AsignarMateria;
+
+  semestres: Map<number, string> = new Map();
+  grupos: Map<number, string> = new Map();
+  
+  planes: any[] = [];
+	planActual: number = 0;
+  profesorAsignar: Profesor[] = [];
+  profesorAsignarActual: number = 0;
+
   constructor(private materiasService: MateriasService, private planesService: PlanesService,
-    private datosPersonalesService: DatosPersonalesService, private carreraService: CarreraService, private profesorService: ProfesorService) {
-    let hoy = new Date();
-    this.fechaActual = hoy.getFullYear() + "";
-    this.fechaFinal = hoy.getFullYear() + "";
-    this.fechaInicial = (hoy.getFullYear() - 1) + "";
+    private datosPersonalesService: DatosPersonalesService, private carreraService: CarreraService, 
+    private profesorService: ProfesorService, private periodoService:PeriodoService) {
+    
     this.idProfesor = datosPersonalesService.idProfesor;
 
-    // this.datosPersonalesService.datosPersonales$.subscribe(prof => {
-    //   this.datosProf = prof;
-    // });
+    this.semestres.set(-1, "Propedéutico Largo");
+		this.semestres.set(0, "Propedéutico");
+		this.semestres.set(1, "Primero");
+		this.semestres.set(2, "Segundo");
+		this.semestres.set(3, "Tercero");
+		this.semestres.set(4, "Cuarto");
+		this.semestres.set(5, "Quinto");
+		this.semestres.set(6, "Sexto");
+		this.semestres.set(7, "Séptimo");
+		this.semestres.set(8, "Octavo");
+		this.semestres.set(9, "Noveno");
+		this.semestres.set(10, "Décimo");
 
     this.materiasService.list().subscribe({
       next: (resMaterias: any) => {
@@ -59,76 +73,126 @@ export class AsignarMateriaJefeComponent implements OnInit {
 
   ngOnInit(): void {
 
-    
+    this.periodoService.list().subscribe({
+      next: (resPeriodo: any) => {
+        this.periodos = resPeriodo;
+        this.periodos.forEach(periodo => {
+          if(periodo.actual == Number(1)){
+            this.periodoActual = periodo;
+          }
+        })
 
-    this.profesorService.getProfesor(this.idProfesor).subscribe({
-      next: (resProfesor: any) => {
-          this.idCarreraJefe = Number(resProfesor.idCarrera);
-          this.profesorService.obtenerProfesoresPorCarrera(resProfesor.idCarrera).subscribe({
-            next: (resProfesores:any) => {
-              this.profesores = resProfesores;
-              this.profesorActual = -1;
-              this.obtenerMaterias();
-            }
-          })
+        this.profesorService.getProfesor(this.idProfesor).subscribe({
+          next: (resProfesor: any) => {
+              this.idCarreraJefe = Number(resProfesor.idCarrera);
+              this.profesorService.obtenerProfesoresPorCarrera(resProfesor.idCarrera).subscribe({
+                next: (resProfesores:any) => {
+                  this.profesores = resProfesores;
+                  this.profesorActual = -1;
+                  this.formularios();
+                }
+              })
+          }
+        })
       }
     })
     
   }
 
-  obtenerMaterias() {   
-    this.materiasService
-    .listMateriasByAnyoByPeriodo(this.idProfesor, this.fechaInicial + "-01-01", this.fechaFinal + "-12-31").subscribe({
-    	next: (resMaterias: any) => {
-    		this.materiasProfesor = resMaterias;
-    		this.materiasService
-    		.listMateriasByAnyoByPeriodoMultiple(this.idProfesor, this.fechaInicial + "-01-01", this.fechaFinal + "-12-31").subscribe({
-    			next: (resMultiple: any) => {
-    				this.materiasMulti = resMultiple;
-    			}
-    		});
-    	}
-    });
+  formularios(){
+    this.planesService.listPlanesByCarrera(this.idCarreraJefe).subscribe({
+      next: (resPlanes:any) =>{
+        this.planes = resPlanes;
+        this.planActual =  this.planes[0].idPlan;
+
+        this.profesorService.obtenerTodo().subscribe({
+          next: (resProfe:any) =>{
+            this.profesorAsignar = resProfe;
+            this.actualizaMaterias();
+          }
+        })
+      }
+    })
   }
 
-  // obtenerProfesores(){
-  //   this.profesorService.obtenerProfesoresPorCarrera(this.datosProf.idCarrera).subscribe({
-  //     next: (resProfesores:any) => {
-  //       console.log(resProfesores);
-  //       resProfesores.forEach((profesor: any) => {
-  //         this.profesores.set(profesor.idProfesor,profesor.nombreProfesor);
-  //       })
-  //     }
-  //   })
-  // }
+  actualizaMaterias() {
+    this.materiasService.listMateriasByCarreraByPeriodo(this.idCarreraJefe,this.periodoActual.idPeriodo).subscribe({
+      next: (resMatByPeByCa:any) => {
+        this.materiasPorProfesor = resMatByPeByCa;
+        this.materiasService.listMateriasMultiplesByCarreraByPeriodo(this.idCarreraJefe,this.periodoActual.idPeriodo).subscribe({
+          next: (resMatMulti:any) => {
+            console.log(resMatMulti);
+            this.materiasPorProfesorMulti = resMatMulti;
+          }
+        })
+      }
+    })
+  }
 
-  actualizarProfesor(){
+  actualizarPeriodo(periodo: any){
+    const periodoNuevo = Number(periodo.value);
+    this.periodoActual = <Periodo>this.periodos.find(periodo => periodo.idPeriodo == periodoNuevo);
+    this.actualizaMaterias();
+  }
+
+  actualizarProfesor(profesor: any){
+    this.profesorActual = Number(profesor.value);
     if(this.profesorActual === -1){
-      //console.log("Todos los profesores " + this.profesorActual);
-      //this.materiasService.listMateriasByCarreraByPeriodo(this.idCarreraJefe,)
+      this.actualizaMaterias();
     }
     else{
-      console.log("Profesor en especifico " + this.profesorActual);
-      this.profesores.forEach(profesor => {
-        if(profesor.idProfesor === Number(this.profesorActual)){
-          this.datosProf[0] = profesor;
-          this.datosProfAux = this.datosProf[0];
-          //console.log(this.datosProfAux);
+      this.materiasService.listMateriasByPeriodoByProfesor(this.periodoActual.idPeriodo,this.profesorActual).subscribe({
+        next: (resMateriasProfesor:any) => {
+          this.materiasPorProfesor = []; 
+          this.profesorService.getProfesor(this.profesorActual).subscribe({
+            next: (resDatosProf:any) =>{
+              const aux = resDatosProf.nombreProfesor
+              this.materiasPorProfesor[0] = {
+                'nombreProfesor': aux,
+                'materias': resMateriasProfesor
+              };
+            }
+          })
+          
         }
       })
     }
   }
 
-  actualizarPeriodo(){
-
-  }
+  
 
   abreFormularioAsignarMateria(){
+    this.asignarNuevaMateria = new AsignarMateria;
+    this.asignarNuevaMateria.idPlan = this.planes[0].idPlan;
+    $('#asignarMateria').modal();
+		$('#asignarMateria').modal('open');
+  }
+
+  asignarMateriaProfesor(){
 
   }
+
+  
 
   abreFormularioMultiAignacion(){
 
   }
+
+  abreEditarAsignacion(){
+
+  }
+
+  abreEliminarAsignacion(){
+
+  }
+
+  semestreArray(): any[] {
+		return Array.from(this.semestres, (sems) => {
+			return { 
+				llave: sems[0],
+				valor: sems[1]
+			}
+		});
+	}
 
 }
