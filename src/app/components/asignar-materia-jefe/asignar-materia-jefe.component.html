@@ -162,15 +162,29 @@
 
 					<div class="col s12">
 						<label>Profesor</label>
-						<select name="profesor" [(ngModel)]="asignarNuevaMateria.idProfesor"
-								  class="browser-default">
+						<select 	name="profesor" 
+									[(ngModel)]="asignarNuevaMateria.idProfesor"
+								  	class="browser-default"
+						>
 							<option *ngFor="let profesor of profesorAsignar" 
 										[ngValue]="profesor.idProfesor"
-										[selected]="profesor.idProfesor == profesorAsignarActual"
 										>
 								{{profesor.nombreProfesor}}
 							</option>
 						</select>
+						<br>
+					</div>
+
+					<div class="col s12">
+						<label>Carrera</label>
+								<select	name="carrera_asignar" 
+											[(ngModel)]="asignarNuevaMateria.idCarrera" 
+											class="browser-default"
+								>
+								<option *ngFor="let carrera of carreraProfesor" 
+											[ngValue]="carrera.idCarrera"
+								>{{carrera.nombreCarrera}}</option>
+								</select>
 						<br>
 					</div>
 
@@ -184,7 +198,6 @@
 								  [ngValue]="plan.idPlan"
 						  >{{plan.nombrePlan}}</option>
 							  </select>
-					  <br>
 				  </div>
 
 				  <div class="col s12">
@@ -200,24 +213,29 @@
 							</select>
 					</div>
 
-				  <div class="input-field col s12">
-					  <label>Nombre materia</label>
-					  <input 	name="nombre"
-							  [(ngModel)]="asignarNuevaMateria.idMateria" 
-							  required type="text"
-					  >
-				  </div>
+					<div class="col s12">
+						<br>
+						<label>Materia</label>
+								<select	name="plan" 
+								[(ngModel)]="asignarNuevaMateria.idPlan" 
+								class="browser-default"
+						>
+							<option *ngFor="let plan of planes;" 
+									[ngValue]="plan.idPlan"
+							>{{plan.nombrePlan}}</option>
+								</select>
+					</div>
 
 				  <div class="col s12">
 					<br>
 					<label>Grupo</label>
-							<select	name="semestre" 
-							[(ngModel)]="asignarNuevaMateria.semestre" 
+							<select	name="grupo" 
+							[(ngModel)]="asignarNuevaMateria.grupo" 
 							class="browser-default"
 					>
-						<option *ngFor="let semestre of semestreArray();"
-								[ngValue]="semestre.llave"
-						>{{semestre.valor}}</option>
+						<option *ngFor="let grupo of GrupoArray();"
+								[ngValue]="grupo.llave"
+						>{{grupo.valor}}</option>
 							</select>
 					</div>
 				  

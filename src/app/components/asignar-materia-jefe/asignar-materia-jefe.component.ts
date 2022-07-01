@@ -21,7 +21,7 @@ export class AsignarMateriaJefeComponent implements OnInit {
   idProfesor: number;
   materias: Map<number, string> = new Map();
   profesores: Profesor[] = [];
-  carreraProfesor: Carrera = new Carrera();
+  carreraProfesor: Carrera[] = [];
 
   materiasPorProfesor: any[] = [];
   materiasPorProfesorMulti: any[] = [];
@@ -61,6 +61,14 @@ export class AsignarMateriaJefeComponent implements OnInit {
 		this.semestres.set(9, "Noveno");
 		this.semestres.set(10, "Décimo");
 
+    this.grupos.set(0,"Único");
+    this.grupos.set(1,"A");
+    this.grupos.set(2,"B");
+    this.grupos.set(3,"C");
+    this.grupos.set(4,"D");
+    this.grupos.set(5,"E");
+    this.grupos.set(6,"F");
+
     this.materiasService.list().subscribe({
       next: (resMaterias: any) => {
         resMaterias.forEach((materia: any) => {
@@ -90,7 +98,7 @@ export class AsignarMateriaJefeComponent implements OnInit {
                   this.profesores = resProfesores;
                   this.profesorAsignar = resProfesores;
                   this.profesorActual = -1;
-                  this.profesorAsignarActual = this.profesorAsignar[0].idProfesor;
+                  
                   this.formularios();
                 }
               })
@@ -106,8 +114,14 @@ export class AsignarMateriaJefeComponent implements OnInit {
       next: (resPlanes:any) =>{
         this.planes = resPlanes;
         this.planActual =  this.planes[0].idPlan;
-        this.actualizaMaterias();
-
+        
+        this.carreraService.obtenerTodo().subscribe({
+          next: (resCarreras:any) =>{
+            this.carreraProfesor = resCarreras;
+            console.log(resCarreras);
+            this.actualizaMaterias();
+          }
+        })
       }
     })
   }
@@ -188,12 +202,14 @@ export class AsignarMateriaJefeComponent implements OnInit {
   abreFormularioAsignarMateria(){
     this.asignarNuevaMateria = new AsignarMateria;
     this.asignarNuevaMateria.idPlan = this.planes[0].idPlan;
+    this.asignarNuevaMateria.idProfesor = this.profesores[0].idProfesor;
+    this.asignarNuevaMateria.idCarrera = this.carreraProfesor[0].idCarrera;
     $('#asignarMateria').modal();
 		$('#asignarMateria').modal('open');
   }
 
   asignarMateriaProfesor(){
-
+    console.log(this.asignarNuevaMateria);
   }
 
   
@@ -223,4 +239,12 @@ export class AsignarMateriaJefeComponent implements OnInit {
 		});
 	}
 
+  GrupoArray(): any[] {
+		return Array.from(this.grupos, (grups) => {
+			return { 
+				llave: grups[0],
+				valor: grups[1]
+			}
+		});
+	}
 }
