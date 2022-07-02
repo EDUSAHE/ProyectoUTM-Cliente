@@ -61,19 +61,19 @@
 				<th class="intro"></th>
 			</tr>
 			
-			<tr *ngFor="let materia of materiasPorProfesor[i].materias">
-				<td style="width: 30%;">{{materias.get(materia.idMateria)}}</td>
-				<td style="width: 7%;">{{materia.grupo}}</td>
-				<td style="width: 25%;">{{materia.nombreCarrera}}</td>
-				<td style="width: 7%;">{{materia.idPlan}}</td>
+			<tr *ngFor="let materiaP of materiasPorProfesor[i].materias">
+				<td style="width: 30%;">{{materias.get(materiaP.idMateria)}}</td>
+				<td style="width: 7%;">{{materiaP.grupo}}</td>
+				<td style="width: 25%;">{{materiaP.nombreCarrera}}</td>
+				<td style="width: 7%;">{{materiaP.idPlan}}</td>
 				<td style="width: 8%;">{{periodoActual.nombre}}</td>
 				<td style="width: 10%;">
-					<button class="btn-option" (click)="abreEditarAsignacion()">
+					<button class="btn-option" (click)="abreEditarAsignacion(materia,materiaP)">
 						Modificar
 					</button>
 				</td>
 				<td style="width: 10%;">
-					<button class="btn-option" (click)="abreEliminarAsignacion()">
+					<button class="btn-option" (click)="abreEliminarAsignacion(materiaP.idProfesorYMateria)">
 						Eliminar
 					</button>
 				</td>
@@ -112,10 +112,10 @@
 					<p style="font-family: 'Arial Black'; font-size: 15px;">multi-asignación</p>
 				</td>
 			</tr>
-			<tr *ngFor="let materia of materiasPorProfesorMulti[i].atributos">
-				<td style="width: 30%;">{{materias.get(materia.idMateria)}}</td>
+			<tr *ngFor="let materiaA of materiasPorProfesorMulti[i].atributos">
+				<td style="width: 30%;">{{materias.get(materiaA.idMateria)}}</td>
 				<td style="width: 7%;">
-					<span class="eliminarG" *ngFor="let grupo of materia.grupos">
+					<span class="eliminarG" *ngFor="let grupo of materiaA.grupos">
 						{{grupo.grupo}}
 						<button class="btn-option " (click)="eliminarGrupo()">
 							<i class="material-icons">delete</i>
@@ -123,16 +123,16 @@
 						<br>
 					</span>
 				</td>
-				<td style="width: 25%;">{{materia.nombreCarrera}}</td>
-				<td style="width: 7%;">{{materia.idPlan}}</td>
-				<td style="width: 8%;">{{materia.nombre}}</td>
+				<td style="width: 25%;">{{materiaA.nombreCarrera}}</td>
+				<td style="width: 7%;">{{materiaA.idPlan}}</td>
+				<td style="width: 8%;">{{materiaA.nombre}}</td>
 				<td style="width: 10%;">
-					<button class="btn-option" (click)="abreEditarAsignacion()">
+					<button class="btn-option" (click)="abreEditarAsignacion(materia,i)">
 						Agregar Grupo
 					</button>
 				</td>
 				<td style="width: 10%;">
-					<button class="btn-option" (click)="abreEliminarAsignacion()">
+					<button class="btn-option" (click)="abreEliminarAsignacion(i)">
 						Eliminar
 					</button>
 				</td>
@@ -147,7 +147,7 @@
 
 </div>
 
-
+<!-- Asignar Materia Modal -->
 
 <div id="asignarMateria" class="modal">
 	<div class="modal-content">
@@ -158,6 +158,122 @@
 		 </div>
 		 <div style="border: .5px solid #78909c; padding: 10px;">
 		  <form (ngSubmit)="asignarMateriaProfesor()"  ngNativeValidate>
+			  <div class="row">
+
+					<div class="col s12">
+						<label>Profesor</label>
+						<select 	name="profesor" 
+									[(ngModel)]="asignarNuevaMateria.idProfesor"
+								  	class="browser-default"
+						>
+							<option *ngFor="let profesor of profesorAsignar" 
+										[ngValue]="profesor.idProfesor"
+										>
+								{{profesor.nombreProfesor}}
+							</option>
+						</select>
+						<br>
+					</div>
+
+					<div class="col s12">
+						<label>Carrera</label>
+								<select	name="carrera_asignar" 
+											[(ngModel)]="asignarNuevaMateria.idCarrera"
+											(change)="actualizarCarrera($event.target)"
+											class="browser-default"
+								>
+								<option *ngFor="let carrera of carreraProfesor" 
+											[value]="carrera.idCarrera"
+								>{{carrera.nombreCarrera}}</option>
+								</select>
+						<br>
+					</div>
+
+				  <div class="col s12">
+					  <label>Plan</label>
+							  <select	name="plan" 
+							  (change)="actualizarPlan($event.target)" 
+							  class="browser-default"
+					  >
+						  <option *ngFor="let plan of planAsignarMateriaNueva" 
+								  [ngValue]="plan.idPlan"
+						  >{{plan.nombrePlan}}</option>
+							  </select>
+				  </div>
+
+				  <div class="col s12">
+					<br>
+					<label>Semestre</label>
+							<select	name="semestre" 
+							[(ngModel)]="asignarNuevaMateria.semestre" 
+							class="browser-default"
+							(change)="actualizarSemestre($event.target)"
+					>
+						<option *ngFor="let semestre of semestreArray();"
+								[value]="semestre.llave"
+								
+						>{{semestre.valor}}</option>
+							</select>
+					</div>
+
+					<div class="col s12">
+						<br>
+						<label>Materia</label>
+								<select	name="materiaA" 
+								[(ngModel)]="asignarNuevaMateria.idMateria" 
+								class="browser-default"
+						>
+							<option *ngFor="let materia of materiasAsignar" 
+									[ngValue]="materia.idMateria"
+									[selected]="materia.idMateria == materiaAsignarActual"
+									
+							>{{materia.nombreMateria}}</option>
+								</select>
+					</div>
+
+				  <div class="col s12">
+					<br>
+					<label>Grupo</label>
+							<select	name="grupo" 
+							[(ngModel)]="asignarNuevaMateria.grupo" 
+							class="browser-default"
+					>
+						<option *ngFor="let grupo of GrupoArray();"
+								[ngValue]="grupo.llave"
+						>{{grupo.valor}}</option>
+							</select>
+					</div>
+				  
+			  </div>
+  
+					<div class="row">
+						 <div class="col s6 center">
+					  <button type="submit" class="waves-effect btn-large brown lighten-3 black-text">
+						  Enviar
+					  </button>
+						 </div>
+						 <div class="col s6 center">
+							  <a class="modal-close waves-effect btn-large brown lighten-3 black-text">
+						  Cancelar
+					  </a>
+						 </div>
+					</div>
+		  </form>
+		 </div>
+	</div>
+</div>
+
+<!-- Modifica Asignación Materia Modal -->
+
+<div id="asignarModificarMateria" class="modal">
+	<div class="modal-content">
+		 <div class="row" style="margin-bottom: 0px !important;">
+			  <div class="col s12">
+					<h3 class="center">Modificar Materias</h3>
+			  </div>
+		 </div>
+		 <div style="border: .5px solid #78909c; padding: 10px;">
+		  <form (ngSubmit)="editarMateriaProfesor()"  ngNativeValidate>
 			  <div class="row">
 
 					<div class="col s12">

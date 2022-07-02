@@ -37,6 +37,7 @@ export class AsignarMateriaJefeComponent implements OnInit {
   periodos: Periodo[] = [];
 
   asignarNuevaMateria: AsignarMateria = new AsignarMateria;
+  editarAsignacionMateria: AsignarMateria = new AsignarMateria;
 
   semestres: Map<number, string> = new Map();
   grupos: Map<number, string> = new Map();
@@ -141,10 +142,8 @@ export class AsignarMateriaJefeComponent implements OnInit {
             this.carreraProfesor = resCarreras;
             
             this.carreraActual = this.carreraProfesor[0].idCarrera;
-            console.log(this.carreraActual);
             this.planesService.listPlanesByCarrera(this.carreraActual).subscribe({
               next: (resPlanes:any) =>{
-                console.log(resPlanes);
                 this.planAsignarMateriaNueva = resPlanes;
                 this.planAsignarActual = this.planAsignarMateriaNueva[0].idPlan;
                 this.materiasService.listMateriasByPlan(this.planAsignarActual).subscribe({
@@ -257,7 +256,6 @@ export class AsignarMateriaJefeComponent implements OnInit {
       'idProfesor' : this.asignarNuevaMateria.idProfesor,
       'grupo' : this.asignarNuevaMateria.grupo
     }
-    console.log(materias)
     this.profesorYmateriaService.asignarMateria(materias).subscribe({
       next: (resAsignar:any) => {
         this.listadoMaterias();
@@ -276,12 +274,43 @@ export class AsignarMateriaJefeComponent implements OnInit {
 
   }
 
-  abreEditarAsignacion(){
-
+  abreEditarAsignacion(materia:any, materiaP:any){
+    $('#asignarModificarMateria').modal();
+		$('#asignarModificarMateria').modal('open');
+    this.editarAsignacionMateria.idProfesor = materia.idProfesor;
+    this.editarAsignacionMateria.grupo = materiaP.grupo;
+    
+    
   }
 
-  abreEliminarAsignacion(){
+  editarMateriaProfesor(){
+    
+  }
 
+  abreEliminarAsignacion(eliminar:number){
+    Swal.fire({
+			title: '¿Estas seguro de querer eliminar?',
+			position: 'center',
+			icon: 'question',
+			showDenyButton: true,
+			showConfirmButton: true,
+			confirmButtonText: 'Sí'
+		})
+		.then(respuesta => {
+			if (respuesta.isConfirmed) {
+        
+				this.profesorYmateriaService.eliminarAsignacion(eliminar).subscribe({
+					next: (resEliminar: any) => {
+						this.listadoMaterias();
+						Swal.fire({
+							position: 'center',
+							icon: 'success',
+							title: 'Materia eliminada'
+						});
+					}
+				});
+			}
+		});
   }
 
   eliminarGrupo(){
@@ -340,7 +369,7 @@ export class AsignarMateriaJefeComponent implements OnInit {
           }
         }) 
         this.materiaAsignarActual = this.materiasAsignar[0].idMateria;
-        console.log(this.materiaAsignarActual);
+        
       }
     }) 
   }
