@@ -225,6 +225,8 @@
 						>
 							<option *ngFor="let materia of materiasAsignar" 
 									[ngValue]="materia.idMateria"
+									[selected]="materia.idMateria == materiaAsignarActual"
+									
 							>{{materia.nombreMateria}}</option>
 								</select>
 					</div>
