@@ -178,11 +178,12 @@
 					<div class="col s12">
 						<label>Carrera</label>
 								<select	name="carrera_asignar" 
-											[(ngModel)]="asignarNuevaMateria.idCarrera" 
+											[(ngModel)]="asignarNuevaMateria.idCarrera"
+											(change)="actualizarCarrera($event.target)"
 											class="browser-default"
 								>
 								<option *ngFor="let carrera of carreraProfesor" 
-											[ngValue]="carrera.idCarrera"
+											[value]="carrera.idCarrera"
 								>{{carrera.nombreCarrera}}</option>
 								</select>
 						<br>
@@ -191,10 +192,10 @@
 				  <div class="col s12">
 					  <label>Plan</label>
 							  <select	name="plan" 
-							  [(ngModel)]="asignarNuevaMateria.idPlan" 
+							  (change)="actualizarPlan($event.target)" 
 							  class="browser-default"
 					  >
-						  <option *ngFor="let plan of planes;" 
+						  <option *ngFor="let plan of planAsignarMateriaNueva" 
 								  [ngValue]="plan.idPlan"
 						  >{{plan.nombrePlan}}</option>
 							  </select>
@@ -206,9 +207,11 @@
 							<select	name="semestre" 
 							[(ngModel)]="asignarNuevaMateria.semestre" 
 							class="browser-default"
+							(change)="actualizarSemestre($event.target)"
 					>
 						<option *ngFor="let semestre of semestreArray();"
-								[ngValue]="semestre.llave"
+								[value]="semestre.llave"
+								
 						>{{semestre.valor}}</option>
 							</select>
 					</div>
@@ -216,13 +219,13 @@
 					<div class="col s12">
 						<br>
 						<label>Materia</label>
-								<select	name="plan" 
-								[(ngModel)]="asignarNuevaMateria.idPlan" 
+								<select	name="materiaA" 
+								[(ngModel)]="asignarNuevaMateria.idMateria" 
 								class="browser-default"
 						>
-							<option *ngFor="let plan of planes;" 
-									[ngValue]="plan.idPlan"
-							>{{plan.nombrePlan}}</option>
+							<option *ngFor="let materia of materiasAsignar" 
+									[ngValue]="materia.idMateria"
+							>{{materia.nombreMateria}}</option>
 								</select>
 					</div>
 

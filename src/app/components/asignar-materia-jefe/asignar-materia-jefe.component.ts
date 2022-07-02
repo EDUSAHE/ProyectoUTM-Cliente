@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AsignarMateria } from 'src/app/models/asignarMateria.model';
 import { Carrera } from 'src/app/models/carrera.model';
 import { Periodo } from 'src/app/models/periodo.model';
+import { Plan } from 'src/app/models/plan.model';
 import { Profesor } from 'src/app/models/profesor.model';
 import { CarreraService } from 'src/app/services/carrera.service';
 import { DatosPersonalesService } from 'src/app/services/datos-personales.service';
@@ -9,6 +10,7 @@ import { MateriasService } from 'src/app/services/materias.service';
 import { PeriodoService } from 'src/app/services/periodo.service';
 import { PlanesService } from 'src/app/services/planes.service';
 import { ProfesorService } from 'src/app/services/profesor.service';
+
 
 declare var $: any;
 @Component({
@@ -41,6 +43,15 @@ export class AsignarMateriaJefeComponent implements OnInit {
 	planActual: number = 0;
   profesorAsignar: Profesor[] = [];
   profesorAsignarActual: number = 0;
+
+  // formularios
+
+  planAsignarMateriaNueva: any[] = [];
+  planAsignarActual:number = 0;
+  carreraActual: number = 0;
+  materiasAsignar: any[] = [];
+  materiaAsignarActual : number = 0;
+  semestreActual: number = 0;
 
   constructor(private materiasService: MateriasService, private planesService: PlanesService,
     private datosPersonalesService: DatosPersonalesService, private carreraService: CarreraService, 
@@ -80,7 +91,9 @@ export class AsignarMateriaJefeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    $(document).ready(function () {
+			$('.modal').modal();
+		});
     this.periodoService.list().subscribe({
       next: (resPeriodo: any) => {
         this.periodos = resPeriodo;
@@ -118,8 +131,29 @@ export class AsignarMateriaJefeComponent implements OnInit {
         this.carreraService.obtenerTodo().subscribe({
           next: (resCarreras:any) =>{
             this.carreraProfesor = resCarreras;
-            console.log(resCarreras);
-            this.actualizaMaterias();
+            
+            this.carreraActual = this.carreraProfesor[0].idCarrera;
+            console.log(this.carreraActual);
+            this.planesService.listPlanesByCarrera(this.carreraActual).subscribe({
+              next: (resPlanes:any) =>{
+                console.log(resPlanes);
+                this.planAsignarMateriaNueva = resPlanes;
+                this.planAsignarActual = this.planAsignarMateriaNueva[0].idPlan;
+                this.materiasService.listMateriasByPlan(this.planAsignarActual).subscribe({
+                  next:(resMatPlan:any) => {
+                    let aux = resMatPlan;
+                    aux.forEach((materiaSem:any) => {
+                      if(materiaSem.semestre === 3){
+                        this.materiasAsignar.push(materiaSem);
+                      }
+                    }) 
+                    this.actualizaMaterias();
+                  }
+                })
+                
+              }
+            })
+            
           }
         })
       }
@@ -132,8 +166,6 @@ export class AsignarMateriaJefeComponent implements OnInit {
         this.materiasPorProfesor = resMatByPeByCa;
         this.materiasService.listMateriasMultiplesByCarreraByPeriodo(this.idCarreraJefe,this.periodoActual.idPeriodo).subscribe({
           next: (resMatMulti:any) => {
-            console.log("Todos");
-            console.log(resMatMulti);
             this.materiasPorProfesorMulti = resMatMulti;
           }
         })
@@ -204,12 +236,13 @@ export class AsignarMateriaJefeComponent implements OnInit {
     this.asignarNuevaMateria.idPlan = this.planes[0].idPlan;
     this.asignarNuevaMateria.idProfesor = this.profesores[0].idProfesor;
     this.asignarNuevaMateria.idCarrera = this.carreraProfesor[0].idCarrera;
+    this.asignarNuevaMateria.idMateria = this.materiasAsignar[0].idMateria;
     $('#asignarMateria').modal();
 		$('#asignarMateria').modal('open');
   }
 
   asignarMateriaProfesor(){
-    console.log(this.asignarNuevaMateria);
+    //console.log(this.asignarNuevaMateria);
   }
 
   
@@ -228,6 +261,49 @@ export class AsignarMateriaJefeComponent implements OnInit {
 
   eliminarGrupo(){
 
+  }
+
+  actualizarPlan(plan:any){
+    this.planActual = Number(plan.value);
+    console.log(this.planActual);
+  }
+
+  actualizarCarrera(carrera:any){
+    this.carreraActual = Number(carrera.value);
+    this.planesService.listPlanesByCarrera(this.carreraActual).subscribe({
+      next: (resCarreraA:any) =>{
+        this.planAsignarMateriaNueva = resCarreraA;
+        this.planAsignarActual = this.planAsignarMateriaNueva[0].idPlan
+        this.materiasAsignar = [];
+        this.materiasService.listMateriasByPlan(this.planAsignarMateriaNueva[0].idPlan).subscribe({
+          next:(resMatPlan:any) => {
+            let aux = resMatPlan;
+            aux.forEach((materiaSem:any) => {
+              if(materiaSem.semestre === 1){
+                this.materiasAsignar.push(materiaSem);
+              }
+            }) 
+
+          }
+        })
+      }
+    })
+  }
+
+  actualizarSemestre(semestre:any){
+    this.semestreActual = Number(semestre.value);
+    this.materiasService.listMateriasByPlan(this.planAsignarActual).subscribe({
+      next:(resMatPlan:any) => {
+        this.materiasAsignar = [];
+        let aux = resMatPlan;
+        aux.forEach((materiaSem:any) => {
+          if(materiaSem.semestre === this.semestreActual){
+            this.materiasAsignar.push(materiaSem);
+          }
+        }) 
+
+      }
+    }) 
   }
 
   semestreArray(): any[] {
