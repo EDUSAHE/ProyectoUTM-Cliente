@@ -142,7 +142,7 @@ export class HomeComponent implements OnInit {
       Swal.fire({
         position: 'center',
         icon: 'success',
-        title: 'Proyecto  Agregado'
+        title: 'Proyecto Agregado'
       })
     }, err => console.error(err))
   }

@@ -303,3 +303,98 @@
         </div>
     </div>
 </div>
+
+
+
+<!-- Agregar tesista -->
+<div id="agregarTesistaJC" class="modal">
+    <div class="modal-content">
+        <div class="row" style="margin-bottom: 0px !important;">
+            <div class="col s12 titulo">
+                <h5 class="center">Nuevo Tesista</h5>
+            </div>
+        </div>
+        <div style="border: .5px solid #78909c; padding: 10px;">
+
+            <div class="row">
+                <div class="col s12">
+                    <label>Nombre del estudiante</label>
+                    <input required type="text" [(ngModel)]="tesista.nombreEstudiante" placeholder="Nombre del estudiante" value="tesista.nombreEstudiante">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s12">
+                    <label>Matrícula del estudiante</label>
+                    <input required type="text" [(ngModel)]="tesista.matricula" placeholder="2018020236" value="tesista.matricula">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s12">
+                    <label>Título tesis</label>
+                    <input required type="text" [(ngModel)]="tesista.nombreTesis" placeholder="Título tesis" value="tesista.nombreTesis">
+                </div>
+            </div>
+
+            <div class="row col s8">
+                <label for="selectInstituto">Instituto</label>
+                <select id="selectInstituto" [(ngModel)]="tesista.idInstituto" class="browser-default" (change)="cambioInstituto()">
+                    <option *ngFor="let instituto of Institutos" [value]="instituto.idInstituto">
+                        {{instituto.nombreInstituto}}
+                    </option>
+                </select>
+            </div>  
+          
+    
+
+            <div class="row col s8">
+                <label for="selectDirector">Profesor(Director)</label>
+                <select id="selectDirector" [(ngModel)]="idProfesorActual" class="browser-default">
+                    <option *ngFor="let profesor of profesorByIns;" [ngValue]="profesor.idProfesor">
+                        {{profesor.nombreProfesor}}
+                    </option>
+                </select>
+            </div>
+
+        <div class="col s12" style="margin-bottom: 1rem;">
+            <label>Estado</label>
+                <select name="estado" [(ngModel)]="tesista.status" class="browser-default">
+                        <option value="Iniciado">Iniciado</option>  
+                        <option value="En proceso">En proceso</option>
+                        <option value="Concluido">Concluido</option>
+                        <label for="estado">Estado</label>
+                </select>
+        </div>
+
+            <div class="row">
+                <div class="col s12">
+                    <label>Fecha de Inicio</label>
+                    <input required type="date" [(ngModel)]="tesista.inicio" value="">
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col s12">
+                    <label>Fecha de Inicio</label>
+                    <input required type="date" [(ngModel)]="tesista.fin" value="">
+                </div>
+            </div>
+
+
+
+            <div class="row">
+                <div class="col s6 center">
+                    <a (click)="crearTesista()" class="modal-action modal-close waves-effect btn-large">Guardar</a>
+            </div>
+                
+
+            <div class="col s6 center">
+                    <a class="modal-action modal-close waves-effect btn-large">Cancelar</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
