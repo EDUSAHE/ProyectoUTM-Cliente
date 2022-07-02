@@ -52,6 +52,7 @@ import { MateriasJcComponent } from './components/materias-jc/materias-jc.compon
 import { ListarTutoradosJcComponent } from './components/listar-tutorados-jc/listar-tutorados-jc.component';
 import { ComisionesJcComponent } from './components/comisiones-jc/comisiones-jc.component';
 import { AsignarMateriaJefeComponent } from './components/asignar-materia-jefe/asignar-materia-jefe.component';
+import { PlanesComponent } from './components/planes/planes.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
 }
@@ -99,7 +100,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     MateriasJcComponent,
     ListarTutoradosJcComponent,
     ComisionesJcComponent,
-    AsignarMateriaJefeComponent
+    AsignarMateriaJefeComponent,
+    PlanesComponent
   ],
   imports: [
     BrowserModule,

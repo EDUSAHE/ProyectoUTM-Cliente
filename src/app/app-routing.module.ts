@@ -36,6 +36,7 @@ import { MateriasJcComponent } from './components/materias-jc/materias-jc.compon
 import { ListarTutoradosJcComponent } from './components/listar-tutorados-jc/listar-tutorados-jc.component';
 import { ComisionesJcComponent } from './components/comisiones-jc/comisiones-jc.component';
 import { AsignarMateriaJefeComponent } from './components/asignar-materia-jefe/asignar-materia-jefe.component';
+import { PlanesComponent } from './components/planes/planes.component';
 
 
 const routes: Routes = [
@@ -181,6 +182,10 @@ const routes: Routes = [
       {
         path: 'comisionesJC',
         component:ComisionesJcComponent
+      },
+      {
+        path: 'planes',
+        component: PlanesComponent
       },
       //Materia por semestre
       { 
