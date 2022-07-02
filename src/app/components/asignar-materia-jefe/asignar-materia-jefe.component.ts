@@ -10,6 +10,7 @@ import { MateriasService } from 'src/app/services/materias.service';
 import { PeriodoService } from 'src/app/services/periodo.service';
 import { PlanesService } from 'src/app/services/planes.service';
 import { ProfesorYmateriaService } from 'src/app/services/profesor-ymateria.service';
+import { ProfesorYmateriamultipleService } from 'src/app/services/profesor-ymateriamultiple.service';
 import { ProfesorService } from 'src/app/services/profesor.service';
 import Swal from 'sweetalert2';
 
@@ -60,7 +61,8 @@ export class AsignarMateriaJefeComponent implements OnInit {
   constructor(private materiasService: MateriasService, private planesService: PlanesService,
     private datosPersonalesService: DatosPersonalesService, private carreraService: CarreraService, 
     private profesorService: ProfesorService, private periodoService:PeriodoService,
-    private profesorYmateriaService : ProfesorYmateriaService) {
+    private profesorYmateriaService : ProfesorYmateriaService,
+    private profesorYmateriamultipleService: ProfesorYmateriamultipleService) {
     
     this.idProfesor = datosPersonalesService.idProfesor;
 
@@ -268,7 +270,31 @@ export class AsignarMateriaJefeComponent implements OnInit {
     })
   }
 
-  
+  abreEliminarMultiAsignacion(eliminar:number){
+    Swal.fire({
+			title: '¿Estas seguro de querer eliminar?',
+			position: 'center',
+			icon: 'question',
+			showDenyButton: true,
+			showConfirmButton: true,
+			confirmButtonText: 'Sí'
+		})
+		.then(respuesta => {
+			if (respuesta.isConfirmed) {
+        
+				this.profesorYmateriamultipleService.delete(eliminar).subscribe({
+					next: (resEliminar: any) => {
+						this.listadoMaterias();
+						Swal.fire({
+							position: 'center',
+							icon: 'success',
+							title: 'Materia eliminada'
+						});
+					}
+				});
+			}
+		});
+  }
 
   abreFormularioMultiAignacion(){
 
