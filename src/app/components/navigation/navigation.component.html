@@ -147,7 +147,7 @@
 
             <ul id="dropdown-menu-ver" class="dropdown-content" style="min-width: 150px;">
                 <li><a href="/home/generales/{{idProfesor}}">Datos Generales</a></li>
-				<li *ngIf="nivel == 3"><a href="/home/generales/{{idProfesor}}">Planes de estudio</a></li>
+				<li *ngIf="nivel == 3"><a href="/home/planes">Planes de estudio</a></li>
 				
 				<li *ngIf="nivel == 3"><a href="/home/generales/{{idProfesor}}">Articulos</a></li>
 				<li *ngIf="nivel == 4"><a href="/home/articulos/{{idProfesor}}">Articulos</a></li>
@@ -184,9 +184,9 @@
 
             <!-- Menús Asignar -->
             <ul id="dropdown-menu-asignar-jefe" class="dropdown-content" *ngIf="nivel == 3">
-                <li><a href="/home/generales/{{idProfesor}}" class="modal-trigger">Materias</a></li>
+                <li><a href="/home/asignarMateriasJefe/{{idProfesor}}" class="modal-trigger">Materias</a></li>
                 <li><a href="#agregarComisionJC" class="modal-trigger">Comisiones</a></li>
-                <li><a href="/home/generales/{{idProfesor}}" class="modal-trigger">Tesistas</a></li>
+                <li><a href="#agregarTesistaJC" class="modal-trigger">Tesistas</a></li>
                 <li><a href="/home/generales/{{idProfesor}}" class="modal-trigger">Tutorados</a></li>
             </ul>
 

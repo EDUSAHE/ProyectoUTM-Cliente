@@ -28,4 +28,9 @@ export class TesistasService {
   eliminarTesis(idTesis:any){
     return this.http.delete(`${environment.API_URI}/tesistas/delete/${idTesis}`);
   }
+
+  crearTesis(idProfesor:any, tesista:Tesista){
+    return this.http.post(`${environment.API_URI}/tesistas/create/${idProfesor}`,tesista);
+  }
+
 }

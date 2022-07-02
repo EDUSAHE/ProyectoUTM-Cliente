@@ -45,6 +45,21 @@ export class MateriasService {
   }
 
   listMateriasByPlan(idPlan: number) {
-	return this.http.get(`${environment.API_URI}/materias/listMateriasByPlan/${idPlan}`);
+	  return this.http.get(`${environment.API_URI}/materias/listMateriasByPlan/${idPlan}`);
+  }
+
+  listMateriasByCarreraByPeriodo(idCarrera: number, idPeriodo:number){
+    return this.http.get(`${environment.API_URI}/materias/listMateriasByCarreraByPeriodo/${idCarrera}/${idPeriodo}`);
+  }
+  listMateriasMultiplesByCarreraByPeriodo(idCarrera: number, idPeriodo:number){
+    return this.http.get(`${environment.API_URI}/materias/listMateriasMultiplesByCarreraByPeriodo/${idCarrera}/${idPeriodo}`);
+  }
+
+  listMateriasByPeriodoByProfesor(idPeriodo: number, idProfesor: number){
+    return this.http.get(`${environment.API_URI}/materias/listMateriasByPeriodoByProfesor/${idPeriodo}/${idProfesor}`);
+  }
+
+  listMateriasMultiasignacionByPeriodoByProfesor(idPeriodo: number, idProfesor: number){
+    return this.http.get(`${environment.API_URI}/materias//listMateriasMultiasignacionByPeriodoByProfesor/${idPeriodo}/${idProfesor}`)
   }
 }

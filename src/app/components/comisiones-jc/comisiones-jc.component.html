@@ -22,16 +22,16 @@
         <tr>
             <th class="intro">Nombre</th>
             <th class="intro">Asignación</th>
-            <th class="intro">Tipo de periodo</th>
             <th class="intro">Inicio</th>
+            <th class="intro">Fin</th>
         </tr>
 
         <ng-container *ngFor="let comision of comisiones">
             <tr>
-                <td>{{comision.nombreProfesor}}</td>
-                <td>{{comision.Asignacion}}</td>
-                <td>{{comision.periodo}}</td>
-                <td>{{comision.descripcion}}</td>
+                <td>{{comision.nombre}}</td>
+                <td>{{comision.asignacion}}</td>
+                <td>{{comision.inicio}}</td>
+                <td>{{comision.fin}}</td>
             </tr>
         </ng-container>
     </table>
