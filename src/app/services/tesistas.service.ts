@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Tesista } from '../models/tesista.model';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -18,7 +17,7 @@ export class TesistasService {
     return this.http.get(`${environment.API_URI}/tesistas/listTesistasByCarreraByPeriodo/${idProfesor}/${fechaIni}/${fechaFin}`);
   }
   updatePrioridadesTestistas(idTesis:number, autores:any){
-    return this.http.get(`${environment.API_URI}/tesistas/updatePrioridadesTestistas/${idTesis}`,autores);
+    return this.http.put(`${environment.API_URI}/tesistas/updatePrioridadesTestistas/${idTesis}`,autores);
   }
   obtenerTesis(idTesis: number) {
     return this.http.get(`${environment.API_URI}/tesistas/${idTesis}`);

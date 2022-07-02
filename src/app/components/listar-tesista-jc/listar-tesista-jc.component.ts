@@ -3,6 +3,8 @@ import { ProfesorService } from 'src/app/services/profesor.service';
 import Swal from 'sweetalert2';
 import { TesistasService } from 'src/app/services/tesistas.service';
 import { Tesista } from 'src/app/models/tesista.model';
+import { codirectorExterno } from 'src/app/models/codirectorExterno.model';
+import { CodirectorExtService } from 'src/app/services/codirector-ext.service';
 declare var $: any;
 
 @Component({
@@ -12,6 +14,8 @@ declare var $: any;
 })
 export class ListarTesistasJcComponent implements OnInit {
   tesistas: any[]
+  externos: codirectorExterno[]
+  externo: codirectorExterno
   tesisActual:Tesista
 	fechaInicial: string;
 	fechaFinal: string;
@@ -23,13 +27,15 @@ export class ListarTesistasJcComponent implements OnInit {
 	// Paginación
 	pageSize = 10;
 	p = 1;
-  constructor(private tesistasService: TesistasService, private profesorServices: ProfesorService) {
+  constructor(private tesistasService: TesistasService, private profesorServices: ProfesorService,private codirectorExtService:CodirectorExtService) {
     let hoy = new Date()
 		this.tesistas = []
 		this.profesoresActuales=[]
 		this.profesores=[]
-		this.idTesisActual=1
+		this.externos = []
+		this.idTesisActual=0
 		this.tesisActual=new Tesista()
+		this.externo = new codirectorExterno();
 		this.idProfesor= Number(localStorage.getItem('idProfesor'));
 		this.fechaInicial = `${hoy.getFullYear() - 1}-${('0' + (hoy.getMonth() + 1)).slice(-2)}-${('0' + hoy.getDate()).slice(-2)}`
 		this.fechaFinal = `${hoy.getFullYear()}-${('0' + (hoy.getMonth() + 1)).slice(-2)}-${('0' + hoy.getDate()).slice(-2)}`
@@ -138,5 +144,24 @@ export class ListarTesistasJcComponent implements OnInit {
 					});
 				}
 		});
+	}
+	ModalCodirectoresExternos() {
+		console.log("codirectorExterno");
+		$('#CodirectoresExternos').modal();
+		$('#CodirectoresExternos').modal('open');
+	}
+	crearNuevoCodirectorExterno(NuevoCodi:any) {
+		console.log("CrearCodiX")
+		this.codirectorExtService.crearCodirector(NuevoCodi).subscribe((resExterno:any) => {
+			console.log(NuevoCodi);
+		},
+			err => console.error(err))
+		$('#CodirectoresExternos').modal('close');
+	}
+	ExternoExistente() {
+		this.codirectorExtService.listExternos().subscribe((resExternos:any)=>{
+			console.log(this.externos);
+		},
+			err => console.error(err))
 	}
 }
