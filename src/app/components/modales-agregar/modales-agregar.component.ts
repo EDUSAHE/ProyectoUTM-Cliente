@@ -66,6 +66,7 @@ export class ModalesAgregarComponent implements OnInit {
       this.profesorNuevo.idInstituto = this.institutos[0].idInstituto
       this.profesorService.obtenerProfesoresPorInstituto(this.Institutos[0].idInstituto).subscribe((resProfesores:any) =>{
         this.profesorByIns = resProfesores;
+        this.idProfesorActual=this.profesorByIns[0].idProfesor
         console.log(this.profesorByIns)
       },
         err => console.error(err))
@@ -172,7 +173,6 @@ export class ModalesAgregarComponent implements OnInit {
   cambioInstituto(){
     this.profesorService.obtenerProfesoresPorInstituto(this.tesista.idInstituto).subscribe((resProfesores:any) =>{
       this.profesorByIns = resProfesores;
-      this.idProfesorActual=this.profesorByIns[0].idProfesor;
       console.log(this.profesorByIns)
     },
       err => console.error(err))
