@@ -32,5 +32,7 @@ export class TesistasService {
   crearTesis(idProfesor:any, tesista:Tesista){
     return this.http.post(`${environment.API_URI}/tesistas/create/${idProfesor}`,tesista);
   }
-
+  addCodirectoresTesistaUTM(tesista: any, idTesis: number) {
+    return this.http.post(`${environment.API_URI}/tesistas/addCodirectoresTesistaUTM/${idTesis}`, tesista)
+  }
 }

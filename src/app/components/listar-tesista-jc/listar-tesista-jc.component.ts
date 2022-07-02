@@ -5,6 +5,7 @@ import { TesistasService } from 'src/app/services/tesistas.service';
 import { Tesista } from 'src/app/models/tesista.model';
 import { codirectorExterno } from 'src/app/models/codirectorExterno.model';
 import { CodirectorExtService } from 'src/app/services/codirector-ext.service';
+import { InstitutoService } from 'src/app/services/instituto.service';
 declare var $: any;
 
 @Component({
@@ -19,6 +20,7 @@ export class ListarTesistasJcComponent implements OnInit {
   tesisActual:Tesista
 	fechaInicial: string;
 	fechaFinal: string;
+	profesoresInstituto:any[]
 	idProfesor : number ;
 	profesores:any[];
 	idTesisActual:number
@@ -27,10 +29,11 @@ export class ListarTesistasJcComponent implements OnInit {
 	// Paginación
 	pageSize = 10;
 	p = 1;
-  constructor(private tesistasService: TesistasService, private profesorServices: ProfesorService,private codirectorExtService:CodirectorExtService) {
+  constructor(private tesistasService: TesistasService, private profesorServices: ProfesorService,private codirectorExtService:CodirectorExtService, private institutoService:InstitutoService) {
     let hoy = new Date()
 		this.tesistas = []
 		this.profesoresActuales=[]
+		this.profesoresInstituto=[]
 		this.profesores=[]
 		this.externos = []
 		this.idTesisActual=0
@@ -161,6 +164,27 @@ export class ListarTesistasJcComponent implements OnInit {
 	ExternoExistente() {
 		this.codirectorExtService.listExternos().subscribe((resExternos:any)=>{
 			console.log(this.externos);
+		},
+			err => console.error(err))
+	}
+	ModalCodirectorUTM(idTesis:any) {
+		this.idTesisActual=idTesis;
+		console.log("CodirectoresUTM");
+		$('#CodirectoresUTM').modal();
+		$('#CodirectoresUTM').modal('open');
+	}
+
+	addCodirectorUTM() {
+		let aux: any[] = []
+		for(let i=0; i<this.profesores.length;i++){
+			if(this.profesores[i].checkbox==true){
+				aux.push({idProfesor:this.profesores[i].idProfesor,
+					pos:this.profesores[i].pos,
+					rol:this.profesores[i].rol})
+			}
+		}
+		console.log(aux,this.idTesisActual)
+		this.tesistasService.addCodirectoresTesistaUTM(aux,this.idTesisActual).subscribe((resExternos:any)=>{
 		},
 			err => console.error(err))
 	}

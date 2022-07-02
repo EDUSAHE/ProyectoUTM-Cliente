@@ -63,7 +63,7 @@
                             class="material-icons left">format_list_numbered</i>Prioridades</a>
                 </td>
                 <td>
-                    <a href="javascript: void(0);" class="waves-effect waves-light btn-small" ><i
+                    <a href="javascript: void(0);" class="waves-effect waves-light btn-small" (click)="ModalCodirectorUTM(tesis.idTesis)"><i
                             class="material-icons left">group_add</i>Codirecto UTM</a>
                     <br>
                     <a href="javascript: void(0);" class="waves-effect waves-light btn-small" (click)="ModalCodirectoresExternos()"><i class="material-icons left">group_add</i>Codirector Externo</a>
@@ -205,5 +205,69 @@
             </form>
 
         </div>
+    </div>
+</div>
+
+<div id="CodirectoresUTM" class="modal">
+    <div class="modal-content">
+        <div class="row" style="margin-bottom: 0px !important;">
+            <div class="col s12">
+                <h4 class="center">Agregar Autores UTM</h4>
+            </div>
+        </div>
+
+        <div style="border: .5px solid #78909c; padding: 10px;">
+            <form>
+                <table>
+                    <tr *ngFor="let profe of profesores;">
+                        <th style="width:2rem;">
+                            <label>
+                                <input type="checkbox" name="checkbox"[(ngModel)]="profe.checkbox"/>
+                                <span></span>
+                            </label>
+                        </th>
+                        <th style="width:4rem;">Pos
+                            <select name="pos" [(ngModel)]="profe.pos" class="browser-default">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>
+                        </th>
+
+                        <th style="width:4rem;">Rol
+                            <select name="pos" [(ngModel)]="profe.rol" class="browser-default">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </th>
+
+                        <th>
+                            <label>
+                                <h6>{{profe.nombreProfesor}}</h6>
+                            </label>
+                        </th>
+                    </tr>
+                </table>
+                <br>
+                <div class="row">
+                    <div class="col s6 center">
+                        <a class="modal-action modal-close waves-effect btn-large"(click)="addCodirectorUTM()">Guardar</a>
+                    </div>
+                    <div class="col s6 center">
+                        <a class="modal-action modal-close waves-effect btn-large">Cancelar</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+
     </div>
 </div>
