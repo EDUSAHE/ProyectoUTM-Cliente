@@ -29,6 +29,7 @@ import { PatentesComponent } from './components/patentes/patentes.component';
 import { RevisionesComponent } from './components/revisiones/revisiones.component';
 import { ComisionesComponent } from './components/comisiones/comisiones.component';
 import { ProyectosComponent } from './components/proyectos/proyectos.component';
+import {ListarArticulosJcComponent} from './components/listar-articulos-jc/listar-articulos-jc.component';
 import { ListarEventosJcComponent } from './components/listar-eventos-jc/listar-eventos-jc.component';
 import {  ListMateriaporsemestreComponent} from "./components/list-materiaporsemestre/list-materiaporsemestre.component";
 import { ListarTesistasJcComponent } from './components/listar-tesista-jc/listar-tesista-jc.component';
@@ -82,6 +83,10 @@ const routes: Routes = [
     {
 		  path: 'listarTutoradosJC',
 		  component: ListarTutoradosJcComponent
+	  },
+    {
+		  path: 'listarArticulosJC',
+		  component: ListarArticulosJcComponent
 	  },
 	  {
 		  path: 'patentes',

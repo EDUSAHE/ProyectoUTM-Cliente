@@ -24,24 +24,30 @@ export class ArticulosComponent implements OnInit {
 
 	idProfesor: number
 	idArticuloActual: number
-	idInstitutoActual : number
-	profesoresInstituto : any[]
-	Profesores: any []
+	idInstitutoActual: number
+	profesoresInstituto: any[]
+	Profesores: any[]
 	articulos: any[]
 	autoresNuevos: AutoresUTM[]
 	autorNuevo: AutoresUTM
-	articulo:any
+	articulo: any
 	fileToUpload: any
 	fechaInicial: string
 	fechaFinal: string
 	ArticuloActual: Articulo
 	urlArchivos: string
-	profesoresActuales: any []
+	profesoresActuales: any[]
 	ordenProfesores: any
 	externo: Externo
 	externos: Externo[]
-	sugerenciasExternos: any []
-	institutos : any []
+	sugerenciasExternos: any[]
+	institutos: any[]
+	idProfesoresInstituto: any[]
+	posiciones: any[]
+	opcionFiltrado: any
+	posNuevoExterno: any
+	posArticulo: any
+	externoExistente: any
 	// Paginación
 	pageSize = 10;
 	p = 1;
@@ -49,20 +55,26 @@ export class ArticulosComponent implements OnInit {
 	constructor(
 		private recargaService: RecargaService,
 		private profesorService: ProfesorService,
-		private institutoService : InstitutoService,
-		private externoService:ExternoService, 
-		private route: ActivatedRoute, 
-		private articulosService: ArticulosService, 
-		private cambioInforService: CambioInfoService, 
+		private institutoService: InstitutoService,
+		private externoService: ExternoService,
+		private route: ActivatedRoute,
+		private articulosService: ArticulosService,
+		private cambioInforService: CambioInfoService,
 		private imagenesService: ImagenesService
 	) {
+		this.posNuevoExterno = 1
+		this.posArticulo = 1
+		this.opcionFiltrado = 1
+		this.posiciones = ["---", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 		this.profesoresInstituto = []
+		this.idProfesoresInstituto = []
 		this.idInstitutoActual = 0
 		this.idArticuloActual = 0
 		this.institutos = []
 		this.idProfesor = 0
 		this.sugerenciasExternos = []
 		this.externo = new Externo();
+		this.externoExistente = { "idExternoAPA": 0, "pos": 1 }
 		this.articulo;
 		this.Profesores = []
 		this.articulos = []
@@ -77,10 +89,10 @@ export class ArticulosComponent implements OnInit {
 		this.fechaInicial = `${hoy.getFullYear() - 1}-${('0' + (hoy.getMonth() + 1)).slice(-2)}-${('0' + hoy.getDate()).slice(-2)}`
 		this.fechaFinal = `${hoy.getFullYear()}-${('0' + (hoy.getMonth() + 1)).slice(-2)}-${('0' + hoy.getDate()).slice(-2)}`
 
-		this.recargaService.recarga$.subscribe(signal => this.obtenerArticulos());
+		this.recargaService.recarga$.subscribe(signal => this.listarByFiltrado());
 
 		this.urlArchivos = environment.URI_ARCHIVOS
-		this.obtenerArticulos()
+		this.listarByFiltrado()
 		cambioInforService.currentMsg$.subscribe(mensaje => {
 
 		}, err => console.error(err))
@@ -93,23 +105,14 @@ export class ArticulosComponent implements OnInit {
 		})
 		this.route.paramMap.subscribe(params => {
 			this.idProfesor = Number(params.get('idProfesor'))
-			this.obtenerArticulos()
+			this.listarByFiltrado()
 		})
-		this.AutoresExternosSugerencias();
-	}
-
-	obtenerArticulos(): void {
-		this.articulosService.listArticulosByProfesorByPeriodo(this.idProfesor, this.fechaInicial, this.fechaFinal).subscribe((resArticulos: any) => {
-			this.articulos = resArticulos
-			console.log(this.articulos)
-		},
-			err => console.error(err))
 	}
 
 	//desplegar model
-	ActualizarArticuloModal(idArticulo:any) {
-		this.articulosService.obtenerArticulo(idArticulo).subscribe((resArticulo:any)=>{
-			this.ArticuloActual=resArticulo;
+	ActualizarArticuloModal(idArticulo: any) {
+		this.articulosService.obtenerArticulo(idArticulo).subscribe((resArticulo: any) => {
+			this.ArticuloActual = resArticulo;
 			this.ArticuloActual.fechaedicion = this.convertirFecha(resArticulo.fechaedicion)
 			$('#ActualizarArticulo').modal();
 			$('#ActualizarArticulo').modal('open');
@@ -121,7 +124,7 @@ export class ArticulosComponent implements OnInit {
 	actualizarArticulo() {
 		console.log(this.ArticuloActual)
 		this.articulosService.actualizarArticulo(this.ArticuloActual, this.ArticuloActual.idArticulo).subscribe((resActualiza: any) => {
-			this.obtenerArticulos();
+			this.listarByFiltrado();
 			$('#ActualizarArticulo').modal('close');
 			Swal.fire({
 				position: 'center',
@@ -129,13 +132,15 @@ export class ArticulosComponent implements OnInit {
 				title: 'Articulo Modificado',
 				showConfirmButton: false,
 				timer: 1000
-			  })
+			})
 		},
 			err => console.error(err))
 	}
 
 	//<!-- Modal AutoresExternos-->
-	ModalAutoresExternos() {
+	ModalAutoresExternos(idArticulo: any, index: any) {
+		this.idArticuloActual = idArticulo
+		this.posArticulo = index;
 		console.log("AutoresExternos");
 		this.AutoresExternosSugerencias()
 		this.ExternoExistente()
@@ -144,9 +149,9 @@ export class ArticulosComponent implements OnInit {
 	}
 
 	//<!-- Modal AutoresUTM-->
-	ModalAutoresUTM(idArticulo:any) {
+	ModalAutoresUTM(idArticulo: any) {
 		this.idArticuloActual = idArticulo
-		this.institutoService.obtenerTodo().subscribe((resInstitutos:any)=>{
+		this.institutoService.obtenerTodo().subscribe((resInstitutos: any) => {
 			this.institutos = resInstitutos;
 			this.institutos.splice(0, 1)
 			this.idInstitutoActual = this.institutos[0].idInstituto
@@ -157,20 +162,49 @@ export class ArticulosComponent implements OnInit {
 		$('#AutoresUTM').modal();
 		$('#AutoresUTM').modal('open');
 	}
-	cambioInstituto(){
-		this.profesorService.obtenerProfesoresPorInstituto(this.idInstitutoActual).subscribe((resProfesores:any)=>{
-			this.profesoresInstituto = resProfesores;
+
+	cambioInstituto() {
+		this.idProfesoresInstituto = []
+		this.articulosService.listProfesoresByInstitutoNoAutores(this.idInstitutoActual, this.idArticuloActual).subscribe((resProfesores: any) => {
+			this.profesoresInstituto = resProfesores
+			for (let i = 0; i < resProfesores.length; i++) {
+				this.profesoresInstituto[i].pos = "---"
+				this.profesoresInstituto[i].check = false
+			}
+			console.log(this.profesoresInstituto)
 		},
 			err => console.error(err))
 	}
 
-	addAutor(){
-		console.log(this.autorNuevo)
-		this.autoresNuevos.push(this.autorNuevo)
+	addAutor(index: number, modo: number) {
+		this.autorNuevo = new AutoresUTM()
+		this.autorNuevo.idProfesor = this.profesoresInstituto[index].idProfesor;
+		this.autorNuevo.pos = Number(this.profesoresInstituto[index].pos)
+		if (modo == 1 && this.profesoresInstituto[index].pos != "---") {
+			this.autoresNuevos.push(this.autorNuevo)
+		}
+		else if (modo == 2 && this.profesoresInstituto[index].check == true) {
+			this.autoresNuevos.push(this.autorNuevo)
+		}
 	}
 
-	//<!-- Modal Prioridades autores Publicacion-->
-	ModalPrioridades(idArticulo:any,profesores: any) {
+	addAutoresUTMSelect() {
+		this.articulosService.addAutoresUTM(this.idArticuloActual, this.autoresNuevos).subscribe((resAutores: any) => {
+			this.listarByFiltrado();
+			$('#AutoresUTM').modal('close');
+			Swal.fire({
+				position: 'center',
+				icon: 'success',
+				title: 'Autores Añadidos',
+				showConfirmButton: false,
+				timer: 1000
+			})
+		},
+			err => console.log(err))
+		this.autoresNuevos = []
+	}
+
+	ModalPrioridades(idArticulo: any, profesores: any) {
 		console.log("modalPrioridad");
 		this.idArticuloActual = idArticulo;
 		this.profesoresActuales = profesores;
@@ -179,7 +213,7 @@ export class ArticulosComponent implements OnInit {
 		console.log(this.profesoresActuales);
 	}
 
-	eliminarAutorPublicacion(idArticulo:any,idProfesor:any,esInterno:any){
+	eliminarAutorPublicacion(idArticulo: any, idProfesor: any, esInterno: any) {
 		Swal.fire({
 			title: '¿Deseas eliminar este Autor?',
 			position: 'center',
@@ -188,9 +222,9 @@ export class ArticulosComponent implements OnInit {
 			showConfirmButton: true,
 			confirmButtonText: 'Sí'
 		})
-		.then(respuesta => {
+			.then(respuesta => {
 				if (respuesta.isConfirmed) {
-					this.articulosService.eliminarAutor(idArticulo,idProfesor,esInterno).subscribe({
+					this.articulosService.eliminarAutor(idArticulo, idProfesor, esInterno).subscribe({
 						next: (resEliminar: any) => {
 							Swal.fire({
 								position: 'center',
@@ -198,55 +232,94 @@ export class ArticulosComponent implements OnInit {
 								title: 'Autor Eliminado',
 								showConfirmButton: false,
 								timer: 1000
-							  })
-							this.obtenerArticulos();
+							})
+							this.listarByFiltrado();
 						}
 					});
 				}
-		});
+			});
 	}
-
 
 	CambiarPrioridad() {
 		let aux: any[] = []
-		for(let i=0; i<this.profesoresActuales.length;i++){
-			aux.push({idProfesor:this.profesoresActuales[i].idProfesor,
-				pos:this.profesoresActuales[i].pos,
-				esInterno:this.profesoresActuales[i].esInterno})
+		for (let i = 0; i < this.profesoresActuales.length; i++) {
+			aux.push({
+				idProfesor: this.profesoresActuales[i].idProfesor,
+				pos: this.profesoresActuales[i].pos,
+				esInterno: this.profesoresActuales[i].esInterno
+			})
 		}
-		this.articulosService.updatePrioridadesOfAutoresByPublicacion(this.idArticuloActual,aux).subscribe((resNewPos:any)=>{
+		this.articulosService.updatePrioridadesOfAutoresByPublicacion(this.idArticuloActual, aux).subscribe((resNewPos: any) => {
 			Swal.fire({
 				position: 'center',
 				icon: 'success',
 				title: 'Prioridades Actualizadas',
 				showConfirmButton: false,
 				timer: 1000
-			  })
-			this.obtenerArticulos();
+			})
+			this.listarByFiltrado();
 		},
 			err => console.error(err))
 	}
 
-	AutoresUTM() {
-		console.log();
-	}
 	AutoresExternosSugerencias() {
 		this.articulosService.getSugerenciasExternoByAutorUTM(this.idProfesor).subscribe((resExternosSugeridos: any) => {
 			this.sugerenciasExternos = resExternosSugeridos
+			console.log(this.sugerenciasExternos)
+			for (let i = 0; i < this.articulos[this.posArticulo].autores.length; i++) {
+				if (this.articulos[this.posArticulo].autores[i].esInterno == 0) {
+					for(let j=0;j<this.sugerenciasExternos.length;j++){
+						if(this.sugerenciasExternos[j].idExternoAPA==this.articulos[this.posArticulo].autores[i].idProfesor){
+							this.sugerenciasExternos.splice(j,1);
+						}
+					}
+				}
+			}
+			console.log(this.sugerenciasExternos)
+
 		},
 			err => console.error(err))
 	}
-	crearNuevoAutorExterno(NuevoExterno:any) {
-		this.externoService.crearExterno(NuevoExterno).subscribe((resExterno:any) => {
-			console.log(NuevoExterno);
+
+	crearNuevoAutorExterno() {
+		console.log(this.externo);
+		this.articulosService.createExterno(this.idArticuloActual, this.posNuevoExterno, this.externo).subscribe((resExterno: any) => {
+			$('#AutoresExternos').modal('close');
+			Swal.fire({
+				position: 'center',
+				icon: 'success',
+				title: 'Se ha creado y agregado el autor externo',
+				showConfirmButton: false,
+				timer: 1300
+			})
+			this.listarByFiltrado();
+			this.externo = new Externo()
+			this.posNuevoExterno = 1
 		},
 			err => console.error(err))
-		$('#AutoresExternos').modal('close');
 	}
+
 	ExternoExistente() {
-		this.externoService.listExternos().subscribe((resExternos:any)=>{
-			this.externos =	resExternos.filter((el: any) => !this.sugerenciasExternos.includes(el));
+		this.articulosService.listAutoresExternosExistentesSinColaboracionArticulos(this.idProfesor).subscribe((resExternos: any) => {
+			this.externos = resExternos;
+			if (this.externos.length > 0)
+				this.externoExistente.idExternoAPA = this.externos[0].idExternoAPA;
 			console.log(this.externos);
+		},
+			err => console.error(err))
+	}
+
+	addExternoExistente() {
+		this.articulosService.addAutorExterno(this.idArticuloActual, new Date().toLocaleDateString("en-CA"), this.externoExistente).subscribe((resAddExterno: any) => {
+			$('#AutoresExternos').modal('close');
+			Swal.fire({
+				position: 'center',
+				icon: 'success',
+				title: 'Autor Externo Agregado',
+				showConfirmButton: false,
+				timer: 1000
+			})
+			this.listarByFiltrado();
 		},
 			err => console.error(err))
 	}
@@ -260,7 +333,7 @@ export class ArticulosComponent implements OnInit {
 			showConfirmButton: true,
 			confirmButtonText: 'Sí'
 		})
-		.then(respuesta => {
+			.then(respuesta => {
 				if (respuesta.isConfirmed) {
 					this.articulosService.eliminarArticulo(idArticulo).subscribe({
 						next: (resEliminar: any) => {
@@ -270,12 +343,12 @@ export class ArticulosComponent implements OnInit {
 								title: 'Articulo Eliminado',
 								showConfirmButton: false,
 								timer: 1000
-							  })
-							this.obtenerArticulos();
+							})
+							this.listarByFiltrado();
 						}
 					});
 				}
-		});
+			});
 	}
 
 	convertirFecha(fecha: string) {
@@ -296,7 +369,7 @@ export class ArticulosComponent implements OnInit {
 						icon: 'success',
 						title: 'Archivo Cargado Exitosamente'
 					})
-					this.obtenerArticulos()
+					this.listarByFiltrado()
 				}, err => console.error(err))
 			})
 		}
@@ -313,6 +386,47 @@ export class ArticulosComponent implements OnInit {
 			reader.readAsDataURL(file);
 		});
 
+	}
+
+	listarByFiltrado() {
+		this.articulos = []
+		switch (Number(this.opcionFiltrado)) {
+			case 1:
+				this.articulosService.listArticulosByProfesorByPeriodo(this.idProfesor, this.fechaInicial, this.fechaFinal).subscribe((resArticulos: any) => {
+					this.articulos = resArticulos
+					console.log(this.articulos)
+				},
+					err => console.error(err))
+				break;
+			case 2:
+				this.articulosService.listArticulosByProfesorByPeriodoByTitulo(this.idProfesor, this.fechaInicial, this.fechaFinal).subscribe((resArticulos: any) => {
+					this.articulos = resArticulos
+					console.log(this.articulos)
+				},
+					err => console.error(err))
+				break;
+			case 3:
+				this.articulosService.listArticulosByProfesorByPeriodoByEstado(this.idProfesor, this.fechaInicial, this.fechaFinal).subscribe((resArticulos: any) => {
+					this.articulos = resArticulos
+					console.log(this.articulos)
+				},
+					err => console.error(err))
+				break;
+			case 4:
+				this.articulosService.listArticulosByProfesorByPeriodoByAnyo(this.idProfesor, this.fechaInicial, this.fechaFinal).subscribe((resArticulos: any) => {
+					this.articulos = resArticulos
+					console.log(this.articulos)
+				},
+					err => console.error(err))
+				break;
+			case 5:
+				this.articulosService.listArticulosByProfesorByPeriodoByTipo(this.idProfesor, this.fechaInicial, this.fechaFinal).subscribe((resArticulos: any) => {
+					this.articulos = resArticulos
+					console.log(this.articulos)
+				},
+					err => console.error(err))
+				break;
+		}
 	}
 
 }

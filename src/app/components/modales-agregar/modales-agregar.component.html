@@ -303,3 +303,80 @@
         </div>
     </div>
 </div>
+
+<!-- Asignar Tutorados -->
+<div id="asignarTutoradosJC" class="modal">
+    <div class="modal-content">
+        <div class="row" style="margin-bottom: 0px !important;">
+            <div class="col s12">
+                <h3 class="center">Asignar Tutorados</h3>
+            </div>
+        </div>
+        <div style="border: .5px solid #78909c; padding: 10px;">
+            <form (ngSubmit)="asignarTutoradosJC()" ngNativeValidate>
+                <div class="row">
+                    <div class="col s12" style="margin-bottom: 1rem;">
+                        <label>Número de Tutorados</label>
+                        <select name="numeroTutorados" [(ngModel)]="tutorados.numero" class="browser-default">
+							<option *ngFor="let item of numeroTutorados" [value]="item">
+                                {{item}}
+                            </option>
+						</select>
+                    </div>
+
+                    <div class="col s12" style="margin-bottom: 1rem;">
+                        <label>Nivel</label>
+                        <select name="nivelTutorados" [(ngModel)]="tutorados.nivel" class="browser-default">
+                            <option value="1">Licenciatura</option>
+                            <option value="2">Maestria</option>
+                            <option value="3">Doctorado</option>
+                        </select>
+                    </div>
+
+                    <div class="col s12" style="margin-bottom: 1rem;">
+                        <label>Carrera/Posgrado</label>
+                        <select name="CarreraTutorados" [(ngModel)]="idCarreraActual" class="browser-default" (change)="obtenerProfesoresByCarrera()">
+							<option *ngFor="let carrera of Carreras" [value]="carrera.idCarrera">
+                                {{carrera.nombreCarrera}}
+                            </option>
+						</select>
+                    </div>
+
+                    <div class="col s12" style="margin-bottom: 1rem;">
+                        <label>Profesor</label>
+                        <select name="ProfesorTutorados" [(ngModel)]="idProfesorSelect" class="browser-default">
+							<option *ngFor="let profesor of Profesores" [value]="profesor.idProfesor">
+                                {{profesor.nombreProfesor}}
+                            </option>
+						</select>
+                    </div>
+
+                    <div class="col s12" style="margin-bottom: 1rem;">
+                        <label>Estado</label>
+                        <select name="EstadoTutorados" [(ngModel)]="tutorados.estado" class="browser-default">
+							<option value="En proceso">En proceso</option>
+                            <option value="Terminado">Terminado</option>
+						</select>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <input name="fechaIni" id="tutorados_fechainicio" [(ngModel)]="tutorados.inicio" required type="date">
+                        <label for="tutorados_fechainicio">Inicio</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input name="fechaFin" id="tutorados_fechafin" [(ngModel)]="tutorados.fin" required type="date">
+                        <label for="tutorados_fechafin">Fin</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s6 center">
+                        <input type="submit" class="waves-effect btn-large brown lighten-3" value="Guardar">
+                    </div>
+                    <div class="col s6 center">
+                        <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text">Cancelar</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

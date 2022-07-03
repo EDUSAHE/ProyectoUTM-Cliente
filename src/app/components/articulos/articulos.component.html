@@ -3,96 +3,30 @@
     <h3 class="center-align">Articulos</h3>
     <div class="row">
         <label for="tipoFiltrado">Filtrar por</label>
-        <select id="tipoFiltrado" class="browser-default">
-            <option value="1">Título</option>
-            <option value="2">Estado</option>
-            <option value="3">Año</option>
-            <option value="4">Tipo</option>
+        <select id="tipoFiltrado" class="browser-default" [(ngModel)]="opcionFiltrado" (change)="listarByFiltrado()">
+            <option value="1">Sin filtro</option>
+            <option value="2">Título</option>
+            <option value="3">Estado</option>
+            <option value="4">Año</option>
+            <option value="5">Tipo</option>
         </select>
     </div>
     <div class="row">
         <div class="col s6">
             <label class="">Fecha Inicial:</label>
-            <input type="date" [(ngModel)]="fechaInicial" (change)="obtenerArticulos()">
+            <input type="date" [(ngModel)]="fechaInicial" (change)="listarByFiltrado()">
         </div>
         <div class="col s6">
             <label>Fecha Final:</label>
-            <input type="date" [(ngModel)]="fechaFinal" (change)="obtenerArticulos()">
+            <input type="date" [(ngModel)]="fechaFinal" (change)="listarByFiltrado()">
         </div>
     </div>
-
-    <!-- <table>
-        <ng-container *ngFor="let articulo of articulos | 
-			paginate: {
-				itemsPerPage: pageSize,
-				currentPage: p 
-			};">
-
-            <tr class="hide-line">
-                <td colspan="6">
-                    <b class="color-blue">Capturado el</b><b class="color-red"> Validado</b>
-                </td>
-            </tr>
-
-            <tr class="hide-line">
-                <td colspan="6">
-                    <b>Título: </b> {{articulo.titulo}}
-                </td>
-            </tr>
-
-            <tr class="hide-line">
-                <td colspan="6">
-                    <b>Autores:</b><br>
-                    <span *ngFor="let profesor of articulo.autores;">
-                        {{profesor.nombreProfesor}}
-                        <a class="waves-effect waves-teal btn-flat"><i class="tiny material-icons">delete</i></a>
-                    </span>
-                </td>
-            </tr>
-
-            <tr>
-                <td style="width: 10%;">
-                    <b>Tipo</b><br><br> {{articulo.tipoCRL}}
-                </td>
-                <td style="width: 10%;">
-                    <b>Estado</b><br><br> {{articulo.estado}}
-                </td>
-                <td style="width: 10%;">
-                    <b>Año</b><br><br> {{articulo.anyo}}
-                </td>
-                <td style="width: 10%;">
-                    <b>Modificar</b><br><br>
-                    <a href="javascript: void(0);" (click)="ModalPrioridades(articulo.profesores)">
-                        <i class="material-icons">edit</i>Prioridades</a>
-                </td>
-                <td style="width: 15%;">
-                    <b>Agregar</b><br><br>
-                    <a href="javascript: void(0);" class="space" (click)="ModalAutoresUTM(articulo.idArticulo)"><i
-                            class="material-icons">add</i>UTM</a>
-                    <a href="javascript: void(0);" (click)="ModalAutoresExternos()"><i
-                            class="material-icons">add</i>Externo</a>
-                </td>
-                <td>
-                    <b>Opciones</b><br><br>
-                    <button class="space btn-option" (click)="ActualizarArticuloModal(articulo.idArticulo)">
-                        <i class="material-icons">edit</i>Modificar
-                    </button>
-                    <button class="space btn-option" (click)="eliminarArticulo(articulo.idArticulo)">
-                        <i class="material-icons">delete</i>Eliminar
-                    </button>
-                    <a class="icono-archivo" *ngFor="let archivo of articulo.archivos" href="{{urlArchivos}}/{{archivo.idArchivoYArticulo}}.{{archivo.extension}}" target="_blank">
-                        <i class="material-icons small">{{archivo.icono}}</i>
-                    </a>
-                </td>
-            </tr>
-        </ng-container>
-    </table> -->
     <table id="tablaArticulos">
         <ng-container *ngFor="let articulo of articulos| 
         paginate: {
             itemsPerPage: pageSize,
             currentPage: p 
-        };">
+        };let i=index">
             <tr>
                 <th colspan="12" class="intro">Título: {{articulo.titulo}}</th>
             </tr>
@@ -126,7 +60,7 @@
                     <a href="javascript: void(0);" class="waves-effect waves-light btn-small" (click)="ModalAutoresUTM(articulo.idArticulo)"><i
                             class="material-icons left">group_add</i>UTM</a>
                     <br>
-                    <a href="javascript: void(0);" class="waves-effect waves-light btn-small" (click)="ModalAutoresExternos()"><i class="material-icons left">group_add</i>Externo</a>
+                    <a href="javascript: void(0);" class="waves-effect waves-light btn-small" (click)="ModalAutoresExternos(articulo.idArticulo,i)"><i class="material-icons left">group_add</i>Externo</a>
                 </td>
                 <td>
                     <a href="javascript: void(0);" class="waves-effect waves-light btn-small" (click)="ActualizarArticuloModal(articulo.idArticulo)">
@@ -146,9 +80,6 @@
         </pagination-controls>
     </div>
 </div>
-
-
-
 
 <!-- Modal Actualizar Prioridad -->
 <div id="modalPrioridad" class="modal">
@@ -180,10 +111,10 @@
             <br>
             <div class="row">
                 <div class="col s6 center">
-                    <a class="modal-action modal-close waves-effect btn-large" (click)="CambiarPrioridad()">Guardar</a>
+                    <a class="waves-effect btn-large brown lighten-3" (click)="CambiarPrioridad()">Guardar</a>
                 </div>
                 <div class="col s6 center">
-                    <a class="modal-action modal-close waves-effect btn-large">Cancelar</a>
+                    <a class="waves-effect btn-large brown lighten-3">Cancelar</a>
                 </div>
             </div>
         </div>
@@ -336,46 +267,40 @@
                     </option>
                 </select>
             </div>
-            <form>
-                <table>
-                    <tr *ngFor="let profesorInstituto of profesoresInstituto;">
-                        <th style="width:2rem;">
-                            <label>
-                                <input type="checkbox" name="idProfesor" [(ngModel)]="autorNuevo.idProfesor" />
-                                <span></span>
-                            </label>
-                        </th>
-                        <th style="width:4rem;">
-                            <select name="pos" [(ngModel)]="autorNuevo.pos" class="browser-default">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
-                            </select>
-                        </th>
-                        <th>
-                            <label>
-                                <h6>{{profesorInstituto.nombreProfesor}}</h6>
-                            </label>
-                        </th>
-                    </tr>
-                </table>
-                <br>
-                <div class="row">
-                    <div class="col s6 center">
-                        <a class="modal-action modal-close waves-effect btn-large" (click)="AutoresUTM()">Guardar</a>
+            <div>
+                <form (ngSubmit)="addAutoresUTMSelect()" ngNativeValidate>
+                    <table>
+                        <tr *ngFor="let profesorInstituto of profesoresInstituto; let i=index">
+                            <th style="width: 20px;">
+                                <label>
+                                    <input type="checkbox" name="idProfesor" [(ngModel)]="profesorInstituto.check"
+                                        (click)="addAutor(i,1)" />
+                                    <span></span>
+                                </label>
+                            </th>
+                            <th style="width: 60px;">
+                                <select name="pos" class="browser-default" [(ngModel)]="profesorInstituto.pos" (change)="addAutor(i,2)">
+                                    <option *ngFor="let item of posiciones" [value]="item">{{item}}</option>
+                                </select>
+                            </th>
+                            <th>
+                                <label>
+                                    <h6>{{profesorInstituto.nombreProfesor}}</h6>
+                                </label>
+                            </th>
+                        </tr>
+                    </table>
+                    <br>
+                    <div class="row">
+                        <div class="col s6 center">
+                            <input type="submit" class="waves-effect btn-large brown lighten-3" value="Guardar">
+                        </div>
+                        <div class="col s6 center">
+                            <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text">Cancelar</a>
+                        </div>
                     </div>
-                    <div class="col s6 center">
-                        <a class="modal-action modal-close waves-effect btn-large">Cancelar</a>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
 
     </div>
@@ -390,37 +315,25 @@
             </div>
         </div>
         <div style="border: .5px solid #78909c; padding: 10px;">
-            <!--Tabla Sugerencias -->
+            <h5 style="text-align: center;">Autores Externos Sugeridos </h5>
             <table ALIGN=CENTER>
-                <caption>
-                    <h6>Sugerencias</h6>
-                </caption>
                 <tr *ngFor="let externo of sugerenciasExternos;">
-                    <th>
+                    <td style="width:5%;">
                         <label>
                             <input type="checkbox" [(ngModel)]="externo.agregado" />
                             <span></span>
                         </label>
-                    </th>
-                    <th style=" width:8rem; ">
-                        <select [(ngModel)]="externo.prioridad" class="browser-default" style=" width:8rem; ">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
+                    </td>
+                    <td style="width:8%;">
+                        <select name="posExterExist" [(ngModel)]="externoExistente.pos" class="browser-default">
+                            <option *ngFor="let item of posiciones" [value]="item">{{item}}</option>
                         </select>
-                    </th>
-                    <th style=" width:16rem;">
+                    </td>
+                    <td>
                         <label>
                             <h6>{{externo.nombreAPA}}</h6>
                         </label>
-                    </th>
+                    </td>
                 </tr>
             </table>
             <br>
@@ -430,31 +343,48 @@
                 </div>
             </div>
 
-            <!-- Formulario Agregar Nuevo Autor Externo -->
-            <form (ngSubmit)="ExternoExistente()" ngNativeValidate>
-                <div class="row">
-                    <label for="Externos">Externos:</label>
-                    <select id="Externos" class="browser-default">
-                        <option *ngFor="let externo of externos" [value]="externo.idExternoAPA">
-                            {{externo.nombreAPA}}
-                        </option>
-                    </select>
-                </div>
-
-
+            <br>
+            <h5 style="text-align: center;">Buscar Autor Externo Existente </h5>
+            <form (ngSubmit)="addExternoExistente()" ngNativeValidate>
+                <table>
+                    <tr style="border:none;">
+                        <td style="width:8%;">
+                            <select name="posExterExist" [(ngModel)]="externoExistente.pos" class="browser-default">
+                                <option *ngFor="let item of posiciones" [value]="item">{{item}}</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="idExterExist" class="browser-default" [(ngModel)]="externoExistente.idExternoAPA">
+                                <option *ngFor="let externo of externos" [value]="externo.idExternoAPA">
+                                    {{externo.nombreAPA}} ({{externo.correo}})
+                                </option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+                <br>
                 <div class="row">
                     <div class="col s12 center">
                         <input type="submit" class="waves-effect btn-large brown lighten-3" value="Guardar">
                     </div>
                 </div>
             </form>
-
-
-
-
-
-            <!-- Formulario Agregar Nuevo Autor Externo -->
-            <form (ngSubmit)="crearNuevoAutorExterno(externo)" ngNativeValidate>
+            <br>
+            <h5 style="text-align: center;">Crear Nuevo Autor Externo</h5>
+            <table>
+                <tr style="border:none;">
+                    <td style="width:8%;">
+                        <select name="posNuevoExter" [(ngModel)]="posNuevoExterno" class="browser-default">
+                            <option *ngFor="let item of posiciones" [value]="item">{{item}}</option>
+                        </select>
+                    </td>
+                    <td>
+                        <p style="text-align: justify;">En caso de no exisitir el autor externo puede crear uno rellenando adecuadamente el siguiente formulario
+                        </p>
+                    </td>
+                </tr>
+            </table>
+            <form (ngSubmit)="crearNuevoAutorExterno()" ngNativeValidate>
                 <div class="row">
                     <div class="input-field col s12">
                         <input name="Nombres" id="externo_nombre" [(ngModel)]="externo.nombre" required type="text">
@@ -478,7 +408,6 @@
                     </div>
                 </div>
             </form>
-
         </div>
     </div>
 </div>

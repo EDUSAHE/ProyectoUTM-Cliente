@@ -1,0 +1,104 @@
+<div class="container">
+
+    <h3 class="center-align">Articulos</h3>
+
+    <table>
+        <tr style="border:none;">
+            <td style="width:50%;">
+                <div class="row">
+                    <label for="FiltradoFormatoBib">Formato Bib</label>
+                    <select id="FiltradoFormatoBib" [(ngModel)]="opcionFormato" class="browser-default" (change)="listarByFiltrado(opcionFormato)">
+                        <option value="1">APA</option>
+                        <option value="2">Nombre</option>
+                    </select>
+                </div>
+            </td>
+            <td style="width:50%;">
+                <div class="row">
+                    <label for="FiltradoProfesores">Profesor</label>
+                    <select id="FiltradoProfesores" class="browser-default">
+                        <option value="1">Todos</option>
+                        <option value="2">Uno en especifico</option>
+                    </select>
+                </div>
+            </td>
+        </tr>
+        <tr style="border:none;" *ngIf="opcionFiltrado==2">
+            <td colspan="2">
+                <div class="row">
+                    <select name="FiltroProfesorEspecifico" class="browser-default">
+                        <option *ngFor="let profesor of profesoresCarrera;" [ngValue]="profesor.idProfesor">
+                            {{profesor.nombreProfesor}}
+                        </option>
+                    </select>
+                </div>
+            </td>
+        </tr>
+        <tr style="border:none;">
+            <td style="width:50%;">
+                <div class="row">
+                    <label for="FiltradoTipo">Tipo</label>
+                    <select id="FiltradoTipo" [(ngModel)]="opcionTipo" class="browser-default" (change)="listarByFiltrado(opcionTipo)">
+                        <option value="3">Todos</option>
+                        <option value="4">Revista</option>
+                        <option value="5">Libro</option>
+                        <option value="6">Cap Libro</option>
+                        <option value="7">Congreso</option>
+                        <option value="8">Reporte Técnico</option>
+                    </select>
+                </div>
+            </td>
+            <td style="width:50%;">
+                <div class="row">
+                    <label for="FiltradoEstado">Estado</label>
+                    <select id="FiltradoEstado" class="browser-default">
+                        <option value="Todos">Todos</option>
+                        <option value="Aceptado">Aceptado</option>
+                        <option value="Enviado">Enviado</option>
+                        <option value="Publicado">Publicado</option>
+                    </select>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div class="row">
+        <div class="col s6">
+            <label class="">Fecha Inicial:</label>
+            <input type="date" [(ngModel)]="fechaInicial">
+        </div>
+        <div class="col s6">
+            <label>Fecha Final:</label>
+            <input type="date" [(ngModel)]="fechaFinal">
+        </div>
+    </div>
+    <table id="tablaArticulos">
+        <ng-container *ngFor="let articulo of articulosCarrera| 
+        paginate: {
+            itemsPerPage: pageSize,
+            currentPage: p 
+        };let i=index">
+            <tr>
+                <th colspan="12" class="intro">Título: {{articulo.titulo}}</th>
+            </tr>
+            <tr>
+                <th class="">Autores</th>
+                <th class="">Tipo</th>
+                <th class="">Estado</th>
+            </tr>
+            <tr>
+                <td>
+                    <span *ngFor="let autor of articulo.autores;">
+                        {{autor.nombreProfesor}} <br>
+                    </span>
+                </td>
+                <td>{{articulo.tipoCRL}}: <b>{{articulo.nombreCRL}}</b></td>
+                <td>{{articulo.estado}} en {{articulo.anyo}}</td>
+            </tr>
+        </ng-container>
+    </table>
+    <br><br>
+    <div class="row center-align">
+        <pagination-controls class="my-pagination" (pageChange)="p = ($event)" previousLabel="Anterior" nextLabel="Siguiente">
+        </pagination-controls>
+    </div>
+</div>

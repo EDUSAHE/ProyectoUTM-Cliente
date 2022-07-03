@@ -71,9 +71,15 @@ export class ArticulosService {
 
   // 'profesor' es un JSON con los atributos:
   // idProfesor, pos
-  addAutoresUTM(idArticulo:number, profesor:any){
-    return this.http.post(`${environment.API_URI}/profesorYArticulo/addAutoresUTM/${idArticulo}/`,profesor);
+  addAutoresUTM(idArticulo:number, autores:any){
+    return this.http.post(`${environment.API_URI}/profesorYArticulo/addAutoresUTM/${idArticulo}/`,autores);
   }
+
+  listProfesoresByInstitutoNoAutores(idInstituto:number,idArticulo:number){
+    return this.http.get(`${environment.API_URI}/articulos/listProfesoresByInstitutoNoAutores/${idInstituto}/${idArticulo}`);
+  }
+
+  //Autores Externos
 
   // 'profesor' es un JSON con los atributos:
   // correo, nombre, nombreAPA
@@ -83,6 +89,34 @@ export class ArticulosService {
 
   getSugerenciasExternoByAutorUTM(idProfesor:number){
     return this.http.get(`${environment.API_URI}/articulos/getSugerenciasExternoByAutorUTM/${idProfesor}`);
+  }
+
+  listAutoresExternosExistentesSinColaboracionArticulos(idProfesor:number){
+    return this.http.get(`${environment.API_URI}/articulos/listAutoresExternosExistentesSinColaboracionArticulos/${idProfesor}`);
+  }
+
+  addAutorExterno(idArticulo:number,fecha:any,autorExterno:any){
+    return this.http.post(`${environment.API_URI}/articulos/addAutorExterno/${idArticulo}/${fecha}`,autorExterno);
+  }
+
+  //Filtrado para Arituculos Profesor-Investigador
+
+  listArticulosByProfesorByPeriodoByTipo(idProfesor:number, fechaIni:any, fechaFin:any){
+    return this.http.get(`${environment.API_URI}/articulos/listArticulosByProfesorByPeriodoByTipo/${idProfesor}/${fechaIni}/${fechaFin}`);
+  }
+  listArticulosByProfesorByPeriodoByEstado(idProfesor:number, fechaIni:any, fechaFin:any){
+    return this.http.get(`${environment.API_URI}/articulos/listArticulosByProfesorByPeriodoByEstado/${idProfesor}/${fechaIni}/${fechaFin}`);
+  }
+  listArticulosByProfesorByPeriodoByTitulo(idProfesor:number, fechaIni:any, fechaFin:any){
+    return this.http.get(`${environment.API_URI}/articulos/listArticulosByProfesorByPeriodoByTitulo/${idProfesor}/${fechaIni}/${fechaFin}`);
+  }
+  listArticulosByProfesorByPeriodoByAnyo(idProfesor:number, fechaIni:any, fechaFin:any){
+    return this.http.get(`${environment.API_URI}/articulos/listArticulosByProfesorByPeriodoByAnyo/${idProfesor}/${fechaIni}/${fechaFin}`);
+  }
+
+
+  listArticulosByCarreraByPeriodo(idCarrera:number,fechaIni:any,fechaFin:any){
+    return this.http.get(`${environment.API_URI}/articulos/listArticulosByCarreraByPeriodo/${idCarrera}/${fechaIni}/${fechaFin}`);
   }
 
 }
