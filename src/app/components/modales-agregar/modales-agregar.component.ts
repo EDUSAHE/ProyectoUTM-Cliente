@@ -4,12 +4,14 @@ import { Comision } from 'src/app/models/comision.model';
 import { Instituto } from 'src/app/models/instituto.model';
 import { Profesor } from 'src/app/models/profesor.model';
 import { Proyecto } from 'src/app/models/proyecto.model';
-import { Tuturado } from 'src/app/models/tutorado.model';
+import { Tesista } from 'src/app/models/tesista.model';
 import { CarreraService } from 'src/app/services/carrera.service';
 import { InstitutoService } from 'src/app/services/instituto.service';
 import { ProfesorService } from 'src/app/services/profesor.service';
-import { DatePipe } from '@angular/common';
+import { TesistasService } from 'src/app/services/tesistas.service';
 import Swal from 'sweetalert2';
+import { DatePipe } from '@angular/common';
+import { Tuturado } from 'src/app/models/tutorado.model';
 import { TutoradosService } from 'src/app/services/tutorados.service';
 
 declare var $: any
@@ -20,14 +22,21 @@ declare var $: any
 })
 export class ModalesAgregarComponent implements OnInit {
 
+  tesista: Tesista
   profesorNuevo: Profesor
   profesorActual: Profesor
   institutoNuevo: Instituto
   carreraNueva: Carrera
   carreras: Carrera[]
-  institutos: Instituto[]
+  institutos: any[]
+  profesorByIns: any[]
   comision: Comision
-  proyecto: Proyecto
+  proyecto:Proyecto
+  Institutos:any[]
+  idInstitutoActual : number
+  idProfesorActual : number
+  fechaInicial: string
+	fechaFinal: string
   tutorados: Tuturado
   Carreras: any[]
   Profesores: any[]
@@ -40,8 +49,18 @@ export class ModalesAgregarComponent implements OnInit {
     private datePipe: DatePipe, 
     private carreraService: CarreraService, 
     private institutoService: InstitutoService, 
-    private profesorService: ProfesorService)
-    {
+    private profesorService: ProfesorService,
+    private tesistaService: TesistasService) {
+    let hoy = new Date()
+    this.fechaInicial = `${hoy.getFullYear() - 1}-${('0' + (hoy.getMonth() + 1)).slice(-2)}-${('0' + hoy.getDate()).slice(-2)}`
+		this.fechaFinal = `${hoy.getFullYear()}-${('0' + (hoy.getMonth() + 1)).slice(-2)}-${('0' + hoy.getDate()).slice(-2)}`
+
+    
+    this.profesorByIns =[]
+    this.idInstitutoActual = 0
+    this.idProfesorActual = 1
+    this.Institutos =[]
+    this.tesista = new Tesista()
     this.profesorNuevo = new Profesor()
     this.profesorActual = new Profesor()
     this.institutoNuevo = new Instituto()
@@ -56,6 +75,8 @@ export class ModalesAgregarComponent implements OnInit {
     this.Profesores = []
     this.idCarreraActual = 0;
     this.idProfesorSelect = 0
+    this.tesista.inicio=this.fechaInicial
+    this.tesista.fin=this.fechaFinal
   }
 
   ngOnInit(): void {
@@ -65,8 +86,14 @@ export class ModalesAgregarComponent implements OnInit {
     this.institutoService.obtenerTodo().subscribe((institutosRes: any) => {
       this.institutos = institutosRes
       this.institutos.splice(0, 1)
+      this.Institutos=this.institutos;
       this.profesorNuevo.idInstituto = this.institutos[0].idInstituto
-
+      this.profesorService.obtenerProfesoresPorInstituto(this.Institutos[0].idInstituto).subscribe((resProfesores:any) =>{
+        this.profesorByIns = resProfesores;
+        this.idProfesorActual=this.profesorByIns[0].idProfesor
+        console.log(this.profesorByIns)
+      },
+        err => console.error(err))
       // Obtener todas las carreras del instituto
       this.actualizarCarreras()
     }, err => console.error(err))
@@ -197,5 +224,31 @@ export class ModalesAgregarComponent implements OnInit {
     this.setFechaTutorados()
     this.obtenerCarreras()
   }
+
+  crearTesista(){
+    this.tesistaService.crearTesis(this.idProfesorActual,this.tesista).subscribe(res => {
+          Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Tesita Agregado'
+      })
+    }, err => console.error(err));
+
+    this.tesista= new Tesista;
+    this.tesista.inicio=this.fechaInicial;
+    this.tesista.fin=this.fechaFinal;
+
+  }
+
+  cambioInstituto(){
+    this.profesorService.obtenerProfesoresPorInstituto(this.tesista.idInstituto).subscribe((resProfesores:any) =>{
+      this.profesorByIns = resProfesores;
+      console.log(this.profesorByIns)
+    },
+      err => console.error(err))
+  }
+
+
+      
 
 }

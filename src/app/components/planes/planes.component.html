@@ -1,0 +1,89 @@
+<div class="container">
+    <h3 class="center-align">Planes de Estudio</h3>
+
+    <div class="row">
+		<button class="col btn" (click)="abreFormularioPlan()" >
+			Agregar Plan
+		</button>
+	</div>
+
+    <table>
+        <tr id="tablaPlanes">
+            <th class="intro" onclick="sortTable(0, 'str', 'tablaPlanes')">Plan</th>
+            <th class="intro">Opciones</th>
+        </tr>
+
+        <ng-container *ngFor="let plans of planes">
+            <tr>
+                <td>{{plans.nombrePlan}}</td>
+                    <td style="width: 10%; text-align:center;">
+                        <a href="javascript: void(0);" class="space" (click)="modificarPlan(plans)"><i class="material-icons">edit</i>Modificar</a>
+						<button class="space btn-option" (click)="eliminarPlan(plans.idPlan)">
+							<i class="material-icons">delete</i>
+						</button>
+					</td>
+               
+            </tr>
+        </ng-container>
+    </table>
+<!-- MODAL AGREGAR PLAN-->
+<div id="agregarPlan" class="modal">
+    <div class="modal-content">
+        <div class="row" style="margin-bottom: 0px !important;">
+            <div class="col s12">
+                <h3 class="center">Nuevo Plan</h3>
+            </div>
+        </div>
+        <div style="border: .5px solid #78909c; padding: 10px;">
+			<form (ngSubmit)="agregarPlan()"  ngNativeValidate>
+				<div class="row">
+					<div class="input-field col s12">
+						<input name="nombre" id="plan_plan" [(ngModel)]="planNuevo.nombrePlan" required type="text">
+						<label for="plan_plan">Nombre plan</label>
+					</div>
+				</div>
+                <div class="row">
+                    <div class="col s6 center">
+                        <input type="submit" class="waves-effect btn-large brown lighten-3" value="Enviar">
+                    </div>
+                    <div class="col s6 center">
+                        <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text">Cancelar</a>
+                    </div>
+                </div>
+			</form>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- MODAL ACTUALIZAR PLAN-->
+<div id="actualizarPlan" class="modal">
+    <div class="modal-content">
+        <div class="row" style="margin-bottom: 0px !important;">
+            <div class="col s12">
+                <h3 class="center">Actualizar Plan</h3>
+            </div>
+        </div>
+        <div style="border: .5px solid #78909c; padding: 10px;">
+			<form (ngSubmit)="actualizarplan()"  ngNativeValidate>
+				<div class="row">
+					<div class="input-field col s12">
+						<input name="nombre" id="plan_plan" [(ngModel)]="planNuevo.nombrePlan"  [value]="planNuevo.nombrePlan"required type="text">
+						<label for="plan_plan">Nombre plan</label>
+					</div>
+				</div>
+                <div class="row">
+                    <div class="col s6 center">
+                        <input type="submit" class="waves-effect btn-large brown lighten-3" value="Enviar">
+                    </div>
+                    <div class="col s6 center">
+                        <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text">Cancelar</a>
+                    </div>
+                </div>
+			</form>
+        </div>
+    </div>
+</div>
+
+

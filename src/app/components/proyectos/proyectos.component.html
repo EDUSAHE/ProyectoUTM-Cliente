@@ -18,30 +18,22 @@
         <ng-container *ngFor="let proyecto of proyectos">
 
             <tr class="hide-line">
-                <td class="intro" colspan="12">
+                <td class="intro" colspan="20">
                     <b>Nombre del Proyecto:</b> {{proyecto.nombreProyecto}}
                 </td>
             </tr>
 
-
-            <tr class="hide-line">
-                <td colspan="6">
-                    <b>Colaboradores Externos: </b><br>
-                </td>
-            </tr>
-
-            <tr class="hide-line">
-                <td colspan="6">
-                    <b>Colaboradores Internos: </b><br>
-                </td>
-            </tr>
-
-
             <tr>
+                <td colspan="1">
+                    <b>Colaboradores: </b><br>
+                    <a href="javascript: void(0);" class="space"><i
+                    class="material-icons">delete</i>Agregar</a>
+                </td>
+
                 <td style="width: 10%;">
                     <b>Estado</b><br><br> {{proyecto.estado}}
                 </td>
-
+                
                 <td style="width: 10%;">
                     <b>Financiado</b><br><br> {{proyecto.financiado}}
                 </td>
@@ -60,6 +52,20 @@
                         <b>Patrocinador</b><br><br> {{proyecto.patrocinador}}
                     </td>
 
+
+                    <td colspan="6">
+                        <b>Agregar Colaborador: </b><br>
+                        <a href="javascript: void(0);" class="space"><i
+                            class="material-icons">add</i>Agregar</a>
+                    </td>
+    
+                    <td colspan="6">
+                        <b>Prioridaes: </b><br>
+                        <a href="javascript: void(0);" class="space"><i
+                            class="material-icons">edit</i>Agregar</a>
+                    </td>
+
+                    
                     <td style="width: 10%;">
                         <b>Opciones</b><br><br>
                         <a href="javascript: void(0);" class="space" (click)="editarProyectoE(proyecto.idProyecto)"><i
