@@ -62,4 +62,8 @@ export class MateriasService {
   listMateriasMultiasignacionByPeriodoByProfesor(idPeriodo: number, idProfesor: number){
     return this.http.get(`${environment.API_URI}/materias/listMateriasMultiasignacionByPeriodoByProfesor/${idPeriodo}/${idProfesor}`)
   }
+
+  asignarMultiAsignacion(idProfesor:number, datos:any){
+    return this.http.post(`${environment.API_URI}/materias/asignarMultiAsignacion/${idProfesor}`,datos);
+  }
 }

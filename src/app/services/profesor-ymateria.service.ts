@@ -14,6 +14,10 @@ export class ProfesorYmateriaService {
     return this.http.post(`${environment.API_URI}/profesorYMateria/create`,materia);
   }
 
+  editarMateria(idProfesorYMateria:number, datos:any){
+    return this.http.put(`${environment.API_URI}/profesorYMateria/update/${idProfesorYMateria}`,datos)
+  }
+
   eliminarAsignacion(idProfesorYMateria:number){
     return this.http.delete(`${environment.API_URI}/profesorYMateria/delete/${idProfesorYMateria}`)
   }

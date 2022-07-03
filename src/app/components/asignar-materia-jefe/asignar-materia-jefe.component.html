@@ -5,11 +5,7 @@
 		<div class="col offset-s3 s6">
 			<label class="">A partir de periodo:</label>
 			<select class="browser-default" (change)="actualizarPeriodo($event.target)">
-				<option 
-					*ngFor="let periodo of periodos" 
-					[value]="periodo.idPeriodo"
-					[selected]="periodo.actual == 1"
-				>
+				<option *ngFor="let periodo of periodos" [value]="periodo.idPeriodo" [selected]="periodo.actual == 1">
 					{{periodo.nombre}}
 				</option>
 			</select>
@@ -38,7 +34,7 @@
 		</button>
 	</div>
 
-	
+
 
 	<ng-container *ngFor="let materia of materiasPorProfesor; let i = index">
 		<div class="nombre">
@@ -60,10 +56,10 @@
 				<th class="intro"></th>
 				<th class="intro"></th>
 			</tr>
-			
+
 			<tr *ngFor="let materiaP of materiasPorProfesor[i].materias">
 				<td style="width: 30%;">{{materias.get(materiaP.idMateria)}}</td>
-				<td style="width: 7%;">{{materiaP.grupo}}</td>
+				<td style="width: 7%;">{{materiaP.grupo}}0{{materiaP.semestre}}</td>
 				<td style="width: 25%;">{{materiaP.nombreCarrera}}</td>
 				<td style="width: 7%;">{{materiaP.idPlan}}</td>
 				<td style="width: 8%;">{{periodoActual.nombre}}</td>
@@ -117,7 +113,7 @@
 				<td style="width: 7%;">
 					<span class="eliminarG" *ngFor="let grupo of materiaA.grupos">
 						{{grupo.grupo}}
-						<button class="btn-option " (click)="eliminarGrupo()">
+						<button class="btn-option " (click)="eliminarGrupo(grupo)">
 							<i class="material-icons">delete</i>
 						</button>
 						<br>
@@ -127,12 +123,12 @@
 				<td style="width: 7%;">{{materiaA.idPlan}}</td>
 				<td style="width: 8%;">{{materiaA.nombre}}</td>
 				<td style="width: 10%;">
-					<button class="btn-option" (click)="abreEditarAsignacion(materia,i)">
+					<button class="btn-option" (click)="abreAgregarGrupo(materiaA.idProfesorYMateriaMultiple)">
 						Agregar Grupo
 					</button>
 				</td>
 				<td style="width: 10%;">
-					<button class="btn-option" (click)="abreEliminarMultiAsignacion(materiaA)">
+					<button class="btn-option" (click)="abreEliminarMultiAsignacion(materiaA.idProfesorYMateriaMultiple)">
 						Eliminar
 					</button>
 				</td>
@@ -151,24 +147,19 @@
 
 <div id="asignarMateria" class="modal">
 	<div class="modal-content">
-		 <div class="row" style="margin-bottom: 0px !important;">
-			  <div class="col s12">
-					<h3 class="center">Asignar Materia</h3>
-			  </div>
-		 </div>
-		 <div style="border: .5px solid #78909c; padding: 10px;">
-		  <form (ngSubmit)="asignarMateriaProfesor()"  ngNativeValidate>
-			  <div class="row">
+		<div class="row" style="margin-bottom: 0px !important;">
+			<div class="col s12">
+				<h3 class="center">Asignar Materia</h3>
+			</div>
+		</div>
+		<div style="border: .5px solid #78909c; padding: 10px;">
+			<form (ngSubmit)="asignarMateriaProfesor()" ngNativeValidate>
+				<div class="row">
 
 					<div class="col s12">
 						<label>Profesor</label>
-						<select 	name="profesor" 
-									[(ngModel)]="asignarNuevaMateria.idProfesor"
-								  	class="browser-default"
-						>
-							<option *ngFor="let profesor of profesorAsignar" 
-										[ngValue]="profesor.idProfesor"
-										>
+						<select name="profesorA" [(ngModel)]="asignarMateria.idProfesor" class="browser-default">
+							<option *ngFor="let profesor of profesores" [ngValue]="profesor.idProfesor">
 								{{profesor.nombreProfesor}}
 							</option>
 						</select>
@@ -177,114 +168,90 @@
 
 					<div class="col s12">
 						<label>Carrera</label>
-								<select	name="carrera_asignar" 
-											[(ngModel)]="asignarNuevaMateria.idCarrera"
-											(change)="actualizarCarrera($event.target)"
-											class="browser-default"
-								>
-								<option *ngFor="let carrera of carreraProfesor" 
-											[value]="carrera.idCarrera"
-								>{{carrera.nombreCarrera}}</option>
-								</select>
+						<select name="carreraA" [(ngModel)]="asignarMateria.idCarrera" class="browser-default"
+							(change)="actualizarCarrera($event.target)">
+							<option *ngFor="let carrera of carreras" [value]="carrera.idCarrera">
+								{{carrera.nombreCarrera}}
+							</option>
+						</select>
 						<br>
-					</div>
-
-				  <div class="col s12">
-					  <label>Plan</label>
-							  <select	name="plan" 
-							  (change)="actualizarPlan($event.target)" 
-							  class="browser-default"
-					  >
-						  <option *ngFor="let plan of planAsignarMateriaNueva" 
-								  [ngValue]="plan.idPlan"
-						  >{{plan.nombrePlan}}</option>
-							  </select>
-				  </div>
-
-				  <div class="col s12">
-					<br>
-					<label>Semestre</label>
-							<select	name="semestre" 
-							[(ngModel)]="asignarNuevaMateria.semestre" 
-							class="browser-default"
-							(change)="actualizarSemestre($event.target)"
-					>
-						<option *ngFor="let semestre of semestreArray();"
-								[value]="semestre.llave"
-								
-						>{{semestre.valor}}</option>
-							</select>
 					</div>
 
 					<div class="col s12">
+						<label>Plan</label>
+						<select name="planA" [(ngModel)]="asignarMateria.idPlan" class="browser-default"
+							(change)="actualizarPlan($event.target)">
+							<option *ngFor="let plan of planes" [value]="plan.idPlan">
+								{{plan.nombrePlan}}
+							</option>
+						</select>
 						<br>
-						<label>Materia</label>
-								<select	name="materiaA" 
-								[(ngModel)]="asignarNuevaMateria.idMateria" 
-								class="browser-default"
-						>
-							<option *ngFor="let materia of materiasAsignar" 
-									[ngValue]="materia.idMateria"
-									[selected]="materia.idMateria == materiaAsignarActual"
-									
-							>{{materia.nombreMateria}}</option>
-								</select>
 					</div>
 
-				  <div class="col s12">
-					<br>
-					<label>Grupo</label>
-							<select	name="grupo" 
-							[(ngModel)]="asignarNuevaMateria.grupo" 
-							class="browser-default"
-					>
-						<option *ngFor="let grupo of GrupoArray();"
-								[ngValue]="grupo.llave"
-						>{{grupo.valor}}</option>
-							</select>
+					<div class="col s12">
+						<label>Semestre</label>
+						<select name="semestreA" [(ngModel)]="asignarMateria.semestre" class="browser-default"
+							(change)="actualizarSemestre($event.target)">
+							<option *ngFor="let semestre of semestreArray();" [value]="semestre.llave">{{semestre.valor}}
+							</option>
+						</select>
+						<br>
 					</div>
-				  
-			  </div>
-  
-					<div class="row">
-						 <div class="col s6 center">
-					  <button type="submit" class="waves-effect btn-large brown lighten-3 black-text">
-						  Enviar
-					  </button>
-						 </div>
-						 <div class="col s6 center">
-							  <a class="modal-close waves-effect btn-large brown lighten-3 black-text">
-						  Cancelar
-					  </a>
-						 </div>
+
+					<div class="col s12">
+						<label>Materia</label>
+						<select name="materiaA" [(ngModel)]="asignarMateria.idMateria" class="browser-default"
+						>
+							<option *ngFor="let materia of materiasA" [value]="materia.idMateria">
+								{{materia.nombreMateria}}
+							</option>
+						</select>
+						<br>
 					</div>
-		  </form>
-		 </div>
+
+					<div class="col s12">
+						<label>Grupo</label>
+						<select name="grupoA" [(ngModel)]="asignarMateria.grupo" class="browser-default" (change)="actualizarGrupo($event.target)">
+							<option *ngFor="let grupo of grupoArray();" [value]="grupo.llave">{{grupo.valor}}
+							</option>
+						</select>
+						<br>
+					</div>
+
+				</div>
+				<div class="row">
+					<div class="col s6 center">
+						<button type="submit" class="waves-effect btn-large brown lighten-3 black-text">
+							Enviar
+						</button>
+					</div>
+					<div class="col s6 center">
+						<a class="modal-close waves-effect btn-large brown lighten-3 black-text">
+							Cancelar
+						</a>
+					</div>
+				</div>
+			</form>
+		</div>
 	</div>
 </div>
 
-<!-- Modifica Asignación Materia Modal -->
-
-<div id="asignarModificarMateria" class="modal">
+<!-- Agregar multi-asignación -->
+<div id="asignarMulti" class="modal">
 	<div class="modal-content">
-		 <div class="row" style="margin-bottom: 0px !important;">
-			  <div class="col s12">
-					<h3 class="center">Modificar Materias</h3>
-			  </div>
-		 </div>
-		 <div style="border: .5px solid #78909c; padding: 10px;">
-		  <form (ngSubmit)="editarMateriaProfesor()"  ngNativeValidate>
-			  <div class="row">
+		<div class="row" style="margin-bottom: 0px !important;">
+			<div class="col s12">
+				<h3 class="center">Asignar Materia</h3>
+			</div>
+		</div>
+		<div style="border: .5px solid #78909c; padding: 10px;">
+			<form (ngSubmit)="multiAsignacion()" ngNativeValidate>
+				<div class="row">
 
 					<div class="col s12">
 						<label>Profesor</label>
-						<select 	name="profesor" 
-									[(ngModel)]="asignarNuevaMateria.idProfesor"
-								  	class="browser-default"
-						>
-							<option *ngFor="let profesor of profesorAsignar" 
-										[ngValue]="profesor.idProfesor"
-										>
+						<select name="profesorMA" [(ngModel)]="asignarMateria.idProfesor" class="browser-default">
+							<option *ngFor="let profesor of profesores" [ngValue]="profesor.idProfesor">
 								{{profesor.nombreProfesor}}
 							</option>
 						</select>
@@ -293,88 +260,235 @@
 
 					<div class="col s12">
 						<label>Carrera</label>
-								<select	name="carrera_asignar" 
-											[(ngModel)]="asignarNuevaMateria.idCarrera"
-											(change)="actualizarCarrera($event.target)"
-											class="browser-default"
-								>
-								<option *ngFor="let carrera of carreraProfesor" 
-											[value]="carrera.idCarrera"
-								>{{carrera.nombreCarrera}}</option>
-								</select>
+						<select name="carreraMA" [(ngModel)]="asignarMateria.idCarrera" class="browser-default"
+							(change)="actualizarCarrera($event.target)">
+							<option *ngFor="let carrera of carreras" [value]="carrera.idCarrera">
+								{{carrera.nombreCarrera}}
+							</option>
+						</select>
 						<br>
-					</div>
-
-				  <div class="col s12">
-					  <label>Plan</label>
-							  <select	name="plan" 
-							  (change)="actualizarPlan($event.target)" 
-							  class="browser-default"
-					  >
-						  <option *ngFor="let plan of planAsignarMateriaNueva" 
-								  [ngValue]="plan.idPlan"
-						  >{{plan.nombrePlan}}</option>
-							  </select>
-				  </div>
-
-				  <div class="col s12">
-					<br>
-					<label>Semestre</label>
-							<select	name="semestre" 
-							[(ngModel)]="asignarNuevaMateria.semestre" 
-							class="browser-default"
-							(change)="actualizarSemestre($event.target)"
-					>
-						<option *ngFor="let semestre of semestreArray();"
-								[value]="semestre.llave"
-								
-						>{{semestre.valor}}</option>
-							</select>
 					</div>
 
 					<div class="col s12">
+						<label>Plan</label>
+						<select name="planMA" [(ngModel)]="asignarMateria.idPlan" class="browser-default"
+							(change)="actualizarPlan($event.target)">
+							<option *ngFor="let plan of planes" [value]="plan.idPlan">
+								{{plan.nombrePlan}}
+							</option>
+						</select>
 						<br>
-						<label>Materia</label>
-								<select	name="materiaA" 
-								[(ngModel)]="asignarNuevaMateria.idMateria" 
-								class="browser-default"
-						>
-							<option *ngFor="let materia of materiasAsignar" 
-									[ngValue]="materia.idMateria"
-									[selected]="materia.idMateria == materiaAsignarActual"
-									
-							>{{materia.nombreMateria}}</option>
-								</select>
 					</div>
 
-				  <div class="col s12">
-					<br>
-					<label>Grupo</label>
-							<select	name="grupo" 
-							[(ngModel)]="asignarNuevaMateria.grupo" 
-							class="browser-default"
-					>
-						<option *ngFor="let grupo of GrupoArray();"
-								[ngValue]="grupo.llave"
-						>{{grupo.valor}}</option>
-							</select>
+					<div class="col s12">
+						<label>Semestre</label>
+						<select name="semestreMA" [(ngModel)]="asignarMateria.semestre" class="browser-default"
+							(change)="actualizarSemestre($event.target)">
+							<option *ngFor="let semestre of semestreArray();" [value]="semestre.llave">{{semestre.valor}}
+							</option>
+						</select>
+						<br>
 					</div>
-				  
-			  </div>
-  
-					<div class="row">
-						 <div class="col s6 center">
-					  <button type="submit" class="waves-effect btn-large brown lighten-3 black-text">
-						  Enviar
-					  </button>
-						 </div>
-						 <div class="col s6 center">
-							  <a class="modal-close waves-effect btn-large brown lighten-3 black-text">
-						  Cancelar
-					  </a>
-						 </div>
+
+					<div class="col s12">
+						<label>Materia</label>
+						<select name="materiaMA" [(ngModel)]="asignarMateria.idMateria" class="browser-default"
+						>
+							<option *ngFor="let materia of materiasA" [value]="materia.idMateria">
+								{{materia.nombreMateria}}
+							</option>
+						</select>
+						<br>
 					</div>
-		  </form>
-		 </div>
+
+					<div class="col s12">
+						<label>Grupo</label>
+						<select name="grupoMA" [(ngModel)]="asignarMateria.grupo" class="browser-default" (change)="actualizarGrupo($event.target)">
+							<option *ngFor="let grupo of grupoArray();" [value]="grupo.llave">{{grupo.valor}}
+							</option>
+						</select>
+						<br>
+					</div>
+
+				</div>
+				<div class="row">
+					<div class="col s6 center">
+						<button type="submit" class="waves-effect btn-large brown lighten-3 black-text">
+							Enviar
+						</button>
+					</div>
+					<div class="col s6 center">
+						<a class="modal-close waves-effect btn-large brown lighten-3 black-text">
+							Cancelar
+						</a>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<!-- Edita Asignación Materia Modal -->
+
+<div id="editarMateria" class="modal">
+	<div class="modal-content">
+		<div class="row" style="margin-bottom: 0px !important;">
+			<div class="col s12">
+				<h3 class="center">Asignar Materia</h3>
+			</div>
+		</div>
+		<div style="border: .5px solid #78909c; padding: 10px;">
+			<form (ngSubmit)="editarMateriaProfesor()" ngNativeValidate>
+				<div class="row">
+
+					<div class="col s12">
+						<label>Profesor</label>
+						<select name="profesorE" [(ngModel)]="editarMateria.idProfesor" class="browser-default">
+							<option *ngFor="let profesor of profesores" [ngValue]="profesor.idProfesor">
+								{{profesor.nombreProfesor}}
+							</option>
+						</select>
+						<br>
+					</div>
+
+					<div class="col s12">
+						<label>Carrera</label>
+						<select name="carreraE" [(ngModel)]="editarMateria.idCarrera" class="browser-default"
+							(change)="actualizarCarrera($event.target)">
+							<option *ngFor="let carrera of carreras" [value]="carrera.idCarrera">
+								{{carrera.nombreCarrera}}
+							</option>
+						</select>
+						<br>
+					</div>
+
+					<div class="col s12">
+						<label>Plan</label>
+						<select name="planE" [(ngModel)]="editarMateria.idPlan" class="browser-default"
+							(change)="actualizarPlan($event.target)">
+							<option *ngFor="let plan of planes" [value]="plan.idPlan">
+								{{plan.nombrePlan}}
+							</option>
+						</select>
+						<br>
+					</div>
+
+					<div class="col s12">
+						<label>Semestre</label>
+						<select name="semestreE" [(ngModel)]="editarMateria.semestre" class="browser-default"
+							(change)="actualizarSemestre($event.target)">
+							<option *ngFor="let semestre of semestreArray();" [value]="semestre.llave">{{semestre.valor}}
+							</option>
+						</select>
+						<br>
+					</div>
+
+					<div class="col s12">
+						<label>Materia</label>
+						<select name="materiaE" [(ngModel)]="editarMateria.idMateria" class="browser-default"
+									>
+							<option *ngFor="let materia of materiasA" [value]="materia.idMateria">
+								{{materia.nombreMateria}}
+							</option>
+						</select>
+						<br>
+					</div>
+
+					<div class="col s12">
+						<label>Grupo</label>
+						<select name="grupoE" [(ngModel)]="editarMateria.grupo" class="browser-default" (change)="actualizarGrupo($event.target)">
+							<option *ngFor="let grupo of grupoArray();" [value]="grupo.llave">{{grupo.valor}}
+							</option>
+						</select>
+						<br>
+					</div>
+
+				</div>
+				<div class="row">
+					<div class="col s6 center">
+						<button type="submit" class="waves-effect btn-large brown lighten-3 black-text">
+							Enviar
+						</button>
+					</div>
+					<div class="col s6 center">
+						<a class="modal-close waves-effect btn-large brown lighten-3 black-text">
+							Cancelar
+						</a>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<!-- Agregar Grupo  -->
+
+<div id="agregarGrupo" class="modal">
+	<div class="modal-content">
+		<div class="row" style="margin-bottom: 0px !important;">
+			<div class="col s12">
+				<h3 class="center">Agregar Grupo</h3>
+			</div>
+		</div>
+		<div style="border: .5px solid #78909c; padding: 10px;">
+			<form (ngSubmit)="agregaGrupoMulti()" ngNativeValidate>
+				<div class="row">
+
+					<div class="col s12">
+						<label>Carrera</label>
+						<select name="carreraG" [(ngModel)]="nuevoGrupo.idCarrera" class="browser-default"
+							(change)="actualizarCarrera($event.target)">
+							<option *ngFor="let carrera of carreras" [value]="carrera.idCarrera">
+								{{carrera.nombreCarrera}}
+							</option>
+						</select>
+						<br>
+					</div>
+
+					<div class="col s12">
+						<label>Plan</label>
+						<select name="planG" [(ngModel)]="nuevoGrupo.idPlan" class="browser-default"
+							(change)="actualizarPlan($event.target)">
+							<option *ngFor="let plan of planes" [value]="plan.idPlan">
+								{{plan.nombrePlan}}
+							</option>
+						</select>
+						<br>
+					</div>
+
+					<div class="col s12">
+						<label>Semestre</label>
+						<select name="semestreG" [(ngModel)]="nuevoGrupo.semestre" class="browser-default"
+							(change)="actualizarSemestre($event.target)">
+							<option *ngFor="let semestre of semestreArray();" [value]="semestre.llave">{{semestre.valor}}
+							</option>
+						</select>
+						<br>
+					</div>
+
+					<div class="col s12">
+						<label>Grupo</label>
+						<select name="grupoG" [(ngModel)]="nuevoGrupo.grupo" class="browser-default" (change)="actualizarGrupo($event.target)">
+							<option *ngFor="let grupo of grupoArray();" [value]="grupo.llave">{{grupo.valor}}
+							</option>
+						</select>
+						<br>
+					</div>
+
+				</div>
+				<div class="row">
+					<div class="col s6 center">
+						<button type="submit" class="waves-effect btn-large brown lighten-3 black-text">
+							Enviar
+						</button>
+					</div>
+					<div class="col s6 center">
+						<a class="modal-close waves-effect btn-large brown lighten-3 black-text">
+							Cancelar
+						</a>
+					</div>
+				</div>
+			</form>
+		</div>
 	</div>
 </div>
